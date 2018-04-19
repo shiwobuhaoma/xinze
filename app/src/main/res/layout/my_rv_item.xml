@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/v_top_line"
+        android:layout_width="match_parent"
+        android:background="@color/my_item_line"
+        android:layout_height="1dp"/>
+    <TextView
+        android:id="@+id/rv_title"
+        android:layout_below="@id/v_top_line"
+        android:text="@string/register"
+        android:padding="@dimen/res_textSize_15dp"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/rv_more"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:drawableRight="@mipmap/my_ic_arrow"
+        android:padding="@dimen/res_textSize_15dp"
+        android:text="@string/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/v_bottom_line"
+        android:layout_below="@id/rv_title"
+        android:layout_width="match_parent"
+        android:background="@color/my_item_line"
+        android:layout_height="1dp"/>
+    <View
+        android:id="@+id/v_space"
+        android:layout_below="@id/v_bottom_line"
+        android:layout_width="match_parent"
+        android:background="@color/my_item_space"
+        android:layout_height="15dp"/>
+</RelativeLayout>
