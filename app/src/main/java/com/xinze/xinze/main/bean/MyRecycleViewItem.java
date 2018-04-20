@@ -7,13 +7,13 @@ package com.xinze.xinze.main.bean;
 public class MyRecycleViewItem {
     private String title;
 
-
+    private boolean isShowRightText;
     private String rightText;
     private int titleResources;
     private int icon;
     private boolean isShowRightArrow;
     private boolean isShowSpace;
-    private boolean isShowRightText;
+
 
 
 

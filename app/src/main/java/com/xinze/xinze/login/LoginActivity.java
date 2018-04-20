@@ -14,8 +14,9 @@ import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.forget.ForgetPassWordActivity;
-import com.xinze.xinze.login.modle.User;
+import com.xinze.xinze.login.modle.UserEntity;
 import com.xinze.xinze.login.presenter.LoginPresenterImp;
 import com.xinze.xinze.login.view.ILoginView;
 import com.xinze.xinze.register.RegisterActivity;
@@ -116,8 +117,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     passwordWrapper.setErrorEnabled(false);
-                } else if (s.length() < 5) {
-                    passwordWrapper.setError("密码长度不能小于5位");
+                } else if (s.length() < 2) {
+                    passwordWrapper.setError("密码长度不能小于2位");
                     passwordWrapper.setErrorEnabled(true);
                 } else {
                     passwordWrapper.setErrorEnabled(false);
@@ -137,9 +138,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
                 loginPresenterImp.attachView(LoginActivity.this);
                 mUserName = mUserEditText.getText().toString();
                 mUserPwd = mPwdEditText.getText().toString();
-                User user = new User();
-                user.setUserName(mUserName);
-                user.setUserPwd(mUserPwd);
+                UserEntity user = new UserEntity();
+                user.setName(mUserName);
+                user.setPassword(mUserPwd);
                 if (TextUtils.isEmpty(mUserName)) {
                     shotToast("请先输入帐号");
                     return;
@@ -148,7 +149,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
                     shotToast("请输入密码");
                     return;
                 }
-                loginPresenterImp.login(user.getUserName(), user.getUserPwd());
+                loginPresenterImp.login(user.getName(), user.getPassword(), AppConfig.DRIVER);
             }
         });
     }

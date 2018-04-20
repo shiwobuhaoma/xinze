@@ -28,4 +28,6 @@
     <string name="home_service_hotline">服务热线：400-1245-566</string>
     <string name="home_directional_shipper">定向发货</string>
     <string name="home_about_us">关于我们</string>
+    <string name="home_page">首页</string>
+    <string name="my_login_out">退出登录</string>
 </resources>

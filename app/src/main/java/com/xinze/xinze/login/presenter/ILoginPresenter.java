@@ -10,5 +10,5 @@ import com.xinze.xinze.mvpbase.BasePresenter;
  */
 
 public interface ILoginPresenter extends BasePresenter<ILoginView> {
-    void login(String name, String pwd);
+    void login(String name, String pwd,String userType);
 }

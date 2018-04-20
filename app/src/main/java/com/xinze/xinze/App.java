@@ -3,7 +3,7 @@ package com.xinze.xinze;
 import android.app.Application;
 
 import com.vondear.rxtools.RxTool;
-import com.xinze.xinze.login.modle.User;
+import com.xinze.xinze.login.modle.UserEntity;
 
 /**
  * @author lxf
@@ -12,12 +12,13 @@ import com.xinze.xinze.login.modle.User;
 
 public class App extends Application {
     private static App context ;
-    public static User mUser;
+    public static UserEntity mUser;
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this ;
+        mUser = new UserEntity();
         RxTool.init(this);
     }
 

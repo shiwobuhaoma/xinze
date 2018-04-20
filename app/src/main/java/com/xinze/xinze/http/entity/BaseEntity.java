@@ -10,7 +10,7 @@ public class BaseEntity<T> {
     /**
      *  成功的code
      */
-    private static int SUCCESS_CODE=0;
+    private static int SUCCESS_CODE=200;
     private int status;
     private String msg;
     private T data;

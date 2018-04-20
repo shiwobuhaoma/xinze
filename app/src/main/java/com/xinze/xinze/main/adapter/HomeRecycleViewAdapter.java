@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,12 @@ import butterknife.ButterKnife;
  * 首页适配器
  */
 public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+    /**
+     *布局类型
+     */
+    private final int ITEM_TYPE_ONE = 1;
+    private final int ITEM_TYPE_TWO = 2;
+
     private List<HomeRecycleViewItem> mBS;
     private Context mContext;
     private View view;
@@ -35,13 +42,13 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder = null;
         switch (viewType) {
-            case 0:
+            case ITEM_TYPE_ONE:
                 view = LayoutInflater.from(
                         mContext).inflate(R.layout.home_rv_item, parent,
                         false);
                 holder = new ViewHolder(view);
                 break;
-            case 1:
+            case ITEM_TYPE_TWO:
                 view = LayoutInflater.from(
                         mContext).inflate(R.layout.home_rv_item2, parent,
                         false);
@@ -61,14 +68,18 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         HomeRecycleViewItem homeRecycleViewItem = mBS.get(position);
+
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
-
+            String rightText = homeRecycleViewItem.getRightText();
+            if (!TextUtils.isEmpty(rightText)) {
+                viewHolder.rvRightText.setText(rightText);
+            }
             viewHolder.rvTitle.setText(homeRecycleViewItem.getTitleResources());
             int icon = homeRecycleViewItem.getIcon();
             if (icon != 0) {
                 Drawable drawable = mContext.getResources().getDrawable(icon);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth() , drawable.getIntrinsicHeight() );
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                 viewHolder.rvTitle.setCompoundDrawables(drawable, null, null, null);
                 viewHolder.rvTitle.setCompoundDrawablePadding(20);
             }
@@ -83,10 +94,10 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 3) {
-            return 1;
+        if (position == mBS.size() - 1) {
+            return ITEM_TYPE_TWO;
         } else {
-            return 0;
+            return ITEM_TYPE_ONE;
         }
     }
 
@@ -98,6 +109,8 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_rv_title)
         TextView rvTitle;
+        @BindView(R.id.home_rv_right_text)
+        TextView rvRightText;
 
         ViewHolder(View view) {
             super(view);

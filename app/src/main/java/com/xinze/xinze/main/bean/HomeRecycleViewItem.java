@@ -11,16 +11,46 @@ public class HomeRecycleViewItem {
     private boolean isShowRightArrow;
     private int itemType;
 
-    public HomeRecycleViewItem(String title, int icon, boolean isShowRightArrow, int itemType) {
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+    public boolean isShowRightText() {
+        return isShowRightText;
+    }
+
+    public void setShowRightText(boolean showRightText) {
+        isShowRightText = showRightText;
+    }
+
+    public String getRightText() {
+        return rightText;
+    }
+
+    public void setRightText(String rightText) {
+        this.rightText = rightText;
+    }
+
+    private boolean isShowRightText;
+    private String rightText;
+    public HomeRecycleViewItem(String title, String rightText, int icon, boolean isShowRightArrow, boolean isShowRightText,int itemType) {
         this.title = title;
         this.icon = icon;
+        this.rightText = rightText;
+        this.isShowRightText = isShowRightText;
         this.isShowRightArrow = isShowRightArrow;
         this.itemType = itemType;
     }
 
-    public HomeRecycleViewItem(int title, int icon, boolean isShowRightArrow, int itemType) {
+    public HomeRecycleViewItem(int title, String rightText,int icon, boolean isShowRightArrow, int itemType, boolean isShowRightText) {
         this.titleResources = title;
         this.icon = icon;
+        this.rightText = rightText;
+        this.isShowRightText = isShowRightText;
         this.isShowRightArrow = isShowRightArrow;
         this.itemType = itemType;
     }

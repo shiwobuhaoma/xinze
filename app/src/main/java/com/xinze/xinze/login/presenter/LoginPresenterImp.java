@@ -1,7 +1,6 @@
 package com.xinze.xinze.login.presenter;
 
 
-import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
@@ -9,15 +8,6 @@ import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.login.modle.LoginResponse;
 import com.xinze.xinze.login.view.ILoginView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author lxf
@@ -33,37 +23,34 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
     }
 
     @Override
-    public void login(String name, String pwd) {
-        RetrofitFactory.getInstence().API().login(
-                "thinkgem",
-                "admin",
-                true,
-                true)
+    public void login(String name, String pwd,String userType) {
+        RetrofitFactory.getInstence().Api().login(
+                name,
+                pwd,
+                userType)
                 .compose(this.<BaseEntity<LoginResponse>>setThread())
                 .subscribe(new BaseObserver<LoginResponse>() {
                     @Override
-                    protected void onSuccees(BaseEntity<LoginResponse> t) throws Exception {
+                    protected void onSuccees(BaseEntity<LoginResponse> t)  {
                         if (t != null){
                             LoginResponse data = t.getData();
                             if (data != null){
                                 String sessionId = data.getSessionid();
-                                App.mUser.setSessionId(sessionId);
+                                App.mUser.setSessionid(sessionId);
+                                iLoginView.shotToast(t.getMsg());
+                                iLoginView.loginSuccess();
+                            }else {
                                 iLoginView.shotToast(t.getMsg());
                             }
                         }
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onFailure(Throwable e, boolean isNetWorkError){
                         iLoginView.shotToast(e.getMessage());
+
                     }
                 });
-
-        if (name.equals("1009281661@qq.com") && pwd.equals("123456")) {
-            iLoginView.loginSuccess();
-        } else {
-            iLoginView.loginFailed();
-        }
     }
 
 

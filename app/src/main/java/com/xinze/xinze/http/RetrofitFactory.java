@@ -63,7 +63,7 @@ public class RetrofitFactory {
         return mRetrofitFactory;
     }
 
-    public ApiServer API() {
+    public ApiServer Api() {
         return mApiServer;
     }
 }

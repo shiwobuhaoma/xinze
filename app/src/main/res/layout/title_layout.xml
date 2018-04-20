@@ -20,15 +20,34 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="center"
             android:background="@color/themeBlack">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/title_back"
+                    android:visibility="gone"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp" />
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text="@string/login"
+                    android:textSize="18sp" />
+                <ImageView
+                    android:id="@+id/title_iv_right"
+                    android:layout_width="45dp"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/res_textSize_15dp"
+                    android:layout_height="45dp" />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/login"
-                android:textSize="18sp" />
+
         </android.support.v7.widget.Toolbar>
 
 

@@ -11,8 +11,18 @@
         android:padding="@dimen/res_textSize_15dp"
         android:drawableStart="@mipmap/ic_launcher"
         android:drawablePadding="@dimen/res_textSize_18dp"
-        android:drawableEnd="@mipmap/my_ic_arrow"
         android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/home_rv_right_text"
+        android:padding="@dimen/res_textSize_15dp"
+        android:layout_alignBaseline="@id/home_rv_title"
+        android:drawableEnd="@mipmap/my_ic_arrow"
+        android:drawablePadding="@dimen/res_textSize_18dp"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
         android:textSize="18sp"
         android:layout_height="wrap_content" />

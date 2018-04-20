@@ -3,7 +3,13 @@ package com.xinze.xinze.main.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
@@ -18,10 +24,11 @@ import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 首页
@@ -36,6 +43,10 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     Banner mHomeBanner;
     @BindView(R.id.home_rv)
     RecyclerView mHomeRv;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
 
     @Override
@@ -46,12 +57,12 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     @Override
     protected void initView() {
 
+        initTitleBar();
 
-
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_general_shipper, R.mipmap.ic_launcher, true, 0));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_directional_shipper, R.mipmap.ic_launcher, true, 0));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, R.mipmap.ic_launcher, true, 0));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_service_hotline, 0, false, 0));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_general_shipper, "", R.mipmap.ic_launcher, true, 0, false));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_directional_shipper, "", R.mipmap.ic_launcher, true, 0, true));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.ic_launcher, true, 0, false));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_service_hotline, "", 0, false, 0, false));
         HomeRecycleViewAdapter hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
         mHomeRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mHomeRv.setAdapter(hyva);
@@ -74,6 +85,11 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         });
     }
 
+    private void initTitleBar() {
+        title.setText(R.string.home_page);
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -84,9 +100,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         super.initData();
 
         HomePresenterImp hpi = new HomePresenterImp(this);
-        ArrayList<String> urlImages = hpi.getUrlImages();
-        ArrayList<String> urlTitles = hpi.getUrlTitles();
-        initBanner(urlImages, urlTitles);
+        hpi.getBanner("1");
     }
 
     public void initBanner(ArrayList<String> urlImages, ArrayList<String> urlTitles) {
@@ -130,4 +144,5 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     public void shotToast(String msg) {
 
     }
+
 }

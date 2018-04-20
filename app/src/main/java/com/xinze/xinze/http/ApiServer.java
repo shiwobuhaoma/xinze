@@ -34,7 +34,7 @@ public interface ApiServer {
 
     @POST(URLConfig.login_url)
     @FormUrlEncoded
-    Observable<BaseEntity<LoginResponse>> login(@Field("username") String username, @Field("password") String password, @Field("__ajax") boolean ajax, @Field("mobileLogin") boolean mobileLogin);
+    Observable<BaseEntity<LoginResponse>> login(@Field("loginName") String username, @Field("password") String password,  @Field("userType") String userType);
 
     //http://ip/transport/a/transport/banner/getBannerListByType?bannerType=1  获取banner接口    1：司机   0：货主
 

@@ -73,6 +73,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onComplete() {
+
     }
 
     /**
@@ -90,6 +91,9 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      * @throws Exception
      */
     protected void onCodeError(BaseEntity<T> t) throws Exception {
+        if (t.getStatus() == -1){
+            onSuccees(t);
+        }
     }
 
     /**
@@ -102,6 +106,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     protected abstract void onFailure(Throwable e, boolean isNetWorkError) throws Exception;
 
     protected void onRequestStart() {
+        showProgressDialog();
     }
 
     protected void onRequestEnd() {

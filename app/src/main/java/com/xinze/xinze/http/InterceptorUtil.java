@@ -57,7 +57,7 @@ public class InterceptorUtil {
                 if (mResponse.code()==201){
                     //重新获取新token
                     //这用了一个特殊接口来获取新的Token
-                    Call<String> call = RetrofitFactory.getInstence().API().loginByToken("123456", Token);
+                    Call<String> call = RetrofitFactory.getInstence().Api().loginByToken("123456", Token);
                     //拿到请求体
                     Request tokenRequest = call.request();
                     //获取响应体
@@ -127,7 +127,7 @@ public class InterceptorUtil {
                     if (bean.getStatus() == 42444) {
                         //重新获取新token
                         //这用了一个特殊接口来获取新的Token
-                        Call<String> call = RetrofitFactory.getInstence().API().loginByToken("123456", Token);
+                        Call<String> call = RetrofitFactory.getInstence().Api().loginByToken("123456", Token);
                         //拿到请求体
                         Request tokenRequest = call.request();
                         //获取响应体

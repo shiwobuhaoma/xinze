@@ -54,6 +54,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener{
         myRecycleViewItems.add(new MyRecycleViewItem(R.string.my_system_message,R.mipmap.my_ic_sysmsg,true,false,true,false,"0条"));
         myRecycleViewItems.add(new MyRecycleViewItem(R.string.my_about_us,R.mipmap.my_ic_about_us,true,true,false,true,""));
         myRecycleViewItems.add(new MyRecycleViewItem(R.string.my_help,R.mipmap.my_ic_help,true,false,false,true,""));
+        myRecycleViewItems.add(new MyRecycleViewItem(R.string.my_login_out,0,false,true,false,true,""));
 
         MyRecycleViewAdapter myva = new MyRecycleViewAdapter(mActivity,myRecycleViewItems);
         myRv.setLayoutManager(new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false));
