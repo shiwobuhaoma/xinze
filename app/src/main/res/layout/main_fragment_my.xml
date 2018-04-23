@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,16 +8,13 @@
         android:layout_height="match_parent"
         android:background="@color/my_item_space">
 
-        <com.vondear.rxtools.view.RxAutoImageView
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            app:ImageSrc="@drawable/ova" />
+
 
         <RelativeLayout
             android:id="@+id/rl_login"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:background="@android:color/transparent">
+            android:background="@mipmap/my_ic_background">
 
             <TextView
                 android:id="@+id/tv_my"
@@ -31,15 +27,14 @@
                 android:padding="@dimen/res_textSize_15dp"
                 android:text="@string/my" />
 
-            <TextView
-                android:id="@+id/my_unLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="66dp"
+                android:layout_alignBaseline="@+id/my_register"
+                android:layout_height="66dp"
                 android:layout_centerHorizontal="true"
-                android:gravity="bottom"
-                android:padding="@dimen/res_textSize_15dp"
-                android:text="@string/unLogin" />
+                android:src="@mipmap/my_ic_default"/>
+
 
             <Button
                 android:id="@+id/my_register"
@@ -65,12 +60,21 @@
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </RelativeLayout>
+        <TextView
+            android:id="@+id/my_unLogin"
+            android:layout_below="@id/rl_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:padding="@dimen/res_textSize_15dp"
+            android:text="@string/unLogin" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rl_login" />
+            android:layout_below="@id/my_unLogin" />
 
         <TextView
             android:id="@+id/tv_exit"

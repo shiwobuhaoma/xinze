@@ -3,8 +3,8 @@ package com.xinze.xinze.http;
 
 import com.xinze.xinze.http.config.URLConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
-import com.xinze.xinze.login.modle.LoginResponse;
-import com.xinze.xinze.main.modle.BannerResponse;
+import com.xinze.xinze.module.login.modle.LoginResponse;
+import com.xinze.xinze.module.main.modle.BannerResponse;
 
 import java.util.List;
 

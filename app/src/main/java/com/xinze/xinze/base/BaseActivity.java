@@ -29,9 +29,9 @@ import io.reactivex.subjects.PublishSubject;
 
 
 /**
- * <p>Description:
+ * Activity基类
  *
- * @author xzhang
+ * @author lxf
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {

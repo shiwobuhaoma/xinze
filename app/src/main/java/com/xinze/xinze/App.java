@@ -3,7 +3,7 @@ package com.xinze.xinze;
 import android.app.Application;
 
 import com.vondear.rxtools.RxTool;
-import com.xinze.xinze.login.modle.UserEntity;
+import com.xinze.xinze.module.login.modle.UserEntity;
 
 /**
  * @author lxf
