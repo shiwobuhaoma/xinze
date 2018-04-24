@@ -12,7 +12,7 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     protected int initLayout() {
-        return R.layout.activity_about_us;
+        return R.layout.about_us_activity;
     }
 
     @Override

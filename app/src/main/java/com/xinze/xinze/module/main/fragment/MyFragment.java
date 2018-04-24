@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialog;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
@@ -16,6 +18,7 @@ import com.xinze.xinze.module.about.AboutUsActivity;
 import com.xinze.xinze.module.login.LoginActivity;
 import com.xinze.xinze.module.main.adapter.MyRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.MyRecycleViewItem;
+import com.xinze.xinze.module.main.constant.MyItemSelected;
 import com.xinze.xinze.module.main.presenter.MyPresenterImp;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.module.register.RegisterActivity;
@@ -29,9 +32,9 @@ import butterknife.OnClick;
  * 首页
  *
  * @author lxf
- * Created by lxf on 2016/5/15.
+ *         Created by lxf on 2016/5/15.
  */
-public class MyFragment extends BaseFragment implements View.OnClickListener ,IMyView {
+public class MyFragment extends BaseFragment implements View.OnClickListener, IMyView {
 
 
     @BindView(R.id.my_register)
@@ -95,12 +98,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener ,IM
                 int titleRes = myva.getTitleRes(position);
                 switch (titleRes) {
                     case R.string.driver_certification:
+                        doType(MyItemSelected.DRIVER_CERTIFICATION);
                         break;
                     case R.string.my_cars:
+                        doType(MyItemSelected.MY_CARS);
                         break;
                     case R.string.my_routes:
+                        doType(MyItemSelected.MY_ROUTES);
                         break;
                     case R.string.my_system_message:
+                        doType(MyItemSelected.MY_SYSTEM_MESSAGE);
                         break;
                     case R.string.my_about_us:
                         mActivity.startActivity(new Intent(mActivity, AboutUsActivity.class));
@@ -110,10 +117,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener ,IM
                         mpi.loginOut();
                         break;
                     case R.string.my_change_pwd:
+                        doType(MyItemSelected.MY_CHANGE_PWD);
                         break;
                     case R.string.my_invitation:
+                        doType(MyItemSelected.MY_INVITATION);
                         break;
                     case R.string.my_drivers:
+                        doType(MyItemSelected.MY_DRIVERS);
                         break;
                     default:
                         break;
@@ -123,10 +133,52 @@ public class MyFragment extends BaseFragment implements View.OnClickListener ,IM
 
     }
 
+    /**
+     * 判断有没有登录，没有登录显示未登录对话框，登录了跳转到不同界面
+     * @param type 不同界面的标识
+     */
+    private void doType(String type) {
+        if (isLogin()) {
+            doSomething(type);
+        } else {
+            showUnloginDialog();
+        }
+    }
+
+    /**
+     * 根据type跳转到不同界面
+     * @param type 不同界面的标识
+     */
+    private void doSomething(String type) {
+        switch (type) {
+            case MyItemSelected.DRIVER_CERTIFICATION:
+                if (App.mUser.isLogin()){//TODO
+
+                }else{
+                    showUnIdentificationDialog();
+                }
+                break;
+            case MyItemSelected.MY_CARS:
+                break;
+            case MyItemSelected.MY_ROUTES:
+                break;
+            case MyItemSelected.MY_SYSTEM_MESSAGE:
+                break;
+            case MyItemSelected.MY_CHANGE_PWD:
+                break;
+            case MyItemSelected.MY_INVITATION:
+                break;
+            case MyItemSelected.MY_DRIVERS:
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        if (App.mUser.isLogin()) {
+        if (isLogin()) {
             if (!myRecycleViewItems.contains(myDrivers) && !myRecycleViewItems.contains(myInvitation) && !myRecycleViewItems.contains(myChangePwd)) {
                 myRecycleViewItems.add(1, myDrivers);
                 myRecycleViewItems.add(4, myInvitation);
@@ -151,12 +203,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener ,IM
         myva.notifyDataSetChanged();
     }
 
-    public static MyFragment newInstance(String content) {
-        Bundle args = new Bundle();
-        args.putString("ARGS", content);
-        MyFragment fragment = new MyFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static MyFragment newInstance() {
+        return new MyFragment();
     }
 
     @Override
@@ -187,5 +235,62 @@ public class MyFragment extends BaseFragment implements View.OnClickListener ,IM
     @Override
     public void shotToast(String msg) {
         RxToast.showToast(msg);
+    }
+
+    /**
+     * 提示未登录对话框
+     */
+    public void showUnloginDialog() {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setText(R.string.unLogin);
+        rxDialogSureCancel.getSureView().setText(R.string.goLogin);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
+
+    /**
+     * 判断当前用户是否登录
+     *
+     * @return true为登录状态  false为注销状态
+     */
+    public boolean isLogin() {
+        return App.mUser.isLogin();
+    }
+
+    /**
+     * 提示没有认证对话框
+     */
+    public void showUnIdentificationDialog() {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setText(R.string.unIdentification);
+        rxDialogSureCancel.getSureView().setText(R.string.goIdentification);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
     }
 }
