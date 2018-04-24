@@ -69,7 +69,7 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.View
             int icon = myRecycleViewItem.getIcon();
             if (icon != 0){
                 Drawable drawable = mContext.getResources().getDrawable(icon);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth()/5, drawable.getIntrinsicHeight()/5);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                 viewHolder.rvTitle.setCompoundDrawables(drawable, null, null, null);
                 viewHolder.rvTitle.setCompoundDrawablePadding(20);
             }
@@ -100,6 +100,9 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             return ITEM_TYPE_ONE;
         }
+    }
+    public int getTitleRes(int position){
+        return mBS.get(position).getTitleResources();
     }
     @Override
     public int getItemCount() {

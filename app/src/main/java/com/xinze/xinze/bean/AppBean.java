@@ -1,9 +1,8 @@
 package com.xinze.xinze.bean;
 
 /**
- * <p>Description:
  *
- * @author xzhang
+ * @author lxf
  */
 
 public class AppBean {

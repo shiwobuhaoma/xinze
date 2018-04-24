@@ -33,4 +33,61 @@
     <string name="my_drivers">我的司机</string>
     <string name="my_invitation">我的邀请</string>
     <string name="my_change_pwd">修改密码</string>
+    <string name="about_us">
+        AppBarLayout 虽然和 Toolbar 没有直接联系，但是当 Toolbar 内置在 AppbarLayout 中的时候，Toolbar 的效果增强了，这使得开发者非常愿意用 AppBarLayout 与 Toolbar 配合使用，这比单独使用 Toolbar 炫丽的多。所以，基本上有 AppBarLayout 的地方就有 Toolbar。通过 AppBarLayout 实现一个可伸缩折叠的 Toolbar 也是本文的目的。
+
+当我们运用 support design 中的组件时，我们应该拥有下面几个最基本的意识：
+
+1. CoordinatorLayout 是这个库的组织容器，一切基于 support design 扩展出来的特性都应该发生在 CoordinatorLayout 及它的子 View 体系中。
+
+2. AppbarLayout 应该作为一个 CoordinatorLayout 的直接子 View，否则它与普通的 LinearLayout 无异。
+
+3. AppbarLayout 的子 View 不仅仅是 Toolbar,它们可以是任何的 View，但通常和 Toolbar 配合使用。
+AppBarLayout 基本使用方法
+
+AppBarLayout 是 android support design 这个支持包中的类，前面说过它的一切效果都建立在 CoordinatorLayout 这个父类容器之上，AppBarLayout 要想正常发挥它的所有特性，那么它必须作为 CoordinatorLayout 的直接子类。
+引入依赖
+        android support design 没有内置在 SDK 中，所以我们需要引入依赖。
+
+compile com.android.support:design:25.0.1
+
+    1
+
+与嵌套滑动组件配合
+
+在 AppBarLayout 官方文档注释中有这么一段。
+
+    AppBarLayout 需要和一个独立的兄弟 View 配合使用，这个兄弟 View 是一个嵌套滑动组件，只有这样 AppBarLayout 才能知道什么时候开始滑动。它们之间关系的绑定通过给嵌套滑动的组件设立特定的 Behavior,那就是 AppBarLayout.ScrollingViewBehavior。
+
+然后，官方还给出了示例。
+
+        上面布局文件中，NestedScrollView 就是那个配套的滑动组件，它需要和 AppBarLayout 进行绑定，所以它必须指定 Behavior。在 xml 中通过
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        多说两句，有同学可能会想一定要是 NestedScrollView 吗？
+
+        当然不是，在 CoordinatorLayout 中嵌套滑动的本质是一个 NestedScrollingChild 对象。
+
+        NestedScrollingChild 是一个接口，目前它的实现类有 4 个。
+        所以除了使用 NestedScrollView,我们还经常使用 RecyclerView 和 SwipeRefreshLayout 作为配套的嵌套滑动组件，这是其它博文都没有提到的，希望大家注意。
+
+        可能大家注意到了上面示例中有 app:layout_scrollFlags 这样的属性，大家一定很好奇，它们是如何作用的。不要着急，下面就讲这一块的内容。
+        layout_scrollFlags 滑动效果的配置
+
+        AppBarLayout 本身也是一个垂直方向的 LinearLayout，所以它的滑动主要是针对内部子 View 的滑动。这就需要设立一种规则来定义滑动的行为。
+
+        这个规则就是 AppBarLayout 中内部的子 View 需要在 xml 中配置 layout_scrollFlags。
+        layout_scrollFlags 取值有 5 个。
+        scroll
+        enterAlways
+        enterAlwaysCollapsed
+        exitUntilCollapsed
+        snap
+
+
+        说实话，这 5 个值并不复杂，但是因为命名的关系，它们有点难以理解，很多人应该就是在这一位置卡壳了很久。因为其它的博文都是直接讲 5 个值的用法，然后再配置上动图来解释说明。而对于我而言，这种方式有值得改进的地方，我更愿意先解释目的再解释手段。
+        我们提炼几个关键字。它们分别是滑动、折叠、进入、离开、snap。滑动 scroll滑动是基础，后面的几个属性都是建立在此属性上的。滑动大家应该很好理解，只有在 AppBarLayout 中的子 View 配置了 scroll 属性，这个 AppBarLayout 都会响应。scroll 这个 layout_scrollFlags 使得 Toolbar 像是 NestedScrollView 本身的一部分一样，它们同步响应滑动。
+        向上滑动的时候，Toolbar 先滑动，然后 NestedScrollView 中的内容再滑动。
+        向下滑动的时候，NestedScrollView 中的内容先滑动，然后 Toolbar 再一起滑动。
+    </string>
 </resources>

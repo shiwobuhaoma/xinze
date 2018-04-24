@@ -60,5 +60,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'//圆形头像
     implementation 'com.github.vondear:RxTools:v1.7.7.3'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'//下拉刷新上拉加载更多控件
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5'//下拉刷新头
 
 }

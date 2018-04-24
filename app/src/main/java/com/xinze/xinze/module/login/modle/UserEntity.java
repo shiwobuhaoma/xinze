@@ -12,7 +12,15 @@ public class UserEntity implements Serializable {
     * 编号
     **/
     private String id;
+    /**
+     * 姓名
+     **/
+    private String name;
 
+    /**
+     * 登录名
+     **/
+    private String login_name;
     /**
     * 归属公司
     **/
@@ -23,10 +31,6 @@ public class UserEntity implements Serializable {
     **/
     private String office_id;
 
-    /**
-    * 登录名
-    **/
-    private String login_name;
 
     /**
     * 密码
@@ -38,10 +42,7 @@ public class UserEntity implements Serializable {
     **/
     private String no;
 
-    /**
-    * 姓名
-    **/
-    private String name;
+
 
     /**
     * 邮箱

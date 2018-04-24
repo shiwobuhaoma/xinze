@@ -7,8 +7,8 @@ package com.xinze.xinze.http.config;
  */
 
 public interface URLConfig {
-    String baidu_url="s";
     String login_token_url="获取新token的地址";
     String login_url = "app/login";
+    String login_out_url = "transport/app/logout";
     String get_banner = "a/transport/banner/getBannerListByType";
 }

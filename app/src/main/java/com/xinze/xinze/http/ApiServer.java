@@ -32,13 +32,28 @@ public interface ApiServer {
     @POST(URLConfig.login_token_url)
     Call<String> loginByToken(@Query("mobile") String mobile, @Query("token") String cookie);
 
+    /**
+     * 登录接口
+     * @param username 用户名
+     * @param password 密码
+     * @param userType 登陆用户类型
+     * @return 登陆信息
+     */
     @POST(URLConfig.login_url)
     @FormUrlEncoded
     Observable<BaseEntity<LoginResponse>> login(@Field("loginName") String username, @Field("password") String password,  @Field("userType") String userType);
 
+    /**
+     * 注销登录状态
+     * @return 注销状态
+     */
+    @POST(URLConfig.login_out_url)
+    @FormUrlEncoded
+    Observable<BaseEntity<LoginResponse>> loginOut();
+
+
+
     //http://ip/transport/a/transport/banner/getBannerListByType?bannerType=1  获取banner接口    1：司机   0：货主
-
-
     @GET(URLConfig.get_banner)
     Observable<BaseEntity<BannerResponse>> getBanner(@Query("bannerType") String type);
 

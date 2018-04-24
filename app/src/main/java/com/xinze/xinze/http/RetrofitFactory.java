@@ -1,6 +1,7 @@
 package com.xinze.xinze.http;
 
 
+import com.xinze.xinze.App;
 import com.xinze.xinze.http.config.HttpConfig;
 
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -29,9 +31,21 @@ public class RetrofitFactory {
                 .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 //token失效拦截器
-//                .addInterceptor(InterceptorUtil.tokenInterceptor())
+                .addInterceptor(InterceptorUtil.tokenInterceptor())
                 //添加日志拦截器
                 .addInterceptor(InterceptorUtil.logInterceptor())
+                //添加自定义请求头
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request()
+                                .newBuilder()
+                                .addHeader("sessionid", App.mUser.getSessionid())
+                                .addHeader("userid",App.mUser.getId())
+                                .build();
+                        return chain.proceed(request);
+                    }
+                })
 //                .addNetworkInterceptor(new Interceptor() {
 //                    @Override
 //                    public Response intercept(Chain chain) throws IOException {

@@ -37,6 +37,8 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                             if (data != null){
                                 String sessionId = data.getSessionid();
                                 App.mUser.setSessionid(sessionId);
+                                App.mUser.setLogin(true);
+                                App.mUser.setLogin_name(data.getLoginName());
                                 iLoginView.shotToast(t.getMsg());
                                 iLoginView.loginSuccess();
                             }else {
