@@ -22,13 +22,23 @@
         <!--<item name="colorAccent">@color/colorAccent</item>-->
     </style>
     <style name="AppTheme.ToolbarPopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="overlapAnchor">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
     </style>
     <style name="login" parent="@style/AppTheme">
         <item name="colorControlHighlight">@color/themeBlue</item>
         <item name="colorAccent">@color/themeBlue</item>
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
+
+    </style>
+    <style name="AboutUs" parent="AppTheme.AppBarOverlay">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat">
+        <item name="android:windowActionBar">false</item>
 
     </style>
 </resources>

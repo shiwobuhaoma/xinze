@@ -420,8 +420,5 @@
     <dimen name="ui_4_dp">4.0dp</dimen>
     <dimen name="ui_6_dp">6.0dp</dimen>
     <dimen name="ui_8_dp">8.0dp</dimen>
-    <dimen name="zjbb_appname_textsize_13dp">13.0dp</dimen>
-    <dimen name="zjbb_card_layout_margin_lr_space">24.0dp</dimen>
-    <dimen name="zjbb_card_row_bottom_space">16.0dp</dimen>
-    <dimen name="zjbb_icon_width">64.0dp</dimen>
+    <dimen name="app_bar_height">45dp</dimen>
 </resources>

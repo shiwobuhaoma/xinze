@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.module.register.presenter.RegisterPresenterImp;
 import com.xinze.xinze.module.register.view.IRegisterView;
+import com.xinze.xinze.widget.SimpleToolbar;
 
 import butterknife.BindView;
 
@@ -26,8 +26,7 @@ import butterknife.BindView;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, IRegisterView {
 
-    @BindView(R.id.title)
-    TextView mTitle;
+
     @BindView(R.id.register_phone_number_et)
     EditText mRegisterPhoneNumberEdit;
     @BindView(R.id.get_verification_code_bt)
@@ -40,6 +39,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     ImageView mPassWordEyeIv;
     @BindView(R.id.register)
     Button mRegister;
+    @BindView(R.id.register_tool_bar)
+    SimpleToolbar registerToolBar;
 
     private String mPhoneNumber;
     private String mVerificationCode;
@@ -54,7 +55,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initView() {
-        mTitle.setText(getResources().getString(R.string.register));
+        registerToolBar.setMainTitle(getResources().getString(R.string.register));
         mPassWordEyeIv.setOnClickListener(this);
         mGetVerificationCode.setOnClickListener(this);
         mRegister.setOnClickListener(this);

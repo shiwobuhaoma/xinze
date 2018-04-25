@@ -20,6 +20,7 @@ import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.presenter.LoginPresenterImp;
 import com.xinze.xinze.module.login.view.ILoginView;
 import com.xinze.xinze.module.register.RegisterActivity;
+import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,8 +37,6 @@ import butterknife.BindView;
 public class LoginActivity extends BaseActivity implements ILoginView, View.OnClickListener {
 
 
-    @BindView(R.id.title)
-    TextView mTitle;
     @BindView(R.id.usernameWrapper)
     TextInputLayout usernameWrapper;
     @BindView(R.id.passwordWrapper)
@@ -48,6 +47,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     TextView forgetPwd;
     @BindView(R.id.register)
     TextView register;
+    @BindView(R.id.login_tool_bar)
+    SimpleToolbar loginToolBar;
     private LoginPresenterImp loginPresenterImp;
     private String mUserPwd;
     private String mUserName;
@@ -73,7 +74,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Override
     protected void initView() {
-        mTitle.setText(getResources().getString(R.string.login));
+        loginToolBar.setMainTitle(getResources().getString(R.string.login));
         forgetPwd.setOnClickListener(this);
         register.setOnClickListener(this);
         mUserEditText = usernameWrapper.getEditText();

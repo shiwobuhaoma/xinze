@@ -1,11 +1,11 @@
 package com.xinze.xinze.module.main.fragment;
 
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
@@ -14,6 +14,7 @@ import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.utils.GlideImageLoader;
+import com.xinze.xinze.widget.SimpleToolbar;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -37,10 +38,11 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     Banner mHomeBanner;
     @BindView(R.id.home_rv)
     RecyclerView mHomeRv;
-    @BindView(R.id.title)
-    TextView title;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+
+    @BindView(R.id.main_tool_bar)
+    SimpleToolbar mainToolBar;
+    @BindView(R.id.nested_scroll_view)
+    NestedScrollView mNestedScrollView;
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
 
     @Override
@@ -53,13 +55,16 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
         initTitleBar();
 
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_general_shipper, "", R.mipmap.ic_launcher, true, 0, false));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_directional_shipper, "", R.mipmap.ic_launcher, true, 0, true));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.ic_launcher, true, 0, false));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_find_goods, "", R.mipmap.home_find_goods, true, 0, false));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_directional_shipper, "", R.mipmap.home_deliver_goods, true, 0, true));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_regular_route, "", R.mipmap.home_regular_route, true, 0, true));
+        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.home_about_us, true, 0, false));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_service_hotline, "", 0, false, 0, false));
         HomeRecycleViewAdapter hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
         mHomeRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mHomeRv.setAdapter(hyva);
+
+
         hyva.setOnItemClickListener(new HomeRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -80,7 +85,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
     private void initTitleBar() {
-        title.setText(R.string.home_page);
+        mainToolBar.setMainTitle(R.string.home_page);
 
     }
 

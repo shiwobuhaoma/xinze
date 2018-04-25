@@ -3,6 +3,7 @@
 
     <string name="client_app_name">应用市场</string>
     <string name="home_general_shipper">普通发货</string>
+    <string name="home_find_goods">找货</string>
 
     <string name="pwd">密码</string>
     <string name="uname">用户名</string>
@@ -33,7 +34,8 @@
     <string name="my_drivers">我的司机</string>
     <string name="my_invitation">我的邀请</string>
     <string name="my_change_pwd">修改密码</string>
-    <string name="about_us">
+    <string name="about_us">关于我们</string>
+    <string name="about_us_content">
         AppBarLayout 虽然和 Toolbar 没有直接联系，但是当 Toolbar 内置在 AppbarLayout 中的时候，Toolbar 的效果增强了，这使得开发者非常愿意用 AppBarLayout 与 Toolbar 配合使用，这比单独使用 Toolbar 炫丽的多。所以，基本上有 AppBarLayout 的地方就有 Toolbar。通过 AppBarLayout 实现一个可伸缩折叠的 Toolbar 也是本文的目的。
 
 当我们运用 support design 中的组件时，我们应该拥有下面几个最基本的意识：
@@ -90,4 +92,5 @@ compile com.android.support:design:25.0.1
         向上滑动的时候，Toolbar 先滑动，然后 NestedScrollView 中的内容再滑动。
         向下滑动的时候，NestedScrollView 中的内容先滑动，然后 Toolbar 再一起滑动。
     </string>
+    <string name="home_regular_route">长跑路线</string>
 </resources>

@@ -5,7 +5,10 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/title_layout" />
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/register_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
 
     <LinearLayout
         android:id="@+id/register_phone_number_layout"

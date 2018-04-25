@@ -15,6 +15,10 @@ import com.xinze.xinze.base.BaseActivity;
 
 import butterknife.BindView;
 
+/**
+ * 系统通知消息
+ * @author lxf
+ */
 public class SystemMsgActivity extends BaseActivity {
 
 

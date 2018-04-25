@@ -1,9 +1,8 @@
 package com.xinze.xinze.module.forget;
 
-import android.widget.TextView;
-
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.widget.SimpleToolbar;
 
 import butterknife.BindView;
 
@@ -16,8 +15,8 @@ import butterknife.BindView;
 public class ForgetPassWordActivity extends BaseActivity {
 
 
-    @BindView(R.id.title)
-    TextView mTitle;
+    @BindView(R.id.forget_tool_bar)
+    SimpleToolbar forgetToolBar;
 
     @Override
     protected int initLayout() {
@@ -26,6 +25,6 @@ public class ForgetPassWordActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mTitle.setText(getResources().getString(R.string.forget_pwd));
+        forgetToolBar.setMainTitle(getResources().getString(R.string.forget_pwd));
     }
 }
