@@ -92,5 +92,11 @@ compile com.android.support:design:25.0.1
         向上滑动的时候，Toolbar 先滑动，然后 NestedScrollView 中的内容再滑动。
         向下滑动的时候，NestedScrollView 中的内容先滑动，然后 Toolbar 再一起滑动。
     </string>
+
     <string name="home_regular_route">长跑路线</string>
+
+    <string name="goLogin">去登录</string>
+    <string name="unIdentification">未认证</string>
+    <string name="goIdentification">去认证</string>
+
 </resources>
