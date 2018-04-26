@@ -2,6 +2,10 @@ package com.xinze.xinze.module.main.modle;
 
 import java.util.ArrayList;
 
+/**
+ * @author lxf
+ * 轮播图的响应结果
+ */
 public class BannerResponse {
     public ArrayList<Banner> getData() {
         return data;

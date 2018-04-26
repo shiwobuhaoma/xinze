@@ -242,7 +242,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
      */
     public void showUnloginDialog() {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
-        rxDialogSureCancel.getTitleView().setText(R.string.unLogin);
+        rxDialogSureCancel.getContentView().setText(R.string.unLogin);
         rxDialogSureCancel.getSureView().setText(R.string.goLogin);
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override

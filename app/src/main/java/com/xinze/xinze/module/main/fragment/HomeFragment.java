@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ScrollView;
 
+import com.vondear.rxtools.view.RxToast;
+import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
@@ -86,6 +88,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private void initTitleBar() {
         mainToolBar.setMainTitle(R.string.home_page);
+        mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
 
     }
 
@@ -100,6 +103,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
         HomePresenterImp hpi = new HomePresenterImp(this);
         hpi.getBanner("1");
+        hpi.getFixBillNum(App.mUser.getId());
+        hpi.getUnReadNotifyNum(App.mUser.getId());
     }
 
     public void initBanner(ArrayList<String> urlImages, ArrayList<String> urlTitles) {
@@ -141,7 +146,13 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     @Override
     public void shotToast(String msg) {
+        RxToast.showToast(msg);
+    }
+
+    public void setToolBarUnreadNum(int num) {
 
     }
 
+    public void updateFixBillNum(int num) {
+    }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.register.presenter.RegisterPresenterImp;
 import com.xinze.xinze.module.register.view.IRegisterView;
 import com.xinze.xinze.widget.SimpleToolbar;
@@ -45,7 +46,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private String mPhoneNumber;
     private String mVerificationCode;
     private String mPassWord;
-    private boolean isVisiable;
+    private boolean isVisible;
+    private String type = "1";
 
 
     @Override
@@ -65,13 +67,24 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        RegisterPresenterImp rpi = new RegisterPresenterImp(this);
+        mPhoneNumber = mRegisterPhoneNumberEdit.getText().toString().trim();
         switch (v.getId()) {
             case R.id.get_verification_code_bt:
-
+                //TODO 缺少增加手机号码规格验证
+                if (TextUtils.isEmpty(mPhoneNumber)) {
+                    shotToast("手机号码不能为空");
+                    return;
+                }
+                if (mPhoneNumber.length() != 11) {
+                    shotToast("手机号码位数不对");
+                    return;
+                }
+                rpi.getVerificationCode(mPhoneNumber, type);
                 break;
             case R.id.pass_word_eye_iv:
-                isVisiable = !isVisiable;
-                if (isVisiable) {
+                isVisible = !isVisible;
+                if (isVisible) {
                     mPassWordEyeIv.setBackgroundResource(R.mipmap.eye_open);
                     mPassWordEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     Editable editable = mPassWordEdit.getText();
@@ -84,7 +97,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 }
                 break;
             case R.id.register:
-                mPhoneNumber = mRegisterPhoneNumberEdit.getText().toString().trim();
+
                 mVerificationCode = mVerificationCodeEdit.getText().toString().trim();
                 mPassWord = mPassWordEdit.getText().toString().trim();
                 if (TextUtils.isEmpty(mPhoneNumber)) {
@@ -103,8 +116,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                 shotToast("密码不能为空");
                                 return;
                             } else {
-                                RegisterPresenterImp rpi = new RegisterPresenterImp(this);
-                                rpi.register(mPhoneNumber, mVerificationCode, mPassWord);
+
+                                rpi.register(mPhoneNumber, mVerificationCode, mPassWord, type, AppConfig.DRIVER);
                             }
                         }
                     }
@@ -124,6 +137,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void registerFailed() {
         shotToast("注册失败");
+    }
+
+    @Override
+    public void getVerificationCodeSuccess() {
+        shotToast("获取成功");
+    }
+
+    @Override
+    public void getVerificationCodeFailed() {
+        shotToast("获取失败");
     }
 
 

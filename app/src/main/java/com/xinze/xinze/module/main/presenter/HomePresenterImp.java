@@ -8,6 +8,7 @@ import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
 import com.xinze.xinze.module.main.modle.Banner;
 import com.xinze.xinze.module.main.modle.BannerResponse;
+import com.xinze.xinze.module.main.modle.UnreadCountResponse;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
@@ -28,21 +29,18 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     public HomePresenterImp(IHomeView iHomeView) {
         this.mHomeView = (HomeFragment)iHomeView;
-        banners.add(new Banner("第一张","/transport/userfiles/1/images/transport/banner/2018/04/huaji%20-%20%E5%89%AF%E6%9C%AC.jpg"));
-        banners.add(new Banner("第二张","/transport/userfiles/1/images/transport/ownerInfo/2018/04/a.jpg"));
-        banners.add(new Banner("第三张","/transport/userfiles/1/images/transport/banner/2018/04/a.jpg"));
     }
 
     @Override
     public void getBanner(String type) {
-        RetrofitFactory.getInstence().Api().getBanner(type).compose(this.<BaseEntity<BannerResponse>>setThread())
+        RetrofitFactory.getInstence().Api().getBannerListByType(type).compose(this.<BaseEntity<BannerResponse>>setThread())
                 .subscribe(new BaseObserver<BannerResponse>() {
                     @Override
                     protected void onSuccees(BaseEntity<BannerResponse> t) {
                         if (t != null) {
                             BannerResponse data = t.getData();
                             if (data != null) {
-                                ArrayList<Banner> banners = data.getData();
+                                banners = data.getData();
                                 for (Banner banner :banners) {
                                     String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
                                     String bannerName = banner.getBannerName();
@@ -66,6 +64,46 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                         mHomeView.initBanner(urlImages,urlTitles);
                     }
                 });
+    }
+
+    @Override
+    public void getUnReadNotifyNum(String id) {
+        RetrofitFactory.getInstence().Api().getUnReadNotifyNum(id).compose(this.<BaseEntity<UnreadCountResponse>>setThread()).subscribe(new BaseObserver<UnreadCountResponse>() {
+            @Override
+            protected void onSuccees(BaseEntity<UnreadCountResponse> t) throws Exception {
+                if (t != null){
+                    int unReadNum = t.getData().getData();
+                    mHomeView.setToolBarUnreadNum(unReadNum);
+                }else{
+                    mHomeView.shotToast(t.getMsg());
+                }
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        });
+    }
+
+    @Override
+    public void getFixBillNum(String id) {
+        RetrofitFactory.getInstence().Api().getFixBillNum(id).compose(this.<BaseEntity<UnreadCountResponse>>setThread()).subscribe(new BaseObserver<UnreadCountResponse>() {
+            @Override
+            protected void onSuccees(BaseEntity<UnreadCountResponse> t) throws Exception {
+                if (t != null){
+                    int unReadNum = t.getData().getData();
+                    mHomeView.updateFixBillNum(unReadNum);
+                }else{
+                    mHomeView.shotToast(t.getMsg());
+                }
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+
+            }
+        });
     }
 
 }

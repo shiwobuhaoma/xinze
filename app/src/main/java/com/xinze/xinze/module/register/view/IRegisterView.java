@@ -17,4 +17,12 @@ public interface IRegisterView extends BaseView {
      * 注册失败
      */
     void registerFailed();
+    /**
+     * 获取验证码成功
+     */
+    void getVerificationCodeSuccess();
+    /**
+     * 获取验证码失败
+     */
+    void getVerificationCodeFailed();
 }
