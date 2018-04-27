@@ -1,6 +1,8 @@
 package com.xinze.xinze.module.main.presenter;
 
 
+import android.content.Context;
+
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
@@ -22,12 +24,8 @@ import java.util.ArrayList;
 public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IHomePresenter {
     private HomeFragment mHomeView;
 
-
-    private ArrayList<String> urlTitles = new ArrayList<>();
-    private ArrayList<String> urlImages = new ArrayList<>();
-    private ArrayList<Banner> banners = new ArrayList<>();
-
-    public HomePresenterImp(IHomeView iHomeView) {
+    public HomePresenterImp(IHomeView iHomeView, Context mContext) {
+        super(iHomeView,mContext);
         this.mHomeView = (HomeFragment)iHomeView;
     }
 
@@ -38,30 +36,22 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                     @Override
                     protected void onSuccees(BaseEntity<BannerResponse> t) {
                         if (t != null) {
-                            BannerResponse data = t.getData();
-                            if (data != null) {
-                                banners = data.getData();
-                                for (Banner banner :banners) {
-                                    String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
-                                    String bannerName = banner.getBannerName();
-                                    urlImages.add(imgUrl);
-                                    urlTitles.add(bannerName);
+                            if (t.isSuccess()){
+                                BannerResponse data = t.getData();
+                                if (data != null) {
+                                    ArrayList<Banner>   banners = data.getData();
+                                    mHomeView.setBannerList(banners);
                                 }
-                                mHomeView.initBanner(urlImages,urlTitles);
+                            }else{
+                                mHomeView.shotToast(t.getMsg());
                             }
+
                         }
                     }
 
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError){
                         mHomeView.shotToast(e.getMessage());
-                        for (Banner banner :banners) {
-                            String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
-                            String bannerName = banner.getBannerName();
-                            urlImages.add(imgUrl);
-                            urlTitles.add(bannerName);
-                        }
-                        mHomeView.initBanner(urlImages,urlTitles);
                     }
                 });
     }
@@ -72,10 +62,16 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
             @Override
             protected void onSuccees(BaseEntity<UnreadCountResponse> t) throws Exception {
                 if (t != null){
-                    int unReadNum = t.getData().getData();
-                    mHomeView.setToolBarUnreadNum(unReadNum);
-                }else{
-                    mHomeView.shotToast(t.getMsg());
+                    if(t.isSuccess()){
+                        int unReadNum = t.getData().getData();
+                        if (0 != unReadNum){
+                            mHomeView.setToolBarUnreadNum(true);
+                        }else{
+                            mHomeView.setToolBarUnreadNum(false);
+                        }
+                    }else{
+                        mHomeView.shotToast(t.getMsg());
+                    }
                 }
             }
 
@@ -92,10 +88,12 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
             @Override
             protected void onSuccees(BaseEntity<UnreadCountResponse> t) throws Exception {
                 if (t != null){
-                    int unReadNum = t.getData().getData();
-                    mHomeView.updateFixBillNum(unReadNum);
-                }else{
-                    mHomeView.shotToast(t.getMsg());
+                    if (t.isSuccess()){
+                        int unReadNum = t.getData().getData();
+                        mHomeView.updateFixBillNum(unReadNum);
+                    }else{
+                        mHomeView.shotToast(t.getMsg());
+                    }
                 }
             }
 

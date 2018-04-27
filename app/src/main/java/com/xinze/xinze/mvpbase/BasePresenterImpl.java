@@ -1,5 +1,6 @@
 package com.xinze.xinze.mvpbase;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import io.reactivex.Observable;
@@ -18,7 +19,13 @@ public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T> {
 
 
 
-    protected T mPresenterView ;
+    private T mPresenterView ;
+    protected Context mContext;
+
+    public BasePresenterImpl(T mPresenterView, Context mContext) {
+        attachView(mPresenterView);
+        attachActivity(mContext);
+    }
 
     @Override
     public void attachView(T t) {
@@ -28,6 +35,16 @@ public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T> {
     @Override
     public void detachView() {
         this.mPresenterView = null ;
+    }
+
+    @Override
+    public void attachActivity(Context context) {
+        this.mContext = context;
+    }
+
+    @Override
+    public void detachActivity() {
+        this.mContext = null;
     }
 
     @Override
@@ -63,6 +80,7 @@ public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T> {
     @Override
     public void onDestroy() {
         detachView();
+        detachActivity();
     }
     public <T> ObservableTransformer<T,T> setThread(){
         return new ObservableTransformer<T,T>() {

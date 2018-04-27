@@ -4,12 +4,14 @@ package com.xinze.xinze.http;
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.login.modle.LoginResponse;
+import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.main.modle.BannerResponse;
 import com.xinze.xinze.module.main.modle.UnreadCountResponse;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
 import com.xinze.xinze.mvpbase.BaseBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -17,6 +19,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -44,15 +47,14 @@ public interface ApiServer {
      */
     @POST(UrlConfig.LOGIN_URL)
     @FormUrlEncoded
-    Observable<BaseEntity<LoginResponse>> login(@Field("loginName") String username, @Field("password") String password,  @Field("userType") String userType);
+    Observable<BaseEntity<LoginResponse>> login(@Field("loginName") String username, @Field("password") String password, @Field("userType") String userType);
 
     /**
      * 注销登录状态
      * @return 注销状态
      */
     @POST(UrlConfig.LOGIN_OUT_URL)
-    @FormUrlEncoded
-    Observable<BaseEntity<BaseBean>> loginOut();
+    Observable<BaseEntity<String>> loginOut(@HeaderMap Map<String, String> headers);
 
     /**
      * 获取验证码接口

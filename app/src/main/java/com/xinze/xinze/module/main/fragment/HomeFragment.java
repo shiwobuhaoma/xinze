@@ -11,6 +11,7 @@ import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
+import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
@@ -35,6 +36,8 @@ import butterknife.BindView;
  */
 public class HomeFragment extends BaseFragment implements IHomeView {
 
+    private ArrayList<String> urlTitles = new ArrayList<>();
+    private ArrayList<String> urlImages = new ArrayList<>();
 
     @BindView(R.id.home_banner)
     Banner mHomeBanner;
@@ -46,6 +49,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     @BindView(R.id.nested_scroll_view)
     NestedScrollView mNestedScrollView;
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
+    private HomeRecycleViewAdapter hyva;
 
     @Override
     protected int initLayout() {
@@ -62,7 +66,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_regular_route, "", R.mipmap.home_regular_route, true, 0, true));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.home_about_us, true, 0, false));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_service_hotline, "", 0, false, 0, false));
-        HomeRecycleViewAdapter hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
+        hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
         mHomeRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mHomeRv.setAdapter(hyva);
 
@@ -89,19 +93,13 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private void initTitleBar() {
         mainToolBar.setMainTitle(R.string.home_page);
         mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
     protected void initData() {
         super.initData();
 
-        HomePresenterImp hpi = new HomePresenterImp(this);
+        HomePresenterImp hpi = new HomePresenterImp(this,mActivity);
         hpi.getBanner("1");
         hpi.getFixBillNum(App.mUser.getId());
         hpi.getUnReadNotifyNum(App.mUser.getId());
@@ -149,10 +147,27 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         RxToast.showToast(msg);
     }
 
-    public void setToolBarUnreadNum(int num) {
+    public void setToolBarUnreadNum(boolean isShow) {
+        if (isShow){
+            mainToolBar.setRightTitleDrawable(R.mipmap.home_notice_msg);
+        }else{
+            mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
+        }
 
     }
 
     public void updateFixBillNum(int num) {
+        homeRecycleViewItems.get(1).setRightText(String.valueOf(num));
+        hyva.notifyDataSetChanged();
+    }
+
+    public void setBannerList(ArrayList<com.xinze.xinze.module.main.modle.Banner> banners){
+        for (com.xinze.xinze.module.main.modle.Banner banner :banners) {
+            String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
+            String bannerName = banner.getBannerName();
+            urlImages.add(imgUrl);
+            urlTitles.add(bannerName);
+        }
+        initBanner(urlImages,urlTitles);
     }
 }

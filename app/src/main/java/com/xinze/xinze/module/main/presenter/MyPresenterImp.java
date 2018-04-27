@@ -1,5 +1,7 @@
 package com.xinze.xinze.module.main.presenter;
 
+import android.content.Context;
+
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
@@ -7,6 +9,9 @@ import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author lxf
@@ -16,30 +21,37 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
     private final int SUCCESS_CODE = 200;
     private IMyView iMyView;
 
-    public MyPresenterImp(IMyView iMyView) {
+    public MyPresenterImp(IMyView iMyView, Context mContext) {
+        super(iMyView, mContext);
         this.iMyView = iMyView;
     }
+
     @Override
     public void loginOut() {
-         RetrofitFactory.getInstence().Api().loginOut().compose(this.<BaseEntity<BaseBean>>setThread()).subscribe(new BaseObserver<BaseBean>() {
+        Map<String, String> headers = new HashMap<>(2);
+        headers.put("sessionid",App.mUser.getSessionid());
+        headers.put("userid",App.mUser.getId());
+        RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity<String>>setThread()).subscribe(new BaseObserver<String>(mContext) {
 
-             @Override
-             protected void onSuccees(BaseEntity<BaseBean> t) throws Exception {
-                 if (t != null){
-                     if (t.getStatus() == SUCCESS_CODE){
-                         App.mUser.setLogin(false);
-                         App.mUser.setSessionid("");
-                         App.mUser.setId("");
-                         iMyView.loginOutSuccess();
-                     }
-                 }
-             }
+            @Override
+            protected void onSuccees(BaseEntity<String> t) throws Exception {
+                if (t != null) {
+                    if (t.isSuccess()) {
+                        App.mUser.setLogin(false);
+                        App.mUser.setSessionid("");
+                        App.mUser.setId("");
+                        iMyView.loginOutSuccess();
+                    }else{
+                        iMyView.shotToast(t.getMsg());
+                    }
+                }
+            }
 
-             @Override
-             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                 iMyView.loginOutFailed();
-             }
-         });
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                iMyView.loginOutFailed();
+            }
+        });
 
     }
 }

@@ -135,8 +135,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
             @Override
             public void onClick(View v) {
                 hideKeyboard();
-                loginPresenterImp = new LoginPresenterImp(LoginActivity.this);
-                loginPresenterImp.attachView(LoginActivity.this);
+                loginPresenterImp = new LoginPresenterImp(LoginActivity.this,LoginActivity.this);
                 mUserName = mUserEditText.getText().toString();
                 mUserPwd = mPwdEditText.getText().toString();
                 UserEntity user = new UserEntity();

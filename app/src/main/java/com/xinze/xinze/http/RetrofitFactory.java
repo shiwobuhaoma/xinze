@@ -35,17 +35,17 @@ public class RetrofitFactory {
                 //添加日志拦截器
                 .addInterceptor(InterceptorUtil.logInterceptor())
                 //添加自定义请求头
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request()
-                                .newBuilder()
-                                .addHeader("sessionid", App.mUser.getSessionid())
-                                .addHeader("userid",App.mUser.getId())
-                                .build();
-                        return chain.proceed(request);
-                    }
-                })
+//                .addInterceptor(new Interceptor() {
+//                    @Override
+//                    public Response intercept(Chain chain) throws IOException {
+//                        Request request = chain.request()
+//                                .newBuilder()
+//                                .addHeader("sessionid", App.mUser.getSessionid())
+//                                .addHeader("userid",App.mUser.getId())
+//                                .build();
+//                        return chain.proceed(request);
+//                    }
+//                })
 //                .addNetworkInterceptor(new Interceptor() {
 //                    @Override
 //                    public Response intercept(Chain chain) throws IOException {

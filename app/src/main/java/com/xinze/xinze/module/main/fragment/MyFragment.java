@@ -112,8 +112,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                     case R.string.my_about_us:
                         mActivity.startActivity(new Intent(mActivity, AboutUsActivity.class));
                         break;
-                    case R.string.exit:
-                        MyPresenterImp mpi = new MyPresenterImp(MyFragment.this);
+                    case R.string.my_login_out:
+                        MyPresenterImp mpi = new MyPresenterImp(MyFragment.this,mActivity);
                         mpi.loginOut();
                         break;
                     case R.string.my_change_pwd:
@@ -178,6 +178,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     @Override
     public void onResume() {
         super.onResume();
+        myRv.setAdapter(myva);
         if (isLogin()) {
             if (!myRecycleViewItems.contains(myDrivers) && !myRecycleViewItems.contains(myInvitation) && !myRecycleViewItems.contains(myChangePwd)) {
                 myRecycleViewItems.add(1, myDrivers);
@@ -188,7 +189,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             myRegister.setVisibility(View.GONE);
             myLogin.setVisibility(View.GONE);
             myUnLogin.setText(App.mUser.getLogin_name());
-
+            driverCer.setRightText(App.mUser.getVertifyDescription());
         } else {
             if (myRecycleViewItems.contains(myDrivers) && myRecycleViewItems.contains(myInvitation) && myRecycleViewItems.contains(myChangePwd) && myRecycleViewItems.contains(myLoginOut)) {
                 myRecycleViewItems.remove(myDrivers);
@@ -196,6 +197,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                 myRecycleViewItems.remove(myChangePwd);
                 myRecycleViewItems.remove(myLoginOut);
             }
+            driverCer.setRightText("未认证");
             myRegister.setVisibility(View.VISIBLE);
             myLogin.setVisibility(View.VISIBLE);
             myUnLogin.setText(R.string.unLogin);

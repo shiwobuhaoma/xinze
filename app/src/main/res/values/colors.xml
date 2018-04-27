@@ -15,6 +15,6 @@
 
     <color name="my_item_space">#F5F5F5</color>
     <color name="my_item_line">#DDDDDD</color>
-    <color name="half_white">#eeffffff</color>
+    <color name="half_white">#7fffffff</color>
 
 </resources>

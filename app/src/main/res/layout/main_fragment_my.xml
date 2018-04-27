@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,7 +72,8 @@
             android:layout_width="66dp"
             android:layout_height="66dp"
             android:layout_above="@id/my_unLogin"
-            android:background="@drawable/circle_white"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/half_white"
             android:layout_marginBottom="9dp"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/my_ic_default" />

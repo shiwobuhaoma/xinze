@@ -35,7 +35,32 @@ public class LoginResponse {
     private String oldLoginDate;
     private boolean admin;
     private String roleNames;
+    /**
+     * 是否认证
+     * vertifyFlag": "-1",
+     */
+    private String vertifyFlag;
+    /**
+     * 认证描述
+     * vertifyDescription": "未认证",
+     */
+    private String vertifyDescription;
 
+    public String getVertifyFlag() {
+        return vertifyFlag;
+    }
+
+    public void setVertifyFlag(String vertifyFlag) {
+        this.vertifyFlag = vertifyFlag;
+    }
+
+    public String getVertifyDescription() {
+        return vertifyDescription;
+    }
+
+    public void setVertifyDescription(String vertifyDescription) {
+        this.vertifyDescription = vertifyDescription;
+    }
     public boolean isMobileLogin() {
         return mobileLogin;
     }

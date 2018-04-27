@@ -1,11 +1,14 @@
 package com.xinze.xinze.module.login.presenter;
 
 
+import android.content.Context;
+
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.login.modle.LoginResponse;
+import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.view.ILoginView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
@@ -18,7 +21,8 @@ import com.xinze.xinze.mvpbase.BasePresenterImpl;
 public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements ILoginPresenter {
     private ILoginView iLoginView;
 
-    public LoginPresenterImp(ILoginView iLoginView) {
+    public LoginPresenterImp(ILoginView iLoginView, Context mContext) {
+        super(iLoginView,mContext);
         this.iLoginView = iLoginView;
     }
 
@@ -29,7 +33,7 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                 pwd,
                 userType)
                 .compose(this.<BaseEntity<LoginResponse>>setThread())
-                .subscribe(new BaseObserver<LoginResponse>() {
+                .subscribe(new BaseObserver<LoginResponse>(mContext) {
                     @Override
                     protected void onSuccees(BaseEntity<LoginResponse> t)  {
                         if (t != null){
@@ -37,7 +41,10 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                             if (data != null){
                                 String sessionId = data.getSessionid();
                                 App.mUser.setSessionid(sessionId);
+                                App.mUser.setId(data.getId());
                                 App.mUser.setLogin(true);
+                                App.mUser.setVertifyFlag(data.getVertifyFlag());
+                                App.mUser.setVertifyDescription(data.getVertifyDescription());
                                 App.mUser.setLogin_name(data.getLoginName());
                                 iLoginView.shotToast(t.getMsg());
                                 iLoginView.loginSuccess();

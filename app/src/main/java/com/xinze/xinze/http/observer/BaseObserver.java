@@ -93,6 +93,8 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     protected void onCodeError(BaseEntity<T> t) throws Exception {
         if (t.getStatus() == -1){
             onSuccees(t);
+        }else if(t.getStatus() == -200){
+            onSuccees(t);
         }
     }
 

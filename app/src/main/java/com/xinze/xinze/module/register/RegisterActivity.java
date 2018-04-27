@@ -67,7 +67,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        RegisterPresenterImp rpi = new RegisterPresenterImp(this);
+        RegisterPresenterImp rpi = new RegisterPresenterImp(this,this);
         mPhoneNumber = mRegisterPhoneNumberEdit.getText().toString().trim();
         switch (v.getId()) {
             case R.id.get_verification_code_bt:

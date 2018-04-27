@@ -1,6 +1,8 @@
 package com.xinze.xinze.module.register.presenter;
 
 
+import android.content.Context;
+
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
@@ -18,7 +20,8 @@ import com.xinze.xinze.module.register.view.IRegisterView;
 public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> implements IRegisterPresenter {
     private IRegisterView iRegisterView;
 
-    public RegisterPresenterImp(IRegisterView iRegisterView) {
+    public RegisterPresenterImp(IRegisterView iRegisterView, Context mContext) {
+        super(iRegisterView,mContext);
         this.iRegisterView = iRegisterView;
     }
 
