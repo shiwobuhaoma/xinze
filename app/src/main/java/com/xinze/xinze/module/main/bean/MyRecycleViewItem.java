@@ -6,7 +6,6 @@ package com.xinze.xinze.module.main.bean;
  */
 public class MyRecycleViewItem {
     private String title;
-
     private boolean isShowRightText;
     private String rightText;
     private int titleResources;

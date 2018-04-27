@@ -98,5 +98,12 @@ compile com.android.support:design:25.0.1
     <string name="goLogin">去登录</string>
     <string name="unIdentification">未认证</string>
     <string name="goIdentification">去认证</string>
+    <string name="certification_commit">提交审核</string>
+    <string name="name">姓名</string>
+    <string name="facadeOfIDCard">身份证正面照</string>
+    <string name="facadeOfDriverCard">驾驶证正面照</string>
+    <string name="input_name">请输入姓名</string>
+    <string name="isGoIdentification">是否去验证</string>
+    <string name="isGoLogin">是否去登录</string>
 
 </resources>

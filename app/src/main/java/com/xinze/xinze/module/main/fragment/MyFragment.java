@@ -1,7 +1,6 @@
 package com.xinze.xinze.module.main.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,12 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.vondear.rxtools.view.RxToast;
-import com.vondear.rxtools.view.dialog.RxDialog;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.AboutUsActivity;
+import com.xinze.xinze.module.certification.CertificationActivity;
 import com.xinze.xinze.module.login.LoginActivity;
 import com.xinze.xinze.module.main.adapter.MyRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.MyRecycleViewItem;
@@ -152,11 +151,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     private void doSomething(String type) {
         switch (type) {
             case MyItemSelected.DRIVER_CERTIFICATION:
-                if (App.mUser.isLogin()){//TODO
-
-                }else{
-                    showUnIdentificationDialog();
-                }
+                    if ("1".equals(App.mUser.getVertifyFlag()) || "2".equals(App.mUser.getVertifyFlag())){
+                        startActivity(new Intent(mActivity,CertificationActivity.class));
+                    }else{
+                        showUnIdentificationDialog();
+                    }
                 break;
             case MyItemSelected.MY_CARS:
                 break;
@@ -244,7 +243,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
      */
     public void showUnloginDialog() {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
-        rxDialogSureCancel.getContentView().setText(R.string.unLogin);
+        rxDialogSureCancel.getTitleView().setText(R.string.unLogin);
+        rxDialogSureCancel.getContentView().setText(R.string.isGoLogin);
         rxDialogSureCancel.getSureView().setText(R.string.goLogin);
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,6 +278,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     public void showUnIdentificationDialog() {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setText(R.string.unIdentification);
+        rxDialogSureCancel.getContentView().setText(R.string.isGoIdentification);
         rxDialogSureCancel.getSureView().setText(R.string.goIdentification);
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override

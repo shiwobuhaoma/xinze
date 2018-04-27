@@ -36,7 +36,8 @@
         <activity android:name=".module.register.RegisterActivity" />
         <activity android:name=".module.forget.ForgetPassWordActivity" />
         <activity android:name=".module.about.AboutUsActivity" />
-        <activity android:name=".module.sysmsg.SystemMsgActivity"/>
+        <activity android:name=".module.sysmsg.SystemMsgActivity" />
+        <activity android:name=".module.certification.CertificationActivity"/>
     </application>
 
 </manifest>
