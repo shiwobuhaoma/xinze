@@ -77,18 +77,16 @@ public class CertificationRecycleViewAdapter extends RecyclerView.Adapter<Recycl
             }else{
                 viewHolder.certificationTvArrow.setVisibility(View.GONE);
             }
-
-            if (certificationRecycleViewItem.isShowSpace()) {
-                viewHolder.certificationVSpace.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.certificationVSpace.setVisibility(View.GONE);
-            }
             if (certificationRecycleViewItem.isShowBottomLine()) {
                 viewHolder.certificationVLine.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.certificationVLine.setVisibility(View.GONE);
             }
-
+            if (certificationRecycleViewItem.isShowSpace()) {
+                viewHolder.certificationVSpace.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.certificationVSpace.setVisibility(View.GONE);
+            }
             if (certificationRecycleViewItem.isShowMiddleText()){
                 viewHolder.certificationEt.setVisibility(View.VISIBLE);
                 viewHolder.certificationEt.setHint(certificationRecycleViewItem.getMiddleHintText());

@@ -283,7 +283,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+                mActivity.startActivity(new Intent(mActivity, CertificationActivity.class));
                 rxDialogSureCancel.cancel();
             }
         });
