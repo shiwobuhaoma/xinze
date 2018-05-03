@@ -5,6 +5,7 @@ import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.login.modle.UserEntity;
+import com.xinze.xinze.module.main.modle.Banner;
 import com.xinze.xinze.module.main.modle.BannerResponse;
 import com.xinze.xinze.module.main.modle.UnreadCountResponse;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
@@ -54,7 +55,7 @@ public interface ApiServer {
      * @return 注销状态
      */
     @POST(UrlConfig.LOGIN_OUT_URL)
-    Observable<BaseEntity<String>> loginOut(@HeaderMap Map<String, String> headers);
+    Observable<BaseEntity> loginOut(@HeaderMap Map<String, String> headers);
 
     /**
      * 获取验证码接口
@@ -84,7 +85,7 @@ public interface ApiServer {
      * @return 返回状态
      */
     @GET(UrlConfig.GET_BANNER)
-    Observable<BaseEntity<BannerResponse>> getBannerListByType(@Query("bannerType") String bannerType);
+    Observable<BaseEntity<List<Banner>>> getBannerListByType(@Query("bannerType") String bannerType);
 
     /**
      * 获取首页右上角未读消息数量（司机）

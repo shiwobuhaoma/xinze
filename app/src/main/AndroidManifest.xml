@@ -37,7 +37,8 @@
         <activity android:name=".module.forget.ForgetPassWordActivity" />
         <activity android:name=".module.about.AboutUsActivity" />
         <activity android:name=".module.sysmsg.SystemMsgActivity" />
-        <activity android:name=".module.certification.CertificationActivity"/>
+        <activity android:name=".module.certification.CertificationActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

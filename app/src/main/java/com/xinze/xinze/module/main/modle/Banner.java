@@ -5,10 +5,7 @@ package com.xinze.xinze.module.main.modle;
  * @author lxf
  */
 public class Banner {
-    public Banner(String bannerName, String imgUrl) {
-        this.bannerName = bannerName;
-        this.imgUrl = imgUrl;
-    }
+
 
     /**
      * id : e54c1f03966d479a8e0c2a13aba0afb9
@@ -133,7 +130,4 @@ public class Banner {
     public void setSort(String sort) {
         this.sort = sort;
     }
-
-
-
 }

@@ -2,6 +2,7 @@ package com.xinze.xinze.http.observer;
 
 import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.util.Log;
 
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.widget.ProgressDialog;
@@ -20,6 +21,7 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     protected Context mContext;
+    private String TAG = "错误信息";
 
     public BaseObserver(Context cxt) {
         this.mContext = cxt;
@@ -55,7 +57,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onError(Throwable e) {
-//        Log.w(TAG, "onError: ", );这里可以打印错误信息
+        Log.e(TAG, e.getMessage() );
         onRequestEnd();
         try {
             if (e instanceof ConnectException

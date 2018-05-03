@@ -15,6 +15,7 @@ import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *@author lxf
@@ -31,16 +32,15 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     @Override
     public void getBanner(String type) {
-        RetrofitFactory.getInstence().Api().getBannerListByType(type).compose(this.<BaseEntity<BannerResponse>>setThread())
-                .subscribe(new BaseObserver<BannerResponse>() {
+        RetrofitFactory.getInstence().Api().getBannerListByType(type).compose(this.<BaseEntity<List<Banner>>>setThread())
+                .subscribe(new BaseObserver<List<Banner>>(mContext) {
                     @Override
-                    protected void onSuccees(BaseEntity<BannerResponse> t) {
+                    protected void onSuccees(BaseEntity<List<Banner>> t) {
                         if (t != null) {
                             if (t.isSuccess()){
-                                BannerResponse data = t.getData();
+                                List<Banner> data = t.getData();
                                 if (data != null) {
-                                    ArrayList<Banner>   banners = data.getData();
-                                    mHomeView.setBannerList(banners);
+                                    mHomeView.setBannerList(data);
                                 }
                             }else{
                                 mHomeView.shotToast(t.getMsg());

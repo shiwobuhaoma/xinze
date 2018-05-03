@@ -18,7 +18,6 @@ import java.util.Map;
  * 退出逻辑
  */
 public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPresenter {
-    private final int SUCCESS_CODE = 200;
     private IMyView iMyView;
 
     public MyPresenterImp(IMyView iMyView, Context mContext) {
@@ -31,10 +30,10 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
         Map<String, String> headers = new HashMap<>(2);
         headers.put("sessionid",App.mUser.getSessionid());
         headers.put("userid",App.mUser.getId());
-        RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity<String>>setThread()).subscribe(new BaseObserver<String>(mContext) {
+        RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
 
             @Override
-            protected void onSuccees(BaseEntity<String> t) throws Exception {
+            protected void onSuccees(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         App.mUser.setLogin(false);

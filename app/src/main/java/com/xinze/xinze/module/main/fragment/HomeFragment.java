@@ -5,7 +5,6 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ScrollView;
 
 import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
@@ -101,8 +100,11 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
         HomePresenterImp hpi = new HomePresenterImp(this,mActivity);
         hpi.getBanner("1");
-        hpi.getFixBillNum(App.mUser.getId());
-        hpi.getUnReadNotifyNum(App.mUser.getId());
+        if (App.mUser.isLogin()){
+            hpi.getFixBillNum(App.mUser.getId());
+            hpi.getUnReadNotifyNum(App.mUser.getId());
+        }
+
     }
 
     public void initBanner(ArrayList<String> urlImages, ArrayList<String> urlTitles) {
@@ -161,7 +163,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         hyva.notifyDataSetChanged();
     }
 
-    public void setBannerList(ArrayList<com.xinze.xinze.module.main.modle.Banner> banners){
+    public void setBannerList(List<com.xinze.xinze.module.main.modle.Banner> banners){
         for (com.xinze.xinze.module.main.modle.Banner banner :banners) {
             String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
             String bannerName = banner.getBannerName();
