@@ -23,7 +23,7 @@ import retrofit2.Call;
  */
 
 public class InterceptorUtil {
-    private static String TAG = "----";
+    private static String TAG = "网络请求";
     private static String Token = "";
     private final static Charset UTF8 = Charset.forName("UTF-8");
 

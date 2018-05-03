@@ -178,6 +178,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     public void onResume() {
         super.onResume();
         myRv.setAdapter(myva);
+        refreshPage();
+    }
+
+    private void refreshPage() {
         if (isLogin()) {
             if (!myRecycleViewItems.contains(myDrivers) && !myRecycleViewItems.contains(myInvitation) && !myRecycleViewItems.contains(myChangePwd)) {
                 myRecycleViewItems.add(1, myDrivers);
@@ -225,6 +229,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     @Override
     public void loginOutSuccess() {
+        refreshPage();
         shotToast("注销成功");
     }
 

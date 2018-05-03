@@ -31,7 +31,7 @@ public class RetrofitFactory {
                 .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 //token失效拦截器
-                .addInterceptor(InterceptorUtil.tokenInterceptor())
+//                .addInterceptor(InterceptorUtil.tokenInterceptor())
                 //添加日志拦截器
                 .addInterceptor(InterceptorUtil.logInterceptor())
                 //添加自定义请求头

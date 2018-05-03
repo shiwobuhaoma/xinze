@@ -4,17 +4,14 @@ package com.xinze.xinze.module.main.presenter;
 import android.content.Context;
 
 import com.xinze.xinze.http.RetrofitFactory;
-import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
 import com.xinze.xinze.module.main.modle.Banner;
-import com.xinze.xinze.module.main.modle.BannerResponse;
 import com.xinze.xinze.module.main.modle.UnreadCountResponse;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
