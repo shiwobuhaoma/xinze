@@ -12,8 +12,10 @@
     <color name="gray_line">#ff7c7c7c</color>
     <color name="tab_background">#ff2c9195</color>
     <color name="main_ic_orange">#FB9251</color>
+    <color name="order_item_text">#808080</color>
 
     <color name="my_item_space">#F5F5F5</color>
+    <color name="line">#E9E9E9</color>
     <color name="my_item_line">#DDDDDD</color>
     <color name="half_white">#7fffffff</color>
 

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.vondear.rxtools.RxTool;
 import com.xinze.xinze.module.login.modle.UserEntity;
+import com.xinze.xinze.utils.ACache;
 
 /**
  * @author lxf
@@ -18,7 +19,12 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = this ;
-        mUser = new UserEntity();
+        UserEntity user = (UserEntity)ACache.get(this).getAsObject("user");
+        if (user != null){
+            mUser = user;
+        }else{
+            mUser = new UserEntity();
+        }
         RxTool.init(this);
     }
 

@@ -2,6 +2,7 @@ package com.xinze.xinze.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,6 +67,13 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
-
-
+    protected void openActivity(Class clazz) {
+        Intent intent = new Intent(mActivity, clazz);
+        startActivity(intent);
+    }
+    protected void openActivity(Class clazz,String key ,String value) {
+        Intent intent = new Intent(mActivity, clazz);
+        intent.putExtra(key,value);
+        startActivity(intent);
+    }
 }

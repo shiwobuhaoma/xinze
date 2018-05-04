@@ -105,5 +105,25 @@ compile com.android.support:design:25.0.1
     <string name="input_name">请输入姓名</string>
     <string name="isGoIdentification">是否去验证</string>
     <string name="isGoLogin">是否去登录</string>
+    <string name="hint_search">搜索</string>
+
+    <string name="orderList">订单列表</string>
+    <string name="order_id">订单号：%1$s</string>
+    <string name="order_freight">运费：%1$s元</string>
+    <string name="order_truck_type">车型：%1$s</string>
+    <string name="order_product_name">货物：%1$s</string>
+    <string name="order_distance">运距：%1$sKM</string>
+    <string name="order_shipper">托运人</string>
+    <string name="order_contacts">联系人：%1$s</string>
+    <string name="order_freight_details">货运详情</string>
+    <string name="order_item_date">发货日期：%1$s</string>
+    <string name="order_consignor_and_address">发货人：%1$s\n发货地址：%2$s</string>
+    <string name="order_consignee_and_address">收货人：%1$s\n收货地址：%2$s</string>
+    <string name="order_car_count"><Data><![CDATA[总车数：<font color="#fb9251">%1$d</font>车]]></Data></string>
+    <string name="order_goods_details"><Data><![CDATA[信息费：<font color="#fb9251">%1$s</font>元<br>装车费：<font color="#fb9251">%2$s</font>元/吨<br>卸车费：<font color="#fb9251">%3$s</font>元/吨<br>运费：<font color="#fb9251">%4$s</font>元/吨<br>货品：<font color="#fb9251">%5$s</font><br>路损：<font color="#fb9251">%6$s</font><br>车型：<font color="#fb9251">%7$s</font><br>备注：<font color="#fb9251">%8$s</font><br>]]></Data></string>
+
+    <string name="order_wait_confirm">等待确认中&#8230;</string>
+    <string name="order_revoke">撤销订单</string>
+    <string name="order_detail">订单详情</string>
 
 </resources>

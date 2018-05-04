@@ -115,8 +115,8 @@ public class MainActivity extends BaseActivity {
 
     private ArrayList<Fragment> getFragments() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        home = HomeFragment.newInstance("Home");
-        order = OrderFragment.newInstance("Order");
+        home = HomeFragment.newInstance();
+        order = OrderFragment.newInstance();
         my = MyFragment.newInstance();
         fragments.add(home);
         fragments.add(order);

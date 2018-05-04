@@ -3,6 +3,7 @@ package com.xinze.xinze.module.main.presenter;
 
 import android.content.Context;
 
+import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
@@ -12,7 +13,9 @@ import com.xinze.xinze.module.main.modle.UnreadCountResponse;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *@author lxf
@@ -55,12 +58,15 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     @Override
     public void getUnReadNotifyNum(String id) {
-        RetrofitFactory.getInstence().Api().getUnReadNotifyNum(id).compose(this.<BaseEntity<UnreadCountResponse>>setThread()).subscribe(new BaseObserver<UnreadCountResponse>() {
+        Map<String, String> headers = new HashMap<>(2);
+        headers.put("sessionid", App.mUser.getSessionid());
+        headers.put("userid",App.mUser.getId());
+        RetrofitFactory.getInstence().Api().getUnReadNotifyNum(headers,id).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
             @Override
-            protected void onSuccees(BaseEntity<UnreadCountResponse> t) throws Exception {
+            protected void onSuccees(BaseEntity<Integer> t) throws Exception {
                 if (t != null){
                     if(t.isSuccess()){
-                        int unReadNum = t.getData().getData();
+                        int unReadNum = t.getData();
                         if (0 != unReadNum){
                             mHomeView.setToolBarUnreadNum(true);
                         }else{
@@ -74,19 +80,22 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
+                System.out.println(e.getMessage());
             }
         });
     }
 
     @Override
     public void getFixBillNum(String id) {
-        RetrofitFactory.getInstence().Api().getFixBillNum(id).compose(this.<BaseEntity<UnreadCountResponse>>setThread()).subscribe(new BaseObserver<UnreadCountResponse>() {
+        Map<String, String> headers = new HashMap<>(2);
+        headers.put("sessionid", App.mUser.getSessionid());
+        headers.put("userid",App.mUser.getId());
+        RetrofitFactory.getInstence().Api().getFixBillNum(headers,id).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
             @Override
-            protected void onSuccees(BaseEntity<UnreadCountResponse> t) throws Exception {
+            protected void onSuccees(BaseEntity<Integer> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
-                        int unReadNum = t.getData().getData();
+                        int unReadNum = t.getData();
                         mHomeView.updateFixBillNum(unReadNum);
                     }else{
                         mHomeView.shotToast(t.getMsg());
@@ -96,7 +105,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
+                System.out.println(e.getMessage());
             }
         });
     }

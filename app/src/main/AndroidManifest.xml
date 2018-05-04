@@ -22,6 +22,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:debuggable="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -37,8 +38,13 @@
         <activity android:name=".module.forget.ForgetPassWordActivity" />
         <activity android:name=".module.about.AboutUsActivity" />
         <activity android:name=".module.sysmsg.SystemMsgActivity" />
-        <activity android:name=".module.certification.CertificationActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".module.certification.CertificationActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".module.find.FindGoodsActivity" />
+        <activity android:name=".module.send.SendGoodsActivity" />
+        <activity android:name=".module.line.RegularLinesActivity"/>
+        <activity android:name=".module.order.OrderDetailActivity" />
     </application>
 
 </manifest>

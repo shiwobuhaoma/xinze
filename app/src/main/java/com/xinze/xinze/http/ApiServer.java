@@ -5,7 +5,8 @@ import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
-import com.xinze.xinze.module.main.modle.UnreadCountResponse;
+import com.xinze.xinze.module.main.modle.OrderItem;
+import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
 import com.xinze.xinze.mvpbase.BaseBean;
 
@@ -39,6 +40,7 @@ public interface ApiServer {
 
     /**
      * 登录接口
+     *
      * @param username 用户名
      * @param password 密码
      * @param userType 登陆用户类型
@@ -50,6 +52,8 @@ public interface ApiServer {
 
     /**
      * 注销登录状态
+     *
+     * @param headers 请求头
      * @return 注销状态
      */
     @POST(UrlConfig.LOGIN_OUT_URL)
@@ -57,19 +61,21 @@ public interface ApiServer {
 
     /**
      * 获取验证码接口
-     * @param type 验证码类型
+     *
+     * @param type  验证码类型
      * @param phone 收取验证码的手机号
      * @return 返回状态
      */
     @GET(UrlConfig.GET_VERIFICATION_CODE)
-    Observable<BaseEntity<BaseBean>> getVerificationCode(@Query("phone") String phone,@Query("type") String type);
+    Observable<BaseEntity<BaseBean>> getVerificationCode(@Query("phone") String phone, @Query("type") String type);
 
     /**
      * 注册用户
-     * @param mobile 注册手机号码
-     * @param code 注册验证码
+     *
+     * @param mobile   注册手机号码
+     * @param code     注册验证码
      * @param password 注册密码
-     * @param type 验证码类型
+     * @param type     验证码类型
      * @param userType 用户类型
      * @return 注册状态
      */
@@ -79,6 +85,7 @@ public interface ApiServer {
 
     /**
      * 获取轮播图接口
+     *
      * @param bannerType bannerType=1  获取banner接口    1：司机   0：货主
      * @return 返回状态
      */
@@ -87,23 +94,57 @@ public interface ApiServer {
 
     /**
      * 获取首页右上角未读消息数量（司机）
-     * @param id 用户id
+     *
+     * @param id      用户id
+     * @param headers 请求头
      * @return 返回状态
      */
     @GET(UrlConfig.GET_UNREAD_NOTIFY_NUM)
-    Observable<BaseEntity<UnreadCountResponse>> getUnReadNotifyNum(@Query("id") String id);
+    Observable<BaseEntity<Integer>> getUnReadNotifyNum(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
     /**
      * 获取定向货单未读数量
-     * @param id 用户id
+     *
+     * @param id      用户id
+     * @param headers 请求头
      * @return 返回状态
      */
     @GET(UrlConfig.GET_FIX_BILL_NUM)
-    Observable<BaseEntity<UnreadCountResponse>>  getFixBillNum(@Query("id") String id);
+    Observable<BaseEntity<Integer>> getFixBillNum(@HeaderMap Map<String, String> headers, @Query("id") String id);
+
+    /**
+     * 获取订单列表
+     *
+     * @param pageNo   第几页
+     * @param pageSize 多少条
+     * @param headers  请求头
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_BILL_ORDER_LIST)
+    Observable<BaseEntity<List<OrderItem>>> getBillOrderList(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
+
+    /**
+     * 获取订单详情信息
+     * @param headers 请求头
+     * @param orderid 订单id
+     * @return 返回订单详情
+     */
+    @GET(UrlConfig.GET_BILL_ORDER_DETAIL)
+    Observable<BaseEntity<OrderDetail>>  getBillOrderDetail(@HeaderMap Map<String, String> headers, @Query("orderid") String orderid);
+
+
+
+
+
+
+
+
+
 
 
     /**
      * 上传单张图片
+     *
      * @param img 图片
      * @return 上传结果
      */
@@ -112,6 +153,7 @@ public interface ApiServer {
 
     /**
      * 上传多张图片
+     *
      * @param imgs 多张图片
      * @return 上传结果
      */

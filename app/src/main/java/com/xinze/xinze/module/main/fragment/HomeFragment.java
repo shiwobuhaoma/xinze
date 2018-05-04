@@ -1,5 +1,7 @@
 package com.xinze.xinze.module.main.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +13,15 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.http.config.HttpConfig;
+import com.xinze.xinze.module.about.AboutUsActivity;
+import com.xinze.xinze.module.find.FindGoodsActivity;
+import com.xinze.xinze.module.line.RegularLinesActivity;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
+import com.xinze.xinze.module.send.SendGoodsActivity;
+import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.utils.GlideImageLoader;
 import com.xinze.xinze.widget.SimpleToolbar;
 import com.youth.banner.Banner;
@@ -49,6 +56,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     NestedScrollView mNestedScrollView;
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
     private HomeRecycleViewAdapter hyva;
+    private HomePresenterImp hpi;
 
     @Override
     protected int initLayout() {
@@ -75,12 +83,19 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void onItemClick(View view, int position) {
                 switch (position) {
                     case 0:
+                        openActivity(FindGoodsActivity.class);
                         break;
                     case 1:
+                        openActivity(SendGoodsActivity.class);
                         break;
                     case 2:
+                        openActivity(RegularLinesActivity.class);
                         break;
                     case 3:
+                        openActivity(AboutUsActivity.class);
+                        break;
+                    case 4:
+                        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "4001245566")));
                         break;
                     default:
                         break;
@@ -92,19 +107,35 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private void initTitleBar() {
         mainToolBar.setMainTitle(R.string.home_page);
         mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
+        mainToolBar.setRightTitleClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivity(SystemMsgActivity.class);
+            }
+        });
     }
 
     @Override
     protected void initData() {
         super.initData();
 
-        HomePresenterImp hpi = new HomePresenterImp(this,mActivity);
+        hpi = new HomePresenterImp(this,mActivity);
         hpi.getBanner("1");
+        refreshPage();
+
+    }
+
+    private void refreshPage() {
         if (App.mUser.isLogin()){
             hpi.getFixBillNum(App.mUser.getId());
             hpi.getUnReadNotifyNum(App.mUser.getId());
         }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshPage();
     }
 
     public void initBanner(ArrayList<String> urlImages, ArrayList<String> urlTitles) {
@@ -125,12 +156,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                 }).start();
     }
 
-    public static HomeFragment newInstance(String content) {
-        Bundle args = new Bundle();
-        args.putString("ARGS", content);
-        HomeFragment fragment = new HomeFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
 
 

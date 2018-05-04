@@ -9,6 +9,7 @@ import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
+import com.xinze.xinze.utils.ACache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
                         App.mUser.setLogin(false);
                         App.mUser.setSessionid("");
                         App.mUser.setId("");
+                        ACache.get(mContext).remove("user");
                         iMyView.loginOutSuccess();
                     }else{
                         iMyView.shotToast(t.getMsg());

@@ -11,6 +11,7 @@ import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.view.ILoginView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
+import com.xinze.xinze.utils.ACache;
 
 /**
  * @author lxf
@@ -46,6 +47,7 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                                 App.mUser.setVertifyFlag(data.getVertifyFlag());
                                 App.mUser.setVertifyDescription(data.getVertifyDescription());
                                 App.mUser.setLogin_name(data.getLoginName());
+                                ACache.get(mContext).put("user",App.mUser);
                                 iLoginView.shotToast(t.getMsg());
                                 iLoginView.loginSuccess();
                             }else {

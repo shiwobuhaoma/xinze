@@ -15,4 +15,6 @@ public interface UrlConfig {
     String GET_BANNER = "transport/app/banner/getBannerListByType";
     String GET_UNREAD_NOTIFY_NUM = "transport/app/notify/getUnReadNotifyNum";
     String GET_FIX_BILL_NUM = "transport/app/bill/getFixBillNum";
+    String GET_BILL_ORDER_LIST = "transport/app/billorder/getBillOrderList";
+    String GET_BILL_ORDER_DETAIL = "transport/app/billorder/getBillOrderDetail";
 }

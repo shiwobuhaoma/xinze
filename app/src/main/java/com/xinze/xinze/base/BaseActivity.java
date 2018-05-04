@@ -142,7 +142,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void initData() {
     }
 
-
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);

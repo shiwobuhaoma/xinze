@@ -1,7 +1,10 @@
 package com.xinze.xinze.module.main.modle;
 
 
-
+/**
+ * @author lxf
+ * 未读消息数量
+ */
 public class UnreadCountResponse {
 
     /**
