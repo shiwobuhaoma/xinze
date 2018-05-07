@@ -15,7 +15,9 @@ public class ProgressDialog {
     public static void show(Context cxt, boolean cancelable, String str) {
 
         try {
-            progressDialog = new android.app.ProgressDialog(cxt);
+            if (progressDialog == null){
+                progressDialog = new android.app.ProgressDialog(cxt);
+            }
             progressDialog.setCancelable(cancelable);
             progressDialog.setMessage(str);
             progressDialog.show();

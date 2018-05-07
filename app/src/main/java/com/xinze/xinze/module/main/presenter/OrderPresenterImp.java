@@ -31,7 +31,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
         Map<String, String> headers = new HashMap<>(2);
         headers.put("sessionid", App.mUser.getSessionid());
         headers.put("userid",App.mUser.getId());
-        RetrofitFactory.getInstence().Api().getBillOrderList(headers,pageNo,pageSize).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>(mContext) {
+        RetrofitFactory.getInstence().Api().getBillOrderList(headers,pageNo,pageSize).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
             @Override
             protected void onSuccees(BaseEntity<List<OrderItem>> t) throws Exception {
                 if (t != null){
@@ -39,6 +39,10 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
                         List<OrderItem> data = t.getData();
                         if (data != null){
                             orderFragment.setData(data);
+                            orderFragment.getOrderListSuccess();
+                        }else{
+                            orderFragment.getOrderListSuccess();
+                            orderFragment.shotToast("没有更多了");
                         }
                     }
                 }
@@ -46,7 +50,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-
+                orderFragment.getOrderListFailed();
             }
         });
     }

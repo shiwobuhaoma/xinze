@@ -15,11 +15,14 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -132,9 +135,15 @@ public interface ApiServer {
     @GET(UrlConfig.GET_BILL_ORDER_DETAIL)
     Observable<BaseEntity<OrderDetail>>  getBillOrderDetail(@HeaderMap Map<String, String> headers, @Query("orderid") String orderid);
 
-
-
-
+    /**
+     * 改变订单状态（撤单、拒绝、通过、发货等）
+     * @param headers 请求头
+     * @return 返回订单状态
+     */
+    @Headers({"Content-Type: application/json;charset=UTF-8",
+            "User-Agent: Retrofit-your-App"})
+    @POST(UrlConfig.CHANGE_BILL_ORDER_STATUS)
+    Observable<BaseEntity>  changeBillOrderStatus(@HeaderMap Map<String, String> headers,@Body RequestBody updateOrderState);
 
 
 

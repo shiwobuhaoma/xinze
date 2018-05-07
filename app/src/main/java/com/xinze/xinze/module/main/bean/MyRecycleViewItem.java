@@ -12,29 +12,33 @@ public class MyRecycleViewItem {
     private int icon;
     private boolean isShowRightArrow;
     private boolean isShowSpace;
+    private int layoutType;
 
 
+    private boolean isShowTopLine;
 
 
     private boolean isShowBottomLine;
 
-    public MyRecycleViewItem(String title, int icon, boolean isShowRightArrow, boolean isShowSpace, boolean isShowRightText,boolean isShowBottomLine,String rightText) {
+    public MyRecycleViewItem(String title, int icon, boolean isShowRightArrow, boolean isShowSpace, boolean isShowRightText, boolean isShowBottomLine, String rightText,boolean isShowTopLine,int layoutType) {
         this.title = title;
         this.icon = icon;
         this.isShowRightArrow = isShowRightArrow;
         this.isShowSpace = isShowSpace;
         this.isShowRightText = isShowRightText;
         this.isShowBottomLine = isShowBottomLine;
+        this.isShowTopLine = isShowTopLine;
         this.rightText = rightText;
     }
 
-    public MyRecycleViewItem(int title, int icon, boolean isShowRightArrow, boolean isShowSpace, boolean isShowRightText,boolean isShowBottomLine,String rightText) {
+    public MyRecycleViewItem(int title, int icon, boolean isShowRightArrow, boolean isShowSpace, boolean isShowRightText, boolean isShowBottomLine, String rightText,boolean isShowTopLine,int layoutType) {
         this.titleResources = title;
         this.icon = icon;
         this.isShowRightArrow = isShowRightArrow;
         this.isShowSpace = isShowSpace;
         this.isShowRightText = isShowRightText;
         this.isShowBottomLine = isShowBottomLine;
+        this.isShowTopLine = isShowTopLine;
         this.rightText = rightText;
     }
 
@@ -93,6 +97,7 @@ public class MyRecycleViewItem {
     public void setShowRightText(boolean showRightText) {
         isShowRightText = showRightText;
     }
+
     public boolean isShowBottomLine() {
         return isShowBottomLine;
     }
@@ -100,14 +105,22 @@ public class MyRecycleViewItem {
     public void setShowBottomLine(boolean showBottomLine) {
         isShowBottomLine = showBottomLine;
     }
-    @Override
-    public String toString() {
-        return "MyRecycleViewItem{" +
-                "title='" + title + '\'' +
-                ", icon=" + icon +
-                ", isShowRightArrow=" + isShowRightArrow +
-                ", isShowSpace=" + isShowSpace +
-                ", isShowRightText=" + isShowRightText +
-                '}';
+    public int getLayoutType() {
+        return layoutType;
     }
+
+    public void setLayoutType(int layoutType) {
+        this.layoutType = layoutType;
+    }
+
+
+
+    public boolean isShowTopLine() {
+        return isShowTopLine;
+    }
+
+    public void setShowTopLine(boolean showTopLine) {
+        isShowTopLine = showTopLine;
+    }
+
 }

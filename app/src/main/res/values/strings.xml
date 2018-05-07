@@ -26,8 +26,8 @@
     <string name="my_help">帮助</string>
     <string name="my">我的</string>
     <string name="exit">退出登录</string>
-    <string name="home_service_hotline">服务热线：400-1245-566</string>
-    <string name="home_directional_shipper">定向发货</string>
+    <string name="home_service_hotline">服务热线：400&#8211;1245&#8211;566</string>
+    <string name="home_directional_shipper">定向货单</string>
     <string name="home_about_us">关于我们</string>
     <string name="home_page">首页</string>
     <string name="my_login_out">退出登录</string>
@@ -125,5 +125,10 @@ compile com.android.support:design:25.0.1
     <string name="order_wait_confirm">等待确认中&#8230;</string>
     <string name="order_revoke">撤销订单</string>
     <string name="order_detail">订单详情</string>
+    <string name="order_pick_up_goods">取货</string>
+    <string name="order_deliver_goods">送达</string>
+    <string name="order_confirm_arrive">确认签收</string>
+    <string name="order_upload">上传凭证（选填）</string>
+    <string name="cancel">取消</string>
 
 </resources>

@@ -5,4 +5,6 @@ import com.xinze.xinze.mvpbase.BaseView;
 public interface IOrderDetailView extends BaseView{
     void getOrderDetailSuccess();
     void getOrderDetailFailed();
+    void revokeSuccess(String message,String orderStatus);
+    void revokeFailed(String message);
 }

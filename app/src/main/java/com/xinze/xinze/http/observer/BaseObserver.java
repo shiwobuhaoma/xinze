@@ -34,7 +34,6 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     @Override
     public void onSubscribe(Disposable d) {
         onRequestStart();
-
     }
 
     @Override
@@ -75,7 +74,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onComplete() {
-
+        onRequestEnd();
     }
 
     /**
@@ -110,7 +109,10 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     protected abstract void onFailure(Throwable e, boolean isNetWorkError) throws Exception;
 
     protected void onRequestStart() {
-        showProgressDialog();
+        if (mContext != null){
+            showProgressDialog();
+        }
+
     }
 
     protected void onRequestEnd() {
@@ -118,7 +120,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     }
 
     public void showProgressDialog() {
-        ProgressDialog.show(mContext, false, "请稍后");
+        ProgressDialog.show(mContext, true, "请稍后");
     }
 
     public void closeProgressDialog() {

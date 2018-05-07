@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -108,33 +108,81 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@drawable/line" />
-
-            <TextView
-                android:id="@+id/find_goods_consignor"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="10dp"
-                android:padding="15dp"
-                android:text="@string/order_consignor_and_address"
-                android:textColor="@color/themeBlack"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/find_goods_consignor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="10dp"
+                    android:padding="15dp"
+                    android:text="@string/order_consignor_and_address"
+                    android:textColor="@color/themeBlack"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/from_goods_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/phone"
+                    android:padding="15dp" />
+
+                <View
+                    android:id="@+id/from_left_goods_phone"
+                    android:layout_width="1px"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@id/from_goods_phone"
+                    android:background="@drawable/line" />
+            </RelativeLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@drawable/line" />
-
-            <TextView
-                android:id="@+id/find_goods_consignee"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="10dp"
-                android:padding="15dp"
-                android:text="@string/order_consignee_and_address"
-                android:textColor="@color/themeBlack"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/find_goods_consignee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="10dp"
+                    android:padding="15dp"
+                    android:text="@string/order_consignee_and_address"
+                    android:textColor="@color/themeBlack"
+                    android:textSize="14sp" />
+                <ImageView
+                    android:id="@+id/to_goods_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/phone"
+                    android:padding="15dp" />
+
+                <View
+                    android:id="@+id/to_left_goods_phone"
+                    android:layout_width="1px"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@id/to_goods_phone"
+                    android:background="@drawable/line" />
+            </RelativeLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
@@ -153,6 +201,7 @@
                 android:textSize="14sp" />
 
             <View
+
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@drawable/line" />
@@ -167,7 +216,19 @@
                 android:text="@string/order_goods_details"
                 android:textColor="@color/themeBlack"
                 android:textSize="14sp" />
-
+            <TextView
+                android:id="@+id/order_upload_evidence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:padding="15dp"
+                android:text="@string/order_upload"
+                android:textColor="@color/order_item_text"
+                android:textSize="14sp" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/upload_evidence_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,6 +236,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/order_wait_confirming"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_wait_confirm"
@@ -189,12 +251,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/circle_login_button"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/circle_orange_button"
                     android:text="@string/order_revoke"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

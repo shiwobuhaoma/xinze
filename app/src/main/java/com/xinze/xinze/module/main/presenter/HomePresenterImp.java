@@ -61,7 +61,9 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
         Map<String, String> headers = new HashMap<>(2);
         headers.put("sessionid", App.mUser.getSessionid());
         headers.put("userid",App.mUser.getId());
-        RetrofitFactory.getInstence().Api().getUnReadNotifyNum(headers,id).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
+        RetrofitFactory.getInstence().Api().getUnReadNotifyNum(headers,id)
+                .compose(this.<BaseEntity<Integer>>setThread())
+                .subscribe(new BaseObserver<Integer>(mContext) {
             @Override
             protected void onSuccees(BaseEntity<Integer> t) throws Exception {
                 if (t != null){
@@ -90,7 +92,9 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
         Map<String, String> headers = new HashMap<>(2);
         headers.put("sessionid", App.mUser.getSessionid());
         headers.put("userid",App.mUser.getId());
-        RetrofitFactory.getInstence().Api().getFixBillNum(headers,id).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
+        RetrofitFactory.getInstence().Api().getFixBillNum(headers,id)
+                .compose(this.<BaseEntity<Integer>>setThread())
+                .subscribe(new BaseObserver<Integer>(mContext) {
             @Override
             protected void onSuccees(BaseEntity<Integer> t) throws Exception {
                 if (t != null){

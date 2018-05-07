@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xinze.xinze.R;
-import com.xinze.xinze.module.main.bean.OrderRecycleViewItem;
 import com.xinze.xinze.module.main.modle.OrderItem;
 
 import java.math.BigDecimal;
@@ -50,6 +49,14 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
      * 已拒绝
      */
     private final String GOODS_REFUSE = "R";
+    /**
+     * 已撤销
+     */
+    private final String GOODS_REVOKE = "B";
+    /**
+     * 已确定
+     */
+    public final String GOODS_CONFIRM = "C";
     private List<OrderItem> mBS;
     private Context mContext;
     private View view;
@@ -57,6 +64,11 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
     public OrderRecycleViewAdapter(Context context, List<OrderItem> mbs) {
         this.mContext = context;
         this.mBS = mbs;
+    }
+
+    public OrderRecycleViewAdapter(Context context) {
+        this.mContext = context;
+
     }
 
     @NonNull
@@ -115,18 +127,22 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
 
         String icon = orderRecycleViewItem.getOrderstatus();
         if (!TextUtils.isEmpty(icon)) {
-            if (TAKE_ORDER.equals(icon)){
+            if (TAKE_ORDER.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_robbing_order));
-            }else if(PICK_UP.equals(icon)){
+            } else if (PICK_UP.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_pick_up));
-            }else if(DELIVER_GOODS.equals(icon)){
+            } else if (DELIVER_GOODS.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_deliver));
-            }else if(GOODS_ARRIVE.equals(icon)){
+            } else if (GOODS_ARRIVE.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_arrive));
-            }else if(GOODS_SIGNED_IN.equals(icon)){
+            } else if (GOODS_SIGNED_IN.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_signed_in));
-            }else if(GOODS_REFUSE.equals(icon)){
+            } else if (GOODS_REFUSE.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_refuse));
+            } else if (GOODS_REVOKE.equals(icon)) {
+                viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_refuse));
+            } else if (GOODS_CONFIRM.equals(icon)) {
+                viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_robbing_order));
             }
 
         }
@@ -146,10 +162,14 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
         return id;
     }
 
+    public void clearData() {
+        mBS.clear();
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
-        return mBS.size();
+        return mBS == null ? 0 :mBS.size();
     }
 
 
@@ -159,6 +179,11 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
         if (mOnItemClickListener != null) {
             mOnItemClickListener.onItemClick(v, (int) v.getTag());
         }
+    }
+
+    public void setData(List<OrderItem> data) {
+        this.mBS = data;
+        notifyDataSetChanged();
     }
 
     //自定义监听事件

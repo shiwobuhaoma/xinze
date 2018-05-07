@@ -73,11 +73,18 @@ public class OrderDetail {
     private String companyname;
     private String orderid;
     private String orderstatus;
+    private String remarks;
     private String orderstatus_desc;
     private String backflag_desc;
     private String confirmflag_desc;
     private int left_number;
+    public String getRemarks() {
+        return remarks;
+    }
 
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
     public String getId() {
         return id;
     }

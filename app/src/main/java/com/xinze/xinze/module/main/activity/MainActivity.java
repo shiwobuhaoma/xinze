@@ -95,6 +95,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 mBottomNavigationBar.selectTab(position);
+                if (fragments.get(position) == order){
+                    order.refresh();
+                }
             }
         });
 
