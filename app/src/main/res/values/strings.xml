@@ -131,4 +131,13 @@ compile com.android.support:design:25.0.1
     <string name="order_upload">上传凭证（选填）</string>
     <string name="cancel">取消</string>
 
+
+
+    <string name="bill_ordinary">普通货单</string>
+    <string name="bill_directional">定向货单</string>
+
+
+    <string name="send_goods_to">到：</string>
+    <string name="send_goods_all">全国</string>
+
 </resources>

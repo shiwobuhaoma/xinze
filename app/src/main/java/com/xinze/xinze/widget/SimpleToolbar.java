@@ -17,12 +17,16 @@ import com.xinze.xinze.R;
  * @author lxf
  * 自定义标题栏
  */
-public class SimpleToolbar extends LinearLayout {
-    private  Context mContext;
+public class SimpleToolbar extends LinearLayout implements View.OnClickListener {
+    private Context mContext;
     /**
      * 左侧Title
      */
     private TextView mTxtLeftTitle;
+    /**
+     * 中间容器
+     */
+    private LinearLayout mLlMiddleContainer;
     /**
      * 中间Title
      */
@@ -32,16 +36,20 @@ public class SimpleToolbar extends LinearLayout {
      */
     private TextView mTxtRightTitle;
 
+
+    private TitleOnClickListener mLeftListener;
+    private TitleOnClickListener mTitleListener;
+    private TitleOnClickListener mRightListener;
+
     public SimpleToolbar(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public SimpleToolbar(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs,0);
+        super(context, attrs, 0);
         this.mContext = context;
         initView();
     }
-
 
 
     private void initView() {
@@ -49,9 +57,21 @@ public class SimpleToolbar extends LinearLayout {
         mTxtLeftTitle = (TextView) findViewById(R.id.txt_left_title);
         mTxtMiddleTitle = (TextView) findViewById(R.id.txt_main_title);
         mTxtRightTitle = (TextView) findViewById(R.id.txt_right_title);
+        mLlMiddleContainer = (LinearLayout) findViewById(R.id.ll_main_title);
+
+        mTxtLeftTitle.setOnClickListener(this);
+        mTxtMiddleTitle.setOnClickListener(this);
+        mTxtRightTitle.setOnClickListener(this);
+        mLlMiddleContainer.setOnClickListener(this);
     }
 
-
+    /**
+     * 自定义标题栏中间的控件。调用该方法后，setMainTitle(String)和setMainTitleColor(int)这两个方法就不能用了
+     */
+    public void setTitleView(View view) {
+        mLlMiddleContainer.removeAllViews();
+        mLlMiddleContainer.addView(view);
+    }
 
 
     /**
@@ -62,6 +82,7 @@ public class SimpleToolbar extends LinearLayout {
         mTxtMiddleTitle.setVisibility(View.VISIBLE);
         mTxtMiddleTitle.setText(text);
     }
+
     /**
      * 设置中间title的内容
      */
@@ -139,5 +160,58 @@ public class SimpleToolbar extends LinearLayout {
      */
     public void setRightTitleClickListener(OnClickListener onClickListener) {
         mTxtRightTitle.setOnClickListener(onClickListener);
+    }
+
+    /**
+     * 设置标题栏左边按钮的点击事件监听器
+     */
+    public void setLeftClickListener(TitleOnClickListener mLeftListener) {
+        this.mLeftListener = mLeftListener;
+    }
+
+    /**
+     * 设置标题栏中间标题的点击事件监听器
+     */
+    public void setTitleClickListener(TitleOnClickListener mTitleListener) {
+        this.mTitleListener = mTitleListener;
+    }
+
+    /**
+     * 设置标题栏右边按钮的点击事件监听器
+     */
+    public void setRightClickListener(TitleOnClickListener mRightListener) {
+        this.mRightListener = mRightListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.txt_left_title:
+                mLeftListener.onClick(v);
+                break;
+            case R.id.txt_main_title:
+                mTitleListener.onClick(v);
+                break;
+            case R.id.txt_right_title:
+                mRightListener.onClick(v);
+                break;
+            case R.id.ll_main_title:
+                mTitleListener.onClick(v);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 单击事件监听器
+     */
+    public interface TitleOnClickListener {
+        /**
+         * 单击回调方法
+         *
+         * @param view 点击的view
+         */
+        void onClick(View view);
     }
 }

@@ -2,7 +2,6 @@ package com.xinze.xinze.module.main.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +21,7 @@ import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.module.send.SendGoodsActivity;
 import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
+import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.GlideImageLoader;
 import com.xinze.xinze.widget.SimpleToolbar;
 import com.youth.banner.Banner;
@@ -81,27 +81,29 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         hyva.setOnItemClickListener(new HomeRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                switch (position) {
-                    case 0:
-                        openActivity(FindGoodsActivity.class);
-                        break;
-                    case 1:
-                        openActivity(SendGoodsActivity.class);
-                        break;
-                    case 2:
-                        openActivity(RegularLinesActivity.class);
-                        break;
-                    case 3:
-                        openActivity(AboutUsActivity.class);
-                        break;
-                    case 4:
-                        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "4001245566")));
-                        break;
-                    default:
-                        break;
-                }
+                jump(position);
             }
         });
+    }
+
+    private void jump(int position) {
+        if (App.mUser.isLogin()){
+            if (position == 1){
+                openActivity(SendGoodsActivity.class);
+            }else if (position == 0){
+                openActivity(FindGoodsActivity.class);
+            }else if (position == 2){
+                openActivity(RegularLinesActivity.class);
+            }
+
+        }else{
+            DialogUtil.showUnloginDialog(mActivity);
+        }
+        if (position == 3){
+            openActivity(AboutUsActivity.class);
+        }else if (position == 4){
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "4001245566")));
+        }
     }
 
     private void initTitleBar() {

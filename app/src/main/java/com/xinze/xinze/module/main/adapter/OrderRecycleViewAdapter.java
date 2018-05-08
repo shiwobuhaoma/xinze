@@ -56,7 +56,7 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
     /**
      * 已确定
      */
-    public final String GOODS_CONFIRM = "C";
+    private final String GOODS_CONFIRM = "C";
     private List<OrderItem> mBS;
     private Context mContext;
     private View view;
@@ -83,8 +83,6 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
         view.setOnClickListener(this);
 
         return holder;
-
-
     }
 
     @Override
@@ -163,7 +161,9 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
     }
 
     public void clearData() {
-        mBS.clear();
+        if(mBS != null){
+            mBS.clear();
+        }
         notifyDataSetChanged();
     }
 

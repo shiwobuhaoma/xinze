@@ -21,6 +21,7 @@ import com.xinze.xinze.module.main.constant.MyItemSelected;
 import com.xinze.xinze.module.main.presenter.MyPresenterImp;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.module.register.RegisterActivity;
+import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;
 
@@ -145,7 +146,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         if (isLogin()) {
             doSomething(type);
         } else {
-            showUnloginDialog();
+            DialogUtil.showUnloginDialog(mActivity);
         }
     }
 
@@ -159,7 +160,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                     if ("1".equals(App.mUser.getVertifyFlag()) || "2".equals(App.mUser.getVertifyFlag())){
                         startActivity(new Intent(mActivity,CertificationActivity.class));
                     }else{
-                        showUnIdentificationDialog();
+                        DialogUtil.showUnIdentificationDialog(mActivity);
                     }
                 break;
             case MyItemSelected.MY_CARS:
@@ -252,30 +253,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         RxToast.showToast(msg);
     }
 
-    /**
-     * 提示未登录对话框
-     */
-    public void showUnloginDialog() {
-        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
-        rxDialogSureCancel.getTitleView().setText(R.string.unLogin);
-        rxDialogSureCancel.getContentView().setText(R.string.isGoLogin);
-        rxDialogSureCancel.getSureView().setText(R.string.goLogin);
-        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
-                rxDialogSureCancel.cancel();
-            }
-        });
-        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rxDialogSureCancel.cancel();
-            }
-        });
-        rxDialogSureCancel.show();
 
-    }
 
     /**
      * 判断当前用户是否登录
@@ -286,28 +264,5 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         return App.mUser.isLogin();
     }
 
-    /**
-     * 提示没有认证对话框
-     */
-    public void showUnIdentificationDialog() {
-        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
-        rxDialogSureCancel.getTitleView().setText(R.string.unIdentification);
-        rxDialogSureCancel.getContentView().setText(R.string.isGoIdentification);
-        rxDialogSureCancel.getSureView().setText(R.string.goIdentification);
-        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity, CertificationActivity.class));
-                rxDialogSureCancel.cancel();
-            }
-        });
-        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rxDialogSureCancel.cancel();
-            }
-        });
-        rxDialogSureCancel.show();
 
-    }
 }
