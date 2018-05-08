@@ -24,7 +24,7 @@ import com.xinze.xinze.utils.ACache;
 public class App extends Application {
     private static App context ;
     public static UserEntity mUser;
-    //static 代码段可以防止内存泄露
+    //static 代码段可以防止内存泄露2
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
