@@ -53,12 +53,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         ActivityStackManager.getManager().push(this);
 
         //当系统版本为4.4
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
+
         ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
         View parentView = contentFrameLayout.getChildAt(0);
 
         //当系统版本为4.4或者4.4以上时可以使用沉浸式状态栏
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && parentView != null) {
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             // 设置沉浸式
@@ -74,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 //        }
         setContentView(initLayout());
         //设置状态栏颜色
- //       StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.themeBlack));
+        //       StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.themeBlack));
         mUnbinder = ButterKnife.bind(this);
         initView();
         initData();
@@ -171,11 +171,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
     }
-    protected void openActivity(Class clazz,String key ,String value) {
+
+    protected void openActivity(Class clazz, String key, String value) {
         Intent intent = new Intent(this, clazz);
-        intent.putExtra(key,value);
+        intent.putExtra(key, value);
         startActivity(intent);
     }
+
     @Override
     public void finish() {
         super.finish();
@@ -244,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void shotToast(String msg) {
-        ToastUtils.showToast(this,msg);
+        ToastUtils.showToast(this, msg);
     }
 
 
