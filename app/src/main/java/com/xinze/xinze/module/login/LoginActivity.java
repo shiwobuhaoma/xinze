@@ -47,8 +47,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     TextView forgetPwd;
     @BindView(R.id.register)
     TextView register;
-    @BindView(R.id.login_tool_bar)
-    SimpleToolbar loginToolBar;
+    //@BindView(R.id.login_tool_bar)
+    //SimpleToolbar loginToolBar;
     private LoginPresenterImp loginPresenterImp;
     private String mUserPwd;
     private String mUserName;
@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Override
     protected void initView() {
-        loginToolBar.setMainTitle(getResources().getString(R.string.login));
+        //loginToolBar.setMainTitle(getResources().getString(R.string.login));
         forgetPwd.setOnClickListener(this);
         register.setOnClickListener(this);
         mUserEditText = usernameWrapper.getEditText();

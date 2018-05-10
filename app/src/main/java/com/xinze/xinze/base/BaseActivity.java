@@ -54,8 +54,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
         //当系统版本为4.4
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
+        ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        View parentView = contentFrameLayout.getChildAt(0);
+
+        //当系统版本为4.4或者4.4以上时可以使用沉浸式状态栏
+
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 设置沉浸式
+            parentView.setFitsSystemWindows(true);
+
             //透明导航栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
@@ -66,12 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 //        }
         setContentView(initLayout());
         //设置状态栏颜色
-        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.themeBlack));
-        ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
-        View parentView = contentFrameLayout.getChildAt(0);
-        if (parentView != null && Build.VERSION.SDK_INT >= 19) {
-            parentView.setFitsSystemWindows(true);
-        }
+ //       StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.themeBlack));
         mUnbinder = ButterKnife.bind(this);
         initView();
         initData();
