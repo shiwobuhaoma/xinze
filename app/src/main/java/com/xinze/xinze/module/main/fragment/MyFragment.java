@@ -21,6 +21,7 @@ import com.xinze.xinze.module.main.constant.MyItemSelected;
 import com.xinze.xinze.module.main.presenter.MyPresenterImp;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.module.register.RegisterActivity;
+import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;
@@ -168,6 +169,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             case MyItemSelected.MY_ROUTES:
                 break;
             case MyItemSelected.MY_SYSTEM_MESSAGE:
+                startActivity(new Intent(mActivity,SystemMsgActivity.class));
                 break;
             case MyItemSelected.MY_CHANGE_PWD:
                 break;

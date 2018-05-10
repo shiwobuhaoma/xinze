@@ -1,51 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lv_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_success_msg"
+    <View
         android:layout_width="match_parent"
-        android:padding="10dp"
-        android:text="@string/distance"
-        android:textSize="14sp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:maxLines="1"
-        android:textColor="@color/themeBlack"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_line" />
+
+    <RelativeLayout
+        android:id="@+id/system_msg_title_rl"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@id/order_item_tv_line">
+
+        <TextView
+            android:id="@+id/tv_success_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:text="消息标题"
+            android:textColor="@color/themeBlack"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_success_read_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:text="已读未读"
+            android:textColor="@color/themeBlack"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_success_time"
         android:layout_width="match_parent"
-        android:maxLines="1"
-        android:layout_marginStart="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
-        android:textSize="12sp"
+        android:layout_marginStart="15dp"
+        android:maxLines="1"
         android:padding="10dp"
-        android:text="@string/driver_certification"
-        android:layout_height="wrap_content" />
+        android:text="时间"
+        android:textSize="12sp" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_marginStart="15dp"
+        android:layout_height="0.5dp"
         android:layout_marginEnd="15dp"
-        android:background="@color/gray_line"
-        android:layout_height="1dp"/>
+        android:layout_marginStart="15dp"
+        android:background="@color/gray_line" />
+
     <TextView
         android:id="@+id/tv_success_content"
         android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:text="@string/distance"
-        android:textSize="14sp"
-        android:maxLines="2"
-        android:textColor="@color/themeBlack"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="10dp"
+        android:text="内容"
+        android:textColor="@color/themeBlack"
+        android:textSize="14sp" />
+
     <View
         android:layout_width="match_parent"
-        android:background="@color/my_item_line"
-        android:layout_height="15dp"/>
+        android:layout_height="0.5dp"
+        android:background="@color/gray_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/my_item_line" />
 </LinearLayout>

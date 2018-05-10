@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/system_msg_sl"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/system_msg_rv"
+
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/system_msg_tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:background="#fff" />
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:layout_height="@dimen/toolbar_height" />
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/system_msg_srl"
+        android:layout_below="@id/system_msg_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/system_msg_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="8dp" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</RelativeLayout>

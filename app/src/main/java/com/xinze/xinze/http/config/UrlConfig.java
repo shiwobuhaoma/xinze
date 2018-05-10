@@ -18,4 +18,6 @@ public interface UrlConfig {
     String GET_BILL_ORDER_LIST = "transport/app/billorder/getBillOrderList";
     String GET_BILL_ORDER_DETAIL = "transport/app/billorder/getBillOrderDetail";
     String CHANGE_BILL_ORDER_STATUS = "transport/app/billorder/changeBillOrderStatus";
+    String GET_MY_NOTICE = "transport/app/user/myNotice";
+    String POST_MY_NOTICE_READ = "transport/app/user/myNotice/read";
 }
