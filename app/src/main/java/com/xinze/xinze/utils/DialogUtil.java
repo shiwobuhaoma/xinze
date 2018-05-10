@@ -1,6 +1,7 @@
 package com.xinze.xinze.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
@@ -62,5 +63,25 @@ public class DialogUtil {
         });
         rxDialogSureCancel.show();
 
+    }
+
+    /**
+     * 显示系统消息详情的对话框
+     * @param mContext
+     * @param content
+     */
+    public static void showSystemMsgContentDialog(final Context mContext, String content) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mContext);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getSureView().setVisibility(View.GONE);
+        rxDialogSureCancel.getCancelView().setText("已读");
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
     }
 }

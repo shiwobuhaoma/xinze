@@ -9,14 +9,14 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="hint_color">#cccccc</color>
-    <color name="gray_line">#ff7c7c7c</color>
+    <color name="gray_line">#587c7c7c</color>
     <color name="tab_background">#ff2c9195</color>
     <color name="main_ic_orange">#FB9251</color>
     <color name="order_item_text">#808080</color>
 
     <color name="my_item_space">#F5F5F5</color>
     <color name="line">#E9E9E9</color>
-    <color name="my_item_line">#DDDDDD</color>
+    <color name="my_item_line">#dadddddd</color>
     <color name="half_white">#7fffffff</color>
     <color name="divider">#E6E6E6</color>
     <color name="default_text">#909090</color>

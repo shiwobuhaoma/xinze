@@ -5,6 +5,7 @@ import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
+import com.xinze.xinze.module.main.modle.NotifyEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
@@ -196,6 +197,52 @@ public interface ApiServer {
      */
     @POST("服务器地址")
     Observable<Object> imagesUpload(@Part() List<MultipartBody.Part> imgs);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////  -----------------feibai
+    /**
+     * 获取系统消息列表
+     *
+     * @param pageNo   第几页
+     * @param pageSize 多少条
+     * @param headers  请求头
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_NOTICE)
+    Observable<BaseEntity<List<NotifyEntity>>> getSystemMsgList(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
+
+    /**
+     * 标记系统消息已读
+     *
+     * @param headers
+     * @param id
+     * @return
+     */
+    @POST(UrlConfig.POST_MY_NOTICE_READ)
+    Observable<BaseEntity> markNoticeReaded(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
 
 }

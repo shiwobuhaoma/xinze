@@ -21,4 +21,6 @@ public interface UrlConfig {
     String GET_BILL_LIST = "transport/app/bill/getBillList";
     String GET_REGULAR_ROUTE_LIST = "transport/app/regularroute/getRegularRouteList";
     String SEARCH_ROUTE_LIST = "transport/app/bill/searchRoute";
+    String GET_MY_NOTICE = "transport/app/user/myNotice";
+    String POST_MY_NOTICE_READ = "transport/app/user/myNotice/read";
 }
