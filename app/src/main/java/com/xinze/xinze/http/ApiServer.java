@@ -8,6 +8,7 @@ import com.xinze.xinze.module.main.modle.Banner;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
+import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.mvpbase.BaseBean;
 
 import java.util.List;
@@ -147,9 +148,36 @@ public interface ApiServer {
 
 
 
+    /**
+     * 获取订单列表
+     * @param headers 请求头
+     * @param wlBilltype 订单类型
+     * @param pageNo 第几页
+     * @param pageSize 多少条
+     * @return 返回订单列表
+     */
+    @GET(UrlConfig.GET_BILL_LIST)
+    Observable<BaseEntity<List<OrderItem>>>  getBillList(@HeaderMap Map<String, String> headers,@Query("wlBilltype") int wlBilltype,@Query("pageNo") int pageNo, @Query("pageSize") int pageSize,@Query("remarks") String remarks);
 
+    /**
+     * 获取常跑路线
+     * @param headers 请求头
+     * @return 返回常跑路线集合
+     */
+    @GET(UrlConfig.GET_REGULAR_ROUTE_LIST)
+    Observable<BaseEntity<List<Route>>> getRegularRouteList(@HeaderMap Map<String, String> headers);
 
-
+    /**
+     * 搜索路线
+     * @param headers 请求头
+     * @param fromAreaId 来自哪里
+     * @param toAreaId 要到哪里
+     * @param pageNo 第几页
+     * @param pageSize 多少条数据
+     * @return 返回搜索路线集合
+     */
+    @GET(UrlConfig.SEARCH_ROUTE_LIST)
+    Observable<BaseEntity<List<OrderItem>>> searchRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId") String fromAreaId, @Query("toAreaId") String toAreaId, int pageNo, int pageSize);
 
     /**
      * 上传单张图片
@@ -168,4 +196,6 @@ public interface ApiServer {
      */
     @POST("服务器地址")
     Observable<Object> imagesUpload(@Part() List<MultipartBody.Part> imgs);
+
+
 }

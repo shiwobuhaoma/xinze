@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.order.OrderDetailActivity;
@@ -36,9 +37,8 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
 
     @Override
     public void getOrderDetail(String orderId) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid",App.mUser.getId());
+        @SuppressWarnings("unchecked")
+        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillOrderDetail(headers,orderId)
                 .compose(this.<BaseEntity<OrderDetail>>setThread()).subscribe(new BaseObserver<OrderDetail>(mContext) {
             @Override
@@ -59,9 +59,8 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
 
     @Override
     public void revoke(String id, List<File> files,String remarks,final String orderStatus) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid",App.mUser.getId());
+        @SuppressWarnings("unchecked")
+        Map<String, String> headers = HeaderConfig.getHeaders();
         UpdateOrderState uos = new UpdateOrderState();
         uos.setId(id);
         if(files != null){

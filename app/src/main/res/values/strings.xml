@@ -139,5 +139,12 @@ compile com.android.support:design:25.0.1
 
     <string name="send_goods_to">到：</string>
     <string name="send_goods_all">全国</string>
+    <string name="send_goods_date">发货日期：%1$s-%2$s</string>
+    <string name="send_goods_distance">运距：%1$s公里</string>
+    <string name="directional_robbing_bill">抢单\n(%1$s车)</string>
+    <string name="bill_robbing">抢单</string>
+    <string name="bill_car_count">共%1$s车</string>
+    <string name="bill_car_freight">运费：%1$s元</string>
+    <string name="regular_all_lines">全部</string>
 
 </resources>

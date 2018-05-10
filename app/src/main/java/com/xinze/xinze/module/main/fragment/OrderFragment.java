@@ -11,7 +11,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
@@ -73,6 +72,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     @Override
     protected void initView() {
         orderToolBar.setMainTitle(R.string.orderList);
+        orderToolBar.setLeftTitleGone();
         layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         orderRv.setLayoutManager(layoutManager);
         orva = new OrderRecycleViewAdapter(mActivity);
@@ -144,11 +144,6 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         layout.finishRefresh(false);
     }
 
-    @Override
-    public void shotToast(String msg) {
-        RxToast.showToast(msg);
-    }
-
     public void refresh() {
         if (!App.mUser.isLogin() && orva != null) {
             orva.clearData();
@@ -158,25 +153,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         }
     }
 
-    /**
-     * RecyclerView 移动到当前位置，
-     *
-     * @param manager   设置RecyclerView对应的manager
-     * @param mRecyclerView  当前的RecyclerView
-     * @param n  要跳转的位置
-     */
-    public  void moveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int n) {
-        int firstItem = manager.findFirstVisibleItemPosition();
-        int lastItem = manager.findLastVisibleItemPosition();
-        if (n <= firstItem) {
-            mRecyclerView.scrollToPosition(n);
-        } else if (n <= lastItem) {
-            int top = mRecyclerView.getChildAt(n - firstItem).getTop();
-            mRecyclerView.scrollBy(0, top);
-        } else {
-            mRecyclerView.scrollToPosition(n);
-        }
-    }
+
 
 
 }

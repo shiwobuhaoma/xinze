@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
-import com.xinze.xinze.http.widget.BottomPopupMenu;
+import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.order.presenter.OrderDetailPresenterImp;
 import com.xinze.xinze.module.order.view.IOrderDetailView;

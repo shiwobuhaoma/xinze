@@ -11,8 +11,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xinze.xinze.R;
-import com.xinze.xinze.base.BaseFragment;
-import com.xinze.xinze.module.main.adapter.OrderRecycleViewAdapter;
+import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
+import com.xinze.xinze.module.send.view.IBillView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * 普通货单
  * @author lxf
  */
-public class OrdinaryBillFragment extends BaseFragment {
+public class OrdinaryBillFragment extends AbstractBillFragment implements IBillView{
     @BindView(R.id.ordinary_bill_rv)
     RecyclerView ordinaryBillRv;
     @BindView(R.id.ordinary_bill_srl)
@@ -30,6 +30,8 @@ public class OrdinaryBillFragment extends BaseFragment {
     TextView sendGoodsFrom;
     @BindView(R.id.send_goods_to)
     TextView sendGoodsTo;
+
+
     @Override
     protected int initLayout() {
         return R.layout.bill_ordinary_fragment;
@@ -37,20 +39,28 @@ public class OrdinaryBillFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        LinearLayoutManager llm = new LinearLayoutManager(mActivity);
+        llm = new LinearLayoutManager(mActivity);
         ordinaryBillRv.setLayoutManager(llm);
-        OrderRecycleViewAdapter orderRecycleViewAdapter = new OrderRecycleViewAdapter(mActivity);
-        ordinaryBillRv.setAdapter(orderRecycleViewAdapter);
+        billRecycleViewAdapter = new BillRecycleViewAdapter(mActivity);
+        ordinaryBillRv.setAdapter(billRecycleViewAdapter);
         ordinaryBillSrl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+                pageNo = 1;
+                bpi.getBillList(getBillType(), pageNo, pageSize,remarks);
             }
         });
         ordinaryBillSrl.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
+                pageNo++;
+                bpi.getBillList(getBillType(), pageNo, pageSize,remarks);
+            }
+        });
+        billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                jumpToOrderDetailActivity(position);
             }
         });
 
@@ -66,5 +76,16 @@ public class OrdinaryBillFragment extends BaseFragment {
                 break;
         }
     }
+
+    @Override
+    protected int getBillType() {
+        return 0;
+    }
+
+    @Override
+    public void getBillsSuccess() {
+        moveToPosition(llm,ordinaryBillRv,mPosition);
+    }
+
 
 }

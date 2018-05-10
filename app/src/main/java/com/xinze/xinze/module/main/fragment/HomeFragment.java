@@ -7,19 +7,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.module.about.AboutUsActivity;
 import com.xinze.xinze.module.find.FindGoodsActivity;
-import com.xinze.xinze.module.line.RegularLinesActivity;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
-import com.xinze.xinze.module.send.SendGoodsActivity;
+import com.xinze.xinze.module.regular.activity.RegularRunActivity;
+import com.xinze.xinze.module.send.activity.SendGoodsActivity;
 import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.GlideImageLoader;
@@ -93,7 +92,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             }else if (position == 0){
                 openActivity(FindGoodsActivity.class);
             }else if (position == 2){
-                openActivity(RegularLinesActivity.class);
+                openActivity(RegularRunActivity.class);
             }
 
         }else{
@@ -108,6 +107,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private void initTitleBar() {
         mainToolBar.setMainTitle(R.string.home_page);
+        mainToolBar.setLeftTitleGone();
         mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
         mainToolBar.setRightTitleClickListener(new View.OnClickListener() {
             @Override
@@ -173,10 +173,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     }
 
-    @Override
-    public void shotToast(String msg) {
-        RxToast.showToast(msg);
-    }
 
     public void setToolBarUnreadNum(boolean isShow) {
         if (isShow){

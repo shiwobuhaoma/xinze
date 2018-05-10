@@ -248,13 +248,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         shotToast("注销失败");
     }
 
-    @Override
-    public void shotToast(String msg) {
-        RxToast.showToast(msg);
-    }
-
-
-
     /**
      * 判断当前用户是否登录
      *

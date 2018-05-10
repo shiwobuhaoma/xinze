@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <RelativeLayout
-        android:id="@+id/order_search_bar"
+        android:id="@+id/bill_search_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/my_item_space">
@@ -21,11 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/tv_search"
+            android:layout_toStartOf="@+id/bill_tv_search"
             android:background="@mipmap/search_bar_icon_pressed" />
 
         <TextView
-            android:id="@+id/tv_search"
+            android:id="@+id/bill_tv_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

@@ -1,5 +1,5 @@
 
-package com.xinze.xinze.http.widget;
+package com.xinze.xinze.widget;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

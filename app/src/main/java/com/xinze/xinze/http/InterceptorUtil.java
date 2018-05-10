@@ -124,7 +124,7 @@ public class InterceptorUtil {
                     //处理返回的数据我这创建了一个BaseEntity来将数据转化为对象
                     BaseEntity bean = JSON.parseObject(bodyString, BaseEntity.class);
                     //假设当返回的code为42444时token失效
-                    if (bean.getStatus() == 42444) {
+                    if (bean.getStatus() == -200) {
                         //重新获取新token
                         //这用了一个特殊接口来获取新的Token
                         Call<String> call = RetrofitFactory.getInstence().Api().loginByToken("123456", Token);

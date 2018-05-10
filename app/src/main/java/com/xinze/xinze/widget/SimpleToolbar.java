@@ -109,6 +109,20 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
     }
 
     /**
+     * 设置title左边文字可见
+     */
+    public void setLeftTitleVisible() {
+        mTxtLeftTitle.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 设置title左边文字不可见
+     */
+    public void setLeftTitleGone() {
+        mTxtLeftTitle.setVisibility(View.GONE);
+    }
+
+    /**
      * 设置title左边文字颜色
      */
     public void setLeftTitleColor(int color) {
@@ -190,7 +204,9 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
                 mLeftListener.onClick(v);
                 break;
             case R.id.txt_main_title:
-                mTitleListener.onClick(v);
+                if (mTitleListener != null) {
+                    mTitleListener.onClick(v);
+                }
                 break;
             case R.id.txt_right_title:
                 mRightListener.onClick(v);

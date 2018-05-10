@@ -158,7 +158,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
     }
-
+    protected void openActivity(Class clazz,String key ,String value) {
+        Intent intent = new Intent(this, clazz);
+        intent.putExtra(key,value);
+        startActivity(intent);
+    }
     @Override
     public void finish() {
         super.finish();

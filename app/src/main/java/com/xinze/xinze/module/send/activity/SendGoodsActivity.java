@@ -1,16 +1,15 @@
-package com.xinze.xinze.module.send;
+package com.xinze.xinze.module.send.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.module.regular.activity.RegularRunActivity;
 import com.xinze.xinze.module.send.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.send.fragment.DirectionalBillFragment;
 import com.xinze.xinze.module.send.fragment.OrdinaryBillFragment;
@@ -20,7 +19,6 @@ import com.xinze.xinze.widget.SimpleToolbar;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author lxf
@@ -61,7 +59,20 @@ public class SendGoodsActivity extends BaseActivity {
         mRbStart.setText(getString(R.string.bill_ordinary));
         mRbEnd.setText(getString(R.string.bill_directional));
         sendGoodsToolbar.setTitleView(radioTitle);
-
+        sendGoodsToolbar.setLeftTitleVisible();
+        sendGoodsToolbar.setLeftTitleClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        sendGoodsToolbar.setRightTitleText("搜长跑");
+        sendGoodsToolbar.setRightTitleClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(RegularRunActivity.class);
+            }
+        });
         radioTitle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

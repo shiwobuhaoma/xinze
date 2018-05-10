@@ -41,7 +41,12 @@
             android:text="@string/send_goods_all"
             android:textColor="@color/themeBlack"
             android:textSize="14sp" />
+
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/my_item_line"
+        android:layout_height="1px"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/ordinary_bill_srl"
         android:layout_width="match_parent"

@@ -18,4 +18,7 @@ public interface UrlConfig {
     String GET_BILL_ORDER_LIST = "transport/app/billorder/getBillOrderList";
     String GET_BILL_ORDER_DETAIL = "transport/app/billorder/getBillOrderDetail";
     String CHANGE_BILL_ORDER_STATUS = "transport/app/billorder/changeBillOrderStatus";
+    String GET_BILL_LIST = "transport/app/bill/getBillList";
+    String GET_REGULAR_ROUTE_LIST = "transport/app/regularroute/getRegularRouteList";
+    String SEARCH_ROUTE_LIST = "transport/app/bill/searchRoute";
 }
