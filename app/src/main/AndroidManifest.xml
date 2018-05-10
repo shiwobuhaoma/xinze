@@ -25,14 +25,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".module.main.activity.MainActivity">
+        <activity android:name=".module.main.activity.MainActivity"
+            android:theme="@style/TranslucentTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.login.LoginActivity" />
+        <activity android:name=".module.login.LoginActivity"
+            android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.register.RegisterActivity" />
         <activity android:name=".module.forget.ForgetPassWordActivity" />
         <activity android:name=".module.about.AboutUsActivity" />

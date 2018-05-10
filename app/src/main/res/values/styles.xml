@@ -27,6 +27,7 @@
 
     </style>
     <style name="login" parent="@style/AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="colorControlHighlight">@color/themeBlue</item>
         <item name="colorAccent">@color/themeBlue</item>
         <item name="colorPrimary">@color/black</item>

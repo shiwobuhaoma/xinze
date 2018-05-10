@@ -178,7 +178,7 @@ public interface ApiServer {
      * @return 返回搜索路线集合
      */
     @GET(UrlConfig.SEARCH_ROUTE_LIST)
-    Observable<BaseEntity<List<OrderItem>>> searchRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId") String fromAreaId, @Query("toAreaId") String toAreaId, int pageNo, int pageSize);
+    Observable<BaseEntity<List<OrderItem>>> searchRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId") String fromAreaId, @Query("toAreaId") String toAreaId,  @Query("pageNo")int pageNo,  @Query("pageSize")int pageSize);
 
     /**
      * 上传单张图片

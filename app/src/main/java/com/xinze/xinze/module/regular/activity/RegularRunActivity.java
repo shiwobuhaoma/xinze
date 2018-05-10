@@ -2,11 +2,11 @@ package com.xinze.xinze.module.regular.activity;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,12 +17,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.module.main.modle.OrderItem;
+import com.xinze.xinze.module.regular.adapter.MenuAdapter;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.regular.presenter.RegularRunPresenterImp;
 import com.xinze.xinze.module.regular.view.IRegularRouteView;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.widget.SimpleToolbar;
-import com.xinze.xinze.widget.TopPopupMenu;
 
 import java.util.List;
 
@@ -47,6 +47,10 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
     RecyclerView regularLinesRv;
     @BindView(R.id.regular_lines_srl)
     SmartRefreshLayout regularLinesSrl;
+    @BindView(R.id.regular_lines_fl)
+    FrameLayout regularLinesFl;
+    @BindView(R.id.regular_orders_rv)
+    RecyclerView regularOrdersRv;
     private LinearLayoutManager llm;
     protected int pageNo = 1;
     protected int pageSize = 10;
@@ -58,8 +62,6 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
     private List<OrderItem> orderItemData;
     private String from_area_name;
     private String to_area_name;
-    private float regularLinesLlHeight;
-    private TopPopupMenu tpm;
 
     @Override
     protected int initLayout() {
@@ -99,29 +101,26 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
                 showTopMenu();
             }
         });
-        //获取标题栏的高度
-        ViewTreeObserver vto = regularToolBar.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                regularToolBar.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                regularLinesLlHeight = regularToolBar.getHeight();
 
-            }
-        });
 
     }
 
     private void showTopMenu() {
-        tpm = new TopPopupMenu(RegularRunActivity.this, regularLinesLlHeight);
-        tpm.addItem(0,"全部","全部",true);
+        regularLinesFl.setVisibility(View.VISIBLE);
+        Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_up);
+        mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
+        regularLinesStart.setCompoundDrawables(null, null, mDrawable, null);
+        MenuAdapter ma = new MenuAdapter(this);
+        regularOrdersRv.setLayoutManager(new LinearLayoutManager(this));
+        regularOrdersRv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        regularOrdersRv.setAdapter(ma);
         if (routeData != null) {
             for (int i = 0; i < routeData.size(); i++) {
                 Route route = routeData.get(i);
-                tpm.addItem(i+1, route.getFrom_area_name(), route.getTo_area_name(), Integer.valueOf(route.getFromAreaId()) == 0);
+                ma.addItem(i + 1, route.getFrom_area_name(), route.getTo_area_name(), Integer.valueOf(route.getFromAreaId()) == 0);
             }
-            tpm.showMenu();
-            tpm.setOnItemClickListener(new TopPopupMenu.MenuClickListener() {
+            ma.notifyDataSetChanged();
+            ma.setOnItemClickListener(new MenuAdapter.MenuClickListener() {
                 @Override
                 public void onMenuItemClick(View itemView, int position) {
                     fromAreaId = routeData.get(position).getFromAreaId();
@@ -132,7 +131,7 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
                     if ("0".equals(fromAreaId)) {
                         regularLinesStart.setText("全部");
                         regularLinesStart.setTextColor(getResources().getColor(R.color.themeOrange));
-                        Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_up);
+                        Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_down);
                         mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
                         regularLinesStart.setCompoundDrawables(null, null, mDrawable, null);
                         regularLinesMiddle.setVisibility(View.GONE);
@@ -144,7 +143,7 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
                         regularLinesEnd.setText(to_area_name);
                         regularLinesEnd.setVisibility(View.VISIBLE);
                     }
-                    tpm.dismiss();
+                    regularLinesFl.setVisibility(View.GONE);
                 }
             });
         }

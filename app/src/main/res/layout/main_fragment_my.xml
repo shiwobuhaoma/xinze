@@ -1,99 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:descendantFocusability="blocksDescendants">
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/rl_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/my_ic_background">
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/my_ic_background">
+
+                <TextView
+                    android:id="@+id/tv_my"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="@dimen/res_textSize_15dp"
+                    android:text="@string/my"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+
+                <Button
+                    android:id="@+id/my_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="60dp"
+                    android:background="@drawable/circle_register_button"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/my_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/circle_login_button"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_my"
+                android:id="@+id/my_unLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@id/rl_login"
                 android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:padding="@dimen/res_textSize_16dp"
+                android:text="@string/unLogin"
+                android:textSize="14sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_above="@id/my_unLogin"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="9dp"
+                android:src="@mipmap/my_ic_default"
+                app:civ_border_color="@color/half_white"
+                app:civ_border_width="4dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/my_unLogin" />
+
+            <TextView
+                android:id="@+id/tv_exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_rv"
+                android:layout_marginTop="@dimen/res_textSize_15dp"
+                android:background="@color/white"
+                android:gravity="center"
                 android:padding="@dimen/res_textSize_15dp"
-                android:text="@string/my"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-
-            <Button
-                android:id="@+id/my_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="60dp"
-                android:background="@drawable/circle_register_button"
-                android:text="@string/register"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/my_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="60dp"
-                android:background="@drawable/circle_login_button"
-                android:text="@string/login"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-
-
+                android:text="@string/exit"
+                android:textColor="@color/themeOrange"
+                android:visibility="gone" />
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/my_unLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_login"
-            android:layout_centerHorizontal="true"
-            android:gravity="bottom"
-            android:padding="@dimen/res_textSize_16dp"
-            android:text="@string/unLogin"
-            android:textSize="14sp" />
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:layout_above="@id/my_unLogin"
-            app:civ_border_width="4dp"
-            app:civ_border_color="@color/half_white"
-            android:layout_marginBottom="9dp"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/my_ic_default" />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/my_unLogin" />
-
-        <TextView
-            android:id="@+id/tv_exit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/my_rv"
-            android:layout_marginTop="@dimen/res_textSize_15dp"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="@dimen/res_textSize_15dp"
-            android:text="@string/exit"
-            android:textColor="@color/themeOrange"
-            android:visibility="gone" />
-    </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>

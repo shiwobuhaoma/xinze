@@ -136,7 +136,6 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         } else {
             layout.finishLoadMore(2000);
         }
-        moveToPosition(layoutManager,orderRv,mPosition);
     }
 
     @Override

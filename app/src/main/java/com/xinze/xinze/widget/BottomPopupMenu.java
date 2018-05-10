@@ -1,4 +1,3 @@
-
 package com.xinze.xinze.widget;
 
 import java.util.ArrayList;

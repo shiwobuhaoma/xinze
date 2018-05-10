@@ -46,22 +46,32 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         lifecycleSubject.onNext(ActivityEvent.CREATE);
         super.onCreate(savedInstanceState);
         //去掉ActionBar
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
         //强制竖屏
         super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ActivityStackManager.getManager().push(this);
 
-        //当系统版本为4.4或者4.4以上时可以使用沉浸式状态栏
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //当系统版本为4.4
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ) {
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //透明导航栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+        //当前手机版本为5.0及以上
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            //透明状态栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
         setContentView(initLayout());
         //设置状态栏颜色
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.themeBlack));
+        ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+        View parentView = contentFrameLayout.getChildAt(0);
+        if (parentView != null && Build.VERSION.SDK_INT >= 19) {
+            parentView.setFitsSystemWindows(true);
+        }
         mUnbinder = ButterKnife.bind(this);
         initView();
         initData();
