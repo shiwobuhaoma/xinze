@@ -48,4 +48,4 @@
         <activity android:name=".module.order.OrderDetailActivity" />
     </application>
 
-</manifest>
+    </manifest>
