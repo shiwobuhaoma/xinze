@@ -1,6 +1,7 @@
 package com.xinze.xinze.module.register;
 
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.Selection;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
@@ -42,6 +44,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     Button mRegister;
     @BindView(R.id.register_tool_bar)
     SimpleToolbar registerToolBar;
+    @BindView(R.id.tv_register_read)
+    TextView mRegisterRead;
 
     private String mPhoneNumber;
     private String mVerificationCode;
@@ -61,6 +65,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mPassWordEyeIv.setOnClickListener(this);
         mGetVerificationCode.setOnClickListener(this);
         mRegister.setOnClickListener(this);
+        mRegisterRead.setText(Html.fromHtml(getResources().getString(R.string.register_read_service)));
 
     }
 

@@ -22,4 +22,6 @@
     <color name="default_text">#909090</color>
     <color name="white_press">#f1f1f3</color>
     <color name="half_black">#44000000</color>
+
+    <color name="service_color">#52affc</color>
 </resources>
