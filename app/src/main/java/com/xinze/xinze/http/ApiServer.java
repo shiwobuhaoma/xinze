@@ -5,7 +5,7 @@ import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
-import com.xinze.xinze.module.main.modle.NotifyEntity;
+import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;

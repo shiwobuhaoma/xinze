@@ -149,4 +149,5 @@ compile com.android.support:design:25.0.1
 
 
     <string name="register_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">服务协议</font>》]]></Data></string>
+    <string name="next_setp">下一步</string>
 </resources>

@@ -40,7 +40,9 @@
         <activity
             android:name=".module.register.RegisterActivity"
             android:theme="@style/TranslucentTheme" />
-        <activity android:name=".module.forget.ForgetPassWordActivity" />
+        <activity
+            android:name=".module.forget.ForgetPassWordActivity"
+            android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.about.AboutUsActivity" />
         <activity android:name=".module.sysmsg.SystemMsgActivity" />
         <activity
@@ -52,4 +54,4 @@
         <activity android:name=".module.order.OrderDetailActivity" />
     </application>
 
-    </manifest>
+</manifest>

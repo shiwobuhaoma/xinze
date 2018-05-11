@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.main.view;
+package com.xinze.xinze.module.sysmsg.view;
 
 import com.xinze.xinze.mvpbase.BaseView;
 

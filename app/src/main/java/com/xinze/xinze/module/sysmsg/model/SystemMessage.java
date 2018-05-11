@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.sysmsg;
+package com.xinze.xinze.module.sysmsg.model;
 
 /**
  * @author lxf

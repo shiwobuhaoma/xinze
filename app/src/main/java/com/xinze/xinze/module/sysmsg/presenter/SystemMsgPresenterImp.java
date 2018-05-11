@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.main.presenter;
+package com.xinze.xinze.module.sysmsg.presenter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,8 +8,8 @@ import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
-import com.xinze.xinze.module.main.modle.NotifyEntity;
-import com.xinze.xinze.module.main.view.ISystemMsgView;
+import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
+import com.xinze.xinze.module.sysmsg.view.ISystemMsgView;
 import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.module.sysmsg.adapter.SystemMessageAdapter;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
@@ -34,7 +34,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
     }
 
     @Override
-    public void getOderList(int pageNo, int pageSize) {
+    public void getSystemMsgList(int pageNo, int pageSize) {
         Map<String, String> headers = new HashMap<>(2);
         headers.put("sessionid", App.mUser.getSessionid());
         headers.put("userid", App.mUser.getId());

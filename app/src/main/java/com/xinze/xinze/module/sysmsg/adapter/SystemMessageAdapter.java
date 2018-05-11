@@ -1,6 +1,5 @@
 package com.xinze.xinze.module.sysmsg.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +11,8 @@ import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.config.AppConfig;
-import com.xinze.xinze.module.main.modle.NotifyEntity;
-import com.xinze.xinze.module.main.presenter.SystemMsgPresenterImp;
+import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
+import com.xinze.xinze.module.sysmsg.presenter.SystemMsgPresenterImp;
 import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
