@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/select_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
+
+    <LinearLayout
+        android:id="@+id/select_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/select_tool_bar"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="@string/select_please_choice"
+            android:textColor="@color/order_item_text"
+            android:textSize="14sp" />
+        <TextView
+            android:text="@string/select_all_choice"
+            android:gravity="end"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:textColor="@color/order_item_text"
+            android:drawableStart="@mipmap/select_choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/select_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/select_bottom"
+        android:layout_below="@id/select_top"
+         />
+
+    <LinearLayout
+        android:id="@+id/select_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/select_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@mipmap/register_mark_pic"
+            android:gravity="center_horizontal"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/select_confirm_bill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/circle_orange_button"
+            android:text="@string/select_confirm_bill"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>

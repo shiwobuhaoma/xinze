@@ -152,4 +152,8 @@ compile com.android.support:design:25.0.1
 
     <string name="register_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">服务协议</font>》]]></Data></string>
     <string name="next_setp">下一步</string>
+    <string name="select_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">运输服务合同</font>》]]></Data></string>
+    <string name="select_confirm_bill">确定接单</string>
+    <string name="select_please_choice">请选择承运车辆</string>
+    <string name="select_all_choice">全选</string>
 </resources>
