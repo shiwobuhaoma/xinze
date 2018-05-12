@@ -21,7 +21,7 @@
             <com.xinze.xinze.widget.SimpleToolbar
                 android:id="@+id/main_tool_bar"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height" />
+                android:layout_height="wrap_content" />
 
             <com.youth.banner.Banner
                 android:id="@+id/home_banner"

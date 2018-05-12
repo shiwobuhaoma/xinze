@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.main.modle.OrderItem;
-import com.xinze.xinze.module.order.OrderDetailActivity;
+import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.send.presenter.BillPresenterImp;
 import com.xinze.xinze.module.send.view.IBillView;

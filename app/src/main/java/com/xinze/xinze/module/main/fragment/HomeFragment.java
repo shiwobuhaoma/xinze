@@ -12,12 +12,12 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.module.about.AboutUsActivity;
-import com.xinze.xinze.module.find.FindGoodsActivity;
+import com.xinze.xinze.module.find.view.FindGoodsActivity;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
-import com.xinze.xinze.module.regular.activity.RegularRunActivity;
+import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.send.activity.SendGoodsActivity;
 import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
@@ -108,6 +108,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private void initTitleBar() {
         mainToolBar.setMainTitle(R.string.home_page);
         mainToolBar.setLeftTitleGone();
+        mainToolBar.setTitleMarginTop();
         mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
         mainToolBar.setRightTitleClickListener(new View.OnClickListener() {
             @Override

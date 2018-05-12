@@ -9,11 +9,10 @@ import android.widget.RadioGroup;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
-import com.xinze.xinze.module.regular.activity.RegularRunActivity;
+import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.send.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.send.fragment.DirectionalBillFragment;
 import com.xinze.xinze.module.send.fragment.OrdinaryBillFragment;
-import com.xinze.xinze.widget.NoScrollViewPager;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class SendGoodsActivity extends BaseActivity {
     SimpleToolbar sendGoodsToolbar;
 
     @BindView(R.id.send_goods_vp)
-    NoScrollViewPager sendGoodsVp;
+    ViewPager sendGoodsVp;
 
     private RadioButton mRbStart;
     private RadioButton mRbEnd;

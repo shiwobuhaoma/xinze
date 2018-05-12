@@ -147,7 +147,7 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
         }
     }
 
-
+    @Override
     public void getOrderListSuccess() {
         if (pageNo == 1) {
             layout.finishRefresh(1000);
@@ -156,7 +156,7 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
         }
     }
 
-
+    @Override
     public void getOrderListFailed() {
         layout.finishRefresh(false);
     }

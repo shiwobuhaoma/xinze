@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/transport_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/transport_goods_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@mipmap/goods_info_department"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+
+                    android:textColor="@color/themeBlack"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/transport_goods_contacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/transport_goods_company"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+                    android:text="@string/order_contacts"
+                    android:textColor="@color/themeBlack"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/transport_goods_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/phone"
+                    android:padding="15dp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@id/transport_goods_phone"
+                    android:background="@drawable/line" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background"
+                android:padding="15dp"
+                android:text="@string/order_freight_details"
+                android:textColor="@color/order_item_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/transport_goods_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="@string/order_item_date"
+                android:textColor="@color/themeBlack"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/transport_goods_consignor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="10dp"
+                    android:padding="15dp"
+                    android:text="@string/order_consignor_and_address"
+                    android:textColor="@color/themeBlack"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/from_transport_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/phone"
+                    android:padding="15dp"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/from_left_transport_phone"
+                    android:layout_width="1px"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@id/from_transport_phone"
+                    android:background="@drawable/line"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/find_transport_consignee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="10dp"
+                    android:padding="15dp"
+                    android:text="@string/order_consignee_and_address"
+                    android:textColor="@color/themeBlack"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/to_transport_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:background="@mipmap/phone"
+                    android:padding="15dp"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/to_left_transport_phone"
+                    android:layout_width="1px"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toStartOf="@id/to_transport_phone"
+                    android:background="@drawable/line"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/line" />
+
+            <TextView
+                android:id="@+id/transport_goods_car_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="10dp"
+                android:padding="15dp"
+                android:text="@string/order_car_count"
+                android:textColor="@color/themeBlack"
+                android:textSize="14sp" />
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/line" />
+
+            <TextView
+                android:id="@+id/transport_goods_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="10dp"
+                android:padding="15dp"
+                android:text="@string/order_goods_details"
+                android:textColor="@color/themeBlack"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:gravity="center_vertical"
+                android:background="@color/my_item_line"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/transport_refuse"
+                    android:layout_width="0dp"
+
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_orange_button"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/transport_refuse"
+                    android:textColor="@color/themeOrange"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/transport_confirming"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_orange_button"
+                    android:gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:text="@string/transport_confirming"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

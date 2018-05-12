@@ -11,8 +11,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xinze.xinze.R;
-import com.xinze.xinze.module.main.modle.OrderItem;
-import com.xinze.xinze.module.order.OrderDetailActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 
 import butterknife.BindView;

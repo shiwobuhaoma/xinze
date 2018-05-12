@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.find;
+package com.xinze.xinze.module.find.view;
 
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.module.find.view.IFindGoodsView;

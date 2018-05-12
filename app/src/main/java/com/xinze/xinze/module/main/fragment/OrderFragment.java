@@ -18,7 +18,7 @@ import com.xinze.xinze.module.main.adapter.OrderRecycleViewAdapter;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.main.presenter.OrderPresenterImp;
 import com.xinze.xinze.module.main.view.IOrderView;
-import com.xinze.xinze.module.order.OrderDetailActivity;
+import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.List;
@@ -73,6 +73,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     protected void initView() {
         orderToolBar.setMainTitle(R.string.orderList);
         orderToolBar.setLeftTitleGone();
+        orderToolBar.setTitleMarginTop();
         layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         orderRv.setLayoutManager(layoutManager);
         orva = new OrderRecycleViewAdapter(mActivity);

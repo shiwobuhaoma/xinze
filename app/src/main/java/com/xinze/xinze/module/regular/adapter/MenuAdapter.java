@@ -41,7 +41,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         MenuAdapter.ViewHolder holder = new MenuAdapter.ViewHolder(view);
 
         //给布局设置点击和长点击监听
-        view.setOnClickListener(this);
+        holder.itemView.setOnClickListener(this);
 
         return holder;
     }
@@ -52,7 +52,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
         String from = item.getFrom();
         String to = item.getTo();
         boolean isShowDrawable = item.isShowDrawable();
-        view.setTag(position);
         if (position != 0 && !isShowDrawable) {
             holder.start.setText(from);
             holder.end.setText(to);
@@ -122,6 +121,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> im
             return;
         }
         mData.clear();
+        notifyDataSetChanged();
     }
 
     private void updateData(ArrayList<Menu> data) {

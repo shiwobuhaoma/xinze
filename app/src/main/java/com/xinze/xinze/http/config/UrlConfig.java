@@ -23,4 +23,7 @@ public interface UrlConfig {
     String SEARCH_ROUTE_LIST = "transport/app/bill/searchRoute";
     String GET_MY_NOTICE = "transport/app/user/myNotice";
     String POST_MY_NOTICE_READ = "transport/app/user/myNotice/read";
+    String GET_BILL_DETAIL="transport/app/bill/getBillDetail";
+    String GET_CARRY_ORDER_RIGHT = "transport/app/truck/getCarryOrderRight";
+    String GET_CARRY_TRUCK_LIST = "transport/app/truck/getCarryTruckList";
 }

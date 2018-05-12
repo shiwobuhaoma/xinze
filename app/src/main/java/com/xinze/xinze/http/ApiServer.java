@@ -10,6 +10,8 @@ import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
 import com.xinze.xinze.module.regular.modle.Route;
+import com.xinze.xinze.module.transport.module.Car;
+import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.mvpbase.BaseBean;
 
 import java.util.List;
@@ -180,6 +182,44 @@ public interface ApiServer {
     @GET(UrlConfig.SEARCH_ROUTE_LIST)
     Observable<BaseEntity<List<OrderItem>>> searchRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId") String fromAreaId, @Query("toAreaId") String toAreaId,  @Query("pageNo")int pageNo,  @Query("pageSize")int pageSize);
 
+
+    /**
+     * 获取货运详情信息
+     * @param headers 请求头
+     * @param id id号
+     * @return 货运详情
+     */
+    @GET(UrlConfig.GET_BILL_DETAIL)
+    Observable<BaseEntity<TransportDetails>> getBillDetail(@HeaderMap Map<String, String> headers, @Query("id")String id);
+
+
+    /**
+     * 抢单权限判断，抢单操作调用（可否进入选择车辆列表）
+     * @param headers 请求头
+     * @param id userId
+     * @return 返回是否可以抢单结果
+     */
+    @GET(UrlConfig.GET_CARRY_ORDER_RIGHT)
+    Observable<BaseEntity<Integer>> getCarryOrderRight(Map headers,  @Query("id")String id);
+
+    /**
+     * 获取抢单后的车辆选择列表信息
+     * @param headers 请求头
+     * @param id userId
+     * @return 返回车辆列表信息
+     */
+    @GET(UrlConfig.GET_CARRY_TRUCK_LIST)
+    Observable<BaseEntity<List<Car>>> getCarryTruckList(Map headers,  @Query("id")String id);
+
+
+
+
+
+
+
+
+
+
     /**
      * 上传单张图片
      *
@@ -243,6 +283,7 @@ public interface ApiServer {
      */
     @POST(UrlConfig.POST_MY_NOTICE_READ)
     Observable<BaseEntity> markNoticeReaded(@HeaderMap Map<String, String> headers, @Query("id") String id);
+
 
 
 }

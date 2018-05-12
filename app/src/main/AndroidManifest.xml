@@ -48,10 +48,13 @@
         <activity
             android:name=".module.certification.CertificationActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".module.find.FindGoodsActivity" />
+        <activity android:name=".module.find.view.FindGoodsActivity" />
         <activity android:name=".module.send.activity.SendGoodsActivity" />
+        <activity android:name=".module.regular.view.RegularRunActivity"/>
+        <activity android:name=".module.order.view.OrderDetailActivity" />
+        <activity android:name=".module.transport.view.TransportDetailsActivity" />
+        <activity android:name=".module.select.view.SelectCarActivity" />
         <activity android:name=".module.regular.activity.RegularRunActivity" />
-        <activity android:name=".module.order.OrderDetailActivity" />
     </application>
 
 </manifest>

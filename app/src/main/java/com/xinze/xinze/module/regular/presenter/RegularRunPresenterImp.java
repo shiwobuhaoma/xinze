@@ -1,6 +1,5 @@
 package com.xinze.xinze.module.regular.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.xinze.xinze.http.RetrofitFactory;
@@ -8,10 +7,11 @@ import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.modle.OrderItem;
-import com.xinze.xinze.module.regular.activity.RegularRunActivity;
+import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.regular.view.IRegularRouteView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
+
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +56,7 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
                     if (t.isSuccess()){
                         List<OrderItem> data = t.getData();
                         mRegularRunActivity.setOrderItemData(data);
+                        mRegularRunActivity.searchRouteListSuccess(t.getMsg());
                     }
                 }
             }
@@ -66,4 +67,5 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
             }
         });
     }
+
 }

@@ -1,6 +1,7 @@
 package com.xinze.xinze.module.send.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -43,9 +44,7 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(
-                mContext).inflate(R.layout.bill_directional_rv_item, parent,
-                false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.bill_directional_rv_item, parent,false);
         ViewHolder holder = new ViewHolder(view);
 
         //给布局设置点击和长点击监听
@@ -86,7 +85,7 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
         product = getString(productName, product);
         distances = getString(String.valueOf(distance), distances);
         time = getString(dateFrom, dateTo, time);
-        number = getString(String.valueOf(leftNumber), number);
+
 
         viewHolder.directionalTvCarCount.setText(count);
         viewHolder.directionalTvFreight.setText(money);
@@ -97,9 +96,11 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
 
 
         if ("0".equals(number)) {
-            viewHolder.directionalIvState.setText(String.valueOf(leftNumber));
+            viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.bill_robbing));
+            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
         } else {
             viewHolder.directionalIvState.setText(number);
+            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.themeOrange));
         }
 
 

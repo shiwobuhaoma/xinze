@@ -4,19 +4,17 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
-import com.xinze.xinze.module.order.OrderDetailActivity;
+import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.order.modle.UpdateOrderState;
 import com.xinze.xinze.module.order.view.IOrderDetailView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

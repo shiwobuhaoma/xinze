@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.order;
+package com.xinze.xinze.module.order.view;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -16,7 +16,6 @@ import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.order.presenter.OrderDetailPresenterImp;
-import com.xinze.xinze.module.order.view.IOrderDetailView;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.math.BigDecimal;

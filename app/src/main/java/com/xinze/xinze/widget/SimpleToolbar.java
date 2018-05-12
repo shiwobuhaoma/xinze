@@ -8,10 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xinze.xinze.R;
+import com.xinze.xinze.utils.UIUtils;
 
 /**
  * @author lxf
@@ -40,6 +44,7 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
     private TitleOnClickListener mLeftListener;
     private TitleOnClickListener mTitleListener;
     private TitleOnClickListener mRightListener;
+    private FrameLayout mFlTitle;
 
     public SimpleToolbar(Context context) {
         this(context, null);
@@ -54,6 +59,7 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
 
     private void initView() {
         LayoutInflater.from(mContext).inflate(R.layout.title_layout, this);
+        mFlTitle = (FrameLayout) findViewById(R.id.fl_title);
         mTxtLeftTitle = (TextView) findViewById(R.id.txt_left_title);
         mTxtMiddleTitle = (TextView) findViewById(R.id.txt_main_title);
         mTxtRightTitle = (TextView) findViewById(R.id.txt_right_title);
@@ -73,7 +79,9 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
         mLlMiddleContainer.addView(view);
     }
 
-
+    public void setTitleMarginTop(){
+        mFlTitle.setVisibility(VISIBLE);
+    }
     /**
      * 设置中间title的内容
      */
