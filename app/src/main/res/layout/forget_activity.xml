@@ -8,8 +8,9 @@
         android:id="@+id/forget_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height" />
+
     <LinearLayout
-        android:id="@+id/register_phone_number_layout"
+        android:id="@+id/forget_phone_number_ll"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_marginEnd="15dp"
@@ -19,7 +20,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/phone_number_tv"
+            android:id="@+id/forget_phone_number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -29,7 +30,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/register_phone_number_et"
+            android:id="@+id/forget_phone_number_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,7 +45,7 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/get_verification_code_bt"
+            android:id="@+id/forget_verify_code_bt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,16 +65,17 @@
         android:background="@color/gray_line" />
 
     <LinearLayout
-        android:id="@+id/register_verification_code_layout"
+        android:id="@+id/forget_verifiy_code_ll"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/verification_code_tv"
+            android:id="@+id/forget_verifiy_code_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -83,7 +85,7 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/verification_code_et"
+            android:id="@+id/forget_verifiy_code_et"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -104,20 +106,19 @@
         android:background="@color/gray_line" />
 
 
-
-
     <Button
-        android:id="@+id/register"
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:id="@+id/forget_next_bt"
+        android:layout_width="325dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/circle_blue_button"
         android:clickable="true"
         android:gravity="center"
         android:text="@string/next_setp"
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -2,14 +2,32 @@
 
 buildscript {
 
+//    repositories {
+//        google()
+//        mavenCentral()
+////        maven {
+////            url "https://oss.sonatype.org/content/repositories/snapshots"
+////        }
+//        jcenter()
+//    }
+
     repositories {
-        google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+//        maven { url "http://maven.restlet.org" }
+//        maven { url "http://mirrors.ibiblio.org/maven2" }
 //        maven {
-//            url "https://oss.sonatype.org/content/repositories/snapshots"
+//            url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
 //        }
+//        maven { url 'https://maven.fabric.io/public' }
         jcenter()
+        google()
     }
+
+
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
 
@@ -25,7 +43,8 @@ allprojects {
         jcenter()
 
         maven {
-            url "https://jitpack.io"
+           // url "http://maven.aliyun.com/nexus/content/groups/public/"
+          url "https://jitpack.io"
 //            url "https://oss.sonatype.org/content/repositories/snapshots"
         }
     }

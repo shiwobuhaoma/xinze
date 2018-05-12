@@ -62,4 +62,12 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'//下拉刷新上拉加载更多控件
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5'//下拉刷新头
 
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.2.3'  //jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.2.3'  //jackson
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'  //jackson
+
+
+    implementation 'com.google.guava:guava:17.0'  //guava
+    implementation 'org.apache.commons:commons-lang3:3.3.2'  //apache.commons
+
 }
