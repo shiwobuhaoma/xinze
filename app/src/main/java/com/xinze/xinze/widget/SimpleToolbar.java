@@ -79,9 +79,13 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
         mLlMiddleContainer.addView(view);
     }
 
-    public void setTitleMarginTop(){
+    /**
+     * 沉浸式状态栏设置
+     */
+    public void setTitleMarginTop() {
         mFlTitle.setVisibility(VISIBLE);
     }
+
     /**
      * 设置中间title的内容
      */
@@ -209,7 +213,9 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txt_left_title:
-                mLeftListener.onClick(v);
+                if (mLeftListener != null) {
+                    mLeftListener.onClick(v);
+                }
                 break;
             case R.id.txt_main_title:
                 if (mTitleListener != null) {
@@ -217,10 +223,14 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
                 }
                 break;
             case R.id.txt_right_title:
-                mRightListener.onClick(v);
+                if (mRightListener != null) {
+                    mRightListener.onClick(v);
+                }
                 break;
             case R.id.ll_main_title:
-                mTitleListener.onClick(v);
+                if (mTitleListener != null) {
+                    mTitleListener.onClick(v);
+                }
                 break;
             default:
                 break;

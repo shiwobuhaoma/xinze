@@ -61,7 +61,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initView() {
+
         registerToolBar.setMainTitle(getResources().getString(R.string.register));
+        registerToolBar.setTitleMarginTop();
         mPassWordEyeIv.setOnClickListener(this);
         mGetVerificationCode.setOnClickListener(this);
         mRegister.setOnClickListener(this);

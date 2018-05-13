@@ -24,6 +24,12 @@ public class Car {
     private String ownDesc;
     private String truck_ownerid;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    private boolean isSelected;
+
     public String getId() {
         return id;
     }
@@ -94,5 +100,9 @@ public class Car {
 
     public void setTruck_ownerid(String truck_ownerid) {
         this.truck_ownerid = truck_ownerid;
+    }
+
+    public void setSelected(boolean select) {
+        this.isSelected = select;
     }
 }
