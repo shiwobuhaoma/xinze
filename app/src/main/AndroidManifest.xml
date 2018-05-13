@@ -43,6 +43,9 @@
         <activity
             android:name=".module.forget.ForgetPassWordActivity"
             android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name=".module.forget.ResetPwdActivity"
+            android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.about.AboutUsActivity" />
         <activity android:name=".module.sysmsg.SystemMsgActivity" />
         <activity
@@ -50,7 +53,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".module.find.view.FindGoodsActivity" />
         <activity android:name=".module.send.activity.SendGoodsActivity" />
-        <activity android:name=".module.regular.view.RegularRunActivity"/>
+        <activity android:name=".module.regular.view.RegularRunActivity" />
         <activity android:name=".module.order.view.OrderDetailActivity" />
         <activity android:name=".module.transport.view.TransportDetailsActivity" />
         <activity android:name=".module.select.view.SelectCarActivity" />

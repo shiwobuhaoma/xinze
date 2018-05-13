@@ -1,8 +1,8 @@
 package com.xinze.xinze;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.multidex.MultiDexApplication;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -21,7 +21,7 @@ import com.xinze.xinze.utils.ACache;
  * Created by Administrator on 2017/12/6.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static App context ;
     public static UserEntity mUser;
     //static 代码段可以防止内存泄露

@@ -7,6 +7,14 @@ import java.util.HashMap;
  */
 public class AppConfig {
     /**
+     *  请求成功响应状态码
+     */
+    public static final Integer REQUEST_STATUS_SUCESS = 200;
+    /**
+     *  通用错误响应信息
+     */
+    public static final String COMMON_FAILURE_RESPONSE = "网络错误";
+    /**
      * 货主端
      */
     public static final String CONSIGNOR = "4";
@@ -47,6 +55,20 @@ public class AppConfig {
      * 通知类型 订单
      */
     public static final String NOTIFY_TYPE_ORDER ="4";
+    /**
+     *  短信类型_注册
+     */
+    public static final String VIERFY_CODE_TYPE_REGISTER ="1";
+    /**
+     *  短信类型_其他
+     */
+    public static final String VIERFY_CODE_TYPE_OTHER ="0";
+    /**
+     *  短信验证码再次获取时间_秒
+     */
+    public static final Integer VIERFY_CODE_DELAY_TIME = 180;
+
+
 
     public static final HashMap<String ,String> NOTIFY_TYPE_MAP = new HashMap<String ,String>();
     static {

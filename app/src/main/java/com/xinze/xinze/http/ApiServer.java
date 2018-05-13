@@ -13,6 +13,7 @@ import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.mvpbase.BaseBean;
+import com.xinze.xinze.utils.ReturnResult;
 
 import java.util.List;
 import java.util.Map;
@@ -283,6 +284,26 @@ public interface ApiServer {
      */
     @POST(UrlConfig.POST_MY_NOTICE_READ)
     Observable<BaseEntity> markNoticeReaded(@HeaderMap Map<String, String> headers, @Query("id") String id);
+
+    /**
+     * 获取验证码接口
+     *
+     * @param type  验证码类型
+     * @param phone 收取验证码的手机号
+     * @return ReturnResult
+     */
+    @GET(UrlConfig.GET_VERIFICATION_CODE)
+    Call<ReturnResult> getVerifiyCode(@Query("phone") String phone, @Query("type") String type);
+
+    /**
+     * 校验验证码
+     *
+     * @param code  验证码
+     * @param phone 收取验证码的手机号
+     * @return ReturnResult
+     */
+    @GET(UrlConfig.CHECK_VERIFICATION_CODE)
+    Call<ReturnResult> checkVerifiyCode(@Query("phone") String phone, @Query("code") String code);
 
 
 
