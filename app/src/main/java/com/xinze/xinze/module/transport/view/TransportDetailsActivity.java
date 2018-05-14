@@ -27,7 +27,7 @@ import butterknife.OnClick;
  *
  * @author lxf
  */
-public class TransportDetailsActivity extends BaseActivity implements ITransportDetailsView{
+public class TransportDetailsActivity extends BaseActivity implements ITransportDetailsView, View.OnClickListener {
     @BindView(R.id.transport_tool_bar)
     SimpleToolbar transportToolBar;
     @BindView(R.id.transport_goods_company)
@@ -69,7 +69,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         initToolbar();
         tap = new TransportDetailsPresenterImp(this,this);
         tap.getBillDetail(orderId);
-
+        mTransportConfirming.setOnClickListener(this);
     }
 
     private void initToolbar() {
@@ -82,17 +82,17 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         });
         transportToolBar.setMainTitle("货运详情");
     }
-
+    @Override
     @OnClick({R.id.transport_goods_phone, R.id.from_transport_phone, R.id.to_transport_phone, R.id.transport_confirming})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.transport_goods_phone:
-
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
                 break;
             case R.id.from_transport_phone:
                 break;
             case R.id.to_transport_phone:
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
+
                 break;
             case R.id.transport_confirming:
                 tap.getCarryOrderRight(App.mUser.getId());
@@ -188,9 +188,9 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
 
     public void isCarry(Integer data) {
         if (data == 0){
-            openActivity(SelectCarActivity.class);
-        }else{
             //TODO 不允许抢单
+        }else{
+            openActivity(SelectCarActivity.class);
         }
     }
 }

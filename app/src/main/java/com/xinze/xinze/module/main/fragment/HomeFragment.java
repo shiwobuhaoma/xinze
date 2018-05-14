@@ -75,7 +75,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
         mHomeRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mHomeRv.setAdapter(hyva);
-
+        mHomeRv.setNestedScrollingEnabled(false);
 
         hyva.setOnItemClickListener(new HomeRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override

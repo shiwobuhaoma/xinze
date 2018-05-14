@@ -97,10 +97,10 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
 
         if ("0".equals(number)) {
             viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.bill_robbing));
-            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
+//            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
         } else {
             viewHolder.directionalIvState.setText(number);
-            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.themeOrange));
+//            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.themeOrange));
         }
 
 

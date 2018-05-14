@@ -98,6 +98,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         myva = new MyRecycleViewAdapter(mActivity, myRecycleViewItems);
         myRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         myRv.setAdapter(myva);
+        myRv.setNestedScrollingEnabled(false);
         myva.setOnItemClickListener(new MyRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

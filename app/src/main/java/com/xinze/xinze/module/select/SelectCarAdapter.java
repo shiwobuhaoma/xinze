@@ -44,33 +44,36 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
 
         //1表示自有 0 表示关联
         String vertifyFlag = car.getVertify_flag();
-        if ("1".equals(ownFlag)) {
+//        if ("1".equals(ownFlag)) {
             //1表示已审核 0 审核失败 2 审核中
             if ("1".equals(vertifyFlag)) {
                 String state = mContext.getResources().getString(R.string.select_item_audited);
-                holder.selectAuditedState.setText(Html.fromHtml(state));
+                String format = String.format(state);
+                holder.selectAuditedState.setText(Html.fromHtml(format));
 
             } else if ("0".equals(vertifyFlag)) {
                 String state = mContext.getResources().getString(R.string.select_item_audited_and_no_relation);
-                holder.selectAuditedState.setText(Html.fromHtml(state));
+                String format = String.format(state);
+                holder.selectAuditedState.setText(Html.fromHtml(format));
             } else {
                 String state = mContext.getResources().getString(R.string.select_item_audit);
-                holder.selectAuditedState.setText(Html.fromHtml(state));
+                String format = String.format(state);
+                holder.selectAuditedState.setText(Html.fromHtml(format));
             }
 
-        }
+//        }
         if (car.isSelected()){
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.select_choicd);
             int intrinsicHeight = drawable.getIntrinsicHeight();
             int intrinsicWidth = drawable.getIntrinsicWidth();
             drawable.setBounds(0,0,intrinsicWidth,intrinsicHeight);
-            holder.selectAuditedState.setCompoundDrawables(drawable,null,null,null);
+            holder.selectCar.setCompoundDrawables(drawable,null,null,null);
         }else{
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.select_choice);
             int intrinsicHeight = drawable.getIntrinsicHeight();
             int intrinsicWidth = drawable.getIntrinsicWidth();
             drawable.setBounds(0,0,intrinsicWidth,intrinsicHeight);
-            holder.selectAuditedState.setCompoundDrawables(drawable,null,null,null);
+            holder.selectCar.setCompoundDrawables(drawable,null,null,null);
         }
         holder.itemView.setTag(position);
 
@@ -92,8 +95,24 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
     }
 
     public void updateState(int position) {
-        mCarList.get(position).setSelected(true);
+        if (mCarList.get(position).isSelected()){
+            mCarList.get(position).setSelected(false);
+        }else{
+            mCarList.get(position).setSelected(true);
+        }
+
         notifyItemChanged(position);
+    }
+
+    public void updateAll(boolean isAllSelected) {
+        for (Car car : mCarList){
+            if (isAllSelected){
+                car.setSelected(true);
+            }else{
+                car.setSelected(false);
+            }
+        }
+        notifyDataSetChanged();
     }
 
     public interface OnItemClickListener {

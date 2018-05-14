@@ -222,7 +222,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_orange_button"
                     android:gravity="center"
-                    android:padding="15dp"
+
                     android:text="@string/transport_refuse"
                     android:textColor="@color/themeOrange"
                     android:textSize="18sp" />

@@ -27,4 +27,6 @@ public interface UrlConfig {
     String GET_BILL_DETAIL="transport/app/bill/getBillDetail";
     String GET_CARRY_ORDER_RIGHT = "transport/app/truck/getCarryOrderRight";
     String GET_CARRY_TRUCK_LIST = "transport/app/truck/getCarryTruckList";
+    String GET_PROTOCOL_BY_TYPE = "transport/app/protocol/getProtocolByType";
+    String CREATE_BILL_ORDER = "transport/app/billorder/createBillOrder";
 }

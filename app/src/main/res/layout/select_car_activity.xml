@@ -24,6 +24,7 @@
             android:textColor="@color/order_item_text"
             android:textSize="14sp" />
         <TextView
+            android:id="@+id/select_tv_all"
             android:text="@string/select_all_choice"
             android:gravity="end"
             android:padding="15dp"
@@ -34,13 +35,19 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
+    <View
+        android:id="@+id/select_top_line"
+        android:layout_below="@id/select_top"
+        android:layout_width="match_parent"
+        android:background="@color/my_item_line"
+        android:layout_height="1dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/select_rv"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_above="@+id/select_bottom"
-        android:layout_below="@id/select_top"
+        android:layout_below="@id/select_top_line"
          />
 
     <LinearLayout

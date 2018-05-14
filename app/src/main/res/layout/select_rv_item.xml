@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+
+    android:layout_marginBottom="15dp"
     android:orientation="horizontal">
 
     <TextView
@@ -9,16 +12,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:drawablePadding="10dp"
         android:drawableStart="@mipmap/select_choice"
-        android:gravity="center"
-        android:padding="15dp" />
+        android:gravity="center|start"
+       />
 
     <TextView
         android:id="@+id/select_audited_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:padding="15dp"
         android:text="@string/select_item_audited" />
 
 </LinearLayout>

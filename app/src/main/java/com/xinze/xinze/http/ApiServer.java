@@ -5,6 +5,7 @@ import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
+import com.xinze.xinze.module.select.module.Protocol;
 import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.order.modle.OrderDetail;
@@ -201,7 +202,7 @@ public interface ApiServer {
      * @return 返回是否可以抢单结果
      */
     @GET(UrlConfig.GET_CARRY_ORDER_RIGHT)
-    Observable<BaseEntity<Integer>> getCarryOrderRight(Map headers,  @Query("id")String id);
+    Observable<BaseEntity<Integer>> getCarryOrderRight(@HeaderMap Map<String, String> headers,  @Query("id")String id);
 
     /**
      * 获取抢单后的车辆选择列表信息
@@ -210,12 +211,24 @@ public interface ApiServer {
      * @return 返回车辆列表信息
      */
     @GET(UrlConfig.GET_CARRY_TRUCK_LIST)
-    Observable<BaseEntity<List<Car>>> getCarryTruckList(Map headers,  @Query("id")String id);
+    Observable<BaseEntity<List<Car>>> getCarryTruckList(@HeaderMap Map<String, String> headers,  @Query("id")String id);
 
 
 
+    @GET(UrlConfig.GET_PROTOCOL_BY_TYPE)
+    Observable<BaseEntity<Protocol>>  getProtocolByType(@HeaderMap Map<String, String> headers, @Query("protocolType")String protocolType);
 
 
+    /**
+     * 抢单接口
+     * @param headers 请求头
+     * @param waybillOrderEntities 抢单的车辆集合信息
+     * @return 抢单是否成功
+     */
+    @Headers({"Content-Type: application/json;charset=UTF-8",
+            "User-Agent: Retrofit-your-App"})
+    @POST(UrlConfig.CREATE_BILL_ORDER)
+    Observable<BaseEntity<Void>> createBillOrder(@HeaderMap Map<String, String> headers, @Body RequestBody waybillOrderEntities);
 
 
 

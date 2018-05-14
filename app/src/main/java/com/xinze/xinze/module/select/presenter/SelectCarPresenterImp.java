@@ -6,10 +6,10 @@ import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
+import com.xinze.xinze.module.select.view.ISelectCarView;
 import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
-import com.xinze.xinze.module.select.view.ISelectCarView;
 
 import java.util.List;
 import java.util.Map;
@@ -41,5 +41,15 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
                 mSelectCarActivity.getCarryTruckListFailed(e.getMessage());
             }
         });
+    }
+
+    @Override
+    public void getProtocolByType(String protocolType) {
+
+    }
+
+    @Override
+    public void createBillOrder(String wayBillId, List<Car> list) {
+
     }
 }

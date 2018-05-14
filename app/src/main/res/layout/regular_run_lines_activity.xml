@@ -7,7 +7,7 @@
     <com.xinze.xinze.widget.SimpleToolbar
         android:id="@+id/regular_tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/regular_lines_ll"
@@ -59,7 +59,6 @@
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/regular_lines_srl"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
