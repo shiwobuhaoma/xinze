@@ -18,7 +18,7 @@ import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.module.regular.view.RegularRunActivity;
-import com.xinze.xinze.module.send.activity.SendGoodsActivity;
+import com.xinze.xinze.module.send.view.SendGoodsActivity;
 import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.GlideImageLoader;

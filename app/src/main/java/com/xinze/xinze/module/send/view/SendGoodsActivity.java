@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.send.activity;
+package com.xinze.xinze.module.send.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;

@@ -55,7 +55,7 @@
             android:name=".module.certification.CertificationActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".module.find.view.FindGoodsActivity" />
-        <activity android:name=".module.send.activity.SendGoodsActivity" />
+        <activity android:name=".module.send.view.SendGoodsActivity" />
         <activity android:name=".module.regular.view.RegularRunActivity" />
         <activity android:name=".module.order.view.OrderDetailActivity" />
         <activity android:name=".module.transport.view.TransportDetailsActivity" />
