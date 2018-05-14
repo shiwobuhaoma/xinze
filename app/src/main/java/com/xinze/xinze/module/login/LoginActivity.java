@@ -19,8 +19,8 @@ import com.xinze.xinze.module.forget.ForgetPassWordActivity;
 import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.presenter.LoginPresenterImp;
 import com.xinze.xinze.module.login.view.ILoginView;
+import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.register.RegisterActivity;
-import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -172,8 +172,9 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Override
     public void loginSuccess() {
         shotToast("登陆成功");
+        //跳转的我的fragment
+        MainActivity.currentFragment=2;
         finish();
-//        startActivity(new Intent(this, MainActivity.class));
     }
 
 

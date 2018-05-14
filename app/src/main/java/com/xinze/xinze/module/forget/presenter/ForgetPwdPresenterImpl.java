@@ -63,6 +63,7 @@ public class ForgetPwdPresenterImpl implements IForgetPwdPresenter {
                 // 跳转至修改密码页面
                 Intent intent = new Intent(forgetPassWordActivity, ResetPwdActivity.class);
                 intent.putExtra("phone",phone);
+                intent.putExtra("verifyCode",code);
                 forgetPassWordActivity.startActivity(intent);
             }
 

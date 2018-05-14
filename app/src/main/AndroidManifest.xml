@@ -35,15 +35,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTask"
             android:name=".module.login.LoginActivity"
             android:theme="@style/TranslucentTheme" />
         <activity
             android:name=".module.register.RegisterActivity"
             android:theme="@style/TranslucentTheme" />
         <activity
+            android:launchMode="singleTop"
             android:name=".module.forget.ForgetPassWordActivity"
             android:theme="@style/TranslucentTheme" />
         <activity
+            android:launchMode="singleTop"
             android:name=".module.forget.ResetPwdActivity"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.about.AboutUsActivity" />

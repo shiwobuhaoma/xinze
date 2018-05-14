@@ -13,6 +13,7 @@ public interface UrlConfig {
     String REGISTER_URL = "transport/app/user/register";
     String GET_VERIFICATION_CODE = "transport/app/user/getVerifyCode";
     String CHECK_VERIFICATION_CODE = "transport/app/user/checkVerifyCode";
+    String RESET_PWD = "transport/app/user/resetPwd";
     String GET_BANNER = "transport/app/banner/getBannerListByType";
     String GET_UNREAD_NOTIFY_NUM = "transport/app/notify/getUnReadNotifyNum";
     String GET_FIX_BILL_NUM = "transport/app/bill/getFixBillNum";

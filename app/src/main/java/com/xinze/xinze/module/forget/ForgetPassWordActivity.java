@@ -1,6 +1,5 @@
 package com.xinze.xinze.module.forget;
 
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -72,11 +71,24 @@ public class ForgetPassWordActivity extends BaseActivity implements View.OnClick
             case R.id.forget_next_bt:
                 //下一步
                 String writeVerifyCode = mForgetVerifiyCodeEditText.getText().toString().trim();
+
                 if (TextUtils.isEmpty(writeVerifyCode)) {
                     shotToast("验证码不能为空");
                     return;
                 }
                 // 校验验证码
+                if (TextUtils.isEmpty(mPhoneNum)) {
+                    mPhoneNum = mForgetPhoneEditText.getText().toString().trim();
+                    if (TextUtils.isEmpty(mPhoneNum)) {
+                        shotToast("手机号码不能为空");
+                        return;
+                    }
+
+                    if (!ValidatorUtil.isMobile(mPhoneNum)) {
+                        shotToast("手机号码格式不正确");
+                        return;
+                    }
+                }
                 mPresenter.checkVerfifyCode(mPhoneNum,writeVerifyCode);
                 break;
 

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:id="@+id/forget_phone_number_ll"
+        android:id="@+id/reset_pwd_ll"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_marginEnd="15dp"
@@ -20,17 +20,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/forget_phone_number_tv"
+            android:id="@+id/reset_pwd_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="10dp"
-            android:text="新密码"
+            android:text="新  密  码"
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/forget_phone_number_et"
+            android:id="@+id/reset_pwd_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="请输入新密码"
-            android:inputType="phone"
+            android:inputType="textPassword"
             android:maxLines="1"
             android:padding="10dp"
             android:textColorHint="@color/hint_color"
@@ -54,7 +54,7 @@
         android:background="@color/gray_line" />
 
     <LinearLayout
-        android:id="@+id/forget_verifiy_code_ll"
+        android:id="@+id/reset_comfirm_pwd_ll"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_marginEnd="15dp"
@@ -64,7 +64,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/forget_verifiy_code_tv"
+            android:id="@+id/reset_comfirm_pwd_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -74,13 +74,14 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/forget_verifiy_code_et"
+            android:id="@+id/reset_comfirm_pwd_et"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:background="@null"
             android:hint="请再次输入新密码"
+            android:inputType="textPassword"
             android:maxLines="1"
             android:padding="10dp"
             android:textColorHint="@color/hint_color"
@@ -94,15 +95,27 @@
         android:layout_marginStart="15dp"
         android:background="@color/gray_line" />
 
+    <TextView
+        android:id="@+id/reset_alert_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="10sp"
+        android:text="密码错误提示"
+        android:textColor="@color/red"
+        android:textSize="@dimen/cs_button_size_13sp"
+        android:visibility="gone" />
+
 
     <Button
-        android:id="@+id/forget_next_bt"
+        android:id="@+id/reset_pwd_bt"
         android:layout_width="325dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/circle_blue_button"
         android:clickable="true"
         android:gravity="center"

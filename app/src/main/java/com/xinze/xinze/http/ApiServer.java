@@ -318,6 +318,17 @@ public interface ApiServer {
     @GET(UrlConfig.CHECK_VERIFICATION_CODE)
     Call<ReturnResult> checkVerifiyCode(@Query("phone") String phone, @Query("code") String code);
 
+    /**
+     * 重置密码
+     *
+     * @param phone 手机
+     * @param code 验证码
+     * @param password 密码
+     * @return ReturnResult
+     */
+    @POST(UrlConfig.RESET_PWD)
+    Call<ReturnResult> resetPwd(@Query("mobile") String phone, @Query("code") String code, @Query("password") String password);
+
 
 
 }

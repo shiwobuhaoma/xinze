@@ -41,6 +41,8 @@ public class MainActivity extends BaseActivity {
     private MyFragment my;
     private OrderFragment order;
     private SelectPageAdapter spa;
+    public static Integer currentFragment= 0;
+
 
     @Override
     protected int initLayout() {
@@ -180,5 +182,11 @@ public class MainActivity extends BaseActivity {
     public int dip2px(float dpValue) {
         final float scale = getApplication().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mVp.setCurrentItem(currentFragment);
     }
 }
