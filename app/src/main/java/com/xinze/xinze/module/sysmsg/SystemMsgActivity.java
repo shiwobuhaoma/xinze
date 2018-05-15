@@ -11,10 +11,11 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.module.sysmsg.adapter.SystemMessageAdapter;
 import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
 import com.xinze.xinze.module.sysmsg.presenter.SystemMsgPresenterImp;
 import com.xinze.xinze.module.sysmsg.view.ISystemMsgView;
-import com.xinze.xinze.module.sysmsg.adapter.SystemMessageAdapter;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.ArrayList;
@@ -37,8 +38,8 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
     SimpleToolbar mSystemMsgTb;
     private LinearLayoutManager layoutManager;
     private SystemMessageAdapter systemMessageAdapter;
-    private int pageNo = 1;
-    private int pageSize = 10;
+    private int pageNo = AppConfig.PAGE_NO;
+    private int pageSize = AppConfig.PAGE_SIZE;
     private boolean pageEndFlag = false;
     private List<NotifyEntity> data;
     private SmartRefreshLayout layout;
@@ -100,8 +101,13 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 if (App.mUser.isLogin()) {
-                    pageNo++;
-                    opi.getSystemMsgList(pageNo, pageSize);
+                    if (!pageEndFlag) {
+                        pageNo++;
+                        opi.getSystemMsgList(pageNo, pageSize);
+                    }else{
+                        layout.finishLoadMore(1);
+                        SystemMsgActivity.this.shotToast(AppConfig.LOAD_INFO_FINISH);
+                    }
                 } else {
                     refreshLayout.finishLoadMore();
                 }

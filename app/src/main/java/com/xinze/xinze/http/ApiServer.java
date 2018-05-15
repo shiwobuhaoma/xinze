@@ -3,6 +3,7 @@ package com.xinze.xinze.http;
 
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
+import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
 import com.xinze.xinze.module.select.module.Protocol;
@@ -328,6 +329,18 @@ public interface ApiServer {
      */
     @POST(UrlConfig.RESET_PWD)
     Call<ReturnResult> resetPwd(@Query("mobile") String phone, @Query("code") String code, @Query("password") String password);
+
+    /**
+     * 获取车主邀请信息列表
+     *
+     * @param pageNo   第几页
+     * @param pageSize 多少条
+     * @param headers  请求头
+     * @param inviteFlag  状态查询条件
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_TRUCKOWNER_INVITATION)
+    Call<ReturnResult<List<TruckownerDriverVO>>> getTruckOwnerInvitation(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag")String inviteFlag);
 
 
 

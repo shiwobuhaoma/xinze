@@ -117,7 +117,7 @@
         android:background="@drawable/circle_blue_button"
         android:clickable="true"
         android:gravity="center"
-        android:text="@string/next_setp"
+        android:text="@string/next_step"
         android:textColor="@color/white"
         android:textSize="20sp" />
 

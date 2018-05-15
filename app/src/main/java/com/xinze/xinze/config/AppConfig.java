@@ -11,6 +11,18 @@ public class AppConfig {
      */
     public static final Integer REQUEST_STATUS_SUCESS = 200;
     /**
+     *  默认页码
+     */
+    public static final Integer PAGE_NO = 1;
+    /**
+     *  默认页数
+     */
+    public static final Integer PAGE_SIZE = 10;
+    /**
+     *  页面加载完毕通用toast内容
+     */
+    public static final String LOAD_INFO_FINISH = "没有更多了";
+    /**
      *  通用错误响应信息
      */
     public static final String COMMON_FAILURE_RESPONSE = "网络错误";
@@ -67,7 +79,17 @@ public class AppConfig {
      *  短信验证码再次获取时间_秒
      */
     public static final Integer VIERFY_CODE_DELAY_TIME = 180;
+    /**
+     *  邀请信息状态_邀请中
+     */
+    public static final String INVITE_FLAG_CONTINUE ="2";
 
+    public static final HashMap<String ,String> INVITE_FLAG_MAP = new HashMap<String ,String>();
+    static {
+        INVITE_FLAG_MAP.put(YES, "已同意");
+        INVITE_FLAG_MAP.put(NO, "已拒绝");
+        INVITE_FLAG_MAP.put(INVITE_FLAG_CONTINUE, "待确认");
+    }
 
 
     public static final HashMap<String ,String> NOTIFY_TYPE_MAP = new HashMap<String ,String>();

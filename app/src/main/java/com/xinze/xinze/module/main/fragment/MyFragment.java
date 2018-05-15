@@ -7,13 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vondear.rxtools.view.RxToast;
-import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.AboutUsActivity;
 import com.xinze.xinze.module.certification.CertificationActivity;
+import com.xinze.xinze.module.invite.view.InviteAcvitity;
 import com.xinze.xinze.module.login.LoginActivity;
 import com.xinze.xinze.module.main.adapter.MyRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.MyRecycleViewItem;
@@ -175,6 +174,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             case MyItemSelected.MY_CHANGE_PWD:
                 break;
             case MyItemSelected.MY_INVITATION:
+                startActivity(new Intent(mActivity,InviteAcvitity.class));
                 break;
             case MyItemSelected.MY_DRIVERS:
                 break;

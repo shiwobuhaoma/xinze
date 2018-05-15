@@ -1,9 +1,9 @@
 package com.xinze.xinze.utils;
 
-import java.util.List;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 
 /**
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @作者 jinlizhi
  * @时间 2018年3月29日下午10:49:12
  */
-public class ReturnResult {
+public class ReturnResult <T>{
 
     // 定义jackson对象
     private static final ObjectMapper MAPPER = JsonMapper.getInstance();
@@ -24,7 +24,7 @@ public class ReturnResult {
     private String msg;
 
     // 响应中的数据
-    private Object data = "null";
+    private T data ;
 
     public static ReturnResult build(Integer status, String msg, Object data) {
         return new ReturnResult(status, msg, data);
@@ -46,13 +46,13 @@ public class ReturnResult {
         return new ReturnResult(status, msg, null);
     }
 
-    public ReturnResult(Integer status, String msg, Object data) {
+    public ReturnResult(Integer status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public ReturnResult(Object data) {
+    public ReturnResult(T data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;
@@ -78,11 +78,11 @@ public class ReturnResult {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
