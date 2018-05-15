@@ -24,6 +24,16 @@ public class Car {
     private String ownDesc;
     private String truck_ownerid;
 
+    public String getRight_flag() {
+        return right_flag;
+    }
+
+    public void setRight_flag(String right_flag) {
+        this.right_flag = right_flag;
+    }
+
+    private String right_flag;
+
     public boolean isSelected() {
         return isSelected;
     }

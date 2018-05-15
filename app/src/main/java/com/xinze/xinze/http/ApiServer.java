@@ -229,7 +229,7 @@ public interface ApiServer {
     @Headers({"Content-Type: application/json;charset=UTF-8",
             "User-Agent: Retrofit-your-App"})
     @POST(UrlConfig.CREATE_BILL_ORDER)
-    Observable<BaseEntity<Void>> createBillOrder(@HeaderMap Map<String, String> headers, @Body RequestBody waybillOrderEntities);
+    Observable<BaseEntity> createBillOrder(@HeaderMap Map<String, String> headers, @Body RequestBody waybillOrderEntities);
 
 
 

@@ -150,16 +150,19 @@ compile com.android.support:design:25.0.1
 
 
     <string name="register_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">服务协议</font>》]]></Data></string>
-    <string name="next_step">下一步</string>
+    <string name="next_setp">下一步</string>
     <string name="select_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">运输服务合同</font>》]]></Data></string>
     <string name="select_confirm_bill">确定接单</string>
     <string name="select_please_choice">请选择承运车辆</string>
     <string name="select_all_choice">全选</string>
     <string name="select_item_relation"><Data><![CDATA[<font color="#808080" size="28">%1$s</font><font color="#fb9251">>%2$s</font>]]></Data></string>
     <string name="select_item_own"><Data><![CDATA[<font color="#808080" size="28">%1$s</font><font color="#fb9251">%2$s</font>]]></Data></string>
-    <string name="select_item_audited"><Data><![CDATA[<font color="#fb9251" size = "28">已审核</font>]]></Data></string>
-    <string name="select_item_audited_and_no_relation"><Data><![CDATA[<font color="#fb9251 size="28">已审核</font><br/><font color="#52affc" size="24">未关联司机</font>]]></Data></string>
-    <string name="select_item_audit"><Data><![CDATA[<font color="#16d069 size="28"">审核中</font>]]></Data></string>
+    <string name="select_item_audited"><Data><![CDATA[<font color="#fb9251" size = "28">%1$s</font>]]></Data></string>
+    <string name="select_item_audited_and_no_relation"><Data><![CDATA[<font color="#fb9251 size="28">%1$s</font><br/><font color="#52affc" size="24">%2$s</font>]]></Data></string>
+    <string name="select_item_audit"><Data><![CDATA[<font color="#16d069 size="28"">%1$s</font>]]></Data></string>
+    <string name="select_item_audited_failed"><Data><![CDATA[<font color="#fb9251" size = "28">%1$s</font>]]></Data></string>
+    <string name="select_car_not_relation">车辆未关联司机</string>
+    <string name="select_go_relation">去关联</string>
 
     <string name="invite_driver_invite">车主邀请</string>
     <string name="invite_owner_invite">货主邀请</string>

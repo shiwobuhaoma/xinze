@@ -84,4 +84,29 @@ public class DialogUtil {
         });
         rxDialogSureCancel.show();
     }
+
+    /**
+     * 共用对话框
+     */
+    public static void showCommonDialog(final Activity mActivity, int content, int confirm, final Class clazz) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getSureView().setText(confirm);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivity(new Intent(mActivity, clazz));
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
 }

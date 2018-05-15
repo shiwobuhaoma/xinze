@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.config.MainConfig;
 import com.xinze.xinze.module.forget.ForgetPassWordActivity;
 import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.presenter.LoginPresenterImp;
@@ -172,8 +173,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     @Override
     public void loginSuccess() {
         shotToast("登陆成功");
-        //跳转的我的fragment
-        MainActivity.currentFragment=2;
+        //跳转到我的fragment
+        MainActivity.currentFragment= MainConfig.MY_FRAGMENT;
         finish();
     }
 

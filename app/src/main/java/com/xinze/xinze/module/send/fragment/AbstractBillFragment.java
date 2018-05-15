@@ -9,6 +9,7 @@ import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.send.presenter.BillPresenterImp;
 import com.xinze.xinze.module.send.view.IBillView;
+import com.xinze.xinze.module.transport.view.TransportDetailsActivity;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
     protected void jumpToOrderDetailActivity(int position) {
         mPosition = position;
         OrderItem orderItem = data.get(position);
-        String orderId = orderItem.getOrderid();
-        openActivity(OrderDetailActivity.class, "orderId", orderId);
+        String orderId = orderItem.getId();
+        openActivity(TransportDetailsActivity.class, "orderId", orderId);
     }
 }

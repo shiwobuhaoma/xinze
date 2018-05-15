@@ -56,6 +56,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
     Button mTransportConfirming;
     private String phone;
     private TransportDetailsPresenterImp tap;
+    private String orderId;
 
     @Override
     protected int initLayout() {
@@ -65,7 +66,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
     @Override
     protected void initView() {
         Intent intent = getIntent();
-        String orderId = intent.getStringExtra("orderId");
+        orderId = intent.getStringExtra("orderId");
         initToolbar();
         tap = new TransportDetailsPresenterImp(this,this);
         tap.getBillDetail(orderId);
@@ -190,7 +191,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         if (data == 0){
             //TODO 不允许抢单
         }else{
-            openActivity(SelectCarActivity.class);
+            openActivity(SelectCarActivity.class,"orderId",orderId);
         }
     }
 }

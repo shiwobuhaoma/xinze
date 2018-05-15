@@ -26,6 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:launchMode="singleTask"
             android:name=".module.main.activity.MainActivity"
             android:theme="@style/TranslucentTheme">
             <intent-filter>
@@ -64,6 +65,7 @@
         <activity android:name=".module.transport.view.TransportDetailsActivity" />
         <activity android:name=".module.select.view.SelectCarActivity" />
         <activity android:name=".module.regular.activity.RegularRunActivity" />
+        <activity android:name=".module.add.AddMyCarActivity" />
     </application>
 
 </manifest>
