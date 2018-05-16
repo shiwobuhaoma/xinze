@@ -30,7 +30,6 @@ public class DriverInviteFragment extends BaseFragment {
     @BindView(R.id.driver_invite_srl)
     SmartRefreshLayout mSmartRefreshLayout;
 
-
     protected SmartRefreshLayout layout;
     private int pageNo = AppConfig.PAGE_NO;
     private int pageSize = AppConfig.PAGE_SIZE;
@@ -41,25 +40,26 @@ public class DriverInviteFragment extends BaseFragment {
     protected LinearLayoutManager llm;
     protected int mPosition = 0;
     protected String inviteFlag = null;
+    // onResume是否刷新标志
+    public static Boolean isRefresh = false;
 
     @Override
     protected int initLayout() {
-        {
-            return R.layout.driver_invite_fragment;
-        }
+        return R.layout.driver_invite_fragment;
     }
+
 
     @Override
     protected void initView() {
         llm = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(llm);
-        mAdapter = new DriverInviteRecycleViewAdapter(mActivity,this);
+        mAdapter = new DriverInviteRecycleViewAdapter(mActivity, this);
         mRecyclerView.setAdapter(mAdapter);
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNo = 1;
-                mPresenter.getMyTruckOwnerInvitation( pageNo, pageSize,inviteFlag);
+                mPresenter.getMyTruckOwnerInvitation(pageNo, pageSize, inviteFlag);
             }
         });
         mSmartRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -67,20 +67,15 @@ public class DriverInviteFragment extends BaseFragment {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 if (!pageEndFlag) {
                     pageNo++;
-                    mPresenter.getMyTruckOwnerInvitation( pageNo, pageSize,inviteFlag);
-                }else{
+                    mPresenter.getMyTruckOwnerInvitation(pageNo, pageSize, inviteFlag);
+                } else {
                     layout.finishLoadMore(1);
                     DriverInviteFragment.this.shotToast(AppConfig.LOAD_INFO_FINISH);
                 }
             }
         });
-/*        mAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //jumpToOrderDetailActivity(position);
-            }
-        });*/
-        layout=mSmartRefreshLayout.getLayout();
+
+        layout = mSmartRefreshLayout.getLayout();
     }
 
 
@@ -89,6 +84,16 @@ public class DriverInviteFragment extends BaseFragment {
         super.initData();
         mPresenter = new InvitePresenterImp(this);
         mPresenter.getMyTruckOwnerInvitation(pageNo, pageSize, inviteFlag);
+        isRefresh = false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isRefresh) {
+            mPresenter.getMyTruckOwnerInvitation(pageNo, pageSize, inviteFlag);
+        }
+        isRefresh = false;
     }
 
     public void setData(final List<TruckownerDriverVO> data) {
@@ -121,5 +126,6 @@ public class DriverInviteFragment extends BaseFragment {
     public void setPageEndFlag(boolean pageEndFlag) {
         this.pageEndFlag = pageEndFlag;
     }
+
 
 }

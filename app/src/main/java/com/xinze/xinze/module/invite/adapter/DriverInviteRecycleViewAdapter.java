@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.invite.fragment.DriverInviteFragment;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
+import com.xinze.xinze.module.invite.view.InviteDetailActivity;
 
 import java.util.List;
 
@@ -52,7 +55,7 @@ public class DriverInviteRecycleViewAdapter extends RecyclerView.Adapter<DriverI
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        TruckownerDriverVO truckownerDriver = mBS.get(position);
+        final TruckownerDriverVO truckownerDriver = mBS.get(position);
 
         String truckOwnerName = truckownerDriver.getTruckOwnerName();
         final String truckOwnerMobile = truckownerDriver.getTruckOwnerMobile();
@@ -97,6 +100,17 @@ public class DriverInviteRecycleViewAdapter extends RecyclerView.Adapter<DriverI
             }
         });
 
+        //给RL绑定点击事件
+        holder.driverInviteRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 跳转到相关详情页
+                Intent intent = new Intent(App.getContext(),InviteDetailActivity.class);
+                intent.putExtra("data",truckownerDriver);
+                mFragment.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -121,6 +135,9 @@ public class DriverInviteRecycleViewAdapter extends RecyclerView.Adapter<DriverI
         ImageView driverInviteCallImageView;
         @BindView(R.id.driver_invite_status_tv)
         TextView driverInviteStatusTextView;
+        @BindView(R.id.driver_invite_rl)
+        RelativeLayout driverInviteRelativeLayout;
+
 
 
         ViewHolder(View view) {

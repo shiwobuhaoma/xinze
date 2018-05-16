@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/my_item_line"
+    android:orientation="vertical"
+    tools:context=".module.invite.view.InviteDetailActivity">
+
+
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/invite_detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/invite_detail_white_background">
+
+        <TextView
+            android:id="@+id/invite_detail_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:text="姓名"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/invite_detail_call_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/driver_invite_call" />
+
+        <TextView
+            android:id="@+id/invite_detail_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/invite_detail_call_iv"
+            android:drawableEnd="@drawable/driver_invite_line"
+            android:drawablePadding="15dp"
+            android:gravity="center_vertical"
+            android:text="待确认"
+            android:textColor="@color/themeBlack"
+            android:textSize="14sp"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="7.5dp"
+        android:background="@drawable/invite_detail_white_background">
+
+        <TextView
+            android:id="@+id/invite_detail_content_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/invite_detail_button_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/invite_detail_accept_bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/invite_detail_refuse_bt"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/invite_detail_orange_background"
+            android:text="@string/invite_detail_accept"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/invite_detail_refuse_bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/res_textSize_15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/invite_detail_white_background"
+            android:text="@string/invite_detail_refuse"
+            android:textColor="@color/themeOrange"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+
+</LinearLayout>

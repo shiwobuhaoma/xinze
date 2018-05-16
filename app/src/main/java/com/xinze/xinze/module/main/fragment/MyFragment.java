@@ -12,7 +12,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.AboutUsActivity;
 import com.xinze.xinze.module.certification.CertificationActivity;
-import com.xinze.xinze.module.invite.view.InviteAcvitity;
+import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.login.LoginActivity;
 import com.xinze.xinze.module.main.adapter.MyRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.MyRecycleViewItem;
@@ -174,7 +174,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             case MyItemSelected.MY_CHANGE_PWD:
                 break;
             case MyItemSelected.MY_INVITATION:
-                startActivity(new Intent(mActivity,InviteAcvitity.class));
+                startActivity(new Intent(mActivity,InviteActivity.class));
                 break;
             case MyItemSelected.MY_DRIVERS:
                 break;

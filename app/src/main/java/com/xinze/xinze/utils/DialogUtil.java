@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.R;
 import com.xinze.xinze.module.certification.CertificationActivity;
@@ -12,7 +13,7 @@ import com.xinze.xinze.module.login.LoginActivity;
 
 /**
  * @author lxf
- * 未登录、未认证对话框
+ *         未登录、未认证对话框
  */
 public class DialogUtil {
     /**
@@ -67,6 +68,7 @@ public class DialogUtil {
 
     /**
      * 显示系统消息详情的对话框
+     *
      * @param mContext
      * @param content
      */
@@ -107,6 +109,91 @@ public class DialogUtil {
             }
         });
         rxDialogSureCancel.show();
+
+    }
+
+    /**
+     * 邀请详情拒绝对话框
+     *
+     * @param mActivity
+     * @param listener  确认和取消按钮执行的监听回调
+     * @author feibai
+     * @time 2018/5/16  16:25
+     * @desc
+     */
+    public static void showInviteDetailRefuseDialog(final Activity mActivity, final ChoiceClickListener listener) {
+        final RxDialogEditSureCancel dialog = new RxDialogEditSureCancel(mActivity);
+        //final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        dialog.getTitleView().setVisibility(View.GONE);
+        //dialog.getContentView().setText(content);
+        dialog.getEditText().setHint(R.string.invite_detail_refuse_hint);
+        dialog.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String refuseContent = dialog.getEditText().getText().toString().trim();
+                listener.onClickSureView(refuseContent);
+                dialog.cancel();
+            }
+        });
+        dialog.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickCancelView(null);
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+
+    }
+
+    public static void showCommonDialog(final Activity mActivity, String content, final ChoiceClickListener listener) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickSureView(null);
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickCancelView(null);
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
+
+    /*
+    * 按钮点击监听器
+    * @author feibai
+    * @time  2018/5/16 16:11
+    * desc:
+    */
+    public static interface ChoiceClickListener {
+        /**
+         * 当点击确定需执行的方法
+         *
+         * @param data 需要传传递的数据
+         * @author feibai
+         * @time 2018/5/16  16:13
+         * @desc
+         */
+        void onClickSureView(Object data);
+
+        /**
+         * 当点击取消需执行的方法
+         *
+         * @param data 需要传传递的数据
+         * @author feibai
+         * @time 2018/5/16  16:14
+         * @desc
+         */
+        void onClickCancelView(Object data);
 
     }
 }

@@ -58,7 +58,10 @@
         <activity android:name=".module.find.view.FindGoodsActivity" />
         <activity android:name=".module.send.view.SendGoodsActivity" />
         <activity
-            android:name=".module.invite.view.InviteAcvitity"
+            android:name=".module.invite.view.InviteActivity"
+            android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name=".module.invite.view.InviteDetailActivity"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.regular.view.RegularRunActivity" />
         <activity android:name=".module.order.view.OrderDetailActivity" />

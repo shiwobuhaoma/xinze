@@ -1,10 +1,12 @@
 package com.xinze.xinze.module.invite.presenter;
 
 import com.xinze.xinze.App;
+import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.module.invite.fragment.DriverInviteFragment;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
+import com.xinze.xinze.module.invite.view.InviteDetailActivity;
 import com.xinze.xinze.utils.ReturnResult;
 
 import java.util.HashMap;
@@ -22,9 +24,14 @@ import retrofit2.Response;
 
 public class InvitePresenterImp implements IInvitePresenter {
     private DriverInviteFragment mFragment;
+    private BaseActivity mActivity;
 
     public InvitePresenterImp(DriverInviteFragment driverInviteFragment) {
         this.mFragment = driverInviteFragment;
+    }
+
+    public InvitePresenterImp(InviteDetailActivity inviteDetailActivity) {
+        this.mActivity =inviteDetailActivity;
     }
 
     @Override
@@ -70,5 +77,29 @@ public class InvitePresenterImp implements IInvitePresenter {
                 mFragment.shotToast(AppConfig.COMMON_FAILURE_RESPONSE);
             }
         });
+    }
+
+    @Override
+    public void responseInvitation(String itemId, String inviteFlag, String inviteResponseType, String content) {
+        Map<String, String> headers = new HashMap<>(2);
+        headers.put("sessionid", App.mUser.getSessionid());
+        headers.put("userid", App.mUser.getId());
+        RetrofitFactory.getInstence().Api().responseInvitation(headers,itemId,inviteResponseType,inviteFlag,content).enqueue(new Callback<ReturnResult>() {
+            @Override
+            public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
+                // 请求成功
+                ReturnResult returnResult = response.body();
+                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                    mActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReturnResult> call, Throwable t) {
+                mActivity.shotToast(AppConfig.COMMON_FAILURE_RESPONSE);
+            }
+        });
+
     }
 }

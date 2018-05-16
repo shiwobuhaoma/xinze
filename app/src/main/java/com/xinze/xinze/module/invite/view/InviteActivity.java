@@ -22,7 +22,7 @@ import butterknife.BindView;
  * desc:我的邀请acvitity
  */
 
-public class InviteAcvitity extends BaseActivity {
+public class InviteActivity extends BaseActivity {
 
     @BindView(R.id.invite_toolbar)
     SimpleToolbar inviteToolbar;

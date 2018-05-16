@@ -2,10 +2,9 @@ package com.xinze.xinze.http.config;
 
 /**
  * @author yemao
- * @date 2017/4/9
+ * @Date 2017/4/9
  *  网络接口地址!
  */
-
 public interface UrlConfig {
     String LOGIN_TOKEN_URL="获取新token的地址";
     String LOGIN_URL = "transport/app/login";
@@ -31,4 +30,6 @@ public interface UrlConfig {
     String GET_PROTOCOL_BY_TYPE = "transport/app/protocol/getProtocolByType";
     String CREATE_BILL_ORDER = "transport/app/billorder/createBillOrder";
     String GET_MY_TRUCKOWNER_INVITATION = "transport/app/user/myInvitation/truckOwner";
+    String POST_RESPONSE_INVITATION = "transport/app/user/responseInvitation";
+
 }

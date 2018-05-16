@@ -135,38 +135,41 @@ public interface ApiServer {
 
     /**
      * 获取订单详情信息
+     *
      * @param headers 请求头
      * @param orderid 订单id
      * @return 返回订单详情
      */
     @GET(UrlConfig.GET_BILL_ORDER_DETAIL)
-    Observable<BaseEntity<OrderDetail>>  getBillOrderDetail(@HeaderMap Map<String, String> headers, @Query("orderid") String orderid);
+    Observable<BaseEntity<OrderDetail>> getBillOrderDetail(@HeaderMap Map<String, String> headers, @Query("orderid") String orderid);
 
     /**
      * 改变订单状态（撤单、拒绝、通过、发货等）
+     *
      * @param headers 请求头
      * @return 返回订单状态
      */
     @Headers({"Content-Type: application/json;charset=UTF-8",
             "User-Agent: Retrofit-your-App"})
     @POST(UrlConfig.CHANGE_BILL_ORDER_STATUS)
-    Observable<BaseEntity>  changeBillOrderStatus(@HeaderMap Map<String, String> headers,@Body RequestBody updateOrderState);
-
+    Observable<BaseEntity> changeBillOrderStatus(@HeaderMap Map<String, String> headers, @Body RequestBody updateOrderState);
 
 
     /**
      * 获取订单列表
-     * @param headers 请求头
+     *
+     * @param headers    请求头
      * @param wlBilltype 订单类型
-     * @param pageNo 第几页
-     * @param pageSize 多少条
+     * @param pageNo     第几页
+     * @param pageSize   多少条
      * @return 返回订单列表
      */
     @GET(UrlConfig.GET_BILL_LIST)
-    Observable<BaseEntity<List<OrderItem>>>  getBillList(@HeaderMap Map<String, String> headers,@Query("wlBilltype") int wlBilltype,@Query("pageNo") int pageNo, @Query("pageSize") int pageSize,@Query("remarks") String remarks);
+    Observable<BaseEntity<List<OrderItem>>> getBillList(@HeaderMap Map<String, String> headers, @Query("wlBilltype") int wlBilltype, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("remarks") String remarks);
 
     /**
      * 获取常跑路线
+     *
      * @param headers 请求头
      * @return 返回常跑路线集合
      */
@@ -175,54 +178,58 @@ public interface ApiServer {
 
     /**
      * 搜索路线
-     * @param headers 请求头
+     *
+     * @param headers    请求头
      * @param fromAreaId 来自哪里
-     * @param toAreaId 要到哪里
-     * @param pageNo 第几页
-     * @param pageSize 多少条数据
+     * @param toAreaId   要到哪里
+     * @param pageNo     第几页
+     * @param pageSize   多少条数据
      * @return 返回搜索路线集合
      */
     @GET(UrlConfig.SEARCH_ROUTE_LIST)
-    Observable<BaseEntity<List<OrderItem>>> searchRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId") String fromAreaId, @Query("toAreaId") String toAreaId,  @Query("pageNo")int pageNo,  @Query("pageSize")int pageSize);
+    Observable<BaseEntity<List<OrderItem>>> searchRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId") String fromAreaId, @Query("toAreaId") String toAreaId, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
 
 
     /**
      * 获取货运详情信息
+     *
      * @param headers 请求头
-     * @param id id号
+     * @param id      id号
      * @return 货运详情
      */
     @GET(UrlConfig.GET_BILL_DETAIL)
-    Observable<BaseEntity<TransportDetails>> getBillDetail(@HeaderMap Map<String, String> headers, @Query("id")String id);
+    Observable<BaseEntity<TransportDetails>> getBillDetail(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
 
     /**
      * 抢单权限判断，抢单操作调用（可否进入选择车辆列表）
+     *
      * @param headers 请求头
-     * @param id userId
+     * @param id      userId
      * @return 返回是否可以抢单结果
      */
     @GET(UrlConfig.GET_CARRY_ORDER_RIGHT)
-    Observable<BaseEntity<Integer>> getCarryOrderRight(@HeaderMap Map<String, String> headers,  @Query("id")String id);
+    Observable<BaseEntity<Integer>> getCarryOrderRight(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
     /**
      * 获取抢单后的车辆选择列表信息
+     *
      * @param headers 请求头
-     * @param id userId
+     * @param id      userId
      * @return 返回车辆列表信息
      */
     @GET(UrlConfig.GET_CARRY_TRUCK_LIST)
-    Observable<BaseEntity<List<Car>>> getCarryTruckList(@HeaderMap Map<String, String> headers,  @Query("id")String id);
-
+    Observable<BaseEntity<List<Car>>> getCarryTruckList(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
 
     @GET(UrlConfig.GET_PROTOCOL_BY_TYPE)
-    Observable<BaseEntity<Protocol>>  getProtocolByType(@HeaderMap Map<String, String> headers, @Query("protocolType")String protocolType);
+    Observable<BaseEntity<Protocol>> getProtocolByType(@HeaderMap Map<String, String> headers, @Query("protocolType") String protocolType);
 
 
     /**
      * 抢单接口
-     * @param headers 请求头
+     *
+     * @param headers              请求头
      * @param waybillOrderEntities 抢单的车辆集合信息
      * @return 抢单是否成功
      */
@@ -230,9 +237,6 @@ public interface ApiServer {
             "User-Agent: Retrofit-your-App"})
     @POST(UrlConfig.CREATE_BILL_ORDER)
     Observable<BaseEntity> createBillOrder(@HeaderMap Map<String, String> headers, @Body RequestBody waybillOrderEntities);
-
-
-
 
 
     /**
@@ -254,30 +258,8 @@ public interface ApiServer {
     Observable<Object> imagesUpload(@Part() List<MultipartBody.Part> imgs);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////  -----------------feibai
+
     /**
      * 获取系统消息列表
      *
@@ -322,8 +304,8 @@ public interface ApiServer {
     /**
      * 重置密码
      *
-     * @param phone 手机
-     * @param code 验证码
+     * @param phone    手机
+     * @param code     验证码
      * @param password 密码
      * @return ReturnResult
      */
@@ -333,15 +315,26 @@ public interface ApiServer {
     /**
      * 获取车主邀请信息列表
      *
-     * @param pageNo   第几页
-     * @param pageSize 多少条
-     * @param headers  请求头
-     * @param inviteFlag  状态查询条件
+     * @param pageNo     第几页
+     * @param pageSize   多少条
+     * @param headers    请求头
+     * @param inviteFlag 状态查询条件
      * @return 返回状态
      */
     @GET(UrlConfig.GET_MY_TRUCKOWNER_INVITATION)
-    Call<ReturnResult<List<TruckownerDriverVO>>> getTruckOwnerInvitation(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag")String inviteFlag);
+    Call<ReturnResult<List<TruckownerDriverVO>>> getTruckOwnerInvitation(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
 
+    /**
+     * 响应邀请信息
+     *
+     * @param id           邀请信息id
+     * @param responseType 响应消息类别
+     * @param inviteFlag   响应结果
+     * @param content      内容
+     * @return ReturnResult
+     */
+    @POST(UrlConfig.POST_RESPONSE_INVITATION)
+    Call<ReturnResult> responseInvitation(@HeaderMap Map<String, String> headers, @Query("id") String id, @Query("responseType") String responseType, @Query("inviteFlag") String inviteFlag, @Query("content") String content);
 
 
 }
