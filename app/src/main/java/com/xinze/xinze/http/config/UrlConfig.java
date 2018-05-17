@@ -30,6 +30,7 @@ public interface UrlConfig {
     String GET_PROTOCOL_BY_TYPE = "transport/app/protocol/getProtocolByType";
     String CREATE_BILL_ORDER = "transport/app/billorder/createBillOrder";
     String GET_MY_TRUCKOWNER_INVITATION = "transport/app/user/myInvitation/truckOwner";
+    String GET_MY_OWNER_INVITATION = "transport/app/user/myInvitation/owner";
     String POST_RESPONSE_INVITATION = "transport/app/user/responseInvitation";
 
 }

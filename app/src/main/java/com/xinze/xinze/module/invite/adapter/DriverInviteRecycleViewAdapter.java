@@ -106,6 +106,7 @@ public class DriverInviteRecycleViewAdapter extends RecyclerView.Adapter<DriverI
             public void onClick(View v) {
                 // 跳转到相关详情页
                 Intent intent = new Intent(App.getContext(),InviteDetailActivity.class);
+                intent.putExtra("type",AppConfig.INVITE_RESPONSE_TYPE_TRUCKOWNER);
                 intent.putExtra("data",truckownerDriver);
                 mFragment.startActivity(intent);
             }

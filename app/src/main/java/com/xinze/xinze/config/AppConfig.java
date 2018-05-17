@@ -91,6 +91,14 @@ public class AppConfig {
      * 邀请信息响应类别车主
      */
     public static final String INVITE_RESPONSE_TYPE_TRUCKOWNER = "truckowner";
+    /**
+     * 邀请信息货主公司类别
+     */
+    public static final String INVITE_OWNER_TYPE_COMPANY = "0";
+    /**
+     * 邀请信息货主信息部类别
+     */
+    public static final String INVITE_OWNER_TYPE_AGENT = "1";
 
 
     public static final HashMap<String, String> INVITE_FLAG_MAP = new HashMap<String, String>();

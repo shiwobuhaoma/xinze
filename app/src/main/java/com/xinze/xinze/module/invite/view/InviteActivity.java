@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.module.invite.fragment.DriverInviteFragment;
+import com.xinze.xinze.module.invite.fragment.OwnerInviteFragment;
 import com.xinze.xinze.module.send.adapter.SelectPageAdapter;
 import com.xinze.xinze.widget.SimpleToolbar;
 
@@ -51,7 +52,7 @@ public class InviteActivity extends BaseActivity {
     private void initViewPager() {
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(new DriverInviteFragment());
-        list.add(new DriverInviteFragment());
+        list.add(new OwnerInviteFragment());
 
         SelectPageAdapter adapter = new SelectPageAdapter(getSupportFragmentManager(), list);
         inviteViewPager.setAdapter(adapter);

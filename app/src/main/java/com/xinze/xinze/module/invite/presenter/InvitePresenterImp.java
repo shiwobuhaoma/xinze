@@ -5,6 +5,8 @@ import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.module.invite.fragment.DriverInviteFragment;
+import com.xinze.xinze.module.invite.fragment.OwnerInviteFragment;
+import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.invite.view.InviteDetailActivity;
 import com.xinze.xinze.utils.ReturnResult;
@@ -23,15 +25,20 @@ import retrofit2.Response;
  */
 
 public class InvitePresenterImp implements IInvitePresenter {
-    private DriverInviteFragment mFragment;
+    private DriverInviteFragment driverInviteFragment;
+    private OwnerInviteFragment ownerInviteFragment;
     private BaseActivity mActivity;
 
     public InvitePresenterImp(DriverInviteFragment driverInviteFragment) {
-        this.mFragment = driverInviteFragment;
+        this.driverInviteFragment = driverInviteFragment;
     }
 
     public InvitePresenterImp(InviteDetailActivity inviteDetailActivity) {
         this.mActivity =inviteDetailActivity;
+    }
+
+    public InvitePresenterImp(OwnerInviteFragment ownerInviteFragment) {
+        this.ownerInviteFragment = ownerInviteFragment;
     }
 
     @Override
@@ -46,37 +53,83 @@ public class InvitePresenterImp implements IInvitePresenter {
                 // 请求成功
                 ReturnResult returnResult = response.body();
                 if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
-                    mFragment.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
+                    driverInviteFragment.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
                 final Object obj = returnResult.getData();
                 if (obj!=null) {
                     List<TruckownerDriverVO> data = (List<TruckownerDriverVO>) returnResult.getData();
                     if (data!=null&&data.size()==AppConfig.PAGE_SIZE) {
-                        mFragment.setPageEndFlag(false);
-                        mFragment.setData(data);
-                        mFragment.getInitDataSuccess();
+                        driverInviteFragment.setPageEndFlag(false);
+                        driverInviteFragment.setData(data);
+                        driverInviteFragment.getInitDataSuccess();
                     }else if (data!=null&&data.size()<AppConfig.PAGE_SIZE) {
                         // 获取到最后一页
-                        mFragment.setPageEndFlag(true);
-                        mFragment.setData(data);
-                        mFragment.getInitDataSuccess();
+                        driverInviteFragment.setPageEndFlag(true);
+                        driverInviteFragment.setData(data);
+                        driverInviteFragment.getInitDataSuccess();
                     }else{
-                        mFragment.setPageEndFlag(true);
+                        driverInviteFragment.setPageEndFlag(true);
                     }
                 }else{
                     // 响应数据为空
-                    mFragment.setPageEndFlag(true);
-                    mFragment.getInitDataSuccess();
+                    driverInviteFragment.setPageEndFlag(true);
+                    driverInviteFragment.getInitDataSuccess();
                 }
             }
 
             @Override
             public void onFailure(Call<ReturnResult<List<TruckownerDriverVO>>> call, Throwable t) {
                 // 请求失败
-                mFragment.shotToast(AppConfig.COMMON_FAILURE_RESPONSE);
+                driverInviteFragment.shotToast(AppConfig.COMMON_FAILURE_RESPONSE);
             }
         });
+    }
+
+    @Override
+    public void getMyOwnerInvitation(int pageNum, int pageSize, String inviteFlag) {
+        Map<String, String> headers = new HashMap<>(2);
+        headers.put("sessionid", App.mUser.getSessionid());
+        headers.put("userid", App.mUser.getId());
+        RetrofitFactory.getInstence().Api().getOwnerInvitation(headers, pageNum, pageSize, inviteFlag).enqueue(new Callback<ReturnResult<List<OwnerDriverVO>>>() {
+
+            @Override
+            public void onResponse(Call<ReturnResult<List<OwnerDriverVO>>> call, Response<ReturnResult<List<OwnerDriverVO>>> response) {
+                // 请求成功
+                ReturnResult returnResult = response.body();
+                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                    ownerInviteFragment.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
+                    return;
+                }
+                final Object obj = returnResult.getData();
+                if (obj!=null) {
+                    List<OwnerDriverVO> data = (List<OwnerDriverVO>) returnResult.getData();
+                    if (data!=null&&data.size()==AppConfig.PAGE_SIZE) {
+                        ownerInviteFragment.setPageEndFlag(false);
+                        ownerInviteFragment.setData(data);
+                        ownerInviteFragment.getInitDataSuccess();
+                    }else if (data!=null&&data.size()<AppConfig.PAGE_SIZE) {
+                        // 获取到最后一页
+                        ownerInviteFragment.setPageEndFlag(true);
+                        ownerInviteFragment.setData(data);
+                        ownerInviteFragment.getInitDataSuccess();
+                    }else{
+                        ownerInviteFragment.setPageEndFlag(true);
+                    }
+                }else{
+                    // 响应数据为空
+                    ownerInviteFragment.setPageEndFlag(true);
+                    ownerInviteFragment.getInitDataSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReturnResult<List<OwnerDriverVO>>> call, Throwable t) {
+                // 请求失败
+                ownerInviteFragment.shotToast(AppConfig.COMMON_FAILURE_RESPONSE);
+            }
+        });
+
     }
 
     @Override

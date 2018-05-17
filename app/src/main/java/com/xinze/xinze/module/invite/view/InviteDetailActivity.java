@@ -12,6 +12,8 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.invite.fragment.DriverInviteFragment;
+import com.xinze.xinze.module.invite.fragment.OwnerInviteFragment;
+import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.invite.presenter.InvitePresenterImp;
 import com.xinze.xinze.utils.DialogUtil;
@@ -20,10 +22,10 @@ import com.xinze.xinze.widget.SimpleToolbar;
 import butterknife.BindView;
 
 /**
- * Created by feibai on 2018/5/15.
+ * @author feibai
+ * @date 2018/5/15
  * desc: 邀请信息详情 InviteDetailActivity
  */
-
 public class InviteDetailActivity extends BaseActivity {
 
     @BindView(R.id.invite_detail_toolbar)
@@ -73,43 +75,103 @@ public class InviteDetailActivity extends BaseActivity {
         // 获取传递过来的数据并初始化
         Intent intent = getIntent();
         if (intent != null) {
-            TruckownerDriverVO data = (TruckownerDriverVO) intent.getSerializableExtra("data");
-            if (data != null) {
-                String truckOwnerName = data.getTruckOwnerName();
-                final String truckOwnerMobile = data.getTruckOwnerMobile();
-                String itemId = data.getId();
-                //String createDate = data.getCreateDate();
-                String inviteFlag = data.getInviteFlag() == null ? AppConfig.INVITE_FLAG_CONTINUE : data.getInviteFlag();
-                String content = data.getContent();
+            // 获取数据类型标记
+            String type = intent.getStringExtra("type");
 
-                inviteDetailNameTextView.setText(truckOwnerName);
-                inviteDetailContentTextView.setText(content);
-                // 初始化邀请消息状态
-                initInviteFlag(inviteFlag, itemId);
+            if (type != null && type.equals(AppConfig.INVITE_RESPONSE_TYPE_TRUCKOWNER)) {
+                TruckownerDriverVO truckownerDriver = (TruckownerDriverVO) intent.getSerializableExtra("data");
+                if (truckownerDriver != null) {
+                    // 初始化车主邀请信息详情
+                    initTruckownerDriver(truckownerDriver);
+                }
+            } else if (type != null && type.equals(AppConfig.INVITE_RESPONSE_TYPE_OWNER)) {
+                OwnerDriverVO ownerDriver = (OwnerDriverVO) intent.getSerializableExtra("data");
+                if (ownerDriver != null) {
+                    // 初始化货主邀请信息详情
+                    initOwnerDriver(ownerDriver);
+                }
 
-                // 给电话图片绑定点击事件
-                inviteDetailCallImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:" + truckOwnerMobile));
-                        startActivity(intent);
-                    }
-                });
             }
         }
     }
 
     /**
+     * 初始化货主邀请信息详情
+     *
+     * @param ownerDriver 货主邀请信息
+     * @author feibai
+     * @time 2018/5/17  10:13
+     * @desc
+     */
+    private void initOwnerDriver(OwnerDriverVO ownerDriver) {
+        String ownerName = ownerDriver.getOwnerName();
+        final String ownerMobile = ownerDriver.getOwnerMobile();
+        String itemId = ownerDriver.getId();
+        String inviteFlag = ownerDriver.getInviteFlag() == null ? AppConfig.INVITE_FLAG_CONTINUE : ownerDriver.getInviteFlag();
+        String content = ownerDriver.getContent();
+
+        inviteDetailNameTextView.setText(ownerName);
+        inviteDetailContentTextView.setText(content);
+        // 初始化邀请消息状态
+        initInviteFlag(inviteFlag, itemId, AppConfig.INVITE_RESPONSE_TYPE_OWNER);
+
+        // 给电话图片绑定点击事件
+        inviteDetailCallImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + ownerMobile));
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 初始化车主邀请信息详情
+     *
+     * @param truckownerDriver 车主邀请信息
+     * @author feibai
+     * @time 2018/5/17  10:12
+     * @desc
+     */
+    private void initTruckownerDriver(TruckownerDriverVO truckownerDriver) {
+        String truckOwnerName = truckownerDriver.getTruckOwnerName();
+        final String truckOwnerMobile = truckownerDriver.getTruckOwnerMobile();
+        String itemId = truckownerDriver.getId();
+        String inviteFlag = truckownerDriver.getInviteFlag() == null ? AppConfig.INVITE_FLAG_CONTINUE : truckownerDriver.getInviteFlag();
+        String content = truckownerDriver.getContent();
+
+        inviteDetailNameTextView.setText(truckOwnerName);
+        inviteDetailContentTextView.setText(content);
+        // 初始化邀请消息状态
+        initInviteFlag(inviteFlag, itemId, AppConfig.INVITE_RESPONSE_TYPE_TRUCKOWNER);
+
+        // 给电话图片绑定点击事件
+        inviteDetailCallImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + truckOwnerMobile));
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    /**
      * 初始化邀请消息状态
      *
-     * @param inviteFlag
+     * @param inviteFlag   响应结果
+     * @param itemId       id
+     * @param responseType 响应类别
      * @author feibai
      * @time 2018/5/16  15:49
      * @desc
      */
-    private void initInviteFlag(String inviteFlag, final String itemId) {
+
+    private void initInviteFlag(String inviteFlag, final String itemId, String responseType) {
         switch (inviteFlag) {
             case AppConfig.INVITE_FLAG_CONTINUE:
                 // 待确认
@@ -118,46 +180,7 @@ public class InviteDetailActivity extends BaseActivity {
                 // 如果是待确认相关按钮布局需要显示
                 inviteDetailButtonRelativeLayout.setVisibility(View.VISIBLE);
                 // 按钮绑定点击事件
-                inviteDetailAcceptButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DialogUtil.showCommonDialog(InviteDetailActivity.this, getString(R.string.invite_detail_confirm_content), new DialogUtil.ChoiceClickListener() {
-                            @Override
-                            public void onClickSureView(Object data) {
-                                mPresenter.responseInvitation(itemId,AppConfig.YES,AppConfig.INVITE_RESPONSE_TYPE_TRUCKOWNER,null);
-                                //结束页面调回列表需要刷新数据
-                                DriverInviteFragment.isRefresh=true;
-                                finish();
-                            }
-
-                            @Override
-                            public void onClickCancelView(Object data) {
-                            }
-                        });
-                    }
-                });
-                inviteDetailRefuseButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DialogUtil.showInviteDetailRefuseDialog(InviteDetailActivity.this, new DialogUtil.ChoiceClickListener() {
-                            @Override
-                            public void onClickSureView(Object data) {
-                                // 获取拒绝理由
-                                String content=(String)data;
-                                mPresenter.responseInvitation(itemId,AppConfig.NO,AppConfig.INVITE_RESPONSE_TYPE_TRUCKOWNER,content);
-                                //结束页面调回列表需要刷新数据
-                                DriverInviteFragment.isRefresh=true;
-                                finish();
-                            }
-
-                            @Override
-                            public void onClickCancelView(Object data) {
-                            }
-                        });
-
-                    }
-                });
-
+                bind4Button(itemId, responseType);
                 break;
             case AppConfig.YES:
                 // 已同意
@@ -179,5 +202,74 @@ public class InviteDetailActivity extends BaseActivity {
                 break;
         }
         inviteDetailStatusTextView.setText(inviteFlag);
+    }
+
+    /**
+     * 确认与拒绝按钮绑定点击事件
+     *
+     * @param itemId       id
+     * @param responseType 响应类别
+     * @author feibai
+     * @time 2018/5/16  21:25
+     * @desc
+     */
+    private void bind4Button(final String itemId, final String responseType) {
+        // 确认按钮绑定点击事件
+        inviteDetailAcceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtil.showCommonDialog(InviteDetailActivity.this, getString(R.string.invite_detail_confirm_content), new DialogUtil.ChoiceClickListener() {
+                    @Override
+                    public void onClickSureView(Object data) {
+                        mPresenter.responseInvitation(itemId, AppConfig.YES, responseType, null);
+                        //判断responseType,通知对应fragment的OnResume需要刷新更新数据
+                        setNextPageRefresh(responseType);
+                        finish();
+                    }
+
+                    @Override
+                    public void onClickCancelView(Object data) {
+                    }
+                });
+            }
+        });
+        // 拒绝按钮绑定点击事件
+        inviteDetailRefuseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtil.showInviteDetailRefuseDialog(InviteDetailActivity.this, new DialogUtil.ChoiceClickListener() {
+                    @Override
+                    public void onClickSureView(Object data) {
+                        // 获取拒绝理由
+                        String content = (String) data;
+                        mPresenter.responseInvitation(itemId, AppConfig.NO, responseType, content);
+                        //判断responseType,通知对应fragment的OnResume需要刷新更新数据
+                        setNextPageRefresh(responseType);
+                        finish();
+                    }
+
+                    @Override
+                    public void onClickCancelView(Object data) {
+                    }
+                });
+
+            }
+        });
+    }
+
+    /**
+     * 判断responseType,通知对应fragment的OnResume需要刷新更新数据
+     *
+     * @param responseType 响应类别
+     * @author feibai
+     * @time 2018/5/17  11:03
+     * @desc
+     */
+    private void setNextPageRefresh(String responseType) {
+        if (responseType.equals(AppConfig.INVITE_RESPONSE_TYPE_TRUCKOWNER)) {
+            DriverInviteFragment.isRefresh = true;
+        } else if (responseType.equals(AppConfig.INVITE_RESPONSE_TYPE_OWNER)) {
+            OwnerInviteFragment.isRefresh = true;
+        }
     }
 }

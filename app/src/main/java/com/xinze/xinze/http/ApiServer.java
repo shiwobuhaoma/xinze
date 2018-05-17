@@ -3,15 +3,16 @@ package com.xinze.xinze.http;
 
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
+import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
-import com.xinze.xinze.module.select.module.Protocol;
-import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
 import com.xinze.xinze.module.regular.modle.Route;
+import com.xinze.xinze.module.select.module.Protocol;
+import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
 import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.mvpbase.BaseBean;
@@ -323,6 +324,17 @@ public interface ApiServer {
      */
     @GET(UrlConfig.GET_MY_TRUCKOWNER_INVITATION)
     Call<ReturnResult<List<TruckownerDriverVO>>> getTruckOwnerInvitation(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
+    /**
+     * 获取货主邀请信息列表
+     *
+     * @param pageNo     第几页
+     * @param pageSize   多少条
+     * @param headers    请求头
+     * @param inviteFlag 状态查询条件
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_OWNER_INVITATION)
+    Call<ReturnResult<List<OwnerDriverVO>>> getOwnerInvitation(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
 
     /**
      * 响应邀请信息
