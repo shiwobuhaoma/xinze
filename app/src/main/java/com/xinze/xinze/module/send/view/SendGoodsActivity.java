@@ -21,7 +21,7 @@ import butterknife.BindView;
 
 /**
  * @author lxf
- * 定向货单
+ * 普通货单和定向货单
  */
 public class SendGoodsActivity extends BaseActivity {
     @BindView(R.id.send_goods_toolbar)
@@ -44,8 +44,10 @@ public class SendGoodsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mCurrentRadio = Integer.valueOf(getIntent().getStringExtra("CurrentRadio"));
         initToolBar();
         initViewPager();
+        changeToolbarChecked(mCurrentRadio);
     }
 
     private void initToolBar() {
@@ -65,7 +67,7 @@ public class SendGoodsActivity extends BaseActivity {
                 finish();
             }
         });
-        sendGoodsToolbar.setRightTitleText("搜长跑");
+        sendGoodsToolbar.setRightTitleText(getString(R.string.send_search_regular));
         sendGoodsToolbar.setRightTitleClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,17 +115,12 @@ public class SendGoodsActivity extends BaseActivity {
 
         SelectPageAdapter adapter = new SelectPageAdapter(getSupportFragmentManager(), list);
         sendGoodsVp.setAdapter(adapter);
-        sendGoodsVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
+        sendGoodsVp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
+                super.onPageSelected(position);
                 changeToolbarChecked(position);
             }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {}
         });
     }
 

@@ -87,6 +87,7 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
         time = getString(dateFrom, dateTo, time);
 
 
+
         viewHolder.directionalTvCarCount.setText(count);
         viewHolder.directionalTvFreight.setText(money);
         viewHolder.directionalTvCarType.setText(type);
@@ -97,10 +98,10 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
 
         if ("0".equals(number)) {
             viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.bill_robbing));
-//            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.gray));
+            viewHolder.directionalIvState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.circle_gray_button));
         } else {
-            viewHolder.directionalIvState.setText(number);
-//            viewHolder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.themeOrange));
+            viewHolder.directionalIvState.setText(String.format(number,leftNumber));
+            viewHolder.directionalIvState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.circle_orange_button));
         }
 
 

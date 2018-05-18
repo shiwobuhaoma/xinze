@@ -251,28 +251,28 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         remarks = data.getRemarks();
 
 
-        String orderId = getResources().getString(R.string.order_id);
+        String orderId = getString(R.string.order_id);
         findGoodsId.setText(String.format(orderId, orderID));
 
         findGoodsCompany.setText(companyName);
 
-        String orderContacts = getResources().getString(R.string.order_contacts);
+        String orderContacts = getString(R.string.order_contacts);
         findGoodsContacts.setText(String.format(orderContacts, userName));
 
-        String orderDate = getResources().getString(R.string.order_item_date);
+        String orderDate = getString(R.string.order_item_date);
         findGoodsDate.setText(String.format(orderDate, dateFrom));
 
-        String orderConsignorAndAddress = getResources().getString(R.string.order_consignor_and_address);
+        String orderConsignorAndAddress = getString(R.string.order_consignor_and_address);
         findGoodsConsignor.setText(String.format(orderConsignorAndAddress, fromName, fromDetailAddress));
 
-        String orderConsigneeAndAddress = getResources().getString(R.string.order_consignee_and_address);
+        String orderConsigneeAndAddress = getString(R.string.order_consignee_and_address);
         findGoodsConsignee.setText(String.format(orderConsigneeAndAddress, toName, toDetailAddress));
 
-        String orderCarCount = getResources().getString(R.string.order_car_count);
+        String orderCarCount = getString(R.string.order_car_count);
 
         findGoodsCarCount.setText(Html.fromHtml(String.format(orderCarCount, truckNumber)));
 
-        String orderGoodsDetails = getResources().getString(R.string.order_goods_details);
+        String orderGoodsDetails = getString(R.string.order_goods_details);
         findGoodsDetails.setText(Html.fromHtml(String.format(orderGoodsDetails,
                 String.valueOf(msgPrice),
                 String.valueOf(loadPrice),
@@ -302,17 +302,17 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getResources().getString(R.string.order_pick_up_goods));
+            orderRevoke.setText(getString(R.string.order_pick_up_goods));
         } else if (DELIVER_GOODS.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_deliver);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getResources().getString(R.string.order_deliver_goods));
+            orderRevoke.setText(getString(R.string.order_deliver_goods));
         } else if (GOODS_ARRIVE.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_arrived);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getResources().getString(R.string.order_confirm_arrive));
+            orderRevoke.setText(getString(R.string.order_confirm_arrive));
         } else if (GOODS_SIGNED_IN.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_signed);
             setDrawable(drawable);
@@ -333,7 +333,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getResources().getString(R.string.order_pick_up_goods));
+            orderRevoke.setText(getString(R.string.order_pick_up_goods));
 
         }
     }

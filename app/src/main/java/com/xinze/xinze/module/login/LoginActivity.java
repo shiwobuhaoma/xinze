@@ -75,7 +75,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Override
     protected void initView() {
-        //loginToolBar.setMainTitle(getResources().getString(R.string.login));
+        //loginToolBar.setMainTitle(getString(R.string.login));
         forgetPwd.setOnClickListener(this);
         register.setOnClickListener(this);
         mUserEditText = usernameWrapper.getEditText();

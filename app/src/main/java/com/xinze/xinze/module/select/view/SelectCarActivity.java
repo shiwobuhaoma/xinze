@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
@@ -25,10 +24,8 @@ import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.DividerItemDecoration;
 import com.xinze.xinze.widget.SimpleToolbar;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -75,7 +72,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         billId = intent.getStringExtra("orderId");
         initToolbar();
         selectTop.setOnClickListener(this);
-        selectService.setText(Html.fromHtml(getResources().getString(R.string.select_read_service)));
+        selectService.setText(Html.fromHtml(getString(R.string.select_read_service)));
 
         sca = new SelectCarAdapter(this);
         selectRv.setLayoutManager(new LinearLayoutManager(this));
@@ -184,7 +181,6 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 break;
         }
     }
-
 
     public void setProtocolData(Protocol data) {
         String protocolContext = data.getContent();

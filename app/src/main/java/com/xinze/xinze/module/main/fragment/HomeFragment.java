@@ -88,9 +88,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private void jump(int position) {
         if (App.mUser.isLogin()){
             if (position == 1){
-                openActivity(SendGoodsActivity.class);
+                openActivity(SendGoodsActivity.class,"CurrentRadio","1");
             }else if (position == 0){
-                openActivity(FindGoodsActivity.class);
+                openActivity(SendGoodsActivity.class,"CurrentRadio","0");
             }else if (position == 2){
                 openActivity(RegularRunActivity.class);
             }

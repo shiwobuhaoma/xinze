@@ -48,7 +48,7 @@ public class ForgetPassWordActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initView() {
-        forgetToolBar.setMainTitle(getResources().getString(R.string.forget_pwd));
+        forgetToolBar.setMainTitle(getString(R.string.forget_pwd));
         forgetToolBar.setTitleMarginTop();
         mForgetVerifyCodeButton.setOnClickListener(this);
         mForgetNextButton.setOnClickListener(this);

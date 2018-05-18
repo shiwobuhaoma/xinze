@@ -156,23 +156,23 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
 
         transportGoodsCompany.setText(companyName);
 
-        String orderContacts = getResources().getString(R.string.order_contacts);
+        String orderContacts = getString(R.string.order_contacts);
         transportGoodsContacts.setText(String.format(orderContacts, userName));
 
-        String orderDate = getResources().getString(R.string.order_item_date);
+        String orderDate = getString(R.string.order_item_date);
         transportGoodsDate.setText(String.format(orderDate, dateFrom));
 
-        String orderConsignorAndAddress = getResources().getString(R.string.order_consignor_and_address);
+        String orderConsignorAndAddress = getString(R.string.order_consignor_and_address);
         transportGoodsConsignor.setText(String.format(orderConsignorAndAddress, fromName, fromDetailAddress));
 
-        String orderConsigneeAndAddress = getResources().getString(R.string.order_consignee_and_address);
+        String orderConsigneeAndAddress = getString(R.string.order_consignee_and_address);
         findTransportConsignee.setText(String.format(orderConsigneeAndAddress, toName, toDetailAddress));
 
-        String orderCarCount = getResources().getString(R.string.order_car_count);
+        String orderCarCount = getString(R.string.order_car_count);
 
         transportGoodsCarCount.setText(Html.fromHtml(String.format(orderCarCount, truckNumber)));
 
-        String orderGoodsDetails = getResources().getString(R.string.order_goods_details);
+        String orderGoodsDetails = getString(R.string.order_goods_details);
         transportGoodsDetails.setText(Html.fromHtml(String.format(orderGoodsDetails,
                 String.valueOf(msgPrice),
                 String.valueOf(loadPrice),
@@ -182,7 +182,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
                 String.valueOf(journeyLoss),
                 truckCode,
                 remarks)));
-        String transportConfirming = getResources().getString(R.string.transport_confirming);
+        String transportConfirming = getString(R.string.transport_confirming);
         mTransportConfirming.setText(String.format(transportConfirming,leftNumber));
 
     }

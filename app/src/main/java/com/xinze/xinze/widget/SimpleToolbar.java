@@ -166,6 +166,14 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
     }
 
     /**
+     * 设置资源文件到title右边文字
+     */
+    public void setRightTitleText(int text) {
+        mTxtRightTitle.setVisibility(View.VISIBLE);
+        mTxtRightTitle.setText(text);
+    }
+
+    /**
      * 设置title右边文字颜色
      */
     public void setRightTitleColor(int color) {
