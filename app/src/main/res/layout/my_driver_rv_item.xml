@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lv_item"
+    android:background="@color/gray_background"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/my_driver_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_toStartOf="@+id/my_driver_del_bt"
+        android:background="@drawable/invite_detail_white_background">
+
+        <ImageView
+            android:id="@+id/my_driver_avatar_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/pic_desc"
+            android:paddingStart="10dp"
+            android:src="@mipmap/driver_avatar"
+            tools:ignore="RtlSymmetry" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/my_driver_avatar_iv"
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            tools:ignore="RelativeOverlap,RtlSymmetry">
+
+            <TextView
+                android:id="@+id/my_driver_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/my_driver_phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/order_item_text" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/my_driver_call_iv"
+            android:contentDescription="@string/pic_desc"
+            android:src="@drawable/driver_invite_line" />
+
+        <ImageView
+            android:id="@+id/my_driver_call_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/pic_desc"
+            android:padding="10dp"
+            android:src="@mipmap/driver_invite_call" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/my_driver_del_bt"
+        android:layout_width="65dp"
+        android:layout_height="75dp"
+        android:layout_alignParentEnd="true"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="@string/my_driver_del_bt"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+</RelativeLayout>

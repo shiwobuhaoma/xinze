@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 
 /**
- * @feibai
+ * @author feibai
  */
 public class OwnerDriver implements Serializable {
     /**

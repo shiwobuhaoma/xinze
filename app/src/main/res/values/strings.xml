@@ -171,5 +171,11 @@ compile com.android.support:design:25.0.1
     <string name="invite_detail_title">邀请详情</string>
     <string name="invite_detail_confirm_content">确定要接受邀请吗?</string>
     <string name="invite_detail_refuse_hint">拒绝理由</string>
-
+    <string name="my_driver_exlpain">1、可以给车辆分配所添加的司机\n2、可以设置是否允许司机用车辆接单\n3、车辆所接订单关联司机跟车主均可见\n4、订单的运费最终结算给车主</string>
+    <string name="my_driver_add">添加司机</string>
+    <string name="my_driver_explain_top">说明：</string>
+    <string name="my_driver_pic_bottom">暂无可分配司机</string>
+    <string name="pic_desc">pic</string>
+    <string name="my_driver_title">我的司机</string>
+    <string name="my_driver_del_bt">删除</string>
 </resources>

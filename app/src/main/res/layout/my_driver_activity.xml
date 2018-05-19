@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background"
+    tools:context=".module.drivers.view.MyDriverActivity">
+
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/my_driver_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/my_driver_srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/my_driver_toolbar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_driver_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="8dp" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/my_driver_empty_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_driver_toolbar"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/pic_desc"
+            android:src="@mipmap/drivers_no_drivers" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/my_driver_pic_bottom"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="54.5dp"
+            android:text="@string/my_driver_explain_top"
+            android:textColor="#666666"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:lineSpacingExtra="15dp"
+            android:singleLine="false"
+            android:text="@string/my_driver_exlpain"
+            android:textColor="@color/order_item_text"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/my_driver_add_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/invite_detail_orange_background"
+        android:text="@string/my_driver_add"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
+
+
+</RelativeLayout>

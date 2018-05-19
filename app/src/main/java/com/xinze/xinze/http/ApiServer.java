@@ -347,6 +347,17 @@ public interface ApiServer {
      */
     @POST(UrlConfig.POST_RESPONSE_INVITATION)
     Call<ReturnResult> responseInvitation(@HeaderMap Map<String, String> headers, @Query("id") String id, @Query("responseType") String responseType, @Query("inviteFlag") String inviteFlag, @Query("content") String content);
+    /**
+     * 获取车主邀请信息列表
+     *
+     * @param pageNo     第几页
+     * @param pageSize   多少条
+     * @param headers    请求头
+     * @param inviteFlag 状态查询条件
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_TRUCK_DRIVERS)
+    Call<ReturnResult<List<TruckownerDriverVO>>> myTruckDrivers(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
 
 
 }

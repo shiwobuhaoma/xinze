@@ -12,6 +12,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.AboutUsActivity;
 import com.xinze.xinze.module.certification.CertificationActivity;
+import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.login.LoginActivity;
 import com.xinze.xinze.module.main.adapter.MyRecycleViewAdapter;
@@ -177,6 +178,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                 startActivity(new Intent(mActivity,InviteActivity.class));
                 break;
             case MyItemSelected.MY_DRIVERS:
+                startActivity(new Intent(mActivity,MyDriverActivity.class));
                 break;
             default:
                 break;

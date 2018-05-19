@@ -114,30 +114,7 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
             }
         });
 
-
-
-
         layout = mSystemMsgSmartRefresh.getLayout();
-
-/*        mSystemMsgRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        mSystemMsgRv.setAdapter(new SystemMessageAdapter(this,listSysMsg));
-        //设置 Header 为 贝塞尔雷达 样式
-        mSystemMsgSl.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
-
-        //设置 Footer 为 球脉冲 样式
-        mSystemMsgSl.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
-        mSystemMsgSl.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
-            }
-        });
-        mSystemMsgSl.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
-            }
-        });*/
 
     }
 

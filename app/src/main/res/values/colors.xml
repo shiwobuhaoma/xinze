@@ -24,4 +24,8 @@
     <color name="half_black">#44000000</color>
 
     <color name="service_color">#52affc</color>
+    <color name="gray_background">#f5f5f5</color>
+    <color name="item_whiteground">#ffffff</color>
+
+
 </resources>
