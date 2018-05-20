@@ -275,9 +275,9 @@ public interface ApiServer {
     /**
      * 标记系统消息已读
      *
-     * @param headers
-     * @param id
-     * @return
+     * @param headers 请求头
+     * @param id      id
+     * @return Observable 返回接收观察者对象
      */
     @POST(UrlConfig.POST_MY_NOTICE_READ)
     Observable<BaseEntity> markNoticeReaded(@HeaderMap Map<String, String> headers, @Query("id") String id);
@@ -324,6 +324,7 @@ public interface ApiServer {
      */
     @GET(UrlConfig.GET_MY_TRUCKOWNER_INVITATION)
     Call<ReturnResult<List<TruckownerDriverVO>>> getTruckOwnerInvitation(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
+
     /**
      * 获取货主邀请信息列表
      *
@@ -343,12 +344,14 @@ public interface ApiServer {
      * @param responseType 响应消息类别
      * @param inviteFlag   响应结果
      * @param content      内容
+     * @param headers      请求头
      * @return ReturnResult
      */
     @POST(UrlConfig.POST_RESPONSE_INVITATION)
     Call<ReturnResult> responseInvitation(@HeaderMap Map<String, String> headers, @Query("id") String id, @Query("responseType") String responseType, @Query("inviteFlag") String inviteFlag, @Query("content") String content);
+
     /**
-     * 获取车主邀请信息列表
+     * 获取我的司机列表
      *
      * @param pageNo     第几页
      * @param pageSize   多少条
@@ -358,6 +361,25 @@ public interface ApiServer {
      */
     @GET(UrlConfig.GET_MY_TRUCK_DRIVERS)
     Call<ReturnResult<List<TruckownerDriverVO>>> myTruckDrivers(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
+
+    /**
+     * 删除我的司机
+     *
+     * @param id           邀请信息id
+     * @param headers      请求头
+     * @return ReturnResult 响应结果接收类
+     */
+    @POST(UrlConfig.POST_DEL_MY_DRIVER)
+    Call<ReturnResult> delMyDriver(@HeaderMap Map<String, String> headers, @Query("id") String id);
+    /**
+     * 通过手机号邀请司机
+     *
+     * @param mobile       手机号
+     * @param headers      请求头
+     * @return ReturnResult 响应结果接收类
+     */
+    @GET(UrlConfig.GET_INVITE_DRIVER)
+    Call<ReturnResult> inviteDriver(@HeaderMap Map<String, String> headers, @Query("mobile") String mobile);
 
 
 }

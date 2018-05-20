@@ -33,4 +33,6 @@ public interface UrlConfig {
     String GET_MY_OWNER_INVITATION = "transport/app/user/myInvitation/owner";
     String POST_RESPONSE_INVITATION = "transport/app/user/responseInvitation";
     String GET_MY_TRUCK_DRIVERS = "transport/app/user/myTruckDrivers";
+    String POST_DEL_MY_DRIVER = "transport/app/user/truckownerDriver/del";
+    String GET_INVITE_DRIVER = "transport/app/user/invite" ;
 }

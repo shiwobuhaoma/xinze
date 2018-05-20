@@ -1,12 +1,12 @@
 package com.xinze.xinze.module.drivers.view;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -16,6 +16,7 @@ import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.bean.SpaceItemDecoration;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.drivers.adapter.MyDriverRecycleViewAdapter;
+import com.xinze.xinze.module.drivers.presenter.IMyDriverPresenter;
 import com.xinze.xinze.module.drivers.presenter.MyDriverPresenterImp;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.widget.SimpleToolbar;
@@ -49,7 +50,7 @@ public class MyDriverActivity extends BaseActivity {
     private boolean pageEndFlag = false;
     protected List<TruckownerDriverVO> data;
     protected MyDriverRecycleViewAdapter mAdapter;
-    protected MyDriverPresenterImp mPresenter;
+    protected IMyDriverPresenter mPresenter;
     protected LinearLayoutManager llm;
     protected int mPosition = 0;
     protected String inviteFlag = null;
@@ -63,11 +64,27 @@ public class MyDriverActivity extends BaseActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (isRefresh) {
+            mPresenter.myTruckDrivers(pageNo, pageSize, AppConfig.YES);
+        }
+        isRefresh = false;
+    }
+
+    @Override
     protected void initView() {
         // 初始化标题栏
         initToolbar();
         // 初始化RecyclerView
         initRecyclerView();
+        // 添加司机btn点击事件
+        myDriverAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyDriverActivity.this,DriverAddActivity.class));
+            }
+        });
     }
 
     /**
@@ -86,7 +103,7 @@ public class MyDriverActivity extends BaseActivity {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNo = 1;
-                mPresenter.myTruckDrivers(pageNo, pageSize, inviteFlag);
+                mPresenter.myTruckDrivers(pageNo, pageSize, AppConfig.YES);
             }
         });
         // 绑定上拉刷新加载更多事件
@@ -95,9 +112,9 @@ public class MyDriverActivity extends BaseActivity {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 if (!pageEndFlag) {
                     pageNo++;
-                    mPresenter.myTruckDrivers(pageNo, pageSize, inviteFlag);
+                    mPresenter.myTruckDrivers(pageNo, pageSize, AppConfig.YES);
                 } else {
-                    layout.finishLoadMore(1);
+                    layout.finishLoadMore(500);
                     MyDriverActivity.this.shotToast(AppConfig.LOAD_INFO_FINISH);
                 }
             }
@@ -128,16 +145,7 @@ public class MyDriverActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         mPresenter = new MyDriverPresenterImp(this);
-        mPresenter.myTruckDrivers(pageNo, pageSize, inviteFlag);
-        isRefresh = false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isRefresh) {
-            mPresenter.myTruckDrivers(pageNo, pageSize, inviteFlag);
-        }
+        mPresenter.myTruckDrivers(pageNo, pageSize, AppConfig.YES);
         isRefresh = false;
     }
 
@@ -161,14 +169,25 @@ public class MyDriverActivity extends BaseActivity {
             layout.finishLoadMore(500);
         }
     }
+
     /**
-     *  当数据为空显示的说明页面
+     * 当数据为空显示的说明页面
+     *
+     * @author feibai
+     * @time 2018/5/18  19:42
+     * @desc
+     */
+    public void showEmptyPage() {
+        myDriverEmptyLinearLayout.setVisibility(View.VISIBLE);
+    }
+    /**
+     *  重新刷新数据
      *  @author feibai
-     *  @time 2018/5/18  19:42
+     *  @time 2018/5/19  19:27
      *  @desc
      */
-    public void showEmptyPage(){
-        myDriverEmptyLinearLayout.setVisibility(View.VISIBLE);
+    public void setRefreshData() {
+        mPresenter.myTruckDrivers(AppConfig.PAGE_NO, AppConfig.PAGE_SIZE, inviteFlag);
     }
 
     public boolean isPageEndFlag() {
@@ -178,4 +197,9 @@ public class MyDriverActivity extends BaseActivity {
     public void setPageEndFlag(boolean pageEndFlag) {
         this.pageEndFlag = pageEndFlag;
     }
+
+    public IMyDriverPresenter getmPresenter() {
+        return mPresenter;
+    }
+
 }

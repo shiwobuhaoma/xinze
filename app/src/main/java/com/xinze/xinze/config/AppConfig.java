@@ -27,6 +27,10 @@ public class AppConfig {
      */
     public static final String COMMON_FAILURE_RESPONSE = "网络错误";
     /**
+     * 通用正确响应信息
+     */
+    public static final String COMMON_SUCCESS_RESPONSE = "操作成功";
+    /**
      * 货主端
      */
     public static final String CONSIGNOR = "4";

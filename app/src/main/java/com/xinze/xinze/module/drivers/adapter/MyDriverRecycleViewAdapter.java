@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.xinze.xinze.R;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
+import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.List;
 
@@ -38,6 +39,16 @@ public class MyDriverRecycleViewAdapter extends RecyclerView.Adapter<MyDriverRec
 
     public MyDriverRecycleViewAdapter(MyDriverActivity myDriverActivity) {
         this.mActivity = myDriverActivity;
+        // 初始化手势滑动检测器
+        initGestureDetector();
+    }
+
+    /**
+     * @author feibai
+     * @time 2018/5/19  18:21
+     * @desc
+     */
+    private void initGestureDetector() {
         gestureDetector = new GestureDetector(mActivity, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -76,7 +87,7 @@ public class MyDriverRecycleViewAdapter extends RecyclerView.Adapter<MyDriverRec
         final TruckownerDriverVO truckownerDriver = mBS.get(position);
         String driverName = truckownerDriver.getDriverName();
         final String driverMobile = truckownerDriver.getDriverMobile();
-        String itemId = truckownerDriver.getId();
+        final String itemId = truckownerDriver.getId();
         //TODO 司机头像待处理暂用默认头像
         String driverPhotoUrl = truckownerDriver.getDriverPhoto();
         // 展示数据
@@ -104,6 +115,24 @@ public class MyDriverRecycleViewAdapter extends RecyclerView.Adapter<MyDriverRec
                 mCurrentViewHolder = holder;
                 gestureDetector.onTouchEvent(event);
                 return false;
+            }
+        });
+
+        // 给删除btn绑定点击事件
+        holder.delButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtil.showCommonDialog(mActivity, "确定要删除吗?", new DialogUtil.ChoiceClickListener() {
+                    @Override
+                    public void onClickSureView(Object data) {
+                        mActivity.getmPresenter().delMyDriver(itemId);
+                    }
+
+                    @Override
+                    public void onClickCancelView(Object data) {
+                    }
+                });
+
             }
         });
 

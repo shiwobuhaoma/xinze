@@ -178,4 +178,8 @@ compile com.android.support:design:25.0.1
     <string name="pic_desc">pic</string>
     <string name="my_driver_title">我的司机</string>
     <string name="my_driver_del_bt">删除</string>
+    <string name="my_driver_add_title">添加司机</string>
+    <string name="driver_add_commit">提交</string>
+    <string name="my_driver_add_hint">请输入平台已认证的司机手机号</string>
+    <string name="driver_add_phone_tv">手机号</string>
 </resources>

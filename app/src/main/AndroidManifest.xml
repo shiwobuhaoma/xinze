@@ -72,6 +72,9 @@
         <activity
             android:name=".module.drivers.view.MyDriverActivity"
             android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name=".module.drivers.view.DriverAddActivity"
+            android:theme="@style/TranslucentTheme" />
     </application>
 
 </manifest>
