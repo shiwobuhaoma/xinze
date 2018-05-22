@@ -8,7 +8,7 @@ import android.view.View;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.R;
-import com.xinze.xinze.module.certification.view.CertificationActivity;
+import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.login.LoginActivity;
 
 /**
@@ -53,7 +53,7 @@ public class DialogUtil {
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity, CertificationActivity.class));
+                mActivity.startActivity(new Intent(mActivity, CertificationActivity2.class));
                 rxDialogSureCancel.cancel();
             }
         });

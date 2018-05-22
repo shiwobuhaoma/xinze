@@ -7,7 +7,7 @@ import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.certification.modle.CertificationRespones;
-import com.xinze.xinze.module.certification.view.CertificationActivity;
+import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.certification.view.ICertificationView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
@@ -17,10 +17,10 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 
 public class CertificationPresenterImp extends BasePresenterImpl<ICertificationView> implements ICertificationPresenter {
-    private   CertificationActivity mCertificationActivity;
+    private   CertificationActivity2 mCertificationActivity;
     public CertificationPresenterImp(ICertificationView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
-        mCertificationActivity = (CertificationActivity)mPresenterView;
+        mCertificationActivity = (CertificationActivity2)mPresenterView;
 
     }
 

@@ -11,7 +11,7 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.AboutUsActivity;
-import com.xinze.xinze.module.certification.view.CertificationActivity;
+import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.login.LoginActivity;
@@ -20,9 +20,9 @@ import com.xinze.xinze.module.main.bean.MyRecycleViewItem;
 import com.xinze.xinze.module.main.constant.MyItemSelected;
 import com.xinze.xinze.module.main.presenter.MyPresenterImp;
 import com.xinze.xinze.module.main.view.IMyView;
+import com.xinze.xinze.module.message.SystemMsgActivity;
 import com.xinze.xinze.module.register.RegisterActivity;
 import com.xinze.xinze.module.regular.view.RegularRunActivity;
-import com.xinze.xinze.module.message.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;
@@ -161,7 +161,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         switch (type) {
             case MyItemSelected.DRIVER_CERTIFICATION:
                     if ("1".equals(App.mUser.getVertifyFlag()) || "2".equals(App.mUser.getVertifyFlag())){
-                        startActivity(new Intent(mActivity,CertificationActivity.class));
+                        startActivity(new Intent(mActivity,CertificationActivity2.class));
                     }else{
                         DialogUtil.showUnIdentificationDialog(mActivity);
                     }
