@@ -5,27 +5,27 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.MainConfig;
 import com.xinze.xinze.config.ProtocolConfig;
-import com.xinze.xinze.module.add.AddMyCarActivity;
 import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.select.adapter.SelectCarAdapter;
 import com.xinze.xinze.module.select.module.Protocol;
 import com.xinze.xinze.module.select.presenter.SelectCarPresenterImp;
 import com.xinze.xinze.module.transport.module.Car;
-import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.DividerItemDecoration;
 import com.xinze.xinze.widget.SimpleToolbar;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 

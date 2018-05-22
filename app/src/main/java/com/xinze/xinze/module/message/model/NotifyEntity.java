@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.sysmsg.model;
+package com.xinze.xinze.module.message.model;
 
 import java.io.Serializable;
 

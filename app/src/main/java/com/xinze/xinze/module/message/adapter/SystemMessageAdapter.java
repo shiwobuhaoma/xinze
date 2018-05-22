@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.sysmsg.adapter;
+package com.xinze.xinze.module.message.adapter;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.config.AppConfig;
-import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
-import com.xinze.xinze.module.sysmsg.presenter.SystemMsgPresenterImp;
-import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
+import com.xinze.xinze.module.message.model.NotifyEntity;
+import com.xinze.xinze.module.message.presenter.SystemMsgPresenterImp;
+import com.xinze.xinze.module.message.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;

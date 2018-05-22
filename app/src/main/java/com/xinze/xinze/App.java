@@ -12,6 +12,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.squareup.leakcanary.LeakCanary;
 import com.vondear.rxtools.RxTool;
 import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.utils.ACache;
@@ -51,6 +52,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         context = this ;
+        LeakCanary.install(this);
         UserEntity user = (UserEntity)ACache.get(this).getAsObject("user");
         if (user != null){
             mUser = user;

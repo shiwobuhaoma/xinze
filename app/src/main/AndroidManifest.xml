@@ -17,6 +17,8 @@
     <!-- 照相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- 打电话-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -51,9 +53,9 @@
             android:launchMode="singleTop"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.about.AboutUsActivity" />
-        <activity android:name=".module.sysmsg.SystemMsgActivity" />
+        <activity android:name=".module.message.SystemMsgActivity" />
         <activity
-            android:name=".module.certification.CertificationActivity"
+            android:name=".module.certification.view.CertificationActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".module.find.view.FindGoodsActivity" />
         <activity android:name=".module.send.view.SendGoodsActivity" />
@@ -67,14 +69,30 @@
         <activity android:name=".module.order.view.OrderDetailActivity" />
         <activity android:name=".module.transport.view.TransportDetailsActivity" />
         <activity android:name=".module.select.view.SelectCarActivity" />
-        <activity android:name=".module.regular.activity.RegularRunActivity" />
         <activity android:name=".module.add.AddMyCarActivity" />
+
+
         <activity
             android:name=".module.drivers.view.MyDriverActivity"
             android:theme="@style/TranslucentTheme" />
         <activity
             android:name=".module.drivers.view.DriverAddActivity"
             android:theme="@style/TranslucentTheme" />
+        <activity android:name=".module.submit.DriverSubmitSuccessActivity" />
+        <activity android:name=".module.certification.view.CertificationActivity2" />
+
+
+        <!-- 对android7.0进行适配，获取相册照片需要使用文件提供者，
+       需要注意的是authorities，以你的包名加上fileprovider，因为他需要唯一 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.xinze.xinze.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

@@ -352,4 +352,9 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         findGoodsId.setCompoundDrawables(null, null, drawable, null);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fgpi.onDestroy();
+    }
 }

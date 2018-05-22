@@ -14,12 +14,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.githang.statusbar.StatusBarCompat;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.mvpbase.BaseView;
 import com.xinze.xinze.utils.ActivityStackManager;
-import com.xinze.xinze.utils.ToastUtils;
 
 import java.lang.reflect.Field;
 
@@ -246,7 +245,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void shotToast(String msg) {
-        ToastUtils.showToast(this, msg);
+        RxToast.showToast(msg);
     }
 
 

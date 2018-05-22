@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.sysmsg.presenter;
+package com.xinze.xinze.module.message.presenter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,10 +8,10 @@ import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
-import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
-import com.xinze.xinze.module.sysmsg.view.ISystemMsgView;
-import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
-import com.xinze.xinze.module.sysmsg.adapter.SystemMessageAdapter;
+import com.xinze.xinze.module.message.model.NotifyEntity;
+import com.xinze.xinze.module.message.view.ISystemMsgView;
+import com.xinze.xinze.module.message.SystemMsgActivity;
+import com.xinze.xinze.module.message.adapter.SystemMessageAdapter;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import com.xinze.xinze.utils.ToastUtils;
 

@@ -1,8 +1,10 @@
 package com.xinze.xinze.http;
 
 
+import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
+import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
@@ -12,7 +14,7 @@ import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.select.module.Protocol;
-import com.xinze.xinze.module.sysmsg.model.NotifyEntity;
+import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.mvpbase.BaseBean;
@@ -31,6 +33,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -242,21 +245,151 @@ public interface ApiServer {
 
     /**
      * 上传单张图片
-     *
+     * @param headers  请求头
      * @param img 图片
      * @return 上传结果
      */
+    @Multipart
     @POST("服务器地址")
-    Observable<Object> imageUpload(@Part() MultipartBody.Part img);
+    Observable<Object> imageUpload(@HeaderMap Map<String, String> headers,@Part() MultipartBody.Part img);
 
     /**
      * 上传多张图片
-     *
+     * @param headers  请求头
      * @param imgs 多张图片
      * @return 上传结果
      */
     @POST("服务器地址")
-    Observable<Object> imagesUpload(@Part() List<MultipartBody.Part> imgs);
+    Observable<BaseEntity<List<CertificationRespones>>> imagesUpload(@HeaderMap Map<String, String> headers, @Part() List<MultipartBody.Part> imgs);
+
+
+
+    @POST(HttpConfig.IMAGE_BASE_URL)
+    @FormUrlEncoded
+    Observable<BaseEntity> driverCertification(@HeaderMap Map<String, String> headers, @Field("name") String name, @Field("idcard") String idcard, @Field("areaId") String areaId, @Field("detailAdress") String detailAdress, @Field("idcardImg") String idcardImg, @Field("drivingLicenceImg") String drivingLicenceImg);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ////  -----------------feibai

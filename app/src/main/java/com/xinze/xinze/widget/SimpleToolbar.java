@@ -148,6 +148,7 @@ public class SimpleToolbar extends LinearLayout implements View.OnClickListener 
         Drawable dwLeft = ContextCompat.getDrawable(getContext(), res);
         dwLeft.setBounds(0, 0, dwLeft.getMinimumWidth(), dwLeft.getMinimumHeight());
         mTxtLeftTitle.setCompoundDrawables(dwLeft, null, null, null);
+        setLeftTitleVisible();
     }
 
     /**

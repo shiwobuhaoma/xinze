@@ -100,9 +100,6 @@ compile com.android.support:design:25.0.1
     <string name="goIdentification">去认证</string>
     <string name="certification_commit">提交审核</string>
     <string name="name">姓名</string>
-    <string name="facadeOfIDCard">身份证正面照</string>
-    <string name="facadeOfDriverCard">驾驶证正面照</string>
-    <string name="input_name">请输入姓名</string>
     <string name="isGoIdentification">是否去验证</string>
     <string name="isGoLogin">是否去登录</string>
     <string name="hint_search">搜索</string>
@@ -182,4 +179,24 @@ compile com.android.support:design:25.0.1
     <string name="driver_add_commit">提交</string>
     <string name="my_driver_add_hint">请输入平台已认证的司机手机号</string>
     <string name="driver_add_phone_tv">手机号</string>
+    <string name="driver_submit_success">
+        <Data>
+            <![CDATA[<font color="#333333" size = "30">审核资料提交成功，</font> <br/><font color="#808080" size = "28"> 客服电话：400-4568-8956</font> ]]>
+        </Data>
+    </string>
+
+    <string name="driver_name">姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名</string>
+    <string name="driver_id_card">身份证号</string>
+    <string name="input_number_of_card">请输入身份证号</string>
+
+    <string name="driver_address">现居住地</string>
+    <string name="input_address">请选择所在地区</string>
+    <string name="detail_address">详细地址</string>
+    <string name="input_detail_address">请输入详细地址</string>
+
+    <string name="facadeOfIDCard">身份证正面照</string>
+    <string name="facadeOfDriverCard">驾驶证正面照</string>
+    <string name="input_name">请输入真实姓名</string>
+    <string name="driver_qualifications_upload">资质上传</string>
+
 </resources>

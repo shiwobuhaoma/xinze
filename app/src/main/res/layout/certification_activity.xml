@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xinze.xinze.module.certification.CertificationActivity">
+    tools:context="com.xinze.xinze.module.certification.view.CertificationActivity">
 
     <com.xinze.xinze.widget.SimpleToolbar
         android:id="@+id/certification_tool_bar"
@@ -14,6 +14,7 @@
         android:id="@+id/certification_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:descendantFocusability="afterDescendants"
         android:layout_below="@id/certification_tool_bar" />
 
     <Button

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+
     android:orientation="horizontal">
 
     <TextView
@@ -32,7 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-
         android:layout_toEndOf="@id/certification_tv_name"
         android:layout_toStartOf="@id/certification_arrow"
         android:background="@null"

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/driver_submit_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height" />
+    <TextView
+        android:id="@+id/tv_driver_submit_success"
+        android:drawableTop="@mipmap/submit_success"
+        android:layout_marginTop="94dp"
+        android:drawablePadding="55dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

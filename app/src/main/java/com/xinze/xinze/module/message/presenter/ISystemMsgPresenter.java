@@ -1,7 +1,7 @@
-package com.xinze.xinze.module.sysmsg.presenter;
+package com.xinze.xinze.module.message.presenter;
 
-import com.xinze.xinze.module.sysmsg.view.ISystemMsgView;
-import com.xinze.xinze.module.sysmsg.adapter.SystemMessageAdapter;
+import com.xinze.xinze.module.message.view.ISystemMsgView;
+import com.xinze.xinze.module.message.adapter.SystemMessageAdapter;
 import com.xinze.xinze.mvpbase.BasePresenter;
 
 public interface ISystemMsgPresenter extends BasePresenter<ISystemMsgView>{

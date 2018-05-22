@@ -10,6 +10,7 @@
     <color name="black">#ff000000</color>
     <color name="hint_color">#cccccc</color>
     <color name="gray_line">#587c7c7c</color>
+    <color name="gray_text">#999999</color>
     <color name="tab_background">#ff2c9195</color>
     <color name="main_ic_orange">#FB9251</color>
     <color name="order_item_text">#808080</color>

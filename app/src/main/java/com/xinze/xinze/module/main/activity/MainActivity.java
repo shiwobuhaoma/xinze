@@ -15,6 +15,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.MainConfig;
 import com.xinze.xinze.module.main.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
 import com.xinze.xinze.module.main.fragment.MyFragment;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity {
     private MyFragment my;
     private OrderFragment order;
     private SelectPageAdapter spa;
-    public static Integer currentFragment= 0;
+    public static Integer currentFragment= MainConfig.HOME_FRAGMENT;
 
 
     @Override
@@ -96,6 +97,7 @@ public class MainActivity extends BaseActivity {
         mVp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
+                currentFragment = position;
                 mBottomNavigationBar.selectTab(position);
                 if (fragments.get(position) == order){
                     order.refresh();

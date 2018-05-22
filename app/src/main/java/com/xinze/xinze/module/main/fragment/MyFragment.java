@@ -11,7 +11,7 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.AboutUsActivity;
-import com.xinze.xinze.module.certification.CertificationActivity;
+import com.xinze.xinze.module.certification.view.CertificationActivity;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.login.LoginActivity;
@@ -21,7 +21,8 @@ import com.xinze.xinze.module.main.constant.MyItemSelected;
 import com.xinze.xinze.module.main.presenter.MyPresenterImp;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.module.register.RegisterActivity;
-import com.xinze.xinze.module.sysmsg.SystemMsgActivity;
+import com.xinze.xinze.module.regular.view.RegularRunActivity;
+import com.xinze.xinze.module.message.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;
@@ -168,6 +169,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             case MyItemSelected.MY_CARS:
                 break;
             case MyItemSelected.MY_ROUTES:
+                startActivity(new Intent(mActivity,RegularRunActivity.class));
                 break;
             case MyItemSelected.MY_SYSTEM_MESSAGE:
                 startActivity(new Intent(mActivity,SystemMsgActivity.class));

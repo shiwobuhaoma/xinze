@@ -8,7 +8,7 @@ import android.view.View;
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.R;
-import com.xinze.xinze.module.certification.CertificationActivity;
+import com.xinze.xinze.module.certification.view.CertificationActivity;
 import com.xinze.xinze.module.login.LoginActivity;
 
 /**
@@ -46,7 +46,8 @@ public class DialogUtil {
      */
     public static void showUnIdentificationDialog(final Activity mActivity) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
-        rxDialogSureCancel.getTitleView().setText(R.string.unIdentification);
+//        rxDialogSureCancel.getTitleView().setText(R.string.unIdentification);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
         rxDialogSureCancel.getContentView().setText(R.string.isGoIdentification);
         rxDialogSureCancel.getSureView().setText(R.string.goIdentification);
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
@@ -167,21 +168,37 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
+    public static void showCommonDialog(final Activity mActivity, String content, final Intent intent, final int mRequestCode) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivityForResult(intent, mRequestCode);
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
 
-    /*
+    }
+    /**
     * 按钮点击监听器
     * @author feibai
-    * @time  2018/5/16 16:11
     * desc:
     */
-    public static interface ChoiceClickListener {
+    public  interface ChoiceClickListener {
         /**
          * 当点击确定需执行的方法
          *
          * @param data 需要传传递的数据
          * @author feibai
-         * @time 2018/5/16  16:13
-         * @desc
          */
         void onClickSureView(Object data);
 
@@ -190,8 +207,6 @@ public class DialogUtil {
          *
          * @param data 需要传传递的数据
          * @author feibai
-         * @time 2018/5/16  16:14
-         * @desc
          */
         void onClickCancelView(Object data);
 
