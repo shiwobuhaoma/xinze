@@ -179,6 +179,8 @@ compile com.android.support:design:25.0.1
     <string name="driver_add_commit">提交</string>
     <string name="my_driver_add_hint">请输入平台已认证的司机手机号</string>
     <string name="driver_add_phone_tv">手机号</string>
+
+
     <string name="driver_submit_success">
         <Data>
             <![CDATA[<font color="#333333" size = "30">审核资料提交成功，</font> <br/><font color="#808080" size = "28"> 客服电话：400-4568-8956</font> ]]>
@@ -198,5 +200,14 @@ compile com.android.support:design:25.0.1
     <string name="facadeOfDriverCard">驾驶证正面照</string>
     <string name="input_name">请输入真实姓名</string>
     <string name="driver_qualifications_upload">资质上传</string>
+
+
+    <string name="my_truck_titile">我的车辆</string>
+    <string name="my_truck_add">添加车辆</string>
+    <string name="my_truck_pic_bottom">暂无车辆</string>
+    <string name="my_truck_exlpain">关联司机:15123654789,可接单\n半挂车/25吨\n审核信息:请选择无车承运证\n2018-05-24 10:50</string>
+    <string name="my_truck_trucknum">蒙H4562D</string>
+    <string name="my_trucl_driver_info"><Data><![CDATA[<font color="#52affc">关联司机:%1$s , %2$s</font><br>]]></Data></string>
+
 
 </resources>

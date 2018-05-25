@@ -10,13 +10,14 @@ import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
 import com.xinze.xinze.module.main.modle.OrderItem;
+import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.register.Modle.RegisterResponse;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.select.module.Protocol;
-import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.module.transport.module.TransportDetails;
+import com.xinze.xinze.module.trucks.model.MyTruckVO;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.utils.ReturnResult;
 
@@ -513,6 +514,17 @@ public interface ApiServer {
      */
     @GET(UrlConfig.GET_INVITE_DRIVER)
     Call<ReturnResult> inviteDriver(@HeaderMap Map<String, String> headers, @Query("mobile") String mobile);
+    /**
+     * 获取我的车辆列表
+     *
+     * @param pageNo     第几页
+     * @param pageSize   多少条
+     * @param headers    请求头
+     * @param verifyFlag 验证标记查询条件
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_TRUCKS)
+    Call<ReturnResult<List<MyTruckVO>>> myTrucks(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("truck.verifyFlag") String verifyFlag);
 
 
 }

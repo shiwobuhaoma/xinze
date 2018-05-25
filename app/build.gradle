@@ -38,6 +38,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
+    }
 }
 
 
@@ -96,6 +100,15 @@ dependencies {
     //    implementation('cn.qqtheme.framework:AddressPicker:1.5.5') {
     //        exclude group: 'com.android.support'
     //    }
+
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.2.3'  //jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.2.3'  //jackson
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'  //jackson
+
+
+    implementation 'com.google.guava:guava:17.0'  //guava
+    implementation 'org.apache.commons:commons-lang3:3.3.2'  //apache.commons
+
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     //检测内存泄漏

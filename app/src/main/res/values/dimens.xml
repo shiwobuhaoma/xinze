@@ -2,7 +2,6 @@
 <resources>
 
 
-
     <dimen name="res_textSize_16sp">16sp</dimen>
 
     <dimen name="tab_column_height">46dp</dimen>
@@ -421,4 +420,5 @@
     <dimen name="ui_6_dp">6.0dp</dimen>
     <dimen name="ui_8_dp">8.0dp</dimen>
     <dimen name="app_bar_height">45dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

@@ -3,6 +3,7 @@ package com.xinze.xinze.module.message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -78,7 +79,7 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
 
     @Override
     protected void initView() {
-        mSystemMsgTb.setMainTitle("系统消息");
+        initToolbar();
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mSystemMsgRv.setLayoutManager(layoutManager);
         SystemMsgPresenterImp paramOpi=new SystemMsgPresenterImp(this, this);
@@ -116,6 +117,18 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
 
         layout = mSystemMsgSmartRefresh.getLayout();
 
+    }
+
+    private void initToolbar() {
+        mSystemMsgTb.setMainTitle("系统消息");
+        mSystemMsgTb.setTitleMarginTop();
+        mSystemMsgTb.setLeftTitleVisible();
+        mSystemMsgTb.setLeftTitleClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

@@ -23,6 +23,7 @@ import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.module.message.SystemMsgActivity;
 import com.xinze.xinze.module.register.RegisterActivity;
 import com.xinze.xinze.module.regular.view.RegularRunActivity;
+import com.xinze.xinze.module.trucks.view.MyTruckActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;
@@ -167,6 +168,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                     }
                 break;
             case MyItemSelected.MY_CARS:
+                startActivity(new Intent(mActivity,MyTruckActivity.class));
                 break;
             case MyItemSelected.MY_ROUTES:
                 startActivity(new Intent(mActivity,RegularRunActivity.class));

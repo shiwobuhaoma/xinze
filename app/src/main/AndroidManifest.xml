@@ -53,7 +53,9 @@
             android:launchMode="singleTop"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.about.AboutUsActivity" />
-        <activity android:name=".module.message.SystemMsgActivity" />
+        <activity
+            android:name=".module.message.SystemMsgActivity"
+            android:theme="@style/TranslucentTheme" />
         <activity
             android:name=".module.certification.view.CertificationActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -77,6 +79,9 @@
             android:theme="@style/TranslucentTheme" />
         <activity
             android:name=".module.drivers.view.DriverAddActivity"
+            android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name=".module.trucks.view.MyTruckActivity"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.submit.DriverSubmitSuccessActivity" />
         <activity android:name=".module.certification.view.CertificationActivity2" />

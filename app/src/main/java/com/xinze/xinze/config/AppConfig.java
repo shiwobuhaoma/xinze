@@ -47,6 +47,10 @@ public class AppConfig {
      */
     public static final String NO = "0";
     /**
+     * 全局常量进行中
+     */
+    public static final String CONTINUE = "2";
+    /**
      * 系统消息已读
      */
     public static final String SYSTEM_MSG_READ = "已读";
@@ -122,5 +126,6 @@ public class AppConfig {
         NOTIFY_TYPE_MAP.put(NOTIFY_TYPE_WAYBILL, "货单");
         NOTIFY_TYPE_MAP.put(NOTIFY_TYPE_ORDER, "订单");
     }
+
 
 }
