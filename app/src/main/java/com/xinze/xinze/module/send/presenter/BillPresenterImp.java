@@ -38,18 +38,20 @@ public class BillPresenterImp extends BasePresenterImpl<IBillView> implements IB
                         List<OrderItem> data = t.getData();
                         if (data != null){
                             mBillFragment.setData(data);
-                            mBillFragment.getBillsSuccess();
+                            mBillFragment.getBillsSuccess(t.getMsg());
                         }else{
-                            mBillFragment.getBillsSuccess();
+                            mBillFragment.getBillsSuccess(t.getMsg());
                             mBillFragment.shotToast("没有更多了");
                         }
+                    }else{
+                        mBillFragment.getBillsFailed(t.getMsg());
                     }
                 }
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mBillFragment.getBillsFailed();
+                mBillFragment.getBillsFailed(e.getMessage());
             }
         } );
     }

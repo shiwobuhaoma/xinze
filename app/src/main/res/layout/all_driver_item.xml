@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/allot_driver_cb"
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@mipmap/my_driver_unselected"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/allot_driver_name_tel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@mipmap/driver_avatar"
+        android:padding="10dp"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="25dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/line" />
+    <TextView
+        android:id="@+id/allot_driver_right_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/allow"
+        android:textColor="@color/service_color"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/allot_driver_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@mipmap/phone"
+        android:padding="15dp" />
+</LinearLayout>

@@ -33,6 +33,8 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
                     if(t.isSuccess()){
                         mTransportDetailsActivity.setData(t.getData());
                         mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
+                    }else{
+                        mTransportDetailsActivity.getBillDetailFailed(t.getMsg());
                     }
                 }
             }
@@ -43,6 +45,31 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
             }
         });
     }
+
+    @Override
+    public void backBill(String id) {
+        @SuppressWarnings("unchecked")
+        Map<String,String> headers = HeaderConfig.getHeaders();
+        RetrofitFactory.getInstence().Api().backBill(headers,id).
+                compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
+            @Override
+            protected void onSuccees(BaseEntity t) throws Exception {
+                if (t != null){
+                    if(t.isSuccess()){
+                        mTransportDetailsActivity.backBillSuccess(t.getMsg());
+                    }else{
+                        mTransportDetailsActivity.backBillSuccess(t.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                mTransportDetailsActivity.backBillSuccess(e.getMessage());
+            }
+        });
+    }
+
     @Override
     public void getCarryOrderRight(String userId) {
         @SuppressWarnings("unchecked")
@@ -54,6 +81,8 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
                     if (t.isSuccess()){
                         mTransportDetailsActivity.isCarry(t.getData());
                         mTransportDetailsActivity.getCarryOrderRightSuccess(t.getMsg());
+                    }else{
+                        mTransportDetailsActivity.getCarryOrderRightFailed(t.getMsg());
                     }
                 }
 

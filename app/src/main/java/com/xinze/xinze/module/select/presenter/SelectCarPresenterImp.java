@@ -42,6 +42,8 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
                         List<Car> data = t.getData();
                         mSelectCarActivity.setData(data);
                         mSelectCarActivity.getCarryTruckListSuccess(t.getMsg());
+                    }else{
+                        mSelectCarActivity.getCarryTruckListFailed(t.getMsg());
                     }
                 }
             }
@@ -62,6 +64,8 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
                     if (t.isSuccess()){
                         Protocol data = t.getData();
                         mSelectCarActivity.setProtocolData(data);
+                    }else{
+                        mSelectCarActivity.getProtocolByTypeFailed(t.getMsg());
                     }
                 }
             }

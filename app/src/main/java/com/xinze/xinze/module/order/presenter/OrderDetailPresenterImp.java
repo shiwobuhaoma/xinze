@@ -44,13 +44,15 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
                 if (t != null){
                     if (t.isSuccess()){
                         fga.setData(t.getData());
+                    }else{
+                        fga.getOrderDetailFailed(t.getMsg());
                     }
                 }
             }
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                fga.getOrderDetailFailed();
+                fga.getOrderDetailFailed(e.getMessage());
             }
         });
     }
@@ -87,6 +89,8 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
                             fga.revokeSuccess("确认送达成功",fga.GOODS_SIGNED_IN);
                         }
 
+                    }else{
+                        fga.revokeFailed(t.getMsg());
                     }
                 }
             }

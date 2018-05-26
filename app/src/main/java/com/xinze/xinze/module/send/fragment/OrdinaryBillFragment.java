@@ -38,6 +38,12 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+
+    }
+
+    @Override
     protected void initView() {
         llm = new LinearLayoutManager(mActivity);
         ordinaryBillRv.setLayoutManager(llm);
@@ -69,6 +75,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.send_goods_from:
+
                 break;
             case R.id.send_goods_to:
                 break;
@@ -83,7 +90,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
     }
 
     @Override
-    public void getBillsSuccess() {
+    public void getBillsSuccess(String msg) {
         moveToPosition(llm,ordinaryBillRv,mPosition);
     }
 

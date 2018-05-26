@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,11 +16,13 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.MainConfig;
 import com.xinze.xinze.config.ProtocolConfig;
+import com.xinze.xinze.module.allot.view.AllotDriverActivity;
 import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.select.adapter.SelectCarAdapter;
 import com.xinze.xinze.module.select.module.Protocol;
 import com.xinze.xinze.module.select.presenter.SelectCarPresenterImp;
 import com.xinze.xinze.module.transport.module.Car;
+import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.DividerItemDecoration;
 import com.xinze.xinze.widget.SimpleToolbar;
 
@@ -81,6 +84,36 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         sca.setOnItemClickListener(new SelectCarAdapter.OnItemClickListener() {
             @Override
             public void click(View view, int position) {
+                Car car = carList.get(position);
+                //0表示自有 1表示关联
+                String ownFlag = car.getOwnFlag();
+                if ("0".equals(ownFlag)){
+                    //审核状态 1表示已审核 0 审核失败 2 审核中
+                    if ("2".equals(car.getVertify_flag())){
+                        DialogUtil.showCommonDialog(SelectCarActivity.this,"车辆正在审核中...","知道了");
+                        return;
+                    }else if("1".equals(car.getVertify_flag())){
+                        //审核已通过，司机未关联
+                        if (TextUtils.isEmpty(car.getDriver_id())){
+                            //跳转到分配司机界面
+                            Intent intent = new Intent(SelectCarActivity.this, AllotDriverActivity.class);
+                            intent.putExtra("truckId",car.getId());
+                            intent.putExtra("driverId",car.getDriver_id());
+                            DialogUtil.showCommonDialog(SelectCarActivity.this,"车辆未关联司机", intent,"去关联");
+                            return;
+                        }
+                    }else {
+                        DialogUtil.showCommonDialog(SelectCarActivity.this,"车辆审核失败","知道了");
+                        return;
+                    }
+                }else{
+                    String rightFlag = car.getRight_flag();
+                    if ("0".equals(rightFlag)) {
+                        DialogUtil.showCommonDialog(SelectCarActivity.this,"没有权限抢单","知道了");
+                        return;
+                    }
+                }
+
                 sca.updateState(position);
             }
         });

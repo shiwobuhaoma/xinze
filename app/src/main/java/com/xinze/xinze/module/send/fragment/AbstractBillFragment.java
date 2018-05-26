@@ -58,7 +58,7 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
     }
 
     @Override
-    public void getBillsSuccess() {
+    public void getBillsSuccess(String msg) {
         if (pageNo == 1) {
             layout.finishRefresh(2000);
         } else {
@@ -67,7 +67,7 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
     }
 
     @Override
-    public void getBillsFailed() {
+    public void getBillsFailed(String msg) {
         layout.finishRefresh(false);
     }
 

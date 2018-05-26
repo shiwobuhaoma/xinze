@@ -20,7 +20,7 @@
     <string name="unLogin">未登录</string>
     <string name="driver_certification">司机认证</string>
     <string name="my_cars">我的车辆</string>
-    <string name="my_routes">长跑路线</string>
+    <string name="my_routes">常跑路线</string>
     <string name="my_system_message">系统消息</string>
     <string name="my_about_us">关于我们</string>
     <string name="my_help">帮助</string>
@@ -93,7 +93,7 @@ compile com.android.support:design:25.0.1
         向下滑动的时候，NestedScrollView 中的内容先滑动，然后 Toolbar 再一起滑动。
     </string>
 
-    <string name="home_regular_route">长跑路线</string>
+    <string name="home_regular_route">常跑路线</string>
 
     <string name="goLogin">去登录</string>
     <string name="unIdentification">未认证</string>
@@ -200,14 +200,26 @@ compile com.android.support:design:25.0.1
     <string name="facadeOfDriverCard">驾驶证正面照</string>
     <string name="input_name">请输入真实姓名</string>
     <string name="driver_qualifications_upload">资质上传</string>
+    <string name="line_edit_from">请选择始发地</string>
+    <string name="line_edit_to">请选择目的地</string>
+    <string name="confirm">确定</string>
+    <string name="address_from">出&#160;&#160;发&#160;&#160;地</string>
+    <string name="address_to">目&#160;&#160;的&#160;&#160;地</string>
+    <string name="line_add">添加线路</string>
 
 
     <string name="my_truck_titile">我的车辆</string>
     <string name="my_truck_add">添加车辆</string>
     <string name="my_truck_pic_bottom">暂无车辆</string>
-    <string name="my_truck_exlpain">关联司机:15123654789,可接单\n半挂车/25吨\n审核信息:请选择无车承运证\n2018-05-24 10:50</string>
+    <string name="my_truck_exlpain">关联司机:15123654789,可接单\n半挂车/25吨\n审核信息:请选择无车承运证\n2018&#8211;05&#8211;24 10:50</string>
     <string name="my_truck_trucknum">蒙H4562D</string>
-    <string name="my_trucl_driver_info"><Data><![CDATA[<font color="#52affc">关联司机:%1$s , %2$s</font><br>]]></Data></string>
+    <string name="my_truck_driver_info"><Data><![CDATA[<font color="#52affc">关联司机:%1$s , %2$s</font><br>]]></Data></string>
+    <string name="select_driver">
+        <Data>
+            <![CDATA[<font color="#333333" size = "30">%1$s</font> <br/><font color="#333333" size = "28">%2$s</font> ]]>
+        </Data>
+    </string>
 
-
+    <string name="allot_driver_title">分配司机</string>
+    <string name="allow">允许</string>
 </resources>

@@ -23,6 +23,7 @@ import retrofit2.Response;
 
 public class MyDriverPresenterImp implements IMyDriverPresenter {
 
+
     private MyDriverActivity myDriverActivity;
     private DriverAddActivity driverAddActivity;
 
@@ -34,6 +35,7 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
     public MyDriverPresenterImp(DriverAddActivity driverAddActivity) {
         this.driverAddActivity = driverAddActivity;
     }
+
 
 
     @Override

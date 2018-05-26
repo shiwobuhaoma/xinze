@@ -44,6 +44,10 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
                             orderFragment.getOrderListSuccess();
                             orderFragment.shotToast("没有更多了");
                         }
+                    }else{
+                        orderFragment.getOrderListFailed();
+                        orderFragment.shotToast(t.getMsg());
+
                     }
                 }
             }

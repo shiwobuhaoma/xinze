@@ -113,4 +113,9 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     //检测内存泄漏
     implementation 'com.yalantis:ucrop:2.2.0'
+
+    implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {
+        exclude group: 'com.android.support'
+    }
+    //地址选择器
 }

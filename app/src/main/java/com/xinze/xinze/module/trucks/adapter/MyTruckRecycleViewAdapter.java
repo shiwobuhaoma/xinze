@@ -80,7 +80,7 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
                     String driverPhone = truckDriver.getDriverPhone();
                     rightFlag = truckDriver.getRightFlag();
                     String rightFlagStr = rightFlag.equals(AppConfig.YES) ? "可接单" : "不可接单";
-                    String tempStr = mActivity.getString(R.string.my_trucl_driver_info);
+                    String tempStr = mActivity.getString(R.string.my_truck_driver_info);
                     String blueStr = String.format(tempStr, driverPhone, rightFlagStr);
                     contentSb.append(blueStr);
                 }

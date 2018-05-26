@@ -122,7 +122,8 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             }
         });
         certificationBt.setOnClickListener(this);
-
+        certificationFaceOfIdCard.setOnClickListener(this);
+        certificationFaceOfDriverCard.setOnClickListener(this);
     }
 
     private void checkPermissions() {
@@ -371,7 +372,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
         RequestOptions myOptions = new RequestOptions()
                 .fitCenter()
                 .transform(new GlideRoundTransform(this, 5));
-        if (resourceId == R.id.certification_iv_id) {
+        if (resourceId == R.id.certification_face_of_id_card) {
             Glide.with(this).load(filePath).apply(myOptions).into(certificationFaceOfIdCard);
         } else {
             Glide.with(this).load(filePath).apply(myOptions).into(certificationFaceOfDriverCard);
@@ -469,7 +470,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
 
     @Override
     public void uploadImagesSuccess(String msg) {
-        RxToast.showToast(msg);
+//        RxToast.showToast(msg);
     }
 
     @Override
@@ -481,6 +482,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
     public void certificationSuccess(String msg) {
         RxToast.showToast(msg);
         openActivity(DriverSubmitSuccessActivity.class);
+        finish();
     }
 
     @Override
@@ -518,12 +520,14 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             RxToast.showToast("上传照片数量不足");
             return;
         }
-        cpi.certifitcation(driverName, idNumber, driverAddress,driverDetailAddress, data.get(0).getUrl(), data.get(1).getUrl());
+        cpi.certifitcation(driverName, idNumber, driverAddress, driverDetailAddress, data.get(0).getUrl(), data.get(1).getUrl());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        cpi.onDestroy();
+        if (cpi != null) {
+            cpi.onDestroy();
+        }
     }
 }

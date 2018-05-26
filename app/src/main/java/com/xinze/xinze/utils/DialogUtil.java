@@ -9,7 +9,7 @@ import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 import com.xinze.xinze.R;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
-import com.xinze.xinze.module.login.LoginActivity;
+import com.xinze.xinze.module.login.view.LoginActivity;
 
 /**
  * @author lxf
@@ -179,6 +179,42 @@ public class DialogUtil {
                 rxDialogSureCancel.cancel();
             }
         });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
+    public static void showCommonDialog(final Activity mActivity, String content, final Intent intent,String sureText) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getSureView().setText(sureText);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivity(intent);
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
+    public static void showCommonDialog(final Activity mActivity, String content,String cancelText) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getSureView().setVisibility(View.GONE);
+
         rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

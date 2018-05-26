@@ -14,7 +14,8 @@ import com.xinze.xinze.module.about.AboutUsActivity;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.view.InviteActivity;
-import com.xinze.xinze.module.login.LoginActivity;
+import com.xinze.xinze.module.line.view.LineActivity;
+import com.xinze.xinze.module.login.view.LoginActivity;
 import com.xinze.xinze.module.main.adapter.MyRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.MyRecycleViewItem;
 import com.xinze.xinze.module.main.constant.MyItemSelected;
@@ -22,7 +23,6 @@ import com.xinze.xinze.module.main.presenter.MyPresenterImp;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.module.message.SystemMsgActivity;
 import com.xinze.xinze.module.register.RegisterActivity;
-import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.trucks.view.MyTruckActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
@@ -35,12 +35,12 @@ import butterknife.OnClick;
  * 首页
  *
  * @author lxf
- *         Created by lxf on 2016/5/15.
+ * Created by lxf on 2016/5/15.
  */
 public class MyFragment extends BaseFragment implements View.OnClickListener, IMyView {
 
     /**
-     *布局类型
+     * 布局类型
      */
     private static final int ITEM_TYPE_ONE = 1;
     private static final int ITEM_TYPE_ZERO = 2;
@@ -76,19 +76,19 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         myRegister.setOnClickListener(this);
         myLogin.setOnClickListener(this);
 
-        myDrivers = new MyRecycleViewItem("我的司机", R.mipmap.my_ic_driver, true, false, true, false, "0人",false,ITEM_TYPE_ZERO);
-        myInvitation = new MyRecycleViewItem("我的邀请", R.mipmap.my_ic_invitation, true, true, false, true, "",false,ITEM_TYPE_ZERO);
-        myChangePwd = new MyRecycleViewItem("修改密码", R.mipmap.my_ic_change_pwd, false, false, false, false, "",false,ITEM_TYPE_ZERO);
-        myLoginOut = new MyRecycleViewItem("退出登录", 0, false, true, false, true, "",true,ITEM_TYPE_ONE);
+        myDrivers = new MyRecycleViewItem("我的司机", R.mipmap.my_ic_driver, true, false, true, false, "0人", false, ITEM_TYPE_ZERO);
+        myInvitation = new MyRecycleViewItem("我的邀请", R.mipmap.my_ic_invitation, true, true, false, true, "", false, ITEM_TYPE_ZERO);
+        myChangePwd = new MyRecycleViewItem("修改密码", R.mipmap.my_ic_change_pwd, false, false, false, false, "", false, ITEM_TYPE_ZERO);
+        myLoginOut = new MyRecycleViewItem("退出登录", 0, false, true, false, true, "", true, ITEM_TYPE_ONE);
 
-        driverCer = new MyRecycleViewItem("司机认证", 0, true, true, true, true, "未认证",true,ITEM_TYPE_ZERO);
+        driverCer = new MyRecycleViewItem("司机认证", 0, true, true, true, true, "未认证", true, ITEM_TYPE_ZERO);
 
-        myCars = new MyRecycleViewItem("我的车辆", R.mipmap.my_ic_cars, true, false, true, false, "0辆",true,ITEM_TYPE_ZERO);
+        myCars = new MyRecycleViewItem("我的车辆", R.mipmap.my_ic_cars, true, false, true, false, "0辆", true, ITEM_TYPE_ZERO);
 
-        myRoutes = new MyRecycleViewItem("长跑路线", R.mipmap.my_ic_routes, true, false, false, true, "",true,ITEM_TYPE_ZERO);
-        mySystemMsg = new MyRecycleViewItem("系统消息", R.mipmap.my_ic_sysmsg, true, true, true, true, "0条",true,ITEM_TYPE_ZERO);
-        myAboutUs = new MyRecycleViewItem("关于我们", R.mipmap.my_ic_about_us, true, false, false, true, "",true,ITEM_TYPE_ZERO);
-        myHelp = new MyRecycleViewItem("帮助", R.mipmap.my_ic_help, true, true, false, true, "",false,ITEM_TYPE_ZERO);
+        myRoutes = new MyRecycleViewItem("常跑路线", R.mipmap.my_ic_routes, true, false, false, true, "", true, ITEM_TYPE_ZERO);
+        mySystemMsg = new MyRecycleViewItem("系统消息", R.mipmap.my_ic_sysmsg, true, true, true, true, "0条", true, ITEM_TYPE_ZERO);
+        myAboutUs = new MyRecycleViewItem("关于我们", R.mipmap.my_ic_about_us, true, false, false, true, "", true, ITEM_TYPE_ZERO);
+        myHelp = new MyRecycleViewItem("帮助", R.mipmap.my_ic_help, true, true, false, true, "", false, ITEM_TYPE_ZERO);
 
         myRecycleViewItems.add(driverCer);
         myRecycleViewItems.add(myCars);
@@ -112,7 +112,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                     case "我的车辆":
                         doType(MyItemSelected.MY_CARS);
                         break;
-                    case "长跑路线":
+                    case "常跑路线":
                         doType(MyItemSelected.MY_ROUTES);
                         break;
                     case "系统消息":
@@ -122,7 +122,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                         mActivity.startActivity(new Intent(mActivity, AboutUsActivity.class));
                         break;
                     case "退出登录":
-                        MyPresenterImp mpi = new MyPresenterImp(MyFragment.this,mActivity);
+                        MyPresenterImp mpi = new MyPresenterImp(MyFragment.this, mActivity);
                         mpi.loginOut();
                         break;
                     case "修改密码":
@@ -144,6 +144,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     /**
      * 判断有没有登录，没有登录显示未登录对话框，登录了跳转到不同界面
+     *
      * @param type 不同界面的标识
      */
     private void doType(String type) {
@@ -156,33 +157,34 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     /**
      * 根据type跳转到不同界面
+     *
      * @param type 不同界面的标识
      */
     private void doSomething(String type) {
         switch (type) {
             case MyItemSelected.DRIVER_CERTIFICATION:
-                    if ("1".equals(App.mUser.getVertifyFlag()) || "2".equals(App.mUser.getVertifyFlag())){
-                        startActivity(new Intent(mActivity,CertificationActivity2.class));
-                    }else{
-                        DialogUtil.showUnIdentificationDialog(mActivity);
-                    }
+                if ("1".equals(App.mUser.getVertifyFlag()) || "2".equals(App.mUser.getVertifyFlag())) {
+                    startActivity(new Intent(mActivity, CertificationActivity2.class));
+                } else {
+                    DialogUtil.showUnIdentificationDialog(mActivity);
+                }
                 break;
             case MyItemSelected.MY_CARS:
                 startActivity(new Intent(mActivity,MyTruckActivity.class));
                 break;
             case MyItemSelected.MY_ROUTES:
-                startActivity(new Intent(mActivity,RegularRunActivity.class));
+                startActivity(new Intent(mActivity, LineActivity.class));
                 break;
             case MyItemSelected.MY_SYSTEM_MESSAGE:
-                startActivity(new Intent(mActivity,SystemMsgActivity.class));
+                startActivity(new Intent(mActivity, SystemMsgActivity.class));
                 break;
             case MyItemSelected.MY_CHANGE_PWD:
                 break;
             case MyItemSelected.MY_INVITATION:
-                startActivity(new Intent(mActivity,InviteActivity.class));
+                startActivity(new Intent(mActivity, InviteActivity.class));
                 break;
             case MyItemSelected.MY_DRIVERS:
-                startActivity(new Intent(mActivity,MyDriverActivity.class));
+                startActivity(new Intent(mActivity, MyDriverActivity.class));
                 break;
             default:
                 break;
@@ -263,7 +265,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
      * @return true为登录状态  false为注销状态
      */
     public boolean isLogin() {
-        return App.mUser.isLogin();
+
+        return App.mUser != null && App.mUser.isLogin();
+
     }
 
 

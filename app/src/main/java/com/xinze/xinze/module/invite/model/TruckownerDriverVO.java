@@ -1,8 +1,7 @@
 package com.xinze.xinze.module.invite.model;
 
 /**
- * 
- * @功能 我(司机)的司机VO,关联了一些司机/车主信息
+ * @功能 我(司机)的司机VO, 关联了一些司机/车主信息
  * @作者 jinlizhi
  * @时间 2018年4月24日下午8:56:28
  */
@@ -29,6 +28,12 @@ public class TruckownerDriverVO extends TruckownerDriver {
      * 车主手机号
      */
     private String truckOwnerMobile;
+    /**
+     * true为选中
+     * false 为未选中
+     */
+    private boolean checked = false;
+
 
     public String getDriverPhoto() {
         return driverPhoto;
@@ -68,6 +73,14 @@ public class TruckownerDriverVO extends TruckownerDriver {
 
     public void setDriverMobile(String driverMobile) {
         this.driverMobile = driverMobile;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
 }

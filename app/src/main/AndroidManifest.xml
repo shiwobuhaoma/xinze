@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".module.login.LoginActivity"
+            android:name=".module.login.view.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/TranslucentTheme" />
         <activity
@@ -85,6 +85,8 @@
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".module.submit.DriverSubmitSuccessActivity" />
         <activity android:name=".module.certification.view.CertificationActivity2" />
+        <activity android:name=".module.line.view.LineActivity"/>
+        <activity android:name=".module.allot.view.AllotDriverActivity" />
 
 
         <!-- 对android7.0进行适配，获取相册照片需要使用文件提供者，

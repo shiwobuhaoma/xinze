@@ -1,7 +1,6 @@
 package com.xinze.xinze.http;
 
 
-import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.certification.modle.CertificationRespones;
@@ -20,10 +19,12 @@ import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.module.trucks.model.MyTruckVO;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.utils.ReturnResult;
+import com.xinze.xinze.widget.bean.Address;
 
 import java.util.List;
 import java.util.Map;
 
+import cn.qqtheme.framework.entity.Province;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -182,6 +183,49 @@ public interface ApiServer {
     Observable<BaseEntity<List<Route>>> getRegularRouteList(@HeaderMap Map<String, String> headers);
 
     /**
+     * 添加常跑路线
+     * @param headers 请求头
+     * @param fromAreaId 出发地
+     * @param toAreaId 目的地
+     * @return 返回添加状态
+     */
+    @GET(UrlConfig.ADD_REGULAR_ROUTE_LIST)
+    Observable<BaseEntity>  addRegularRoute(@HeaderMap Map<String, String> headers, @Query("fromAreaId")String fromAreaId, @Query("toAreaId")String toAreaId);
+
+    /**
+     * 删除常跑路线
+     * @param headers 请求头
+     * @param id 路线id
+     * @return 返回添加状态
+     */
+    @GET(UrlConfig.DEL_REGULAR_ROUTE_LIST)
+    Observable<BaseEntity>  delRegularRoute(@HeaderMap Map<String, String> headers, @Query("id")String id);
+
+
+    /**
+     * 修改常跑路线
+     * @param headers 请求头
+     * @param id 路线id
+     * @param fromAreaId 出发地
+     * @param toAreaId 目的地
+     * @return 返回修改状态
+     */
+    @GET(UrlConfig.EDIT_REGULAR_ROUTE_LIST)
+    Observable<BaseEntity>  editRegularRoute(@HeaderMap Map<String, String> headers, @Query("id")String id,@Query("fromAreaId")String fromAreaId, @Query("toAreaId")String toAreaId);
+
+
+    /**
+     * 获取省市县接口
+     * @param headers 请求头
+     * @param extId 省市县对应的id
+     * @return 返回信息
+     */
+    @GET(UrlConfig.GET_AREA_LIST)
+    Observable<BaseEntity<List<Province>>>  getAreaList(@HeaderMap Map<String, String> headers, @Query("extId") String extId);
+
+
+
+    /**
      * 搜索路线
      *
      * @param headers    请求头
@@ -207,6 +251,15 @@ public interface ApiServer {
 
 
     /**
+     * 退单接口
+     * @param headers 请求头
+     * @param id  id号
+     * @return 退单状态
+     */
+    @GET(UrlConfig.BACK_BILL)
+    Observable<BaseEntity> backBill(@HeaderMap Map<String, String> headers, @Query("id") String id);
+
+    /**
      * 抢单权限判断，抢单操作调用（可否进入选择车辆列表）
      *
      * @param headers 请求头
@@ -226,10 +279,28 @@ public interface ApiServer {
     @GET(UrlConfig.GET_CARRY_TRUCK_LIST)
     Observable<BaseEntity<List<Car>>> getCarryTruckList(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
-
+    /**
+     * 获取协议类型
+     * @param headers 请求头
+     * @param protocolType 协议类型
+     * @return 返回协议内容
+     */
     @GET(UrlConfig.GET_PROTOCOL_BY_TYPE)
     Observable<BaseEntity<Protocol>> getProtocolByType(@HeaderMap Map<String, String> headers, @Query("protocolType") String protocolType);
 
+
+
+    /**
+     * 获取我的司机列表
+     *
+     * @param pageNo     第几页
+     * @param pageSize   多少条
+     * @param headers    请求头
+     * @param verifyFlag 验证标记查询条件
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_TRUCK_DRIVERS)
+    Observable<BaseEntity<List<TruckownerDriverVO>>> getMyTrucksList(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("truck.verifyFlag") String verifyFlag);
 
     /**
      * 抢单接口
@@ -260,18 +331,38 @@ public interface ApiServer {
      * @param imgs 多张图片
      * @return 上传结果
      */
-    @POST("服务器地址")
+    @Multipart
+    @POST(UrlConfig.UPLOAD_IMAGE)
     Observable<BaseEntity<List<CertificationRespones>>> imagesUpload(@HeaderMap Map<String, String> headers, @Part() List<MultipartBody.Part> imgs);
 
 
-
-    @POST(HttpConfig.IMAGE_BASE_URL)
+    /**
+     * 司机认证接口
+     * @param headers 请求头
+     * @param name 司机姓名
+     * @param idcard 身份证id
+     * @param areaId 所居住地区域id
+     * @param detailAdress 详细信息
+     * @param idcardImg 身份证图片
+     * @param drivingLicenceImg 驾驶证图片
+     * @return 返回认证信息
+     */
+    @POST(UrlConfig.DRIVER_CERTIFICATION)
     @FormUrlEncoded
     Observable<BaseEntity> driverCertification(@HeaderMap Map<String, String> headers, @Field("name") String name, @Field("idcard") String idcard, @Field("areaId") String areaId, @Field("detailAdress") String detailAdress, @Field("idcardImg") String idcardImg, @Field("drivingLicenceImg") String drivingLicenceImg);
 
 
 
 
+    /**
+     * 普通货单界面获取区域接口
+     *
+     * @param headers              请求头
+     * @param extId 抢单的车辆集合信息
+     * @return 抢单是否成功
+     */
+    @GET(UrlConfig.GET_AREALIST_BY_PARENT_ID_FOR_SEARCH)
+    Observable<BaseEntity<List<Address>>> getAreaListByParentIdForSearch(@HeaderMap Map<String, String> headers, @Query("extId") String extId);
 
 
 

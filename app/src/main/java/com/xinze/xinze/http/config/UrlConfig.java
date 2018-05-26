@@ -2,7 +2,7 @@ package com.xinze.xinze.http.config;
 
 /**
  * @author yemao
- * @Date 2017/4/9
+ *  2017/4/9
  *  网络接口地址!
  */
 public interface UrlConfig {
@@ -21,9 +21,13 @@ public interface UrlConfig {
     String CHANGE_BILL_ORDER_STATUS = "transport/app/billorder/changeBillOrderStatus";
     String GET_BILL_LIST = "transport/app/bill/getBillList";
     String GET_REGULAR_ROUTE_LIST = "transport/app/regularroute/getRegularRouteList";
+    String ADD_REGULAR_ROUTE_LIST = "transport/app/regularroute/addRegularRoute";
+    String DEL_REGULAR_ROUTE_LIST = "transport/app/regularroute/delRegularRoute";
+    String EDIT_REGULAR_ROUTE_LIST = "transport/app/regularroute/editRegularRoute";
     String SEARCH_ROUTE_LIST = "transport/app/bill/searchRoute";
     String GET_MY_NOTICE = "transport/app/user/myNotice";
     String POST_MY_NOTICE_READ = "transport/app/user/myNotice/read";
+    String BACK_BILL = "transport/app/bill/backBill";
     String GET_BILL_DETAIL="transport/app/bill/getBillDetail";
     String GET_CARRY_ORDER_RIGHT = "transport/app/truck/getCarryOrderRight";
     String GET_CARRY_TRUCK_LIST = "transport/app/truck/getCarryTruckList";
@@ -35,5 +39,12 @@ public interface UrlConfig {
     String GET_MY_TRUCK_DRIVERS = "transport/app/user/myTruckDrivers";
     String POST_DEL_MY_DRIVER = "transport/app/user/truckownerDriver/del";
     String GET_INVITE_DRIVER = "transport/app/user/invite" ;
+    String UPLOAD_IMAGE = "transport/app/upload/file" ;
+    String DRIVER_CERTIFICATION = "transport/app/user/driver/auth" ;
+    String GET_AREA_LIST = "transport/app/area/getAreaList";
+
     String GET_MY_TRUCKS = "transport/app/user/myTrucks";
+    String GET_AREALIST_BY_PARENT_ID_FOR_SEARCH = "transport/app/area/getAreaListByParentIdForSearch";
+
+
 }

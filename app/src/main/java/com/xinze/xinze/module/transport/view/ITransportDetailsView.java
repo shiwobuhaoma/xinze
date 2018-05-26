@@ -8,4 +8,7 @@ public interface ITransportDetailsView extends BaseView {
 
     void getCarryOrderRightSuccess(String msg);
     void getCarryOrderRightFailed(String msg);
+
+    void backBillSuccess(String msg);
+    void backBillFailed(String msg);
 }

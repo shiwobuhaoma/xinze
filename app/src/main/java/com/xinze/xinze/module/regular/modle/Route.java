@@ -1,10 +1,12 @@
 package com.xinze.xinze.module.regular.modle;
 
+import java.io.Serializable;
+
 /**
  * @author lxf
  * 路线实体
  */
-public class Route {
+public class Route implements Serializable{
 
     /**
      * id : eaadfc955a604770a8ab30002875b5c5

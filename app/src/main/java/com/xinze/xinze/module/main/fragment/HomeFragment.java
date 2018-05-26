@@ -85,21 +85,21 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
     private void jump(int position) {
-        if (App.mUser.isLogin()){
-            if (position == 1){
-                openActivity(SendGoodsActivity.class,"CurrentRadio","1");
-            }else if (position == 0){
-                openActivity(SendGoodsActivity.class,"CurrentRadio","0");
-            }else if (position == 2){
+        if (App.mUser.isLogin()) {
+            if (position == 1) {
+                openActivity(SendGoodsActivity.class, "CurrentRadio", "1");
+            } else if (position == 0) {
+                openActivity(SendGoodsActivity.class, "CurrentRadio", "0");
+            } else if (position == 2) {
                 openActivity(RegularRunActivity.class);
             }
 
-        }else{
+        } else {
             DialogUtil.showUnloginDialog(mActivity);
         }
-        if (position == 3){
+        if (position == 3) {
             openActivity(AboutUsActivity.class);
-        }else if (position == 4){
+        } else if (position == 4) {
             startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "4001245566")));
         }
     }
@@ -121,14 +121,14 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     protected void initData() {
         super.initData();
 
-        hpi = new HomePresenterImp(this,mActivity);
+        hpi = new HomePresenterImp(this, mActivity);
         hpi.getBanner("1");
         refreshPage();
 
     }
 
     private void refreshPage() {
-        if (App.mUser.isLogin()){
+        if (App.mUser != null && App.mUser.isLogin()) {
             hpi.getFixBillNum(App.mUser.getId());
             hpi.getUnReadNotifyNum(App.mUser.getId());
         }
@@ -175,9 +175,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
 
     public void setToolBarUnreadNum(boolean isShow) {
-        if (isShow){
+        if (isShow) {
             mainToolBar.setRightTitleDrawable(R.mipmap.home_notice_msg);
-        }else{
+        } else {
             mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
         }
 
@@ -188,13 +188,13 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         hyva.notifyDataSetChanged();
     }
 
-    public void setBannerList(List<com.xinze.xinze.module.main.modle.Banner> banners){
-        for (com.xinze.xinze.module.main.modle.Banner banner :banners) {
+    public void setBannerList(List<com.xinze.xinze.module.main.modle.Banner> banners) {
+        for (com.xinze.xinze.module.main.modle.Banner banner : banners) {
             String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
             String bannerName = banner.getBannerName();
             urlImages.add(imgUrl);
             urlTitles.add(bannerName);
         }
-        initBanner(urlImages,urlTitles);
+        initBanner(urlImages, urlTitles);
     }
 }

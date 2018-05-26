@@ -6,7 +6,7 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.module.forget.ResetPwdActivity;
-import com.xinze.xinze.module.login.LoginActivity;
+import com.xinze.xinze.module.login.view.LoginActivity;
 import com.xinze.xinze.utils.ReturnResult;
 
 import java.util.HashMap;

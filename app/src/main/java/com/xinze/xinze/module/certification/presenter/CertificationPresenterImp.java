@@ -14,6 +14,8 @@ import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 
 public class CertificationPresenterImp extends BasePresenterImpl<ICertificationView> implements ICertificationPresenter {
@@ -26,10 +28,11 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
 
     @Override
     public void uploadImages(List<MultipartBody.Part> partList) {
-        @SuppressWarnings("unchecked")
         Map<String,String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().imagesUpload(headers,partList).compose(this.<BaseEntity<List<CertificationRespones>>>setThread())
-                .subscribe(new BaseObserver<List<CertificationRespones>>(mContext) {
+        RetrofitFactory.getInstence().Api().imagesUpload(headers,partList).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<List<CertificationRespones>>(){
+
                     @Override
                     protected void onSuccees(BaseEntity<List<CertificationRespones>> t) throws Exception {
                         if (t != null){
@@ -60,6 +63,8 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                 if (t != null){
                     if (t.isSuccess()){
                         mCertificationActivity.certificationSuccess(t.getMsg());
+                    }else{
+                        mCertificationActivity.certificationFailed(t.getMsg());
                     }
                 }
             }

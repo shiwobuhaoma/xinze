@@ -77,8 +77,8 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
     }
 
     @Override
-    public void getBillsSuccess() {
-        super.getBillsSuccess();
+    public void getBillsSuccess(String msg) {
+        super.getBillsSuccess(msg);
         moveToPosition(llm, directionalBillRv, mPosition);
     }
 }

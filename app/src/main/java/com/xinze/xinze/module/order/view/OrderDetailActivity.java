@@ -202,13 +202,13 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     }
 
     @Override
-    public void getOrderDetailSuccess() {
+    public void getOrderDetailSuccess(String msg) {
 
     }
 
     @Override
-    public void getOrderDetailFailed() {
-
+    public void getOrderDetailFailed(String msg) {
+        RxToast.showToast(msg);
     }
 
     @Override

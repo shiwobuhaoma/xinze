@@ -1,3 +1,4 @@
+
 package com.xinze.xinze.module.regular.presenter;
 
 import android.content.Context;
@@ -33,6 +34,8 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
                     if (t.isSuccess()){
                         List<Route> data = t.getData();
                         mRegularRunActivity.setRouteData(data);
+                    }else {
+                        mRegularRunActivity.getRegularRouteListFailed(t.getMsg());
                     }
                 }
 
@@ -57,6 +60,8 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
                         List<OrderItem> data = t.getData();
                         mRegularRunActivity.setOrderItemData(data);
                         mRegularRunActivity.searchRouteListSuccess(t.getMsg());
+                    }else {
+                        mRegularRunActivity.searchRouteListFailed(t.getMsg());
                     }
                 }
             }

@@ -20,6 +20,7 @@
     <color name="my_item_line">#dadddddd</color>
     <color name="half_white">#7fffffff</color>
     <color name="divider">#E6E6E6</color>
+    <color name="certification_line">#E2E2E2</color>
     <color name="default_text">#909090</color>
     <color name="white_press">#f1f1f3</color>
     <color name="half_black">#44000000</color>

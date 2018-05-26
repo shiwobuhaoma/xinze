@@ -4,8 +4,10 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.util.Log;
 
+import com.xinze.xinze.App;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.widget.ProgressDialog;
+import com.xinze.xinze.utils.ACache;
 
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -21,7 +23,7 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     protected Context mContext;
-    private String TAG = "错误信息";
+
 
     public BaseObserver(Context cxt) {
         this.mContext = cxt;
@@ -56,7 +58,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onError(Throwable e) {
-        Log.e(TAG, e.getMessage() );
+        Log.e("错误信息", e.getMessage() );
         onRequestEnd();
         try {
             if (e instanceof ConnectException
@@ -80,50 +82,54 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     /**
      * 返回成功
      *
-     * @param t
-     * @throws Exception
+     * @param t 基类
+     * @throws Exception 异常
      */
     protected abstract void onSuccees(BaseEntity<T> t) throws Exception;
 
     /**
      * 返回成功了,但是code错误
      *
-     * @param t
-     * @throws Exception
+     * @param t 基类
+     * @throws Exception 异常
      */
-    protected void onCodeError(BaseEntity<T> t) throws Exception {
+    private void onCodeError(BaseEntity<T> t) throws Exception {
+        //sessionId过期码
+        int sessionIDOverdue = -200;
         if (t.getStatus() == -1){
             onSuccees(t);
-        }else if(t.getStatus() == -200){
+        }else if(t.getStatus() == sessionIDOverdue){
             onSuccees(t);
+            App.mUser.setLogin(false);
+
         }
     }
 
     /**
      * 返回失败
      *
-     * @param e
+     * @param e 异常
      * @param isNetWorkError 是否是网络错误
-     * @throws Exception
+     * @throws Exception 异常
      */
     protected abstract void onFailure(Throwable e, boolean isNetWorkError) throws Exception;
 
-    protected void onRequestStart() {
+    private void onRequestStart() {
         if (mContext != null){
             showProgressDialog();
         }
 
     }
 
-    protected void onRequestEnd() {
+    private void onRequestEnd() {
         closeProgressDialog();
     }
 
-    public void showProgressDialog() {
+    private void showProgressDialog() {
         ProgressDialog.show(mContext, true, "请稍后");
     }
 
-    public void closeProgressDialog() {
+    private void closeProgressDialog() {
         ProgressDialog.cancle();
     }
 

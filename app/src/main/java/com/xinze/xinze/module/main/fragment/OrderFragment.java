@@ -58,7 +58,9 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     @Override
     public void onResume() {
         super.onResume();
-        if (App.mUser.isLogin()){
+        if (App.mUser != null && App.mUser.isLogin()){
+            mOrderSmartRefresh.setEnableLoadMore(true);
+            mOrderSmartRefresh.setEnableLoadMore(true);
             opi = new OrderPresenterImp(this, mActivity);
             opi.getOderList(1, 10);
         }
@@ -88,6 +90,13 @@ public class OrderFragment extends BaseFragment implements IOrderView {
                 openActivity(OrderDetailActivity.class, "orderId", orderId);
             }
         });
+        if (App.mUser != null && App.mUser.isLogin()){
+            mOrderSmartRefresh.setEnableRefresh(true);
+            mOrderSmartRefresh.setEnableLoadMore(true);
+        }else {
+            mOrderSmartRefresh.setEnableLoadMore(false);
+            mOrderSmartRefresh.setEnableLoadMore(false);
+        }
         mOrderSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -145,7 +154,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     }
 
     public void refresh() {
-        if (!App.mUser.isLogin() && orva != null) {
+        if (App.mUser != null && !App.mUser.isLogin() && orva != null) {
             orva.clearData();
         } else {
             opi = new OrderPresenterImp(this, mActivity);

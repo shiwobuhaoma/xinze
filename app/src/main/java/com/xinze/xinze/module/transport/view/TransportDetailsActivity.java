@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
@@ -15,6 +16,7 @@ import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.module.transport.presenter.TransportDetailsPresenterImp;
 import com.xinze.xinze.module.transport.view.ITransportDetailsView;
+import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.math.BigDecimal;
@@ -70,6 +72,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         initToolbar();
         tap = new TransportDetailsPresenterImp(this,this);
         tap.getBillDetail(orderId);
+        transportRefuse.setOnClickListener(this);
         mTransportConfirming.setOnClickListener(this);
     }
 
@@ -95,6 +98,10 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
             case R.id.to_transport_phone:
 
                 break;
+            case R.id.transport_refuse:
+                showBottomMenu();
+
+                break;
             case R.id.transport_confirming:
                 tap.getCarryOrderRight(App.mUser.getId());
 
@@ -105,24 +112,50 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         }
     }
 
+    private void showBottomMenu() {
+        BottomPopupMenu bottomPopupMenu = new BottomPopupMenu(this);
+        bottomPopupMenu.addItem(1,"退订后，您将无法再接此单，确定退单吗？",getResources().getColor(R.color.gray));
+        bottomPopupMenu.addItem(2,"确定",getResources().getColor(R.color.themeOrange));
+        bottomPopupMenu.setOnMenuClickListener(new BottomPopupMenu.MenuClickListener() {
+            @Override
+            public void onMenuItemClick(View itemView, int itemId) {
+                if (itemId == 2){
+                    tap.backBill(orderId);
+                }
+            }
+        });
+        bottomPopupMenu.showMenu();
+    }
+
     @Override
     public void getBillDetailSuccess(String msg) {
-
+        RxToast.showToast(msg);
     }
 
     @Override
     public void getBillDetailFailed(String msg) {
-
+        RxToast.showToast(msg);
     }
 
     @Override
     public void getCarryOrderRightSuccess(String msg) {
-
+        RxToast.showToast(msg);
     }
 
     @Override
     public void getCarryOrderRightFailed(String msg) {
+        RxToast.showToast(msg);
+    }
 
+    @Override
+    public void backBillSuccess(String msg) {
+        RxToast.showToast(msg);
+        finish();
+    }
+
+    @Override
+    public void backBillFailed(String msg) {
+        RxToast.showToast(msg);
     }
 
     public void setData(TransportDetails data) {

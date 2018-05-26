@@ -11,8 +11,8 @@ import java.util.Map;
  * @author lxf
  */
 public class HeaderConfig {
-    public static Map getHeaders() {
-        Map<String, String> headers = new HashMap<>(2);
+    public static HashMap<String, String> getHeaders() {
+        HashMap<String, String> headers = new HashMap<>(2);
         headers.put("sessionid", App.mUser.getSessionid());
         headers.put("userid", App.mUser.getId());
         return headers;
