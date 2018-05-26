@@ -21,8 +21,9 @@ public class DialogUtil {
      */
     public static void showUnloginDialog(final Activity mActivity) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
-        rxDialogSureCancel.getTitleView().setText(R.string.unLogin);
-        rxDialogSureCancel.getContentView().setText(R.string.isGoLogin);
+//        rxDialogSureCancel.getTitleView().setText(R.string.isGoLogin);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(R.string.unLogin);
         rxDialogSureCancel.getSureView().setText(R.string.goLogin);
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
