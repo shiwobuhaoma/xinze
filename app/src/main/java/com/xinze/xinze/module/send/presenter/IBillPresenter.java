@@ -8,4 +8,5 @@ import com.xinze.xinze.mvpbase.BasePresenter;
  */
 public interface IBillPresenter extends BasePresenter<IBillView> {
     void getBillList(int wlBilltype,int pageNum,int pageSize,String remarks);
+    void searchRouteList(String fromAreaId,String toAreaId,int pageNo,int pageSize);
 }

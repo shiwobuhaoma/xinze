@@ -168,10 +168,12 @@ public interface ApiServer {
      * @param wlBilltype 订单类型
      * @param pageNo     第几页
      * @param pageSize   多少条
+     * @param remarks   备注
      * @return 返回订单列表
      */
     @GET(UrlConfig.GET_BILL_LIST)
     Observable<BaseEntity<List<OrderItem>>> getBillList(@HeaderMap Map<String, String> headers, @Query("wlBilltype") int wlBilltype, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("remarks") String remarks);
+
 
     /**
      * 获取常跑路线

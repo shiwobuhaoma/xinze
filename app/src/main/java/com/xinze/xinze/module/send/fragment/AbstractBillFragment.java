@@ -77,4 +77,8 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
         String orderId = orderItem.getId();
         openActivity(TransportDetailsActivity.class, "orderId", orderId);
     }
+
+    public void setOrderItemData(List<OrderItem> data) {
+
+    }
 }

@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
     private Context mActivity;
     private List<Address> mData;
+    private String mArea;
 
     public AddressAdapter(Context activity) {
         this.mActivity = activity;
@@ -40,11 +41,25 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.addressItem.setText(mData.get(position).getName());
+        holder.addressItem.setTag(position);
     }
 
     @Override
     public int getItemCount() {
         return mData == null ? 0 : mData.size();
+    }
+
+    public void setData(List<Address> data) {
+        mData = data;
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        if (mData != null){
+            mData.clear();
+            notifyDataSetChanged();
+        }
+
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -59,7 +74,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            addressItem.setBackgroundColor(mActivity.getResources().getColor(R.color.white));
+
+            mOnItemClickListener.click(v, (Integer) v.getTag(),mArea);
         }
+    }
+
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener,String address) {
+        this.mOnItemClickListener = mOnItemClickListener;
+        this.mArea = address;
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public interface OnItemClickListener{
+        void click(View view,int position,String address);
     }
 }

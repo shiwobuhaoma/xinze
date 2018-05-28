@@ -12,6 +12,16 @@ public class Address {
     private String name;
     private String pid;
 
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    private int backgroundColor;
+
     public String getId() {
         return id;
     }

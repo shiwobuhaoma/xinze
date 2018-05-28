@@ -11,6 +11,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xinze.xinze.R;
+import com.xinze.xinze.config.OrderConfig;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 
 import butterknife.BindView;
@@ -27,7 +28,6 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
     RecyclerView directionalBillRv;
     @BindView(R.id.directional_bill_srl)
     SmartRefreshLayout directionalBillSrl;
-
 
 
     @Override
@@ -53,14 +53,14 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNo = 1;
-                bpi.getBillList(getBillType(), pageNo, pageSize,remarks);
+                bpi.getBillList(getBillType(), pageNo, pageSize, remarks);
             }
         });
         directionalBillSrl.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageNo++;
-                bpi.getBillList(getBillType(), pageNo, pageSize,remarks);
+                bpi.getBillList(getBillType(), pageNo, pageSize, remarks);
             }
         });
         layout = directionalBillSrl.getLayout();
@@ -73,12 +73,23 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
 
     @Override
     protected int getBillType() {
-        return 1;
+        //定向货单
+        return OrderConfig.DIRECTIONALBILL;
     }
 
     @Override
     public void getBillsSuccess(String msg) {
         super.getBillsSuccess(msg);
         moveToPosition(llm, directionalBillRv, mPosition);
+    }
+
+    @Override
+    public void searchRouteListSuccess(String msg) {
+
+    }
+
+    @Override
+    public void searchRouteListFailed(String msg) {
+
     }
 }
