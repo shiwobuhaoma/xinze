@@ -40,7 +40,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.itemView.setBackgroundColor(mData.get(position).getBackgroundColor());
         holder.addressItem.setText(mData.get(position).getName());
+        holder.addressItem.setTextColor(mData.get(position).getTextColor());
         holder.addressItem.setTag(position);
     }
 

@@ -48,11 +48,6 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
         return R.layout.bill_ordinary_fragment;
     }
 
-    @Override
-    protected void initData() {
-        super.initData();
-
-    }
 
     @Override
     protected void initView() {
@@ -107,6 +102,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
                 mCurrentView = R.id.send_goods_from;
                 billRecycleViewAdapter.clearData();
                 sendGoodsSelectFrom.setViewVisible();
+                ordinaryBillSrl.setVisibility(View.GONE);
                 break;
             case R.id.send_goods_to:
                 mCurrentView = R.id.send_goods_to;
@@ -131,11 +127,13 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
     @Override
     public void searchRouteListSuccess(String msg) {
         sendGoodsSelectFrom.setViewGone();
+        ordinaryBillSrl.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void searchRouteListFailed(String msg) {
         sendGoodsSelectFrom.setViewGone();
+        ordinaryBillSrl.setVisibility(View.VISIBLE);
     }
 
     @Override

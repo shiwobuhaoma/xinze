@@ -1,5 +1,9 @@
 package com.xinze.xinze.widget.bean;
 
+/**
+ * @author lxf
+ * 省市区地址
+ */
 public class Address {
 
     /**
@@ -11,6 +15,17 @@ public class Address {
     private String id;
     private String name;
     private String pid;
+    private int backgroundColor;
+    private int textColor;
+
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+    }
+
 
     public int getBackgroundColor() {
         return backgroundColor;
@@ -20,7 +35,6 @@ public class Address {
         this.backgroundColor = backgroundColor;
     }
 
-    private int backgroundColor;
 
     public String getId() {
         return id;

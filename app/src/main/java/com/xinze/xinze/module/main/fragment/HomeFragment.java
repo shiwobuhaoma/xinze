@@ -19,8 +19,10 @@ import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.send.view.SendGoodsActivity;
 import com.xinze.xinze.module.message.SystemMsgActivity;
+import com.xinze.xinze.module.web.WebViewActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.GlideImageLoader;
+import com.xinze.xinze.utils.UrlUtils;
 import com.xinze.xinze.widget.SimpleToolbar;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -42,6 +44,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private ArrayList<String> urlTitles = new ArrayList<>();
     private ArrayList<String> urlImages = new ArrayList<>();
+    private ArrayList<String> linksUrl = new ArrayList<>();
 
     @BindView(R.id.home_banner)
     Banner mHomeBanner;
@@ -140,7 +143,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         refreshPage();
     }
 
-    public void initBanner(ArrayList<String> urlImages, ArrayList<String> urlTitles) {
+    public void initBanner(ArrayList<String> urlImages, ArrayList<String> urlTitles, ArrayList<String> linksUrl) {
         mHomeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
                 .setImageLoader(new GlideImageLoader())
                 .setImages(urlImages)
@@ -153,7 +156,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                 .setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-
+                        String url = linksUrl.get(position);
+                        url = UrlUtils.appendHttp(url);
+                        openActivity(WebViewActivity.class,"URL",url);
                     }
                 }).start();
     }
@@ -192,9 +197,11 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         for (com.xinze.xinze.module.main.modle.Banner banner : banners) {
             String imgUrl = HttpConfig.IMAGE_BASE_URL + banner.getImgUrl();
             String bannerName = banner.getBannerName();
+            String linkUrl = banner.getLinkUrl();
+            linksUrl.add(linkUrl);
             urlImages.add(imgUrl);
             urlTitles.add(bannerName);
         }
-        initBanner(urlImages, urlTitles);
+        initBanner(urlImages, urlTitles,linksUrl);
     }
 }

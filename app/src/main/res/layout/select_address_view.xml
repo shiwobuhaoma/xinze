@@ -8,17 +8,17 @@
         android:id="@+id/province"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"/>
+        android:layout_height="300dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/city"
         android:layout_width="0dp"
         android:visibility="invisible"
         android:layout_weight="1"
-        android:layout_height="wrap_content"/>
+        android:layout_height="300dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/country"
         android:layout_width="0dp"
         android:visibility="invisible"
         android:layout_weight="1"
-        android:layout_height="wrap_content"/>
+        android:layout_height="300dp"/>
 </LinearLayout>
