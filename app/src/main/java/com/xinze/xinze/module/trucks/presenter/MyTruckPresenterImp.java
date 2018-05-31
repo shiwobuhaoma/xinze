@@ -16,7 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by feibai on 2018/5/14.
+ * @author  feibai on 2018/5/14.
  * desc:
  */
 
@@ -69,6 +69,7 @@ public class MyTruckPresenterImp implements IMyTruckPresenter {
                     if (pageNum == AppConfig.PAGE_NO) {
                         // 如果第一页需要显示说明页
                         mActivity.showEmptyPage();
+
                     }
                     mActivity.getInitDataSuccess();
                 }

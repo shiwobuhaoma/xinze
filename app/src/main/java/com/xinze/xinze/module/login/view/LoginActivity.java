@@ -20,7 +20,7 @@ import com.xinze.xinze.module.forget.ForgetPassWordActivity;
 import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.presenter.LoginPresenterImp;
 import com.xinze.xinze.module.main.activity.MainActivity;
-import com.xinze.xinze.module.register.RegisterActivity;
+import com.xinze.xinze.module.register.view.RegisterActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,8 +47,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     TextView forgetPwd;
     @BindView(R.id.register)
     TextView register;
-    //@BindView(R.id.login_tool_bar)
-    //SimpleToolbar loginToolBar;
+
     private LoginPresenterImp loginPresenterImp;
     private String mUserPwd;
     private String mUserName;
@@ -62,7 +61,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     protected void onDestroy() {
         super.onDestroy();
         if (loginPresenterImp != null) {
-            loginPresenterImp.detachView();
+            loginPresenterImp.onDestroy();
         }
 
     }
@@ -74,7 +73,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
     @Override
     protected void initView() {
-        //loginToolBar.setMainTitle(getString(R.string.login));
         forgetPwd.setOnClickListener(this);
         register.setOnClickListener(this);
         mUserEditText = usernameWrapper.getEditText();
@@ -135,14 +133,14 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
             @Override
             public void onClick(View v) {
                 hideKeyboard();
-                loginPresenterImp = new LoginPresenterImp(LoginActivity.this,LoginActivity.this);
+                loginPresenterImp = new LoginPresenterImp(LoginActivity.this, LoginActivity.this);
                 mUserName = mUserEditText.getText().toString();
                 mUserPwd = mPwdEditText.getText().toString();
                 UserEntity user = new UserEntity();
                 user.setName(mUserName);
                 user.setPassword(mUserPwd);
                 if (TextUtils.isEmpty(mUserName)) {
-                    shotToast("请先输入帐号");
+                    shotToast("请输入账号");
                     return;
                 }
                 if (TextUtils.isEmpty(mUserPwd)) {
@@ -173,7 +171,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
     public void loginSuccess() {
         shotToast("登陆成功");
         //跳转到我的fragment
-        MainActivity.currentFragment= MainConfig.MY_FRAGMENT;
+        MainActivity.currentFragment = MainConfig.HOME_FRAGMENT;
         finish();
     }
 

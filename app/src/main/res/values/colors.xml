@@ -28,6 +28,7 @@
     <color name="service_color">#52affc</color>
     <color name="gray_background">#f5f5f5</color>
     <color name="item_whiteground">#ffffff</color>
+    <color name="hint_text_color">#aaaaaa</color>
 
 
 </resources>

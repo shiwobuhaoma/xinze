@@ -86,7 +86,7 @@ public class AppConfig {
     /**
      * 短信验证码再次获取时间_秒
      */
-    public static final Integer VIERFY_CODE_DELAY_TIME = 180;
+    public static final Integer VIERFY_CODE_DELAY_TIME = 60;
     /**
      * 邀请信息状态_邀请中
      */

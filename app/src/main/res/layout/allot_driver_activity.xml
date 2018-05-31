@@ -7,7 +7,7 @@
     <com.xinze.xinze.widget.SimpleToolbar
         android:id="@+id/allot_driver_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height" />
+        android:layout_height="wrap_content" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/allot_driver_srl"

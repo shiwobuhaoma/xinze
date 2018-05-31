@@ -27,6 +27,21 @@ android {
         }
         multiDexEnabled true
     }
+    signingConfigs {
+        release {
+            storeFile file("C:/Users/Administrator/AndroidStudioProjects/keystore.jks")
+            storePassword 'xinzee'
+            keyAlias 'xinze'
+            keyPassword 'xinzee'
+        }
+
+        debug {
+            storeFile file("C:/Users/Administrator/AndroidStudioProjects/keystore.jks")
+            storePassword 'xinzee'
+            keyAlias 'xinze'
+            keyPassword 'xinzee'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false

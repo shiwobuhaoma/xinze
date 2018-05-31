@@ -85,7 +85,7 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         } else if (holder instanceof ViewHolder2) {
             ViewHolder2 viewHolder = (ViewHolder2) holder;
-            viewHolder.rvTitle2.setText(homeRecycleViewItem.getTitleResources());
+            viewHolder.rvTitle2.setText(homeRecycleViewItem.getTitle());
         }
 
         //将position保存在itemView的Tag中，以便点击时进行获取
@@ -147,5 +147,10 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         mOnItemClickListener = listener;
     }
 
+
+    public void setData(List<HomeRecycleViewItem> data){
+        mBS = data;
+        notifyDataSetChanged();
+    }
 
 }

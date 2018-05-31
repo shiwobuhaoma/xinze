@@ -13,7 +13,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.message.presenter.SystemMsgPresenterImp;
-import com.xinze.xinze.module.message.SystemMsgActivity;
+import com.xinze.xinze.module.message.view.SystemMsgActivity;
 import com.xinze.xinze.utils.DialogUtil;
 
 import java.util.ArrayList;

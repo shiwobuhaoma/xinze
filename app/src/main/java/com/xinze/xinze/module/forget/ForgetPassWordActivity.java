@@ -38,6 +38,7 @@ public class ForgetPassWordActivity extends BaseActivity implements View.OnClick
 
 
     private ForgetPwdPresenterImpl mPresenter;
+    private CountDownButtonHelper helper;
 
 
     @Override
@@ -119,7 +120,7 @@ public class ForgetPassWordActivity extends BaseActivity implements View.OnClick
         // 点击后背景色修改恢复为灰色
         mForgetVerifyCodeButton.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
         // 设置倒计时
-        CountDownButtonHelper helper = new CountDownButtonHelper(mForgetVerifyCodeButton, "再次获取", AppConfig.VIERFY_CODE_DELAY_TIME, 1);
+        helper = new CountDownButtonHelper(mForgetVerifyCodeButton, "再次获取", AppConfig.VIERFY_CODE_DELAY_TIME, 1);
         helper.setOnFinishListener(new CountDownButtonHelper.OnFinishListener() {
 
             @Override
@@ -132,9 +133,11 @@ public class ForgetPassWordActivity extends BaseActivity implements View.OnClick
         mPresenter.getVerfifyCode(mPhoneNum, AppConfig.VIERFY_CODE_TYPE_OTHER);
     }
 
-
-    public String test(String s) {
-
-        return null;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (helper != null){
+            helper.stop();
+        }
     }
 }

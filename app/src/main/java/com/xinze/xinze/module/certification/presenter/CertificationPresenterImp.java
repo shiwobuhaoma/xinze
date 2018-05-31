@@ -39,7 +39,9 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                             if (t.isSuccess()){
                                 List<CertificationRespones> data = t.getData();
                                 mCertificationActivity.setData(data);
-                                mCertificationActivity.uploadImagesSuccess(t.getMsg());
+//                                mCertificationActivity.uploadImagesSuccess(t.getMsg());
+                            }else{
+                                  mCertificationActivity.uploadImagesSuccess(t.getMsg());
                             }
                         }
                     }
@@ -62,7 +64,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
             protected void onSuccees(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
-                        mCertificationActivity.certificationSuccess(t.getMsg());
+//                        mCertificationActivity.certificationSuccess(t.getMsg());
                     }else{
                         mCertificationActivity.certificationFailed(t.getMsg());
                     }

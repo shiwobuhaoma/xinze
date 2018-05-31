@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.send.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.send.fragment.DirectionalBillFragment;
 import com.xinze.xinze.module.send.fragment.OrdinaryBillFragment;
+import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.ArrayList;
@@ -71,7 +73,12 @@ public class SendGoodsActivity extends BaseActivity {
         sendGoodsToolbar.setRightTitleClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openActivity(RegularRunActivity.class);
+                if (App.mUser.isLogin()) {
+                    openActivity(RegularRunActivity.class);
+                } else {
+                    DialogUtil.showUnloginDialog(SendGoodsActivity.this);
+                }
+
             }
         });
         radioTitle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -82,7 +89,17 @@ public class SendGoodsActivity extends BaseActivity {
                         changeToolbarChecked(RADIO_START);
                         break;
                     case R.id.title_right:
-                        changeToolbarChecked(RADIO_END);
+                        if (App.mUser.isLogin()) {
+                            changeToolbarChecked(RADIO_END);
+                        } else {
+                            DialogUtil.showUnloginDialog(SendGoodsActivity.this, new DialogUtil.DialogCallBack() {
+                                @Override
+                                public void cancle() {
+                                    changeToolbarChecked(RADIO_START);
+                                }
+                            });
+                        }
+
                         break;
                     default:
                         break;

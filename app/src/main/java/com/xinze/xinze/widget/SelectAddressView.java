@@ -98,8 +98,8 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     }
 
     private void initData(String extId) {
-        HashMap<String, String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().getAreaListByParentIdForSearch(headers, extId).subscribeOn(Schedulers.io())
+//        HashMap<String, String> headers = HeaderConfig.getHeaders();headers,
+        RetrofitFactory.getInstence().Api().getAreaListByParentIdForSearch(extId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<List<Address>>(mContext) {
                     @Override

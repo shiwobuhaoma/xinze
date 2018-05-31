@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.message;
+package com.xinze.xinze.module.message.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +16,6 @@ import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.message.adapter.SystemMessageAdapter;
 import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.message.presenter.SystemMsgPresenterImp;
-import com.xinze.xinze.module.message.view.ISystemMsgView;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.ArrayList;

@@ -47,4 +47,6 @@ public interface UrlConfig {
     String GET_AREALIST_BY_PARENT_ID_FOR_SEARCH = "transport/app/area/getAreaListByParentIdForSearch";
 
 
+    String ABOUT_US = "transport/app/user/aboutus";
+    String GET_CUSTOMER_PHONE = "transport/app/customerphone/getCustomerPhone";
 }

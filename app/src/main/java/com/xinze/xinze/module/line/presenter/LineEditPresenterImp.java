@@ -34,7 +34,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
             protected void onSuccees(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
-                        mLineEditFragment.addRegularRouteSuccess(t.getMsg());
+//                        mLineEditFragment.addRegularRouteSuccess(t.getMsg());
                     }else{
                         mLineEditFragment.addRegularRouteFailed(t.getMsg());
                     }

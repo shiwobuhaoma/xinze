@@ -3,15 +3,17 @@ package com.xinze.xinze.http;
 
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
+import com.xinze.xinze.module.about.modle.AboutUs;
 import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.Banner;
+import com.xinze.xinze.module.main.modle.CustomerPhoneEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.order.modle.OrderDetail;
-import com.xinze.xinze.module.register.Modle.RegisterResponse;
+import com.xinze.xinze.module.register.modle.RegisterResponse;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.select.module.Protocol;
 import com.xinze.xinze.module.transport.module.Car;
@@ -118,6 +120,12 @@ public interface ApiServer {
     @GET(UrlConfig.GET_UNREAD_NOTIFY_NUM)
     Observable<BaseEntity<Integer>> getUnReadNotifyNum(@HeaderMap Map<String, String> headers, @Query("id") String id);
 
+    /**
+     * 获取售后电话
+     * @return 返回售后电话
+     */
+    @GET(UrlConfig.GET_CUSTOMER_PHONE)
+    Observable<BaseEntity<CustomerPhoneEntity>> getCustomerPhone();
     /**
      * 获取定向货单未读数量
      *
@@ -358,18 +366,20 @@ public interface ApiServer {
 
     /**
      * 普通货单界面获取区域接口
-     *
-     * @param headers              请求头
      * @param extId 抢单的车辆集合信息
      * @return 抢单是否成功
      */
     @GET(UrlConfig.GET_AREALIST_BY_PARENT_ID_FOR_SEARCH)
-    Observable<BaseEntity<List<Address>>> getAreaListByParentIdForSearch(@HeaderMap Map<String, String> headers, @Query("extId") String extId);
+    Observable<BaseEntity<List<Address>>> getAreaListByParentIdForSearch( @Query("extId") String extId);
 
 
-
-
-
+    /**
+     * 关于我们
+     * @param aboutusType 类型
+     * @return 返回结果
+     */
+    @GET(UrlConfig.ABOUT_US)
+    Observable<BaseEntity<AboutUs>>   aboutUs(@Query("aboutusType") String aboutusType);
 
 
 

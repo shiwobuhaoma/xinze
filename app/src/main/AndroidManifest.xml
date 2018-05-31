@@ -42,7 +42,7 @@
             android:launchMode="singleTask"
             android:theme="@style/TranslucentTheme" />
         <activity
-            android:name=".module.register.RegisterActivity"
+            android:name=".module.register.view.RegisterActivity"
             android:theme="@style/TranslucentTheme" />
         <activity
             android:name=".module.forget.ForgetPassWordActivity"
@@ -52,9 +52,9 @@
             android:name=".module.forget.ResetPwdActivity"
             android:launchMode="singleTop"
             android:theme="@style/TranslucentTheme" />
-        <activity android:name=".module.about.AboutUsActivity" />
+        <activity android:name=".module.about.view.AboutUsActivity" />
         <activity
-            android:name=".module.message.SystemMsgActivity"
+            android:name=".module.message.view.SystemMsgActivity"
             android:theme="@style/TranslucentTheme" />
         <activity
             android:name=".module.certification.view.CertificationActivity"

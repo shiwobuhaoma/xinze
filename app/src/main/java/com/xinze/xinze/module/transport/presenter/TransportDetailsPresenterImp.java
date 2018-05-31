@@ -32,7 +32,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
                 if (t != null){
                     if(t.isSuccess()){
                         mTransportDetailsActivity.setData(t.getData());
-                        mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
+//                        mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
                     }else{
                         mTransportDetailsActivity.getBillDetailFailed(t.getMsg());
                     }
@@ -56,7 +56,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
             protected void onSuccees(BaseEntity t) throws Exception {
                 if (t != null){
                     if(t.isSuccess()){
-                        mTransportDetailsActivity.backBillSuccess(t.getMsg());
+//                        mTransportDetailsActivity.backBillSuccess(t.getMsg());
                     }else{
                         mTransportDetailsActivity.backBillSuccess(t.getMsg());
                     }
@@ -80,7 +80,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
                 if (t != null){
                     if (t.isSuccess()){
                         mTransportDetailsActivity.isCarry(t.getData());
-                        mTransportDetailsActivity.getCarryOrderRightSuccess(t.getMsg());
+//                        mTransportDetailsActivity.getCarryOrderRightSuccess(t.getMsg());
                     }else{
                         mTransportDetailsActivity.getCarryOrderRightFailed(t.getMsg());
                     }

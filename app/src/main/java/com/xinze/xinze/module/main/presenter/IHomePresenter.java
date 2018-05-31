@@ -24,4 +24,7 @@ public interface IHomePresenter extends BasePresenter<IHomeView> {
      * @param id 用户id
      */
     void getFixBillNum(String id);
+
+
+    void getCustomerPhone();
 }

@@ -12,6 +12,8 @@ import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.MainConfig;
+import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.module.transport.presenter.TransportDetailsPresenterImp;
@@ -224,7 +226,17 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         if (data == 0){
             //TODO 不允许抢单
         }else{
-            openActivity(SelectCarActivity.class,"orderId",orderId);
+        MainActivity.currentFragment = MainConfig.ORDER_FRAGMENT;
+        openActivity(MainActivity.class);
+//            openActivity(SelectCarActivity.class,"orderId",orderId);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tap != null){
+            tap.onDestroy();
         }
     }
 }

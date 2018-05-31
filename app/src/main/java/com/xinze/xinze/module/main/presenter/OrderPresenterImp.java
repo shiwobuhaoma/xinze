@@ -39,7 +39,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
                         List<OrderItem> data = t.getData();
                         if (data != null){
                             orderFragment.setData(data);
-                            orderFragment.getOrderListSuccess();
+//                            orderFragment.getOrderListSuccess();
                         }else{
                             orderFragment.getOrderListSuccess();
                             orderFragment.shotToast("没有更多了");

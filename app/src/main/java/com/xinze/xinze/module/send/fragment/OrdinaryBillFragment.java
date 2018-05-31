@@ -10,11 +10,13 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.config.OrderConfig;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.send.view.IBillView;
+import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.widget.SelectAddressView;
 
 import java.util.List;
@@ -55,6 +57,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
         ordinaryBillRv.setLayoutManager(llm);
         billRecycleViewAdapter = new BillRecycleViewAdapter(mActivity);
         ordinaryBillRv.setAdapter(billRecycleViewAdapter);
+        layout = ordinaryBillSrl;
         ordinaryBillSrl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -69,10 +72,16 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
                 bpi.getBillList(getBillType(), pageNo, pageSize, remarks);
             }
         });
+
         billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                jumpToOrderDetailActivity(position);
+                if (App.mUser.isLogin()){
+                    jumpToOrderDetailActivity(position);
+                }else{
+                    DialogUtil.showUnloginDialog(mActivity);
+                }
+
             }
         });
         sendGoodsSelectFrom.setmOnSelectAddressListener(new SelectAddressView.OnSelectAddressListener() {
@@ -121,6 +130,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
 
     @Override
     public void getBillsSuccess(String msg) {
+        super.getBillsSuccess(msg);
         moveToPosition(llm, ordinaryBillRv, mPosition);
     }
 

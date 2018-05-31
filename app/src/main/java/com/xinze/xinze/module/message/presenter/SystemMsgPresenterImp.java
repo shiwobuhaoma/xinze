@@ -10,7 +10,7 @@ import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.message.model.NotifyEntity;
 import com.xinze.xinze.module.message.view.ISystemMsgView;
-import com.xinze.xinze.module.message.SystemMsgActivity;
+import com.xinze.xinze.module.message.view.SystemMsgActivity;
 import com.xinze.xinze.module.message.adapter.SystemMessageAdapter;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import com.xinze.xinze.utils.ToastUtils;
@@ -49,11 +49,11 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
                                 // 如果获取的数据集长度小于分页长度标记为最后一页
                                 systemMsgActivity.setPageEndFlag(true);
                                 systemMsgActivity.setData(data);
-                                systemMsgActivity.getOrderListSuccess();
+//                                systemMsgActivity.getOrderListSuccess();
                             }else {
                                 systemMsgActivity.setPageEndFlag(false);
                                 systemMsgActivity.setData(data);
-                                systemMsgActivity.getOrderListSuccess();
+//                                systemMsgActivity.getOrderListSuccess();
                             }
 
                         } else {

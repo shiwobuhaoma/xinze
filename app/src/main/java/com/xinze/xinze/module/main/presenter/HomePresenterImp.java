@@ -9,6 +9,7 @@ import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
 import com.xinze.xinze.module.main.modle.Banner;
+import com.xinze.xinze.module.main.modle.CustomerPhoneEntity;
 import com.xinze.xinze.module.main.modle.UnreadCountResponse;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
@@ -112,6 +113,30 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                 System.out.println(e.getMessage());
             }
         });
+    }
+
+    @Override
+    public void getCustomerPhone() {
+        RetrofitFactory.getInstence().Api().getCustomerPhone()
+                .compose(this.<BaseEntity<CustomerPhoneEntity>>setThread())
+                .subscribe(new BaseObserver<CustomerPhoneEntity>(mContext) {
+                    @Override
+                    protected void onSuccees(BaseEntity<CustomerPhoneEntity> t) throws Exception {
+                        if (t != null){
+                            if (t.isSuccess()){
+                                CustomerPhoneEntity data = t.getData();
+                                mHomeView.setData(data);
+                            }else{
+                                mHomeView.shotToast(t.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        System.out.println(e.getMessage());
+                    }
+                });
     }
 
 }

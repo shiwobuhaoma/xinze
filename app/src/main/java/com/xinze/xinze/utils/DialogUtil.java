@@ -13,9 +13,20 @@ import com.xinze.xinze.module.login.view.LoginActivity;
 
 /**
  * @author lxf
- *         未登录、未认证对话框
+ * 未登录、未认证对话框
  */
 public class DialogUtil {
+
+    private DialogCallBack mDialogCallBack;
+
+    public void setDialogCallBack(DialogCallBack dialogCallBack) {
+        mDialogCallBack = dialogCallBack;
+    }
+
+    public interface DialogCallBack {
+        void cancle();
+    }
+
     /**
      * 提示未登录对话框
      */
@@ -36,6 +47,33 @@ public class DialogUtil {
             @Override
             public void onClick(View v) {
                 rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
+
+    /**
+     * 提示未登录对话框
+     */
+    public static void showUnloginDialog(final Activity mActivity, DialogCallBack dialogCallBack) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+//        rxDialogSureCancel.getTitleView().setText(R.string.isGoLogin);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(R.string.unLogin);
+        rxDialogSureCancel.getSureView().setText(R.string.goLogin);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+                dialogCallBack.cancle();
             }
         });
         rxDialogSureCancel.show();
@@ -169,6 +207,7 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
+
     public static void showCommonDialog(final Activity mActivity, String content, final Intent intent, final int mRequestCode) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
@@ -189,7 +228,8 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
-    public static void showCommonDialog(final Activity mActivity, String content, final Intent intent,String sureText) {
+
+    public static void showCommonDialog(final Activity mActivity, String content, final Intent intent, String sureText) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
         rxDialogSureCancel.getContentView().setText(content);
@@ -210,7 +250,8 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
-    public static void showCommonDialog(final Activity mActivity, String content,String cancelText) {
+
+    public static void showCommonDialog(final Activity mActivity, String content, String cancelText) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
         rxDialogSureCancel.getContentView().setText(content);
@@ -225,12 +266,14 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
+
     /**
-    * 按钮点击监听器
-    * @author feibai
-    * desc:
-    */
-    public  interface ChoiceClickListener {
+     * 按钮点击监听器
+     *
+     * @author feibai
+     * desc:
+     */
+    public interface ChoiceClickListener {
         /**
          * 当点击确定需执行的方法
          *

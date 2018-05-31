@@ -17,6 +17,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.bean.SpaceItemDecoration;
 import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.module.add.AddMyCarActivity;
 import com.xinze.xinze.module.trucks.adapter.MyTruckRecycleViewAdapter;
 import com.xinze.xinze.module.trucks.model.MyTruckVO;
 import com.xinze.xinze.module.trucks.presenter.IMyTruckPresenter;
@@ -30,7 +31,7 @@ import butterknife.BindView;
 /**
  * @author feibai
  * @date 2018/5/22
- * desc: MyTruckActivity
+ * desc: 我的车辆
  */
 public class MyTruckActivity extends BaseActivity {
     @BindView(R.id.my_truck_toolbar)
@@ -44,7 +45,6 @@ public class MyTruckActivity extends BaseActivity {
     @BindView(R.id.my_truck_add_bt)
     FloatingActionButton myTruckAddButton;
 
-    protected SmartRefreshLayout layout;
     private int pageNo = AppConfig.PAGE_NO;
     private int pageSize = AppConfig.PAGE_SIZE;
     private boolean pageEndFlag = false;
@@ -54,7 +54,10 @@ public class MyTruckActivity extends BaseActivity {
     protected LinearLayoutManager llm;
     protected int mPosition = 0;
     protected String inviteFlag = null;
-    // onResume是否刷新标志
+
+    /**
+     * onResume是否刷新标志
+     */
     public static Boolean isRefresh = false;
 
 
@@ -84,7 +87,7 @@ public class MyTruckActivity extends BaseActivity {
         myTruckAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(MyTruckActivity.this, TruckAddActivity.class));
+                openActivity(AddMyCarActivity.class);
             }
         });
     }
@@ -101,8 +104,6 @@ public class MyTruckActivity extends BaseActivity {
      * 初始化标题栏
      *
      * @author feibai
-     * @time 2018/5/17  21:48
-     * @desc
      */
     private void initToolbar() {
         mToolbar.setTitleMarginTop();
@@ -118,8 +119,6 @@ public class MyTruckActivity extends BaseActivity {
 
     /**
      * @author feibai
-     * @time 2018/5/17  22:25
-     * @desc
      */
     private void initRecyclerView() {
         llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -143,17 +142,17 @@ public class MyTruckActivity extends BaseActivity {
                     pageNo++;
                     mPresenter.myTrucks(pageNo, pageSize, AppConfig.YES);
                 } else {
-                    layout.finishLoadMore(500);
+                    mSmartRefreshLayout.finishLoadMore(500);
                     MyTruckActivity.this.shotToast(AppConfig.LOAD_INFO_FINISH);
                 }
             }
         });
-        layout = mSmartRefreshLayout.getLayout();
     }
 
     public void setData(final List<MyTruckVO> data) {
         if (data != null && data.size() > 0) {
             myTruckEmptyLinearLayout.setVisibility(View.GONE);
+            mSmartRefreshLayout.setVisibility(View.VISIBLE);
             if (pageNo == 1) {
                 this.data = data;
             } else {
@@ -165,29 +164,24 @@ public class MyTruckActivity extends BaseActivity {
 
     public void getInitDataSuccess() {
         if (pageNo == 1) {
-            layout.finishRefresh(500);
+            mSmartRefreshLayout.finishRefresh(500);
         } else {
-            layout.finishLoadMore(500);
+            mSmartRefreshLayout.finishLoadMore(500);
         }
     }
 
     /**
      * 当数据为空显示的说明页面
      *
-     * @author feibai
-     * @time 2018/5/18  19:42
-     * @desc
      */
     public void showEmptyPage() {
         myTruckEmptyLinearLayout.setVisibility(View.VISIBLE);
+        mSmartRefreshLayout.setVisibility(View.GONE);
     }
 
     /**
      * 重新刷新数据
      *
-     * @author feibai
-     * @time 2018/5/19  19:27
-     * @desc
      */
     public void setRefreshData() {
         mPresenter.myTrucks(AppConfig.PAGE_NO, AppConfig.PAGE_SIZE, inviteFlag);

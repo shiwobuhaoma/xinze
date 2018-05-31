@@ -22,6 +22,7 @@ import com.xinze.xinze.module.select.adapter.SelectCarAdapter;
 import com.xinze.xinze.module.select.module.Protocol;
 import com.xinze.xinze.module.select.presenter.SelectCarPresenterImp;
 import com.xinze.xinze.module.transport.module.Car;
+import com.xinze.xinze.module.transport.view.TransportDetailsActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.DividerItemDecoration;
 import com.xinze.xinze.widget.SimpleToolbar;
@@ -160,8 +161,8 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     @Override
     public void createBillOrderSuccess(String msg) {
         shotToast(msg);
-        MainActivity.currentFragment = MainConfig.ORDER_FRAGMENT;
-        openActivity(MainActivity.class);
+        openActivity(TransportDetailsActivity.class, "orderId", billId);
+
     }
 
     @Override

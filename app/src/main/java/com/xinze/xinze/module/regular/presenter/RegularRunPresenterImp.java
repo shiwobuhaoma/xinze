@@ -59,7 +59,7 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
                     if (t.isSuccess()){
                         List<OrderItem> data = t.getData();
                         mRegularRunActivity.setOrderItemData(data);
-                        mRegularRunActivity.searchRouteListSuccess(t.getMsg());
+//                        mRegularRunActivity.searchRouteListSuccess(t.getMsg());
                     }else {
                         mRegularRunActivity.searchRouteListFailed(t.getMsg());
                     }

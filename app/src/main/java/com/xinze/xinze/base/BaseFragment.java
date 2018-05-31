@@ -26,11 +26,20 @@ public abstract class BaseFragment extends Fragment {
 
     private Unbinder unbinder;
     protected Activity mActivity;
+    /**
+     * Fragment的View加载完毕的标记
+     */
+    private boolean isViewCreated;
+
+    /**
+     * Fragment对用户可见的标记
+     */
+    private boolean isUIVisible;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity=(Activity)context;
+        mActivity = (Activity) context;
     }
 
     @Nullable
@@ -39,55 +48,85 @@ public abstract class BaseFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(initLayout(), null);
         unbinder = ButterKnife.bind(this, view);
+        isViewCreated = true;
         initView();
-        initData();
+        lazyLoad();
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
+        if (isVisibleToUser) {
+            isUIVisible = true;
+            lazyLoad();
+        } else {
+            isUIVisible = false;
+        }
+    }
+
+    private void lazyLoad() {
+        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
+        if (isViewCreated && isUIVisible) {
+            initData();
+            //数据加载完毕,恢复标记,防止重复加载
+            isViewCreated = false;
+            isUIVisible = false;
+        }
+    }
+
+
     /**
      * fragment 的布局文件
+     *
      * @return 布局文件的资源id
      */
-    protected abstract int initLayout() ;
+    protected abstract int initLayout();
+
     /**
      * fragment 的布局文件中控件的初始化
-     *
      */
-    protected abstract void initView() ;
+    protected abstract void initView();
+
     /**
      * 从网络获取数据
-     *
      */
-    protected  void initData() {
+    protected void initData() {
 
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
         mActivity = null;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
     protected void openActivity(Class clazz) {
         Intent intent = new Intent(mActivity, clazz);
         startActivity(intent);
     }
-    protected void openActivity(Class clazz,String key ,String value) {
+
+    protected void openActivity(Class clazz, String key, String value) {
         Intent intent = new Intent(mActivity, clazz);
-        intent.putExtra(key,value);
+        intent.putExtra(key, value);
         startActivity(intent);
     }
+
     /**
      * RecyclerView 移动到当前位置，
      *
-     * @param manager   设置RecyclerView对应的manager
-     * @param mRecyclerView  当前的RecyclerView
-     * @param n  要跳转的位置
+     * @param manager       设置RecyclerView对应的manager
+     * @param mRecyclerView 当前的RecyclerView
+     * @param n             要跳转的位置
      */
-    public  void moveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int n) {
+    public void moveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int n) {
         int firstItem = manager.findFirstVisibleItemPosition();
         int lastItem = manager.findLastVisibleItemPosition();
         if (n <= firstItem) {

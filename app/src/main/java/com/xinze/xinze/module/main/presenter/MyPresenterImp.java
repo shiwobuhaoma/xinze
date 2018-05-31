@@ -41,7 +41,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
                         App.mUser.setSessionid("");
                         App.mUser.setId("");
                         ACache.get(mContext).remove("user");
-                        iMyView.loginOutSuccess();
+//                        iMyView.loginOutSuccess();
                     }else{
                         iMyView.shotToast(t.getMsg());
                     }

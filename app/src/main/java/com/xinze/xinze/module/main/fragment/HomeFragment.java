@@ -11,14 +11,15 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.http.config.HttpConfig;
-import com.xinze.xinze.module.about.AboutUsActivity;
+import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
 import com.xinze.xinze.module.main.bean.HomeRecycleViewItem;
+import com.xinze.xinze.module.main.modle.CustomerPhoneEntity;
 import com.xinze.xinze.module.main.presenter.HomePresenterImp;
 import com.xinze.xinze.module.main.view.IHomeView;
 import com.xinze.xinze.module.regular.view.RegularRunActivity;
 import com.xinze.xinze.module.send.view.SendGoodsActivity;
-import com.xinze.xinze.module.message.SystemMsgActivity;
+import com.xinze.xinze.module.message.view.SystemMsgActivity;
 import com.xinze.xinze.module.web.WebViewActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.GlideImageLoader;
@@ -58,6 +59,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
     private HomeRecycleViewAdapter hyva;
     private HomePresenterImp hpi;
+    private HomeRecycleViewItem service_hotline;
+    private String hotLine;
 
     @Override
     protected int initLayout() {
@@ -73,7 +76,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_directional_shipper, "", R.mipmap.home_deliver_goods, true, 0, true));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_regular_route, "", R.mipmap.home_regular_route, true, 0, true));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.home_about_us, true, 0, false));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_service_hotline, "", 0, false, 0, false));
+
         hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
         mHomeRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
         mHomeRv.setAdapter(hyva);
@@ -88,22 +91,36 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
     private void jump(int position) {
-        if (App.mUser.isLogin()) {
-            if (position == 1) {
+        if (position == 0) {
+
+            openActivity(SendGoodsActivity.class, "CurrentRadio", "0");
+
+        } else if (position == 1) {
+
+            if (App.mUser.isLogin()) {
                 openActivity(SendGoodsActivity.class, "CurrentRadio", "1");
-            } else if (position == 0) {
-                openActivity(SendGoodsActivity.class, "CurrentRadio", "0");
-            } else if (position == 2) {
-                openActivity(RegularRunActivity.class);
+            } else {
+                DialogUtil.showUnloginDialog(mActivity);
             }
 
-        } else {
-            DialogUtil.showUnloginDialog(mActivity);
-        }
-        if (position == 3) {
+        } else if (position == 2) {
+
+            if (App.mUser.isLogin()) {
+                openActivity(RegularRunActivity.class);
+            } else {
+                DialogUtil.showUnloginDialog(mActivity);
+            }
+
+        } else if (position == 3) {
             openActivity(AboutUsActivity.class);
         } else if (position == 4) {
-            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "4001245566")));
+//            BottomPopupMenu bottomPopupMenu = new BottomPopupMenu(mActivity);
+//            bottomPopupMenu.addItem(1,"4001245566");
+//            bottomPopupMenu.addItem(2,"拨打电话");
+//            bottomPopupMenu.addItem(3,"发送短信");
+//            bottomPopupMenu.addItem(4,"保存电话");
+
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hotLine)));
         }
     }
 
@@ -126,6 +143,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
         hpi = new HomePresenterImp(this, mActivity);
         hpi.getBanner("1");
+        hpi.getCustomerPhone();
         refreshPage();
 
     }
@@ -134,6 +152,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         if (App.mUser != null && App.mUser.isLogin()) {
             hpi.getFixBillNum(App.mUser.getId());
             hpi.getUnReadNotifyNum(App.mUser.getId());
+        } else {
+            mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
         }
     }
 
@@ -158,7 +178,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                     public void OnBannerClick(int position) {
                         String url = linksUrl.get(position);
                         url = UrlUtils.appendHttp(url);
-                        openActivity(WebViewActivity.class,"URL",url);
+                        openActivity(WebViewActivity.class, "URL", url);
                     }
                 }).start();
     }
@@ -202,6 +222,13 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             urlImages.add(imgUrl);
             urlTitles.add(bannerName);
         }
-        initBanner(urlImages, urlTitles,linksUrl);
+        initBanner(urlImages, urlTitles, linksUrl);
+    }
+
+    public void setData(CustomerPhoneEntity data) {
+        hotLine = data.getPhone();
+        service_hotline = new HomeRecycleViewItem("服务热线：" + hotLine, "", 0, false, false, 0);
+        homeRecycleViewItems.add(service_hotline);
+        hyva.setData(homeRecycleViewItems);
     }
 }

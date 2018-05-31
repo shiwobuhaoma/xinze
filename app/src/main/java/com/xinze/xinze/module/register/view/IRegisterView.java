@@ -15,8 +15,9 @@ public interface IRegisterView extends BaseView {
     void registerSuccess();
     /**
      * 注册失败
+     * @param  msg 失败信息
      */
-    void registerFailed();
+    void registerFailed(String msg);
     /**
      * 获取验证码成功
      */

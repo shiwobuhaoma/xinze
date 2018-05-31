@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:background="@drawable/circle_blue_button"
+            android:background="@drawable/circle_orange_button"
             android:text="@string/get_verification_code"
             android:textColor="@color/white"
             android:textSize="12sp" />
@@ -155,20 +155,32 @@
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
         android:background="@color/gray_line" />
-    <!--    <RelativeLayout
-            android:layout_marginTop="23dp"
-            android:layout_marginLeft="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">-->
-    <TextView
-        android:id="@+id/tv_register_read"
-        android:layout_marginTop="23dp"
-        android:layout_marginStart="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="10dp"
-        android:drawableStart="@mipmap/register_mark_pic"
-         />
+   <LinearLayout
+       android:orientation="horizontal"
+       android:layout_marginTop="15dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <FrameLayout
+           android:id="@+id/register_protocol_fl"
+           android:layout_width="wrap_content"
+           android:padding="20dp"
+           android:layout_height="wrap_content">
+           <ImageView
+               android:id="@+id/register_protocol_iv"
+               android:layout_width="wrap_content"
+               android:layout_marginStart="30dp"
+               android:background="@mipmap/register_mark_pic"
+               android:layout_height="wrap_content" />
+       </FrameLayout>
+
+       <TextView
+           android:id="@+id/tv_register_read"
+           android:paddingTop="20dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           />
+   </LinearLayout>
+
 
 
     <Button
@@ -177,8 +189,8 @@
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/circle_blue_button"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/circle_orange_button"
         android:gravity="center"
         android:text="@string/register"
         android:textColor="@color/white"

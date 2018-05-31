@@ -1,5 +1,6 @@
-package com.xinze.xinze.module.register;
+package com.xinze.xinze.module.register.view;
 
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
@@ -8,14 +9,17 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.config.ProtocolConfig;
+import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.register.presenter.RegisterPresenterImp;
-import com.xinze.xinze.module.register.view.IRegisterView;
+import com.xinze.xinze.utils.CountDownButtonHelper;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import butterknife.BindView;
@@ -46,12 +50,18 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     SimpleToolbar registerToolBar;
     @BindView(R.id.tv_register_read)
     TextView mRegisterRead;
+    @BindView(R.id.register_protocol_iv)
+    ImageView registerProtocolIv;
+    @BindView(R.id.register_protocol_fl)
+    FrameLayout registerProtocolFl;
 
+    private boolean isSelected = true;
     private String mPhoneNumber;
     private String mVerificationCode;
     private String mPassWord;
     private boolean isVisible;
     private String type = "1";
+    private CountDownButtonHelper helper;
 
 
     @Override
@@ -68,13 +78,14 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mGetVerificationCode.setOnClickListener(this);
         mRegister.setOnClickListener(this);
         mRegisterRead.setText(Html.fromHtml(getString(R.string.register_read_service)));
-
+        mRegisterRead.setOnClickListener(this);
+        registerProtocolFl.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        RegisterPresenterImp rpi = new RegisterPresenterImp(this,this);
+        RegisterPresenterImp rpi = new RegisterPresenterImp(this, this);
         mPhoneNumber = mRegisterPhoneNumberEdit.getText().toString().trim();
         switch (v.getId()) {
             case R.id.get_verification_code_bt:
@@ -87,6 +98,18 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     shotToast("手机号码位数不对");
                     return;
                 }
+                mGetVerificationCode.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+                // 设置倒计时
+                helper = new CountDownButtonHelper(mGetVerificationCode, "重新获取", AppConfig.VIERFY_CODE_DELAY_TIME, 1);
+                helper.setOnFinishListener(new CountDownButtonHelper.OnFinishListener() {
+
+                    @Override
+                    public void finish() {
+                        // 倒计时结束恢复原有背景
+                        mGetVerificationCode.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+                    }
+                });
+                helper.start();
                 rpi.getVerificationCode(mPhoneNumber, type);
                 break;
             case R.id.pass_word_eye_iv:
@@ -130,6 +153,22 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     }
                 }
                 break;
+            case R.id.register_protocol_fl:
+
+                if (isSelected) {
+                    Drawable drawable = getResources().getDrawable(R.mipmap.my_driver_selected);
+                    registerProtocolIv.setBackground(drawable);
+
+                } else {
+                    Drawable drawable = getResources().getDrawable(R.mipmap.my_driver_unselected);
+                    registerProtocolIv.setBackground(drawable);
+                }
+                isSelected = !isSelected;
+
+                break;
+            case R.id.tv_register_read:
+                openActivity(AboutUsActivity.class, "type", ProtocolConfig.DRIVER_SERVICE_PROTOCOL);
+                break;
             default:
                 break;
         }
@@ -142,8 +181,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    public void registerFailed() {
-        shotToast("注册失败");
+    public void registerFailed(String msg) {
+        helper.stop();
+        shotToast(msg);
     }
 
     @Override
@@ -156,5 +196,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         shotToast("获取失败");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (helper != null) {
+            helper.stop();
+        }
 
+    }
 }

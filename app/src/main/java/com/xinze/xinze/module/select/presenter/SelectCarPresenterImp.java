@@ -41,7 +41,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
                     if (t.isSuccess()){
                         List<Car> data = t.getData();
                         mSelectCarActivity.setData(data);
-                        mSelectCarActivity.getCarryTruckListSuccess(t.getMsg());
+//                        mSelectCarActivity.getCarryTruckListSuccess(t.getMsg());
                     }else{
                         mSelectCarActivity.getCarryTruckListFailed(t.getMsg());
                     }
@@ -101,7 +101,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
             protected void onSuccees(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
-                        mSelectCarActivity.createBillOrderSuccess(t.getMsg());
+//                        mSelectCarActivity.createBillOrderSuccess(t.getMsg());
                     }
                 }
 

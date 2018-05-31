@@ -55,9 +55,15 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     private int mPosition = 0;
     private LinearLayoutManager layoutManager;
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//    }
+
     @Override
-    public void onResume() {
-        super.onResume();
+    protected void initData() {
+        super.initData();
         if (App.mUser != null && App.mUser.isLogin()){
             mOrderSmartRefresh.setEnableLoadMore(true);
             mOrderSmartRefresh.setEnableLoadMore(true);

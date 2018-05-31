@@ -12,6 +12,7 @@ import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.view.ILoginView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import com.xinze.xinze.utils.ACache;
+import com.xinze.xinze.utils.Base64Util;
 
 /**
  * @author lxf
@@ -31,7 +32,7 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
     public void login(String name, String pwd,String userType) {
         RetrofitFactory.getInstence().Api().login(
                 name,
-                pwd,
+                Base64Util.getBase64(pwd),
                 userType)
                 .compose(this.<BaseEntity<LoginResponse>>setThread())
                 .subscribe(new BaseObserver<LoginResponse>(mContext) {

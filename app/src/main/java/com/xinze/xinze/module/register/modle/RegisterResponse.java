@@ -1,4 +1,4 @@
-package com.xinze.xinze.module.register.Modle;
+package com.xinze.xinze.module.register.modle;
 
 /**
  * 注册结果

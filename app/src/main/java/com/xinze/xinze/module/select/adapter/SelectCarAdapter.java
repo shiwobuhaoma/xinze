@@ -154,22 +154,25 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
     }
 
     public void updateAll(boolean isAllSelected) {
-        for (Car car : mCarList) {
-            if ("0".equals(car.getOwnFlag())) {
-                if ("1".equals(car.getVertify_flag())) {
-                    car.setSelected(isAllSelected);
+        if (mCarList != null){
+            for (Car car : mCarList) {
+                if ("0".equals(car.getOwnFlag())) {
+                    if ("1".equals(car.getVertify_flag())) {
+                        car.setSelected(isAllSelected);
+                    } else {
+                        car.setSelected(false);
+                    }
                 } else {
-                    car.setSelected(false);
-                }
-            } else {
-                if ("1".equals(car.getRight_flag())) {
-                    car.setSelected(isAllSelected);
-                } else {
-                    car.setSelected(false);
+                    if ("1".equals(car.getRight_flag())) {
+                        car.setSelected(isAllSelected);
+                    } else {
+                        car.setSelected(false);
+                    }
                 }
             }
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
+
     }
 
     public interface OnItemClickListener {

@@ -49,6 +49,7 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
                 jumpToOrderDetailActivity(position);
             }
         });
+        layout = directionalBillSrl;
         directionalBillSrl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -63,7 +64,6 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
                 bpi.getBillList(getBillType(), pageNo, pageSize, remarks);
             }
         });
-        layout = directionalBillSrl.getLayout();
     }
 
     @Override
@@ -83,13 +83,5 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
         moveToPosition(llm, directionalBillRv, mPosition);
     }
 
-    @Override
-    public void searchRouteListSuccess(String msg) {
 
-    }
-
-    @Override
-    public void searchRouteListFailed(String msg) {
-
-    }
 }

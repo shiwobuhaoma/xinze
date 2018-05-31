@@ -6,10 +6,11 @@ import android.content.Context;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
-import com.xinze.xinze.module.register.Modle.RegisterResponse;
+import com.xinze.xinze.module.register.modle.RegisterResponse;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import com.xinze.xinze.module.register.view.IRegisterView;
+import com.xinze.xinze.utils.Base64Util;
 
 /**
  * @author lxf
@@ -28,7 +29,12 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
 
     @Override
     public void register(String phoneNumber, String verificationCode, String pwd, String type, String userType) {
-        RetrofitFactory.getInstence().Api().register(phoneNumber,verificationCode,pwd,type,userType).compose(this.<BaseEntity<RegisterResponse>>setThread()).subscribe(new BaseObserver<RegisterResponse>() {
+        RetrofitFactory.getInstence().Api().register(phoneNumber,
+                verificationCode,
+                Base64Util.getBase64(pwd),
+                type,
+                userType
+            ).compose(this.<BaseEntity<RegisterResponse>>setThread()).subscribe(new BaseObserver<RegisterResponse>() {
             @Override
             protected void onSuccees(BaseEntity<RegisterResponse> t) throws Exception {
                 if (t != null){
@@ -36,7 +42,7 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
                         RegisterResponse data = t.getData();
                         iRegisterView.shotToast("注册成功");
                     }else {
-                        iRegisterView.shotToast(t.getMsg());
+                        iRegisterView.registerFailed(t.getMsg());
                     }
 
                 }
@@ -45,7 +51,7 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                iRegisterView.registerFailed();
+                iRegisterView.registerFailed(e.getMessage());
             }
         });
 
