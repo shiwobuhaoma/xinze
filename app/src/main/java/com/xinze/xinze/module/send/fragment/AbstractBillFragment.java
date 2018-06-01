@@ -85,7 +85,7 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
 
     }
     public void setOrderItemData(List<OrderItem> data) {
-
+        billRecycleViewAdapter.setData(data);
     }
 
     @Override

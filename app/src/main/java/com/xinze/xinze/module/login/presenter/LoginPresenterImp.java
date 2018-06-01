@@ -50,9 +50,9 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                                 App.mUser.setVertifyDescription(data.getVertifyDescription());
                                 App.mUser.setLogin_name(data.getLoginName());
                                 ACache.get(mContext).put("user",App.mUser);
-                                iLoginView.shotToast(t.getMsg());
+                                iLoginView.loginSuccess(t.getMsg());
                             }else {
-                                iLoginView.shotToast(t.getMsg());
+                                iLoginView.loginFailed(t.getMsg());
                             }
                         }
                     }

@@ -141,7 +141,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
 
     @Override
     public void getCarryOrderRightSuccess(String msg) {
-        RxToast.showToast(msg);
+//        RxToast.showToast(msg);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
 
     @Override
     public void backBillSuccess(String msg) {
-        RxToast.showToast(msg);
+        RxToast.showToast("退单成功");
         finish();
     }
 
@@ -226,9 +226,8 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
         if (data == 0){
             //TODO 不允许抢单
         }else{
-        MainActivity.currentFragment = MainConfig.ORDER_FRAGMENT;
-        openActivity(MainActivity.class);
-//            openActivity(SelectCarActivity.class,"orderId",orderId);
+
+            openActivity(SelectCarActivity.class,"orderId",orderId);
         }
     }
 

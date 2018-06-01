@@ -160,9 +160,10 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
 
     @Override
     public void createBillOrderSuccess(String msg) {
-        shotToast(msg);
-        openActivity(TransportDetailsActivity.class, "orderId", billId);
-
+        shotToast("抢单成功");
+//        openActivity(TransportDetailsActivity.class, "orderId", billId);
+        MainActivity.currentFragment = MainConfig.ORDER_FRAGMENT;
+        openActivity(MainActivity.class);
     }
 
     @Override
@@ -206,6 +207,9 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                         if (car.isSelected()) {
                             selectCarList.add(car);
                         }
+                    }
+                    if (selectCarList.size()==0){
+                        return;
                     }
                     scp.createBillOrder(billId, selectCarList);
                 }

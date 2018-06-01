@@ -161,8 +161,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
 
     @Override
-    public void loginSuccess() {
-        shotToast("登陆成功");
+    public void loginSuccess(String msg) {
+        shotToast("登录成功");
         //跳转到我的fragment
         MainActivity.currentFragment = MainConfig.HOME_FRAGMENT;
         finish();
@@ -170,8 +170,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
 
 
     @Override
-    public void loginFailed() {
-        shotToast("登陆失败");
+    public void loginFailed(String msg) {
+        shotToast(msg);
     }
 
 

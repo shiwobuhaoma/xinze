@@ -71,7 +71,7 @@ public class BillPresenterImp extends BasePresenterImpl<IBillView> implements IB
                     if (t.isSuccess()){
                         List<OrderItem> data = t.getData();
                         mBillFragment.setOrderItemData(data);
-//                        mBillFragment.searchRouteListSuccess(t.getMsg());
+                        mBillFragment.searchRouteListSuccess(t.getMsg());
                     }else {
                         mBillFragment.searchRouteListFailed(t.getMsg());
                     }

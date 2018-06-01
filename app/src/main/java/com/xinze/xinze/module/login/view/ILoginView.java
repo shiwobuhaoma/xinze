@@ -13,9 +13,9 @@ public interface ILoginView extends BaseView {
     /**
      * 登陆成功
      */
-    void loginSuccess();
+    void loginSuccess(String msg);
     /**
      * 登陆失败
      */
-    void loginFailed();
+    void loginFailed(String msg);
 }

@@ -25,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.PUT;
 
 /**
  * 普通货单的地址选择控件
@@ -41,7 +42,6 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     RecyclerView city;
     @BindView(R.id.country)
     RecyclerView country;
-
 
 
     private AddressAdapter provinceAdapter;
@@ -62,6 +62,10 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
 
     private int giveWhereData = 0;
     private View view;
+    private int white;
+    private int orange;
+    private int black;
+    private int gray;
 
     public SelectAddressView(Context context) {
         this(context, null);
@@ -74,6 +78,10 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     public SelectAddressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
+        white = Color.parseColor("#ffffff");
+        orange = Color.parseColor("#FB9251");
+        black = Color.parseColor("#333333");
+        gray = Color.parseColor("#f5f5f5");
         view = LayoutInflater.from(context).inflate(R.layout.select_address_view, this);
 
         ButterKnife.bind(view);
@@ -98,7 +106,6 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     }
 
     private void initData(String extId) {
-//        HashMap<String, String> headers = HeaderConfig.getHeaders();headers,
         RetrofitFactory.getInstence().Api().getAreaListByParentIdForSearch(extId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<List<Address>>(mContext) {
@@ -123,7 +130,7 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
                                     cityAdapter.setData(cityData);
                                     city.setVisibility(VISIBLE);
 
-                                } else if(COUNTRY == giveWhereData){
+                                } else if (COUNTRY == giveWhereData) {
                                     countryData = t.getData();
                                     for (Address address : countryData) {
                                         address.setBackgroundColor(mContext.getResources().getColor(R.color.white));
@@ -149,10 +156,7 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     public void click(View view, int position, String mAddress) {
         switch (view.getId()) {
             case R.id.address_item:
-                int white = Color.parseColor("#ffffff");
-                int orange = Color.parseColor("#FB9251");
-                int black = Color.parseColor("#333333");
-                int gray = Color.parseColor("#f5f5f5");
+
                 if (provinceStr.equals(mAddress)) {
                     giveWhereData = 1;
 
@@ -205,6 +209,7 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
                     String name = address.getName();
                     String id = address.getId();
                     mOnSelectAddressListener.selectAddress(name, id);
+
                     setViewGone();
                 }
 
@@ -212,6 +217,27 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
             default:
                 break;
         }
+    }
+
+    public void clearState() {
+        for (int i = 0; i < provinceData.size(); i++) {
+            Address address = provinceData.get(i);
+            address.setBackgroundColor(gray);
+            address.setTextColor(black);
+        }
+        provinceAdapter.setData(provinceData);
+        for (int i = 0; i < cityData.size(); i++) {
+            Address address = cityData.get(i);
+            address.setTextColor(black);
+            address.setBackgroundColor(white);
+        }
+        cityAdapter.setData(cityData);
+        for (int i = 0; i < countryData.size(); i++) {
+            Address address = countryData.get(i);
+            address.setTextColor(black);
+            address.setBackgroundColor(white);
+        }
+        countryAdapter.setData(countryData);
     }
 
     public void setViewVisible() {
@@ -232,8 +258,9 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     public interface OnSelectAddressListener {
         /**
          * 选择省市区
+         *
          * @param name 区的名字
-         * @param id    区的id
+         * @param id   区的id
          */
         void selectAddress(String name, String id);
     }

@@ -46,6 +46,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
     private String fromID;
     private String toID;
 
+
     @Override
     protected int initLayout() {
         return R.layout.bill_ordinary_fragment;
@@ -89,7 +90,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
             public void jumpDetails(int position) {
                 if (App.mUser.isLogin()) {
                     jumpToOrderDetailActivity(position);
-                }else {
+                } else {
                     DialogUtil.showUnloginDialog(mActivity);
                 }
             }
@@ -97,12 +98,16 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
         sendGoodsSelectFrom.setmOnSelectAddressListener(new SelectAddressView.OnSelectAddressListener() {
             @Override
             public void selectAddress(String name, String id) {
+
                 switch (mCurrentView) {
                     case R.id.send_goods_from:
+
                         fromID = id;
                         sendGoodsFrom.setText(name);
+
                         break;
                     case R.id.send_goods_to:
+
                         toID = id;
                         sendGoodsTo.setText(name);
                         bpi.searchRouteList(fromID, toID, pageNo, pageSize);
@@ -120,13 +125,29 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
         switch (view.getId()) {
             case R.id.send_goods_from:
                 mCurrentView = R.id.send_goods_from;
-                billRecycleViewAdapter.clearData();
-                sendGoodsSelectFrom.setViewVisible();
-                ordinaryBillSrl.setVisibility(View.GONE);
+                sendGoodsSelectFrom.clearState();
+
+                if (sendGoodsSelectFrom.getVisibility() == View.GONE) {
+                    billRecycleViewAdapter.clearData();
+                    sendGoodsSelectFrom.setViewVisible();
+                    ordinaryBillSrl.setVisibility(View.GONE);
+                }else {
+                    billRecycleViewAdapter.setData(data);
+                    sendGoodsSelectFrom.setViewGone();
+                    ordinaryBillSrl.setVisibility(View.VISIBLE);
+                }
+
                 break;
             case R.id.send_goods_to:
+
                 mCurrentView = R.id.send_goods_to;
-                sendGoodsSelectFrom.setViewVisible();
+                sendGoodsSelectFrom.clearState();
+                if ( sendGoodsSelectFrom.getVisibility() == View.GONE) {
+                    sendGoodsSelectFrom.setViewVisible();
+                }  else {
+                    sendGoodsSelectFrom.setViewGone();
+                }
+
                 break;
             default:
                 break;
