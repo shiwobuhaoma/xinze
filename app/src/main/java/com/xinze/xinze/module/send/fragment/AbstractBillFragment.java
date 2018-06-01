@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.main.modle.OrderItem;
-import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.send.presenter.BillPresenterImp;
@@ -76,10 +75,15 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
         mPosition = position;
         OrderItem orderItem = data.get(position);
         String orderId = orderItem.getId();
+        openActivity(TransportDetailsActivity.class,"orderId", orderId);
+
+    }
+    protected void jumpToSelectActivity(int position) {
+        OrderItem orderItem = data.get(position);
+        String orderId = orderItem.getId();
         openActivity(SelectCarActivity.class,"orderId", orderId);
 
     }
-
     public void setOrderItemData(List<OrderItem> data) {
 
     }

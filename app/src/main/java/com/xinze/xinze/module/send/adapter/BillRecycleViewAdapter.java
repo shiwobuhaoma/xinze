@@ -44,7 +44,7 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(mContext).inflate(R.layout.bill_directional_rv_item, parent,false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.bill_directional_rv_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
 
         //给布局设置点击和长点击监听
@@ -87,7 +87,6 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
         time = getString(dateFrom, dateTo, time);
 
 
-
         viewHolder.directionalTvCarCount.setText(count);
         viewHolder.directionalTvFreight.setText(money);
         viewHolder.directionalTvCarType.setText(type);
@@ -100,11 +99,11 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
             viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.bill_robbing));
             viewHolder.directionalIvState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.circle_gray_button));
         } else {
-            viewHolder.directionalIvState.setText(String.format(number,leftNumber));
+            viewHolder.directionalIvState.setText(String.format(number, leftNumber));
             viewHolder.directionalIvState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.circle_orange_button));
         }
-
-
+        viewHolder.directionalIvState.setOnClickListener(this);
+        viewHolder.directionalIvState.setTag(position);
         if (!TextUtils.isEmpty(startText)) {
             viewHolder.directionalTvRightStart.setText(startText);
         }
@@ -150,7 +149,16 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
     @Override
     public void onClick(View v) {
         if (mOnItemClickListener != null) {
-            mOnItemClickListener.onItemClick(v, (int) v.getTag());
+            switch (v.getId()) {
+                case R.id.directional_iv_state:
+                    mOnItemClickListener.jumpSelectCar((int) v.getTag());
+                    break;
+
+                default:
+                    mOnItemClickListener.jumpDetails( (int) v.getTag());
+                    break;
+            }
+
         }
     }
 
@@ -161,7 +169,9 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
 
     //自定义监听事件
     public interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, int position);
+        void jumpDetails( int position);
+
+        void jumpSelectCar(int position);
     }
 
     private OnRecyclerViewItemClickListener mOnItemClickListener;

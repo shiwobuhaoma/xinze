@@ -14,6 +14,7 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.config.OrderConfig;
 import com.xinze.xinze.module.main.modle.OrderItem;
+import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.send.view.IBillView;
 import com.xinze.xinze.utils.DialogUtil;
@@ -75,13 +76,22 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
 
         billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                if (App.mUser.isLogin()){
-                    jumpToOrderDetailActivity(position);
-                }else{
+            public void jumpSelectCar(int position) {
+                if (App.mUser.isLogin()) {
+                    jumpToSelectActivity(position);
+                } else {
                     DialogUtil.showUnloginDialog(mActivity);
                 }
 
+            }
+
+            @Override
+            public void jumpDetails(int position) {
+                if (App.mUser.isLogin()) {
+                    jumpToOrderDetailActivity(position);
+                }else {
+                    DialogUtil.showUnloginDialog(mActivity);
+                }
             }
         });
         sendGoodsSelectFrom.setmOnSelectAddressListener(new SelectAddressView.OnSelectAddressListener() {
@@ -95,7 +105,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
                     case R.id.send_goods_to:
                         toID = id;
                         sendGoodsTo.setText(name);
-                        bpi.searchRouteList(fromID,toID,pageNo,pageSize);
+                        bpi.searchRouteList(fromID, toID, pageNo, pageSize);
                         break;
                     default:
                         break;
@@ -103,6 +113,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
             }
         });
     }
+
 
     @OnClick({R.id.send_goods_from, R.id.send_goods_to})
     public void onClick(View view) {

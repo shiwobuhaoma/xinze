@@ -21,6 +21,7 @@ import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.regular.adapter.MenuAdapter;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.module.regular.presenter.RegularRunPresenterImp;
+import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.transport.view.TransportDetailsActivity;
 import com.xinze.xinze.widget.SimpleToolbar;
@@ -151,10 +152,22 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
         });
         billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void jumpSelectCar( int position) {
+
+                jumpToSelectCarActivity(position);
+            }
+
+            @Override
+            public void jumpDetails(int position) {
                 jumpToOrderDetailActivity(position);
             }
         });
+    }
+
+    private void jumpToSelectCarActivity(int position) {
+        OrderItem orderItem = orderItemData.get(position);
+        String orderId = orderItem.getId();
+        openActivity(SelectCarActivity.class,"orderId", orderId);
     }
 
     private void showTopMenu() {

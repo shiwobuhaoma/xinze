@@ -43,7 +43,7 @@ public class BillPresenterImp extends BasePresenterImpl<IBillView> implements IB
                         List<OrderItem> data = t.getData();
                         if (data != null){
                             mBillFragment.setData(data);
-//                            mBillFragment.getBillsSuccess(t.getMsg());
+                            mBillFragment.getBillsSuccess(t.getMsg());
                         }else{
                             mBillFragment.getBillsSuccess(t.getMsg());
                             mBillFragment.shotToast("没有更多了");

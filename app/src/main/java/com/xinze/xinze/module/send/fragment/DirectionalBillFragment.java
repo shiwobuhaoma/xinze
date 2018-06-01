@@ -45,7 +45,12 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
         billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
 
             @Override
-            public void onItemClick(View view, int position) {
+            public void jumpSelectCar( int position) {
+               jumpToSelectActivity(position);
+            }
+
+            @Override
+            public void jumpDetails(int position) {
                 jumpToOrderDetailActivity(position);
             }
         });
@@ -81,6 +86,7 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
     public void getBillsSuccess(String msg) {
         super.getBillsSuccess(msg);
         moveToPosition(llm, directionalBillRv, mPosition);
+
     }
 
 
