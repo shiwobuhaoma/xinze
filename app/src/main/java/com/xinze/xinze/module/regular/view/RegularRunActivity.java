@@ -171,16 +171,22 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
     }
 
     private void showTopMenu() {
-        regularLinesFl.setVisibility(View.VISIBLE);
+        if (regularLinesFl.getVisibility() == View.GONE){
+            regularLinesFl.setVisibility(View.VISIBLE);
+            if (routeData != null) {
+                for (int i = 0; i < routeData.size(); i++) {
+                    Route route = routeData.get(i);
+                    ma.addItem(i + 1, route.getFrom_area_name(), route.getTo_area_name(), Integer.valueOf(route.getFromAreaId()) == 0);
+                }
+                ma.notifyDataSetChanged();
 
-        if (routeData != null) {
-            for (int i = 0; i < routeData.size(); i++) {
-                Route route = routeData.get(i);
-                ma.addItem(i + 1, route.getFrom_area_name(), route.getTo_area_name(), Integer.valueOf(route.getFromAreaId()) == 0);
             }
-            ma.notifyDataSetChanged();
-
+        }else{
+            regularLinesFl.setVisibility(View.GONE);
         }
+
+
+
     }
 
 

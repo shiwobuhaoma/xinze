@@ -75,7 +75,6 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         Intent intent = getIntent();
         billId = intent.getStringExtra("orderId");
         initToolbar();
-        selectTop.setOnClickListener(this);
         selectService.setText(Html.fromHtml(getString(R.string.select_read_service)));
 
         sca = new SelectCarAdapter(this);
@@ -88,29 +87,29 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 Car car = carList.get(position);
                 //0表示自有 1表示关联
                 String ownFlag = car.getOwnFlag();
-                if ("0".equals(ownFlag)){
+                if ("0".equals(ownFlag)) {
                     //审核状态 1表示已审核 0 审核失败 2 审核中
-                    if ("2".equals(car.getVertify_flag())){
-                        DialogUtil.showCommonDialog(SelectCarActivity.this,"车辆正在审核中...","知道了");
+                    if ("2".equals(car.getVertify_flag())) {
+                        DialogUtil.showCommonDialog(SelectCarActivity.this, "车辆正在审核中...", "知道了");
                         return;
-                    }else if("1".equals(car.getVertify_flag())){
+                    } else if ("1".equals(car.getVertify_flag())) {
                         //审核已通过，司机未关联
-                        if (TextUtils.isEmpty(car.getDriver_id())){
+                        if (TextUtils.isEmpty(car.getDriver_id())) {
                             //跳转到分配司机界面
                             Intent intent = new Intent(SelectCarActivity.this, AllotDriverActivity.class);
-                            intent.putExtra("truckId",car.getId());
-                            intent.putExtra("driverId",car.getDriver_id());
-                            DialogUtil.showCommonDialog(SelectCarActivity.this,"车辆未关联司机", intent,"去关联");
+                            intent.putExtra("truckId", car.getId());
+                            intent.putExtra("driverId", car.getDriver_id());
+                            DialogUtil.showCommonDialog(SelectCarActivity.this, "车辆未关联司机", intent, "去关联");
                             return;
                         }
-                    }else {
-                        DialogUtil.showCommonDialog(SelectCarActivity.this,"车辆审核失败","知道了");
+                    } else {
+                        DialogUtil.showCommonDialog(SelectCarActivity.this, "车辆审核失败", "知道了");
                         return;
                     }
-                }else{
+                } else {
                     String rightFlag = car.getRight_flag();
                     if ("0".equals(rightFlag)) {
-                        DialogUtil.showCommonDialog(SelectCarActivity.this,"没有权限抢单","知道了");
+                        DialogUtil.showCommonDialog(SelectCarActivity.this, "没有权限抢单", "知道了");
                         return;
                     }
                 }
@@ -173,6 +172,14 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
 
     public void setData(List<Car> data) {
         this.carList = data;
+        if (carList == null || carList.size() == 0) {
+            Drawable drawable = getResources().getDrawable(R.mipmap.select_choice);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            selectAll.setCompoundDrawables(drawable, null, null, null);
+            selectTop.setOnClickListener(null);
+        } else {
+            selectTop.setOnClickListener(this);
+        }
         sca.setData(data);
     }
 
@@ -182,7 +189,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         Drawable drawable;
         switch (view.getId()) {
             case R.id.select_top:
-                if (isAllSelected) {
+                if (isAllSelected ) {
                     drawable = getResources().getDrawable(R.mipmap.select_choice);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                     sca.updateAll(false);
@@ -203,12 +210,15 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 if (isAllSelected) {
                     scp.createBillOrder(billId, carList);
                 } else {
+                    if (carList == null || carList.size() == 0) {
+                        return;
+                    }
                     for (Car car : carList) {
                         if (car.isSelected()) {
                             selectCarList.add(car);
                         }
                     }
-                    if (selectCarList.size()==0){
+                    if (selectCarList.size() == 0) {
                         return;
                     }
                     scp.createBillOrder(billId, selectCarList);

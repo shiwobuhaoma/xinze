@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 
 import com.vondear.rxtools.view.RxToast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -118,7 +121,14 @@ public abstract class BaseFragment extends Fragment {
         intent.putExtra(key, value);
         startActivity(intent);
     }
+    protected void openActivity(Class clazz, HashMap<String,String> map) {
+        Intent intent = new Intent(mActivity, clazz);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            intent.putExtra(entry.getKey(), entry.getValue());
+        }
 
+        startActivity(intent);
+    }
     /**
      * RecyclerView 移动到当前位置，
      *

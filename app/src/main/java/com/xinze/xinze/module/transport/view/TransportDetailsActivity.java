@@ -3,12 +3,14 @@ package com.xinze.xinze.module.transport.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialog;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
@@ -61,6 +63,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
     private String phone;
     private TransportDetailsPresenterImp tap;
     private String orderId;
+    private String from;
 
     @Override
     protected int initLayout() {
@@ -71,6 +74,10 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
     protected void initView() {
         Intent intent = getIntent();
         orderId = intent.getStringExtra("orderId");
+        from = intent.getStringExtra("from");
+        if ("OrdinaryBillFragment".equals(from)){
+            transportRefuse.setVisibility(View.GONE);
+        }
         initToolbar();
         tap = new TransportDetailsPresenterImp(this,this);
         tap.getBillDetail(orderId);
@@ -225,6 +232,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
     public void isCarry(Integer data) {
         if (data == 0){
             //TODO 不允许抢单
+            RxToast.showToast("车辆列表为空，不允许抢单");
         }else{
 
             openActivity(SelectCarActivity.class,"orderId",orderId);

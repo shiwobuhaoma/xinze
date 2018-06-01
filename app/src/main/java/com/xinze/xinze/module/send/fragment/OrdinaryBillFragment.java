@@ -89,7 +89,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
             @Override
             public void jumpDetails(int position) {
                 if (App.mUser.isLogin()) {
-                    jumpToOrderDetailActivity(position);
+                    jumpToOrderDetailActivity(position,"OrdinaryBillFragment");
                 } else {
                     DialogUtil.showUnloginDialog(mActivity);
                 }

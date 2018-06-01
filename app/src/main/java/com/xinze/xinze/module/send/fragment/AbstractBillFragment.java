@@ -11,6 +11,7 @@ import com.xinze.xinze.module.send.presenter.BillPresenterImp;
 import com.xinze.xinze.module.send.view.IBillView;
 import com.xinze.xinze.module.transport.view.TransportDetailsActivity;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -71,11 +72,14 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
         layout.finishRefresh(false);
     }
 
-    protected void jumpToOrderDetailActivity(int position) {
+    protected void jumpToOrderDetailActivity(int position,String from) {
         mPosition = position;
         OrderItem orderItem = data.get(position);
         String orderId = orderItem.getId();
-        openActivity(TransportDetailsActivity.class,"orderId", orderId);
+        HashMap<String,String> map = new HashMap<>(2);
+        map.put("orderId", orderId);
+        map.put("from", from);
+        openActivity(TransportDetailsActivity.class,map);
 
     }
     protected void jumpToSelectActivity(int position) {

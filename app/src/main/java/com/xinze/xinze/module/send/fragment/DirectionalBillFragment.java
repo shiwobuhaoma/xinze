@@ -51,7 +51,7 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
 
             @Override
             public void jumpDetails(int position) {
-                jumpToOrderDetailActivity(position);
+                jumpToOrderDetailActivity(position,"DirectionalBillFragment");
             }
         });
         layout = directionalBillSrl;
