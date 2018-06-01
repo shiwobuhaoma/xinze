@@ -36,7 +36,7 @@ public class AllotDriverPresenterImp extends BasePresenterImpl<IAllotDriverView>
                 if (t != null){
                     if (t.isSuccess()){
                         mActivity.setData(t.getData());
-                        mActivity.getMyTruckDriversSuccess(t.getMsg());
+//                        mActivity.getMyTruckDriversSuccess(t.getMsg());
                     }
                 }
             }

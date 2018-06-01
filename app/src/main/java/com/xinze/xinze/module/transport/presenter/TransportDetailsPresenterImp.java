@@ -32,7 +32,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
                 if (t != null){
                     if(t.isSuccess()){
                         mTransportDetailsActivity.setData(t.getData());
-//                        mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
+                        mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
                     }else{
                         mTransportDetailsActivity.getBillDetailFailed(t.getMsg());
                     }

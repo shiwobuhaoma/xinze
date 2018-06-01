@@ -49,11 +49,11 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
                                 // 如果获取的数据集长度小于分页长度标记为最后一页
                                 systemMsgActivity.setPageEndFlag(true);
                                 systemMsgActivity.setData(data);
-//                                systemMsgActivity.getOrderListSuccess();
+                                systemMsgActivity.getOrderListSuccess();
                             }else {
                                 systemMsgActivity.setPageEndFlag(false);
                                 systemMsgActivity.setData(data);
-//                                systemMsgActivity.getOrderListSuccess();
+                                systemMsgActivity.getOrderListSuccess();
                             }
 
                         } else {

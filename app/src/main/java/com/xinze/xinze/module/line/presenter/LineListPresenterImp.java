@@ -33,7 +33,7 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
                     if (t.isSuccess()) {
                         List<Route> data = t.getData();
                         mLineListFragment.setRouteData(data);
-//                        mLineListFragment.getRegularRouteListSuccess(t.getMsg());
+                        mLineListFragment.getRegularRouteListSuccess(t.getMsg());
                     }else{
                         mLineListFragment.getRegularRouteListFailed(t.getMsg());
                     }

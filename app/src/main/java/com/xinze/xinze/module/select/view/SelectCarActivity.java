@@ -140,7 +140,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
 
     @Override
     public void getCarryTruckListSuccess(String msg) {
-        shotToast(msg);
+//        shotToast(msg);
     }
 
     @Override

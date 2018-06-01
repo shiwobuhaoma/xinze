@@ -108,7 +108,7 @@ public class LineEditFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void addRegularRouteSuccess(String msg) {
-        RxToast.showToast(msg);
+//        RxToast.showToast(msg);
         isRequested = true;
         mOnNextPageListener.next(route);
     }

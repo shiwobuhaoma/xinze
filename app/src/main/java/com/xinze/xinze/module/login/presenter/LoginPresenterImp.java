@@ -10,6 +10,7 @@ import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.login.modle.UserEntity;
 import com.xinze.xinze.module.login.view.ILoginView;
+import com.xinze.xinze.module.login.view.LoginActivity;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import com.xinze.xinze.utils.ACache;
 import com.xinze.xinze.utils.Base64Util;
@@ -21,11 +22,11 @@ import com.xinze.xinze.utils.Base64Util;
  */
 
 public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements ILoginPresenter {
-    private ILoginView iLoginView;
+    private LoginActivity iLoginView;
 
     public LoginPresenterImp(ILoginView iLoginView, Context mContext) {
         super(iLoginView,mContext);
-        this.iLoginView = iLoginView;
+        this.iLoginView = (LoginActivity) iLoginView;
     }
 
     @Override
@@ -50,7 +51,6 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                                 App.mUser.setLogin_name(data.getLoginName());
                                 ACache.get(mContext).put("user",App.mUser);
                                 iLoginView.shotToast(t.getMsg());
-                                iLoginView.loginSuccess();
                             }else {
                                 iLoginView.shotToast(t.getMsg());
                             }

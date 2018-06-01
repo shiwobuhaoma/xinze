@@ -131,7 +131,7 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
 
     @Override
     public void getBillDetailSuccess(String msg) {
-        RxToast.showToast(msg);
+//        RxToast.showToast(msg);
     }
 
     @Override

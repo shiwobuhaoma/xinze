@@ -39,7 +39,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                             if (t.isSuccess()){
                                 List<CertificationRespones> data = t.getData();
                                 mCertificationActivity.setData(data);
-//                                mCertificationActivity.uploadImagesSuccess(t.getMsg());
+                                mCertificationActivity.uploadImagesSuccess(t.getMsg());
                             }else{
                                   mCertificationActivity.uploadImagesSuccess(t.getMsg());
                             }

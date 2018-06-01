@@ -6,6 +6,7 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
+import com.xinze.xinze.module.main.fragment.MyFragment;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
@@ -19,11 +20,11 @@ import java.util.Map;
  * 退出逻辑
  */
 public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPresenter {
-    private IMyView iMyView;
+    private MyFragment iMyView;
 
     public MyPresenterImp(IMyView iMyView, Context mContext) {
         super(iMyView, mContext);
-        this.iMyView = iMyView;
+        this.iMyView = (MyFragment) iMyView;
     }
 
     @Override
@@ -41,7 +42,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
                         App.mUser.setSessionid("");
                         App.mUser.setId("");
                         ACache.get(mContext).remove("user");
-//                        iMyView.loginOutSuccess();
+                        iMyView.loginOutSuccess();
                     }else{
                         iMyView.shotToast(t.getMsg());
                     }
