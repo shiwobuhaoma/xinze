@@ -3,7 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/my_item_space"
     android:layout_height="match_parent">
-
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/add_my_truck_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:orientation="horizontal"
         android:background="@color/white"
@@ -17,10 +20,11 @@
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
+        <EditText
             android:id="@+id/add_car_car_number"
             android:textSize="12sp"
             android:layout_width="match_parent"
+            android:background="@null"
             android:drawableEnd="@mipmap/right_arrow"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
@@ -28,6 +32,10 @@
             android:textColorHint="@color/hint_text_color"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/my_item_line"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -52,6 +60,10 @@
             android:textColorHint="@color/hint_text_color"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/my_item_line"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -75,6 +87,10 @@
             android:textColorHint="@color/hint_text_color"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/my_item_line"/>
     <RelativeLayout
         android:orientation="horizontal"
         android:background="@color/white"

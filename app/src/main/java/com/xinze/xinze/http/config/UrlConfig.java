@@ -49,4 +49,5 @@ public interface UrlConfig {
 
     String ABOUT_US = "transport/app/user/aboutus";
     String GET_CUSTOMER_PHONE = "transport/app/customerphone/getCustomerPhone";
+    String ADD_TRUCK = "transport/app/user/addTruck";
 }

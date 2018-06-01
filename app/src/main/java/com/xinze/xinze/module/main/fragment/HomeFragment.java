@@ -114,11 +114,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         } else if (position == 3) {
             openActivity(AboutUsActivity.class);
         } else if (position == 4) {
-//            BottomPopupMenu bottomPopupMenu = new BottomPopupMenu(mActivity);
-//            bottomPopupMenu.addItem(1,"4001245566");
-//            bottomPopupMenu.addItem(2,"拨打电话");
-//            bottomPopupMenu.addItem(3,"发送短信");
-//            bottomPopupMenu.addItem(4,"保存电话");
 
             startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + hotLine)));
         }

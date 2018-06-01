@@ -4,6 +4,7 @@ package com.xinze.xinze.http;
 import com.xinze.xinze.http.config.UrlConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.module.about.modle.AboutUs;
+import com.xinze.xinze.module.add.modle.AddCarRespones;
 import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
@@ -332,8 +333,8 @@ public interface ApiServer {
      * @return 上传结果
      */
     @Multipart
-    @POST("服务器地址")
-    Observable<Object> imageUpload(@HeaderMap Map<String, String> headers,@Part() MultipartBody.Part img);
+    @POST(UrlConfig.UPLOAD_IMAGE)
+    Observable<BaseEntity<AddCarRespones>> imageUpload(@HeaderMap Map<String, String> headers, @Part() MultipartBody.Part img);
 
     /**
      * 上传多张图片
@@ -382,10 +383,18 @@ public interface ApiServer {
     Observable<BaseEntity<AboutUs>>   aboutUs(@Query("aboutusType") String aboutusType);
 
 
-
-
-
-
+    /**
+     * 添加司机
+     * @param headers 请求头
+     * @param truckName 车牌号
+     * @param truckCode 车类型
+     * @param weight 车载重
+     * @param vehicleLicenseImg 行驶证照片
+     * @return 返回添加司机信息
+     */
+    @POST(UrlConfig.ADD_TRUCK)
+    @FormUrlEncoded
+    Observable<BaseEntity> addTruck(@HeaderMap Map<String, String> headers, @Field("truckName") String truckName, @Field("truckCode") String truckCode, @Field("weight") String weight, @Field("vehicleLicenseImg") String vehicleLicenseImg);
 
 
 
@@ -628,6 +637,7 @@ public interface ApiServer {
      */
     @GET(UrlConfig.GET_MY_TRUCKS)
     Call<ReturnResult<List<MyTruckVO>>> myTrucks(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("truck.verifyFlag") String verifyFlag);
+
 
 
 }

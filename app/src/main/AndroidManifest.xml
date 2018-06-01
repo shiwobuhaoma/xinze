@@ -71,7 +71,7 @@
         <activity android:name=".module.order.view.OrderDetailActivity" />
         <activity android:name=".module.transport.view.TransportDetailsActivity" />
         <activity android:name=".module.select.view.SelectCarActivity" />
-        <activity android:name=".module.add.AddMyCarActivity" />
+        <activity android:name=".module.add.view.AddMyCarActivity" />
 
 
         <activity

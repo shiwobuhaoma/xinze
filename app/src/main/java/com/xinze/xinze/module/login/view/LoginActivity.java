@@ -158,13 +158,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         return matcher.matches();
     }
 
-    private void hideKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
 
 
     @Override

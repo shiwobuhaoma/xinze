@@ -44,12 +44,12 @@ public class MyTruckPresenterImp implements IMyTruckPresenter {
             public void onResponse(Call<ReturnResult<List<MyTruckVO>>> call, Response<ReturnResult<List<MyTruckVO>>> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult != null && !returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
                     mActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
-                final Object obj = returnResult.getData();
-                if (obj != null) {
+
+                if (returnResult != null && returnResult.getData() != null) {
                     List<MyTruckVO> data = (List<MyTruckVO>) returnResult.getData();
                     if (data != null && data.size() == AppConfig.PAGE_SIZE) {
                         mActivity.setPageEndFlag(false);

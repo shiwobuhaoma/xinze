@@ -17,7 +17,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.bean.SpaceItemDecoration;
 import com.xinze.xinze.config.AppConfig;
-import com.xinze.xinze.module.add.AddMyCarActivity;
+import com.xinze.xinze.module.add.view.AddMyCarActivity;
 import com.xinze.xinze.module.trucks.adapter.MyTruckRecycleViewAdapter;
 import com.xinze.xinze.module.trucks.model.MyTruckVO;
 import com.xinze.xinze.module.trucks.presenter.IMyTruckPresenter;

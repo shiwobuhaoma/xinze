@@ -173,4 +173,6 @@
     <string name="input_car_load">请输入载重</string>
     <string name="driving_license">行&#160;&#160;驶&#160;&#160;证</string>
     <string name="submit_verify">提交审核</string>
+    <string name="add_car">添加车辆</string>
+    <string name="take_up">收起</string>
 </resources>

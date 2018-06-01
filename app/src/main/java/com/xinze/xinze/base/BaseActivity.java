@@ -248,5 +248,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         RxToast.showToast(msg);
     }
 
-
+    protected void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 }
