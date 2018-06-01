@@ -220,19 +220,19 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     }
 
     public void clearState() {
-        for (int i = 0; i < provinceData.size(); i++) {
+        for (int i = 0;provinceData != null && i < provinceData.size(); i++) {
             Address address = provinceData.get(i);
             address.setBackgroundColor(gray);
             address.setTextColor(black);
         }
         provinceAdapter.setData(provinceData);
-        for (int i = 0; i < cityData.size(); i++) {
+        for (int i = 0; cityData != null && i < cityData.size(); i++) {
             Address address = cityData.get(i);
             address.setTextColor(black);
             address.setBackgroundColor(white);
         }
         cityAdapter.setData(cityData);
-        for (int i = 0; i < countryData.size(); i++) {
+        for (int i = 0; countryData != null &&i < countryData.size(); i++) {
             Address address = countryData.get(i);
             address.setTextColor(black);
             address.setBackgroundColor(white);
