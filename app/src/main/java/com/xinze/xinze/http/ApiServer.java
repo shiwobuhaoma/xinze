@@ -334,7 +334,7 @@ public interface ApiServer {
      */
     @Multipart
     @POST(UrlConfig.UPLOAD_IMAGE)
-    Observable<BaseEntity<AddCarRespones>> imageUpload(@HeaderMap Map<String, String> headers, @Part() MultipartBody.Part img);
+    Observable<BaseEntity<List<AddCarRespones>>> imageUpload(@HeaderMap Map<String, String> headers, @Part() MultipartBody.Part img);
 
     /**
      * 上传多张图片
@@ -397,9 +397,20 @@ public interface ApiServer {
     Observable<BaseEntity> addTruck(@HeaderMap Map<String, String> headers, @Field("truckName") String truckName, @Field("truckCode") String truckCode, @Field("weight") String weight, @Field("vehicleLicenseImg") String vehicleLicenseImg);
 
 
+    /**
+     * 获取我的司机列表
+     *
+     * @param pageNo     第几页
+     * @param pageSize   多少条
+     * @param headers    请求头
+     * @param inviteFlag 状态查询条件
+     * @return 返回状态
+     */
+    @GET(UrlConfig.GET_MY_TRUCK_DRIVERS)
+    Observable<BaseEntity<List<TruckownerDriverVO>>> getMyTruckDrivers(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
 
 
-
+    void appointDriver4Truck();
 
 
 

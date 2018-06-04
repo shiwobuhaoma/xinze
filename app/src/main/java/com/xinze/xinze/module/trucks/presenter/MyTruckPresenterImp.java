@@ -85,7 +85,7 @@ public class MyTruckPresenterImp implements IMyTruckPresenter {
 
     @Override
     public void delMyTruck(String itemId) {
-        Map<String, String> headers = new HashMap<>(2);
+        HashMap<String, String> headers = new HashMap<>(2);
         headers.put("sessionid", App.mUser.getSessionid());
         headers.put("userid", App.mUser.getId());
 /*        RetrofitFactory.getInstence().Api().delMyDriver(headers, itemId).enqueue(new Callback<ReturnResult>() {

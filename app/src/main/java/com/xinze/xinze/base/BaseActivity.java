@@ -21,6 +21,8 @@ import com.xinze.xinze.mvpbase.BaseView;
 import com.xinze.xinze.utils.ActivityStackManager;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -39,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected ViewGroup title_bar = null;
     private Unbinder mUnbinder;
 
-
+    protected boolean pageEndFlag = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         lifecycleSubject.onNext(ActivityEvent.CREATE);
@@ -177,6 +179,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         startActivity(intent);
     }
 
+    protected void openActivity(Class clazz, HashMap<String, String> map) {
+        Intent intent = new Intent(this, clazz);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            intent.putExtra(entry.getKey(), entry.getValue());
+        }
+
+        startActivity(intent);
+    }
+
     @Override
     public void finish() {
         super.finish();
@@ -251,9 +262,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            InputMethodManager inputMethodManager =  ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
-            if (inputMethodManager != null){
-                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+            InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+            if (inputMethodManager != null) {
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         }
     }
@@ -261,10 +272,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void showKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            InputMethodManager inputMethodManager =  ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
-            if (inputMethodManager != null){
-                inputMethodManager. toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+            InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+            if (inputMethodManager != null) {
+                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
             }
         }
+    }
+
+
+    protected boolean isPageEndFlag() {
+        return pageEndFlag;
+    }
+
+    public void setPageEndFlag(boolean pageEndFlag) {
+        this.pageEndFlag = pageEndFlag;
     }
 }

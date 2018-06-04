@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/distributive_iv_selected"
+        android:contentDescription="@string/pic_desc"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="15dp"
+        android:background="@mipmap/my_driver_unselected"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:id="@+id/my_driver_rl"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/distributive_driver_avatar_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/pic_desc"
+            android:src="@mipmap/driver_avatar" />
+
+        <LinearLayout
+            android:id="@+id/distributive_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/distributive_driver_avatar_iv"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:id="@+id/distributive_driver_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:maxWidth="100dp"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/distributive_driver_phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxWidth="100dp"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:textColor="@color/order_item_text" />
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/distributive_driver_call_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/pic_desc"
+            android:padding="10dp"
+            android:src="@mipmap/driver_invite_call" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/distributive_driver_call_iv"
+            android:contentDescription="@string/pic_desc"
+            android:src="@drawable/driver_invite_line" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import com.xinze.xinze.module.add.view.IAddMyCarView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 
@@ -49,13 +50,14 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
     @Override
     public void imageUpload(MultipartBody.Part img) {
         HashMap<String, String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().imageUpload(headers,img).compose(this.<BaseEntity<AddCarRespones>>setThread()).subscribe(new BaseObserver<AddCarRespones>(mContext) {
+        RetrofitFactory.getInstence().Api().imageUpload(headers,img).compose(this.<BaseEntity<List<AddCarRespones>>>setThread()).subscribe(new BaseObserver<List<AddCarRespones>>(mContext) {
 
             @Override
-            protected void onSuccees(BaseEntity<AddCarRespones> t) throws Exception {
+            protected void onSuccees(BaseEntity<List<AddCarRespones>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
-                        addMyCarActivity.imageUploadSuccess(t.getData().getUrl());
+                        List<AddCarRespones> data = t.getData();
+                        addMyCarActivity.imageUploadSuccess(data.get(0).getUrl());
                     }else{
                         addMyCarActivity.imageUploadFailed(t.getMsg());
                     }

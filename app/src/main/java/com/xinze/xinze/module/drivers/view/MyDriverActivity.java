@@ -190,13 +190,7 @@ public class MyDriverActivity extends BaseActivity {
         mPresenter.myTruckDrivers(AppConfig.PAGE_NO, AppConfig.PAGE_SIZE, inviteFlag);
     }
 
-    public boolean isPageEndFlag() {
-        return pageEndFlag;
-    }
 
-    public void setPageEndFlag(boolean pageEndFlag) {
-        this.pageEndFlag = pageEndFlag;
-    }
 
     public IMyDriverPresenter getmPresenter() {
         return mPresenter;

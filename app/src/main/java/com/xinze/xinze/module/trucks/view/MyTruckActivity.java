@@ -18,12 +18,16 @@ import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.bean.SpaceItemDecoration;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.add.view.AddMyCarActivity;
+import com.xinze.xinze.module.distributive.view.DistributiveDriverActivity;
 import com.xinze.xinze.module.trucks.adapter.MyTruckRecycleViewAdapter;
 import com.xinze.xinze.module.trucks.model.MyTruckVO;
+import com.xinze.xinze.module.trucks.model.TruckDriverVO;
+import com.xinze.xinze.module.trucks.model.TruckEntity;
 import com.xinze.xinze.module.trucks.presenter.IMyTruckPresenter;
 import com.xinze.xinze.module.trucks.presenter.MyTruckPresenterImp;
 import com.xinze.xinze.widget.SimpleToolbar;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -145,6 +149,22 @@ public class MyTruckActivity extends BaseActivity {
                     mSmartRefreshLayout.finishLoadMore(500);
                     MyTruckActivity.this.shotToast(AppConfig.LOAD_INFO_FINISH);
                 }
+            }
+        });
+        mAdapter.setOnItemClickListener(new MyTruckRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void click(View v, int position) {
+                MyTruckVO myTruckVO = data.get(position);
+                TruckEntity truck = myTruckVO.getTruck();
+                TruckDriverVO truckDriver = myTruckVO.getTruckDriver();
+                String truckId = truck.getId();
+                String driverId = truckDriver.getDriverId();
+                String rightFlag = truckDriver.getRightFlag();
+                HashMap<String,String > map = new HashMap<>(3);
+                map.put("truckId",truckId);
+                map.put("driverId",driverId);
+                map.put("rightFlag",rightFlag);
+                openActivity(DistributiveDriverActivity.class,map);
             }
         });
     }

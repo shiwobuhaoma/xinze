@@ -43,13 +43,14 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mView = LayoutInflater.from(mActivity).inflate(R.layout.my_truck_rv_item, parent, false);
-        ViewHolder holder = new ViewHolder(mView);
-        return holder;
+
+        return new ViewHolder(mView);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        holder.itemView.setTag(position);
         // 获取数据
         final MyTruckVO entity = mBS.get(position);
         TruckEntity truck = entity.getTruck();
@@ -167,8 +168,17 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemClickListener {
+        void click(View v , int position);
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.my_truck_truckname_tv)
         TextView nameTextView;
         @BindView(R.id.my_truck_edit_iv)
@@ -187,6 +197,13 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            mOnItemClickListener.click(v, (int) itemView.getTag());
         }
     }
 }
