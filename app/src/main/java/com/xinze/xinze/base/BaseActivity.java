@@ -251,8 +251,20 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void hideKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            InputMethodManager inputMethodManager =  ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+            if (inputMethodManager != null){
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+            }
+        }
+    }
+
+    protected void showKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager =  ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+            if (inputMethodManager != null){
+                inputMethodManager. toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+            }
         }
     }
 }

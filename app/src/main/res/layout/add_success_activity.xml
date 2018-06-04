@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/add_success_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:padding="15dp"
+        android:drawableTop="@mipmap/submit_success"
+        android:layout_width="match_parent"
+        android:layout_marginTop="92dp"
+        android:gravity="center"
+        android:drawablePadding="54dp"
+        android:textColor="@color/themeBlack"
+        android:text="@string/submit_success"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/gray_text"
+        android:text="@string/service_hotline"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

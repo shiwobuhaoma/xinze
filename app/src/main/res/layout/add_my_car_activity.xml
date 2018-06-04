@@ -25,6 +25,7 @@
             android:textSize="12sp"
             android:layout_width="match_parent"
             android:background="@null"
+            android:inputType="text"
             android:drawableEnd="@mipmap/right_arrow"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
@@ -49,11 +50,13 @@
             android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
+        <EditText
             android:id="@+id/add_car_select_car_type"
             android:layout_width="match_parent"
             android:hint="@string/input_car_type"
             android:textSize="12sp"
+            android:inputType="none"
+            android:background="@null"
             android:drawableEnd="@mipmap/right_arrow"
             android:layout_marginEnd="15dp"
             android:padding="15dp"
@@ -106,6 +109,7 @@
         <ImageView
             android:id="@+id/add_car_upload_license"
             android:layout_margin="15dp"
+            android:scaleType="fitXY"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="@mipmap/driving_license"

@@ -27,7 +27,23 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
     @Override
     public void addTruck(String truckName,String truckCode,String weight,String vehicleLicenseImg) {
         HashMap<String, String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().addTruck(headers,truckName,truckCode,weight,vehicleLicenseImg);
+        RetrofitFactory.getInstence().Api().addTruck(headers,truckName,truckCode,weight,vehicleLicenseImg).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
+            @Override
+            protected void onSuccees(BaseEntity t) throws Exception {
+                if (t != null){
+                    if (t.isSuccess()){
+                        addMyCarActivity.addTruckSuccess(t.getMsg());
+                    }else {
+                        addMyCarActivity.addTruckFailed(t.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                addMyCarActivity.addTruckFailed(e.getMessage());
+            }
+        });
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xinze.xinze.R;
@@ -30,15 +32,13 @@ import butterknife.ButterKnife;
  * @author lxf
  * 底部滑出对话框
  */
-public class BottomProvincePopupMenu {
+public class BottomCarTypePopupMenu {
 
     protected Activity mContext;
 
     private Dialog mPopupMenu;
 
-    private String[] provices = {"京", "沪", "浙", "苏", "粤", "鲁", "晋",
-            "冀", "豫", "川", "渝", "辽", "吉", "黑", "皖", "湘", "赣", "闽",
-            "陕", "甘", "宁", "蒙", "津", "贵", "云", "桂", "琼", "青", "新", "藏", "港", "澳", "台"};
+    private String[] carType = {"自卸", "单车", "油罐车", "集装箱", "冷藏", "全封闭", "二拖三", "班车", "厢式车", "半封闭", "前四后八", "危货车", "半挂车"};
 
     private MenuAdapter mAdapter;
 
@@ -47,32 +47,34 @@ public class BottomProvincePopupMenu {
     private MenuClickListener mMenuClickListener;
     private int black;
     private int white;
-    private int green;
+    private Drawable orangeDrawable;
+    private Drawable whiteDrawable;
 
-    public BottomProvincePopupMenu(Activity context) {
+    public BottomCarTypePopupMenu(Activity context) {
         mContext = context;
         initView();
     }
 
     @SuppressLint("InflateParams")
     private void initView() {
-        View mView = LayoutInflater.from(mContext).inflate(R.layout.bottom_province_popup_menu, null);
-//        mView.findViewById(R.id.take_up)
-//                .setOnClickListener(new OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mPopupMenu.dismiss();
-//                    }
-//                });
-        RecyclerView mListView = (RecyclerView) mView.findViewById(R.id.bottom_province_popup_menu_list);
-        mListView.setLayoutManager(new StaggeredGridLayoutManager(9,
+        View mView = LayoutInflater.from(mContext).inflate(R.layout.bottom_car_type_popup_menu, null);
+        mView.findViewById(R.id.cancel_take_up)
+                .setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPopupMenu.dismiss();
+                    }
+                });
+        RecyclerView mListView = (RecyclerView) mView.findViewById(R.id.bottom_car_type_popup_menu_list);
+        mListView.setLayoutManager(new StaggeredGridLayoutManager(4,
                 StaggeredGridLayoutManager.VERTICAL));
-        List<String> pros = Arrays.asList(provices);
+        List<String> pros = Arrays.asList(carType);
         black = mContext.getResources().getColor(R.color.black);
         white = mContext.getResources().getColor(R.color.white);
-        green = mContext.getResources().getColor(R.color.green);
+        orangeDrawable = mContext.getResources().getDrawable(R.drawable.circle_orange_button);
+        whiteDrawable = mContext.getResources().getDrawable(R.drawable.button_stroke_background);
         for (String s : pros) {
-            addItem(s, black, white);
+            addItem(s, black, orangeDrawable);
         }
         mAdapter = new MenuAdapter(mContext, mMenuList);
         mListView.setAdapter(mAdapter);
@@ -80,7 +82,7 @@ public class BottomProvincePopupMenu {
         mPopupMenu = new Dialog(mContext, R.style.transparentFrameWindowStyle);
         mPopupMenu.setContentView(mView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         Window window = mPopupMenu.getWindow();
-        if (window != null){
+        if (window != null) {
             View decorView = window.getDecorView();
             decorView.setPadding(0, 0, 0, 0);
             window.setWindowAnimations(R.style.main_menu_animstyle);
@@ -101,11 +103,11 @@ public class BottomProvincePopupMenu {
     }
 
 
-    public void addItem(String title, int textColorRes, int backgroundColorRes) {
+    public void addItem(String title, int textColorRes, Drawable backgroundDrawableRes) {
         Menu menu = new Menu();
         menu.itemTitle = title;
         menu.textColorRes = textColorRes;
-        menu.backgroundColorRes = backgroundColorRes;
+        menu.backgroundDrawableRes = backgroundDrawableRes;
         if (mMenuList == null) {
             mMenuList = new ArrayList<Menu>();
         }
@@ -141,7 +143,7 @@ public class BottomProvincePopupMenu {
 
         for (Menu menu : mMenuList) {
             menu.textColorRes = black;
-            menu.backgroundColorRes = white;
+            menu.backgroundDrawableRes = whiteDrawable;
         }
         mAdapter.updateData(mMenuList);
         mPopupMenu.dismiss();
@@ -154,11 +156,11 @@ public class BottomProvincePopupMenu {
     public class Menu {
         public String itemTitle;
         public int textColorRes;
-        public int backgroundColorRes;
+        public Drawable backgroundDrawableRes;
     }
 
     public interface MenuClickListener {
-         void onMenuItemClick(View itemView, String province);
+        void onMenuItemClick(View itemView, String carType);
     }
 
     /**
@@ -176,19 +178,18 @@ public class BottomProvincePopupMenu {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.bottom_province_item, parent, false));
+            return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.bottom_car_type_item, parent, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Menu menu = menuList.get(position);
             holder.menuTitle.setText(menu.itemTitle);
+            holder.menuTitle.setTextColor(menu.textColorRes);
             if (menu.textColorRes == black) {
-                holder.menuTitle.setTextColor(menu.textColorRes);
-                holder.menuTitle.setBackgroundColor(white);
+                holder.menuRl.setBackground(whiteDrawable);
             } else {
-                holder.menuTitle.setTextColor(black);
-                holder.menuTitle.setBackgroundColor(green);
+                holder.menuRl.setBackground(orangeDrawable);
             }
             holder.itemView.setTag(position);
         }
@@ -205,8 +206,10 @@ public class BottomProvincePopupMenu {
 
 
         class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
-            @BindView(R.id.province_title)
+            @BindView(R.id.car_type_title)
             TextView menuTitle;
+            @BindView(R.id.car_type_rl)
+            RelativeLayout menuRl;
 
             public ViewHolder(View view) {
                 super(view);
@@ -226,6 +229,7 @@ public class BottomProvincePopupMenu {
                     mMenuClickListener.onMenuItemClick(v, element.itemTitle);
 
                     element.textColorRes = white;
+                    element.backgroundDrawableRes = orangeDrawable;
                     menuList.set(position, element);
                     updateData(menuList);
                 }
