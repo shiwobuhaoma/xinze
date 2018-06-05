@@ -1,12 +1,15 @@
 package com.xinze.xinze.module.trucks.presenter;
 
+import com.xinze.xinze.module.trucks.view.IMyTruckView;
+import com.xinze.xinze.mvpbase.BasePresenter;
+
 /**
  *
  * @author feibai
  * @date 2018/5/14
  * desc:IMyTruckPresenter
  */
-public interface IMyTruckPresenter {
+public interface IMyTruckPresenter extends BasePresenter<IMyTruckView>{
     /**
      * 获取我的车辆信息列表
      *

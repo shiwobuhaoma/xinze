@@ -1,10 +1,18 @@
 package com.xinze.xinze.module.trucks.presenter;
 
+import android.content.Context;
+
 import com.xinze.xinze.App;
+import com.xinze.xinze.bean.CategoryNewBean;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
+import com.xinze.xinze.http.entity.BaseEntity;
+import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.trucks.model.MyTruckVO;
+import com.xinze.xinze.module.trucks.view.IMyTruckView;
 import com.xinze.xinze.module.trucks.view.MyTruckActivity;
+import com.xinze.xinze.mvpbase.BasePresenterImpl;
 import com.xinze.xinze.utils.ReturnResult;
 
 import java.util.HashMap;
@@ -20,16 +28,14 @@ import retrofit2.Response;
  * desc:
  */
 
-public class MyTruckPresenterImp implements IMyTruckPresenter {
+public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> implements IMyTruckPresenter {
 
     private MyTruckActivity mActivity;
 
-
-
-    public MyTruckPresenterImp(MyTruckActivity myTruckActivity) {
-        this.mActivity = myTruckActivity;
+    public MyTruckPresenterImp(IMyTruckView mPresenterView, Context mContext) {
+        super(mPresenterView, mContext);
+        this.mActivity = (MyTruckActivity) mPresenterView;
     }
-
 
 
 
@@ -85,28 +91,24 @@ public class MyTruckPresenterImp implements IMyTruckPresenter {
 
     @Override
     public void delMyTruck(String itemId) {
-        HashMap<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
-/*        RetrofitFactory.getInstence().Api().delMyDriver(headers, itemId).enqueue(new Callback<ReturnResult>() {
-            @Override
-            public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
-                // 请求成功
-                ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
-                    myDriverActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
-                    return;
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
+       RetrofitFactory.getInstence().Api().deleteMyTrucks(headers, itemId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(){
+           @Override
+           protected void onSuccees(BaseEntity t) throws Exception {
+                if (t != null){
+                    if (t.isSuccess()){
+                        mActivity.deleteMyTruckSuccess(t.getMsg());
+                    }else {
+                        mActivity.deleteMyTruckFailed(t.getMsg());
+                    }
                 }
-                myDriverActivity.shotToast(AppConfig.COMMON_SUCCESS_RESPONSE);
-                // 删除成功需要刷新页面
-                myDriverActivity.setRefreshData();
-            }
+           }
 
-            @Override
-            public void onFailure(Call<ReturnResult> call, Throwable t) {
-                myDriverActivity.shotToast(AppConfig.COMMON_FAILURE_RESPONSE);
-            }
-        });*/
+           @Override
+           protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+               mActivity.deleteMyTruckFailed(e.getMessage());
+           }
+       });
 
     }
 

@@ -409,15 +409,27 @@ public interface ApiServer {
     @GET(UrlConfig.GET_MY_TRUCK_DRIVERS)
     Observable<BaseEntity<List<TruckownerDriverVO>>> getMyTruckDrivers(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("inviteFlag") String inviteFlag);
 
+    /**
+     * 分配司机接口
+     * @param headers 请求头
+     * @param truckId 车辆id
+     * @param driverId 司机id
+     * @param rightFlag 司机是否有权限抢单
+     * @param id 修改司机id
+     * @return 返回信息
+     */
+    @GET(UrlConfig.APPOINT_DRIVER_TRUCK)
+    Observable<BaseEntity> appointDriver4Truck(@HeaderMap Map<String, String> headers, @Query("truckId")String truckId,  @Query("driverId")String driverId,  @Query("rightFlag")String rightFlag,  @Query("id")String id);
 
-    void appointDriver4Truck();
 
-
-
-
-
-
-
+    /**
+     * 删除司机接口
+     * @param headers 请求头
+     * @param id  司机id
+     * @return 返回信息
+     */
+    @GET(UrlConfig.DELETE_MY_TRUCKS)
+    Observable<BaseEntity> deleteMyTrucks(@HeaderMap Map<String, String> headers, @Query("id")String id);
 
 
 

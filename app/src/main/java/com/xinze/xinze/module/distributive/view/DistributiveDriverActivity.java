@@ -3,7 +3,6 @@ package com.xinze.xinze.module.distributive.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,12 +12,12 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.distributive.adapter.DistributiveDriverAdapter;
 import com.xinze.xinze.module.distributive.presenter.DistributiveDriverPresenter;
-import com.xinze.xinze.module.distributive.view.IDistributiveDriverView;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.widget.SimpleToolbar;
 
@@ -42,7 +41,7 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
     @BindView(R.id.distributive_bt)
     Button distributiveBt;
     private DistributiveDriverAdapter dda;
-    private DistributiveDriverPresenter ddp;
+    private DistributiveDriverPresenter mPresenter;
     private String rightFlag;
     private String driverId;
     private String truckId;
@@ -53,6 +52,7 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
     private int pageNo = AppConfig.PAGE_NO;
     private int pageSize = AppConfig.PAGE_SIZE;
     private List<TruckownerDriverVO> mData;
+
 
     @Override
     protected int initLayout() {
@@ -71,15 +71,22 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
         initToolBar();
         dda = new DistributiveDriverAdapter(this);
         distributiveRv.setLayoutManager(new LinearLayoutManager(this));
-        distributiveRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         distributiveRv.setAdapter(dda);
         dda.setOnItemClickListener(new DistributiveDriverAdapter.OnItemClickListener() {
             @Override
             public void click(View view, int position) {
-                if ( mData.get(position).isChecked()){
-                    mData.get(position).setChecked(false);
-                }else{
-                    mData.get(position).setChecked(true);
+
+                for (int i = 0; i < mData.size(); i++) {
+                    final TruckownerDriverVO truckownerDriverVO = mData.get(i);
+                    if (i == position) {
+                        if (truckownerDriverVO.isChecked()) {
+                            truckownerDriverVO.setChecked(false);
+                        } else {
+                            truckownerDriverVO.setChecked(true);
+                        }
+                    } else {
+                        truckownerDriverVO.setChecked(false);
+                    }
                 }
                 dda.setData(mData);
             }
@@ -88,14 +95,29 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
             public void call(int position) {
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mData.get(position).getDriverMobile())));
             }
+
+            @Override
+            public void allowRobbing(int position) {
+                for (int i = 0; i < mData.size(); i++) {
+                    final TruckownerDriverVO truckownerDriverVO = mData.get(i);
+                    if (position == i) {
+                        truckownerDriverVO.setRightFlag("1");
+                        rightFlag = "1";
+                    } else {
+                        truckownerDriverVO.setRightFlag("0");
+                        rightFlag = "0";
+                    }
+                }
+                dda.setData(mData);
+            }
         });
-        ddp = new DistributiveDriverPresenter(this, this);
-        ddp.getMyTruckDrivers(pageNo,pageSize,"1");
+        mPresenter = new DistributiveDriverPresenter(this, this);
+        mPresenter.getMyTruckDrivers(pageNo, pageSize, "1");
         distributiveSrl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNo = 1;
-                ddp.getMyTruckDrivers(pageNo, pageSize, AppConfig.YES);
+                mPresenter.getMyTruckDrivers(pageNo, pageSize, AppConfig.YES);
             }
         });
         // 绑定上拉刷新加载更多事件
@@ -104,7 +126,7 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 if (!pageEndFlag) {
                     pageNo++;
-                    ddp.getMyTruckDrivers(pageNo, pageSize, AppConfig.YES);
+                    mPresenter.getMyTruckDrivers(pageNo, pageSize, AppConfig.YES);
                 } else {
                     distributiveSrl.finishLoadMore(500);
                     shotToast(AppConfig.LOAD_INFO_FINISH);
@@ -126,21 +148,67 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
 
     @OnClick(R.id.distributive_bt)
     public void onClick() {
-        ddp.appointDriver4Truck(truckId, driverId, rightFlag, id);
+        mPresenter.appointDriver4Truck(truckId, driverId, rightFlag, id);
     }
 
     @Override
     public void appointDriver4TruckSuccess(String msg) {
-
+        RxToast.showToast(msg);
+        finish();
     }
 
     @Override
     public void appointDriver4TruckFailed(String msg) {
+        RxToast.showToast(msg);
+    }
+
+    @Override
+    public void getMyTruckDriversSuccess(String msg) {
+        if (pageNo == 1) {
+            distributiveSrl.finishRefresh();
+        } else {
+            distributiveSrl.finishLoadMore();
+        }
 
     }
 
+    @Override
+    public void getMyTruckDriversFailed(String msg) {
+        if (pageNo == 1) {
+            distributiveSrl.finishRefresh();
+        } else {
+            distributiveSrl.finishLoadMore();
+        }
+    }
+
     public void setData(List<TruckownerDriverVO> data) {
-        this.mData = data;
-        dda.setData(data);
+        if (data == null) {
+            setPageEndFlag(true);
+        } else {
+            if (pageNo == 1) {
+                this.mData = data;
+            } else {
+                this.mData.addAll(data);
+            }
+            for (TruckownerDriverVO truckownerDriverVO : mData) {
+                if (truckownerDriverVO.getDriverUserId().equals(driverId)) {
+                    truckownerDriverVO.setChecked(true);
+                }
+                if ("1".equals(truckownerDriverVO.getRightFlag())) {
+                    truckownerDriverVO.setRightFlag("1");
+                }
+
+            }
+            dda.setData(mData);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null){
+            mPresenter.onDestroy();
+        }
     }
 }

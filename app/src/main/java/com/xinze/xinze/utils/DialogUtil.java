@@ -27,6 +27,7 @@ public class DialogUtil {
         void cancle();
     }
 
+
     /**
      * 提示未登录对话框
      */
@@ -145,6 +146,34 @@ public class DialogUtil {
         rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
+    /**
+     * 共用对话框
+     */
+    public static void showCommonDialog(final Activity mActivity, String content, String confirm, String cancel,  final ChoiceClickListener listener) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getCancelView().setText(cancel);
+        rxDialogSureCancel.getCancelView().setTextColor(mActivity.getResources().getColor(R.color.black));
+        rxDialogSureCancel.getSureView().setText(confirm);
+        rxDialogSureCancel.getSureView().setTextColor(mActivity.getResources().getColor(R.color.red));
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickSureView(null);
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickCancelView(null);
                 rxDialogSureCancel.cancel();
             }
         });

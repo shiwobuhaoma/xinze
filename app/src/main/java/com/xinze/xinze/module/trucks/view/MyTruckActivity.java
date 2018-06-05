@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.bean.SpaceItemDecoration;
@@ -37,7 +38,7 @@ import butterknife.BindView;
  * @date 2018/5/22
  * desc: 我的车辆
  */
-public class MyTruckActivity extends BaseActivity {
+public class MyTruckActivity extends BaseActivity implements IMyTruckView{
     @BindView(R.id.my_truck_toolbar)
     SimpleToolbar mToolbar;
     @BindView(R.id.my_truck_rv)
@@ -99,7 +100,7 @@ public class MyTruckActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        mPresenter = new MyTruckPresenterImp(this);
+        mPresenter = new MyTruckPresenterImp(this,this);
         mPresenter.myTrucks(pageNo, pageSize, AppConfig.YES);
         isRefresh = false;
     }
@@ -166,6 +167,29 @@ public class MyTruckActivity extends BaseActivity {
                 map.put("rightFlag",rightFlag);
                 openActivity(DistributiveDriverActivity.class,map);
             }
+
+            @Override
+            public void edit(int position) {
+                MyTruckVO myTruckVO = data.get(position);
+                TruckEntity truck = myTruckVO.getTruck();
+                TruckDriverVO truckDriver = myTruckVO.getTruckDriver();
+                String truckId = truck.getId();
+                String driverId = truckDriver.getDriverId();
+                String rightFlag = truckDriver.getRightFlag();
+                String id = truckDriver.getId();
+                HashMap<String,String > map = new HashMap<>(4);
+                map.put("truckId",truckId);
+                map.put("driverId",driverId);
+                map.put("rightFlag",rightFlag);
+                map.put("id",id);
+                openActivity(DistributiveDriverActivity.class,map);
+            }
+
+            @Override
+            public void delete(int position) {
+                mPosition = position;
+                mPresenter.delMyTruck(data.get(position).getTruckDriver().getDriverId());
+            }
         });
     }
 
@@ -207,16 +231,20 @@ public class MyTruckActivity extends BaseActivity {
         mPresenter.myTrucks(AppConfig.PAGE_NO, AppConfig.PAGE_SIZE, inviteFlag);
     }
 
-    public boolean isPageEndFlag() {
-        return pageEndFlag;
-    }
 
-    public void setPageEndFlag(boolean pageEndFlag) {
-        this.pageEndFlag = pageEndFlag;
-    }
 
     public IMyTruckPresenter getmPresenter() {
         return mPresenter;
     }
 
+    @Override
+    public void deleteMyTruckSuccess(String msg) {
+        data.remove(mPosition);
+        mAdapter.notifyItemChanged(mPosition);
+    }
+
+    @Override
+    public void deleteMyTruckFailed(String msg) {
+        RxToast.showToast(msg);
+    }
 }

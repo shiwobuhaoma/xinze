@@ -111,29 +111,7 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
                 contentSb.append(updateDate);
                 holder.contentTextView.setText(contentSb.toString());
 
-                // 为编辑按钮绑定点击事件
-                holder.editImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // 跳转至编辑页面
-                    }
-                });
-                // 为删除按钮绑定点击事件
-                holder.delImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DialogUtil.showCommonDialog(mActivity, "确定要删除吗?", new DialogUtil.ChoiceClickListener() {
-                            @Override
-                            public void onClickSureView(Object data) {
-                                // mActivity.getmPresenter().delMyTruck(itemId);
-                            }
 
-                            @Override
-                            public void onClickCancelView(Object data) {
-                            }
-                        });
-                    }
-                });
                 break;
             case AppConfig.CONTINUE:
                 // 审核中
@@ -173,7 +151,9 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
     }
 
     public interface OnItemClickListener {
-        void click(View v , int position);
+        void click(View v, int position);
+        void edit(int position);
+        void delete(int position);
     }
 
     private OnItemClickListener mOnItemClickListener;
@@ -198,12 +178,24 @@ public class MyTruckRecycleViewAdapter extends RecyclerView.Adapter<MyTruckRecyc
             super(view);
             ButterKnife.bind(this, view);
             itemView.setOnClickListener(this);
-
+            editImageView.setOnClickListener(this);
+            delImageView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            mOnItemClickListener.click(v, (int) itemView.getTag());
+            switch (v.getId()) {
+                case R.id.my_truck_edit_iv:
+                    mOnItemClickListener.edit((int) itemView.getTag());
+                    break;
+                case R.id.my_truck_del_iv:
+                    mOnItemClickListener.delete((int) itemView.getTag());
+                    break;
+                default:
+                    mOnItemClickListener.click(v, (int) itemView.getTag());
+                    break;
+            }
+
         }
     }
 }
