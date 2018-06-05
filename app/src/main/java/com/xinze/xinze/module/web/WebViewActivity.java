@@ -87,9 +87,9 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initData() {
         this.pbWebBase.setMax(100);
-        if (TextUtils.isEmpty(webPath)) {
-            this.webPath = "http://www.baidu.com";
-        }
+//        if (TextUtils.isEmpty(webPath)) {
+//            this.webPath = "http://www.baidu.com";
+//        }
 
         WebSettings webSettings = this.webBase.getSettings();
         if (Build.VERSION.SDK_INT >= 19) {

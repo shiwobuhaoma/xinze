@@ -7,6 +7,7 @@ import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.module.forget.ResetPwdActivity;
 import com.xinze.xinze.module.login.view.LoginActivity;
+import com.xinze.xinze.utils.Base64Util;
 import com.xinze.xinze.utils.ReturnResult;
 
 import java.util.HashMap;
@@ -32,9 +33,8 @@ public class ResetPwdPresenterImpl implements IResetPwdPresenter {
 
     @Override
     public void resetPwd(String phone, String code, String pwd) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("userid",App.mUser.getId());
-        RetrofitFactory.getInstence().Api().resetPwd(phone, code,pwd).enqueue(new Callback<ReturnResult>() {
+
+        RetrofitFactory.getInstence().Api().resetPwd(phone, code, Base64Util.getBase64(pwd)).enqueue(new Callback<ReturnResult>() {
             @Override
             public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
                 // 请求成功

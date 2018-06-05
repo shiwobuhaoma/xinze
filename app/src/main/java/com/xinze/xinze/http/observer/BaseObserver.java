@@ -99,8 +99,9 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
         if (t.getStatus() == -1){
             onSuccees(t);
         }else if(t.getStatus() == sessionIDOverdue){
-            onSuccees(t);
             App.mUser.setLogin(false);
+            onSuccees(t);
+
 
         }
     }

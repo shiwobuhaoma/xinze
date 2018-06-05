@@ -43,7 +43,7 @@
     <string name="goIdentification">去认证</string>
     <string name="certification_commit">提交审核</string>
     <string name="name">姓名</string>
-    <string name="isGoIdentification">是否去验证</string>
+    <string name="isGoIdentification">是否去认证</string>
     <string name="isGoLogin">是否去登录</string>
     <string name="hint_search">搜索</string>
 

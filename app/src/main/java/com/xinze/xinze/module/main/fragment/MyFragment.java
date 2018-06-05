@@ -163,11 +163,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     private void doSomething(String type) {
         switch (type) {
             case MyItemSelected.DRIVER_CERTIFICATION:
-                if ("1".equals(App.mUser.getVertifyFlag()) || "2".equals(App.mUser.getVertifyFlag())) {
+                if (!"1".equals(App.mUser.getVertifyFlag()) || !"2".equals(App.mUser.getVertifyFlag())) {
                     startActivity(new Intent(mActivity, CertificationActivity2.class));
-                } else {
-                    DialogUtil.showUnIdentificationDialog(mActivity);
                 }
+//                else {
+//                    DialogUtil.showUnIdentificationDialog(mActivity);
+//                }
                 break;
             case MyItemSelected.MY_CARS:
                 startActivity(new Intent(mActivity,MyTruckActivity.class));
