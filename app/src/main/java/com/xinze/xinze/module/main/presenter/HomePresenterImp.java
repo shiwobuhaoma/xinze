@@ -126,15 +126,16 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                             if (t.isSuccess()){
                                 CustomerPhoneEntity data = t.getData();
                                 mHomeView.setData(data);
+                                mHomeView.getCustomerPhoneSuccess();
                             }else{
-                                mHomeView.shotToast(t.getMsg());
+                                mHomeView.getCustomerPhoneFailed();
                             }
                         }
                     }
 
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        System.out.println(e.getMessage());
+                        mHomeView.getCustomerPhoneFailed();
                     }
                 });
     }

@@ -33,9 +33,9 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private Context mContext;
     private View view;
 
-    public HomeRecycleViewAdapter(Context context, List<HomeRecycleViewItem> mbs) {
+    public HomeRecycleViewAdapter(Context context) {
         this.mContext = context;
-        this.mBS = mbs;
+
     }
     @NonNull
     @Override
@@ -103,7 +103,7 @@ public class HomeRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return mBS.size();
+        return mBS == null ? 0 : mBS.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

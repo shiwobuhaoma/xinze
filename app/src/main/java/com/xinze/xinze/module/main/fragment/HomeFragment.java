@@ -57,7 +57,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     @BindView(R.id.nested_scroll_view)
     NestedScrollView mNestedScrollView;
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
-    private HomeRecycleViewAdapter hyva;
+    private HomeRecycleViewAdapter mAdapter;
     private HomePresenterImp hpi;
     private HomeRecycleViewItem service_hotline;
     private String hotLine;
@@ -77,12 +77,12 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_regular_route, "", R.mipmap.home_regular_route, true, 0, true));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.home_about_us, true, 0, false));
 
-        hyva = new HomeRecycleViewAdapter(mActivity, homeRecycleViewItems);
+        mAdapter = new HomeRecycleViewAdapter(mActivity);
         mHomeRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        mHomeRv.setAdapter(hyva);
+        mHomeRv.setAdapter(mAdapter);
         mHomeRv.setNestedScrollingEnabled(false);
 
-        hyva.setOnItemClickListener(new HomeRecycleViewAdapter.OnRecyclerViewItemClickListener() {
+        mAdapter.setOnItemClickListener(new HomeRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 jump(position);
@@ -183,17 +183,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
 
-    @Override
-    public void success() {
-
-    }
-
-    @Override
-    public void failed() {
-
-    }
-
-
     public void setToolBarUnreadNum(boolean isShow) {
         if (isShow) {
             mainToolBar.setRightTitleDrawable(R.mipmap.home_notice_msg);
@@ -205,7 +194,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     public void updateFixBillNum(int num) {
         homeRecycleViewItems.get(1).setRightText(String.valueOf(num));
-        hyva.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     public void setBannerList(List<com.xinze.xinze.module.main.modle.Banner> banners) {
@@ -224,6 +213,16 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         hotLine = data.getPhone();
         service_hotline = new HomeRecycleViewItem("服务热线：" + hotLine, "", 0, false, false, 0);
         homeRecycleViewItems.add(service_hotline);
-        hyva.setData(homeRecycleViewItems);
+        mAdapter.setData(homeRecycleViewItems);
+    }
+
+    @Override
+    public void getCustomerPhoneSuccess() {
+
+    }
+
+    @Override
+    public void getCustomerPhoneFailed() {
+        mAdapter.setData(homeRecycleViewItems);
     }
 }

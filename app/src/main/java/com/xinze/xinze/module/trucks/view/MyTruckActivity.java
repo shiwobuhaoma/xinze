@@ -26,6 +26,7 @@ import com.xinze.xinze.module.trucks.model.TruckDriverVO;
 import com.xinze.xinze.module.trucks.model.TruckEntity;
 import com.xinze.xinze.module.trucks.presenter.IMyTruckPresenter;
 import com.xinze.xinze.module.trucks.presenter.MyTruckPresenterImp;
+import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import java.util.HashMap;
@@ -188,7 +189,18 @@ public class MyTruckActivity extends BaseActivity implements IMyTruckView{
             @Override
             public void delete(int position) {
                 mPosition = position;
-                mPresenter.delMyTruck(data.get(position).getTruckDriver().getDriverId());
+                DialogUtil.showCommonDialog(MyTruckActivity.this, "确定要删除关联的司机吗？", "是", "否", new DialogUtil.ChoiceClickListener() {
+                    @Override
+                    public void onClickSureView(Object data1) {
+                        mPresenter.delMyTruck(data.get(position).getTruckDriver().getDriverId());
+                    }
+
+                    @Override
+                    public void onClickCancelView(Object data) {
+
+                    }
+                });
+
             }
         });
     }
