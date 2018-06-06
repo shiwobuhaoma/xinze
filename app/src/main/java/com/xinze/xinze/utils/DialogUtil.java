@@ -180,6 +180,27 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
+    /**
+     * 共用对话框
+     */
+    public static void showCommonDialog(final Activity mActivity, String content, String confirm,  final ChoiceClickListener listener) {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
+        rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
+        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getCancelView().setVisibility(View.GONE);
+        rxDialogSureCancel.getCancelView().setTextColor(mActivity.getResources().getColor(R.color.black));
+        rxDialogSureCancel.getSureView().setText(confirm);
+        rxDialogSureCancel.getSureView().setTextColor(mActivity.getResources().getColor(R.color.red));
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickSureView(null);
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
+
+    }
 
     /**
      * 邀请详情拒绝对话框

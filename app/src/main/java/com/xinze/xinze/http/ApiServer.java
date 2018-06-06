@@ -9,6 +9,7 @@ import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.invite.model.OwnerDriverVO;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
+import com.xinze.xinze.module.main.modle.AppUpdate;
 import com.xinze.xinze.module.main.modle.Banner;
 import com.xinze.xinze.module.main.modle.CustomerPhoneEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
@@ -31,6 +32,7 @@ import cn.qqtheme.framework.entity.Province;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -42,6 +44,8 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 /**
  * @author lxf
@@ -432,14 +436,20 @@ public interface ApiServer {
     Observable<BaseEntity> deleteMyTrucks(@HeaderMap Map<String, String> headers, @Query("id")String id);
 
 
+    /**
+     * 版本检查
+     * @param apptype 1司机0货主
+     * @param filetype  app类型 0 android 1 ios
+     * @return 返回信息
+     */
+    @GET(UrlConfig.CHECK_UPDATE)
+    Observable<BaseEntity<AppUpdate>> checkUpdate(@Query("apptype")String apptype, @Query("filetype")String filetype);
 
 
 
-
-
-
-
-
+    @Streaming
+    @GET
+    Observable<ResponseBody> downloadApk(@Url String url);
 
 
 

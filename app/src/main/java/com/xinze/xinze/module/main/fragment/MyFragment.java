@@ -13,6 +13,7 @@ import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
+import com.xinze.xinze.module.forget.ForgetPassWordActivity;
 import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.line.view.LineActivity;
 import com.xinze.xinze.module.login.view.LoginActivity;
@@ -180,6 +181,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                 startActivity(new Intent(mActivity, SystemMsgActivity.class));
                 break;
             case MyItemSelected.MY_CHANGE_PWD:
+                openActivity(ForgetPassWordActivity.class);
                 break;
             case MyItemSelected.MY_INVITATION:
                 startActivity(new Intent(mActivity, InviteActivity.class));

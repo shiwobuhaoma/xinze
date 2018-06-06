@@ -3,23 +3,18 @@ package com.xinze.xinze.module.transport.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vondear.rxtools.view.RxToast;
-import com.vondear.rxtools.view.dialog.RxDialog;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
-import com.xinze.xinze.config.MainConfig;
-import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.module.transport.presenter.TransportDetailsPresenterImp;
-import com.xinze.xinze.module.transport.view.ITransportDetailsView;
 import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.widget.SimpleToolbar;
 

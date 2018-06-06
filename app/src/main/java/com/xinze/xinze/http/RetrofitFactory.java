@@ -3,6 +3,8 @@ package com.xinze.xinze.http;
 
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.config.HttpConfig;
+import com.xinze.xinze.http.interceptor.DownloadInterceptor;
+import com.xinze.xinze.http.listener.DownloadListener;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitFactory {
 
     private static RetrofitFactory mRetrofitFactory;
+    private static RetrofitFactory mRetrofitDownloadFactory;
     private static ApiServer mApiServer;
+    private static DownloadService mDownloadService;
 
     private RetrofitFactory() {
         OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
@@ -64,7 +68,24 @@ public class RetrofitFactory {
         mApiServer = mRetrofit.create(ApiServer.class);
 
     }
+    private RetrofitFactory(DownloadListener listener) {
+        OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
+                .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
+                .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
+                //添加自定义请求头
+                .addInterceptor(new DownloadInterceptor(listener))
+                .retryOnConnectionFailure(true)
+                .build();
+        Retrofit mRetrofit = new Retrofit.Builder()
+                .baseUrl(HttpConfig.BASE_URL)
+                //添加rxjava转换器
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(mOkHttpClient)
+                .build();
+        mDownloadService = mRetrofit.create(DownloadService.class);
 
+    }
     public static RetrofitFactory getInstence() {
         if (mRetrofitFactory == null) {
             synchronized (RetrofitFactory.class) {
@@ -76,8 +97,23 @@ public class RetrofitFactory {
         }
         return mRetrofitFactory;
     }
+    public static RetrofitFactory getInstence(DownloadListener listener) {
+        if (mRetrofitDownloadFactory == null) {
+            synchronized (RetrofitFactory.class) {
+                if (mRetrofitDownloadFactory == null) {
+                    mRetrofitDownloadFactory = new RetrofitFactory(listener);
+                }
+            }
 
+        }
+        return mRetrofitDownloadFactory;
+    }
     public ApiServer Api() {
         return mApiServer;
     }
+
+    public DownloadService downService() {
+        return mDownloadService;
+    }
+
 }

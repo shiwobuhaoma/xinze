@@ -26,7 +26,7 @@ public class ResetPwdActivity extends BaseActivity implements  View.OnClickListe
     @BindView(R.id.reset_pwd_et)
     EditText mResetPwdEditText;
     @BindView(R.id.reset_comfirm_pwd_et)
-    EditText mResetComfirmPwdEditText;
+    EditText mResetConfirmPwdEditText;
     @BindView(R.id.reset_alert_tv)
     TextView mResetAlertTextView;
     @BindView(R.id.reset_pwd_bt)
@@ -80,7 +80,7 @@ public class ResetPwdActivity extends BaseActivity implements  View.OnClickListe
 
     private void resetPwd() {
         mPwd = mResetPwdEditText.getText().toString().trim();
-        String confirmPwd = mResetComfirmPwdEditText.getText().toString().trim();
+        String confirmPwd = mResetConfirmPwdEditText.getText().toString().trim();
         if (TextUtils.isEmpty(mPwd)) {
             shotToast("新密码密码不能为空");
             return;
