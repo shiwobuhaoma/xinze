@@ -1,11 +1,11 @@
 package com.xinze.xinze.module.main.presenter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
-import com.xinze.xinze.http.observable.FileDownLoadObserver;
+import com.xinze.xinze.http.listener.DownloadListener;
+import com.xinze.xinze.http.observer.BaseDownloadObserver;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.main.modle.AppUpdate;
@@ -63,21 +63,37 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
 
 
     @Override
-    public void downloadApk(String downloadUrl, final String destDir, final String fileName, final FileDownLoadObserver<File> fileDownLoadObserver) {
+    public void downloadApk(String downloadUrl, final String destDir, final String fileName, DownloadListener mDownloadListener) {
         dispose();
-        RetrofitFactory.getInstence().Api().downloadApk(downloadUrl)
-                //subscribeOn和ObserOn必须在io线程，如果在主线程会出错
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                //需要
-                .observeOn(Schedulers.computation())
-                .map(new Function<ResponseBody, File>() {
-                    @Override
-                    public File apply(@NonNull ResponseBody responseBody) throws Exception {
-                        return fileDownLoadObserver.saveFile(responseBody, destDir, fileName);
-                    }
-                }).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(fileDownLoadObserver);
+         RetrofitFactory.getInstence(mDownloadListener).Api().downloadApk(downloadUrl)
+                 //请求网络 在调度者的io线程
+                 .subscribeOn(Schedulers.io())
+                 //指定线程保存文件
+                 .observeOn(Schedulers.io())
+                 .observeOn(Schedulers.computation())
+                 .map(new Function<ResponseBody, File>() {
+                     @Override
+                     public File apply(ResponseBody responseBody) throws Exception {
+                         return saveFile(responseBody.byteStream(), destDir, fileName);
+                     }
+                 })
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(new BaseDownloadObserver<File>() {
+                     @Override
+                     public void onSubscribe(Disposable d) {
+                         disposable = d;
+                     }
+
+                     @Override
+                     protected void onDownloadSuccess(File file) {
+                         mDownloadListener.onFinishDownload(file);
+                     }
+
+                     @Override
+                     protected void onDownloadError(Throwable e) {
+                         mDownloadListener.onFail(e);
+                     }
+                 });
 
 
     }

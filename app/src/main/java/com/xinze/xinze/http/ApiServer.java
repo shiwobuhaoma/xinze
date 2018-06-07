@@ -446,7 +446,6 @@ public interface ApiServer {
     Observable<BaseEntity<AppUpdate>> checkUpdate(@Query("apptype")String apptype, @Query("filetype")String filetype);
 
 
-
     @Streaming
     @GET
     Observable<ResponseBody> downloadApk(@Url String url);

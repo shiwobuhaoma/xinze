@@ -24,7 +24,10 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.MainConfig;
+import com.xinze.xinze.http.DownloadProgressHandler;
+import com.xinze.xinze.http.ProgressHelper;
 import com.xinze.xinze.http.entity.BaseEntity;
+import com.xinze.xinze.http.listener.DownloadListener;
 import com.xinze.xinze.http.observable.FileDownLoadObserver;
 import com.xinze.xinze.module.main.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
@@ -108,7 +111,7 @@ public class MainActivity extends BaseActivity implements IMainView {
             }
         });
 
-        checkUpdate();
+
     }
 
     private void initViewPager() {
@@ -212,6 +215,7 @@ public class MainActivity extends BaseActivity implements IMainView {
     protected void onResume() {
         super.onResume();
         mVp.setCurrentItem(currentFragment);
+        checkUpdate();
     }
 
 
@@ -219,7 +223,9 @@ public class MainActivity extends BaseActivity implements IMainView {
      * 检查是否有新版本，如果有就升级
      */
     private void checkUpdate() {
-        mPresenter = new MainPresenterImp(this, this);
+        if (mPresenter == null){
+            mPresenter = new MainPresenterImp(this, this);
+        }
         mPresenter.checkUpdate("1", "0");
     }
 
@@ -272,28 +278,45 @@ public class MainActivity extends BaseActivity implements IMainView {
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.setMessage("正在下载中。。。");
         mProgressDialog.setIcon(R.mipmap.ic_launcher);
+        mProgressDialog.setMax(100);
         mProgressDialog.setTitle("提示");
         mProgressDialog.show();
-        mPresenter.downloadApk(downloadUrl, Environment.getExternalStorageDirectory() + File.separator + "/apk", "xinZe", new FileDownLoadObserver<File>() {
+        mPresenter.downloadApk(downloadUrl, Environment.getExternalStorageDirectory() + File.separator + "/apk", "xinZe", new DownloadListener() {
             @Override
-            public void onDownLoadSuccess(File file) {
+            public void onStartDownload() {
+                mProgressDialog.show();
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                mProgressDialog.setProgress(progress);
+
+            }
+
+            @Override
+            public void onFinishDownload(File file) {
                 mProgressDialog.dismiss();
                 installApk(file);
+
+
             }
 
             @Override
-            public void onDownLoadFail(Throwable throwable) {
-                mProgressDialog.setMessage("下载失败，请重新下载！");
-            }
-
-            @Override
-            public void onProgress(int progress, long total) {
-                mProgressDialog.setProgress(progress);
-            }
-
-            @Override
-            public void onComplete() {
+            public void onFail(Throwable ex) {
                 mProgressDialog.dismiss();
+
+            }
+        });
+        ProgressHelper.setProgressHandler(new DownloadProgressHandler() {
+            @Override
+            protected void onProgress(long bytesRead, long contentLength, boolean done) {
+
+                mProgressDialog.setMax((int) (contentLength/1024));
+                mProgressDialog.setProgress((int) (bytesRead/1024));
+
+                if(done){
+                    mProgressDialog.dismiss();
+                }
             }
         });
     }
