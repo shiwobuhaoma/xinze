@@ -89,6 +89,7 @@
         <activity android:name=".module.allot.view.AllotDriverActivity" />
         <activity android:name=".module.web.WebViewActivity" />
         <activity android:name=".module.distributive.view.DistributiveDriverActivity" />
+        <activity android:name=".module.change.view.ChangePassWordActivity" />
 
         <!-- 对android7.0进行适配，获取相册照片需要使用文件提供者，
        需要注意的是authorities，以你的包名加上fileprovider，因为他需要唯一 -->

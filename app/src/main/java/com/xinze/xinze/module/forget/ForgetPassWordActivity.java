@@ -16,9 +16,9 @@ import com.xinze.xinze.widget.SimpleToolbar;
 
 import butterknife.BindView;
 
-/*
+/**
 * @author feibai
-* @time  2018/5/11 23:23
+* @date   2018/5/11 23:23
 * desc:
 */
 public class ForgetPassWordActivity extends BaseActivity implements View.OnClickListener, IForgetPwdView {

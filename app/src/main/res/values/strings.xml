@@ -178,4 +178,8 @@
     <string name="submit_success">审核资料提交成功，请耐心等待！</string>
     <string name="service_hotline">服务热线：400&#8211;4568&#8211;8956</string>
     <string name="allow_robbing">允许抢单</string>
+    <string name="old_pass_word">旧密码</string>
+    <string name="input_old_pass_word">请输入旧密码</string>
+    <string name="new_pass_word">新密码</string>
+    <string name="input_new_pass_word">请输入新密码</string>
 </resources>

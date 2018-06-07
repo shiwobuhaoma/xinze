@@ -446,11 +446,23 @@ public interface ApiServer {
     Observable<BaseEntity<AppUpdate>> checkUpdate(@Query("apptype")String apptype, @Query("filetype")String filetype);
 
 
+    /**
+     * 下载apk
+     * @param url apk链接
+     * @return 返回apk
+     */
     @Streaming
     @GET
     Observable<ResponseBody> downloadApk(@Url String url);
 
-
+    /**
+     * 修改登录密码接口
+     * @param oldpassword 旧密码
+     * @param password 新密码
+     * @return 修改信息
+     */
+    @GET(UrlConfig.CHANGE_PASS_WORD)
+    Observable<BaseEntity> changePassWord(@HeaderMap Map<String, String> headers,@Query("oldpassword")String oldpassword, @Query("password")String password);
 
 
 

@@ -53,4 +53,5 @@ public interface UrlConfig {
     String APPOINT_DRIVER_TRUCK = "transport/app/user/appointDriver4Truck";
     String DELETE_MY_TRUCKS = "transport/app/user/delMyTrucks";
     String CHECK_UPDATE = "transport/app/platform/getUpdateVersion";
+    String CHANGE_PASS_WORD = "transport/app/user/modifyPWD";
 }
