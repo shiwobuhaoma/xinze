@@ -1,5 +1,6 @@
 package com.xinze.xinze.module.main.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -7,7 +8,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
@@ -24,11 +27,9 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.MainConfig;
-import com.xinze.xinze.http.DownloadProgressHandler;
-import com.xinze.xinze.http.ProgressHelper;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.listener.DownloadListener;
-import com.xinze.xinze.http.observable.FileDownLoadObserver;
+import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.main.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
 import com.xinze.xinze.module.main.fragment.MyFragment;
@@ -41,16 +42,19 @@ import com.xinze.xinze.utils.DialogUtil;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * @author lxf
  * 主界面
  */
-public class MainActivity extends BaseActivity implements IMainView {
+public class MainActivity extends BaseActivity implements IMainView, DownloadListener ,EasyPermissions.PermissionCallbacks{
 
 
+    private static final int READ_AND_WRITE = 1;
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
     @BindView(R.id.vp_main)
@@ -66,6 +70,13 @@ public class MainActivity extends BaseActivity implements IMainView {
     private MainPresenterImp mPresenter;
     private ProgressDialog mProgressDialog;
 
+    /**
+     * 所要申请的权限
+     */
+    String[] mRequestPermissionList = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    private List<String> mDeniedPermissionList = new ArrayList<>();
 
     @Override
     protected int initLayout() {
@@ -111,9 +122,14 @@ public class MainActivity extends BaseActivity implements IMainView {
             }
         });
 
+    }
+    private void requestPermissions() {
+        //第二个参数是被拒绝后再次申请该权限的解释
+        //第三个参数是请求码
+        //第四个参数是要申请的权限
+        EasyPermissions.requestPermissions(this, "需要写入SD卡权限", READ_AND_WRITE, mRequestPermissionList);
 
     }
-
     private void initViewPager() {
 
         spa = new SelectPageAdapter(getSupportFragmentManager(), fragments);
@@ -215,7 +231,12 @@ public class MainActivity extends BaseActivity implements IMainView {
     protected void onResume() {
         super.onResume();
         mVp.setCurrentItem(currentFragment);
-        checkUpdate();
+        if (EasyPermissions.hasPermissions(this, mRequestPermissionList)){
+            checkUpdate();
+        }else{
+            requestPermissions();
+        }
+
     }
 
 
@@ -223,7 +244,7 @@ public class MainActivity extends BaseActivity implements IMainView {
      * 检查是否有新版本，如果有就升级
      */
     private void checkUpdate() {
-        if (mPresenter == null){
+        if (mPresenter == null) {
             mPresenter = new MainPresenterImp(this, this);
         }
         mPresenter.checkUpdate("1", "0");
@@ -280,45 +301,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         mProgressDialog.setIcon(R.mipmap.ic_launcher);
         mProgressDialog.setMax(100);
         mProgressDialog.setTitle("提示");
-        mProgressDialog.show();
-        mPresenter.downloadApk(downloadUrl, Environment.getExternalStorageDirectory() + File.separator + "/apk", "xinZe", new DownloadListener() {
-            @Override
-            public void onStartDownload() {
-                mProgressDialog.show();
-            }
-
-            @Override
-            public void onProgress(int progress) {
-                mProgressDialog.setProgress(progress);
-
-            }
-
-            @Override
-            public void onFinishDownload(File file) {
-                mProgressDialog.dismiss();
-                installApk(file);
-
-
-            }
-
-            @Override
-            public void onFail(Throwable ex) {
-                mProgressDialog.dismiss();
-
-            }
-        });
-        ProgressHelper.setProgressHandler(new DownloadProgressHandler() {
-            @Override
-            protected void onProgress(long bytesRead, long contentLength, boolean done) {
-
-                mProgressDialog.setMax((int) (contentLength/1024));
-                mProgressDialog.setProgress((int) (bytesRead/1024));
-
-                if(done){
-                    mProgressDialog.dismiss();
-                }
-            }
-        });
+        mPresenter.downloadApk(downloadUrl, Environment.getExternalStorageDirectory() + File.separator + "/apk", "xinZe.apk", this);
     }
 
 
@@ -392,7 +375,6 @@ public class MainActivity extends BaseActivity implements IMainView {
         return 1;
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -403,4 +385,54 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
 
+    @Override
+    public void onStartDownload() {
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void onProgress(int progress) {
+        mProgressDialog.setProgress(progress);
+    }
+
+    @Override
+    public void onFinishDownload(File file) {
+        mProgressDialog.dismiss();
+        installApk(file);
+    }
+
+    @Override
+    public void onFail(Throwable ex) {
+        mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        for (String s : mRequestPermissionList) {
+            if (ContextCompat.checkSelfPermission(this, s) != PackageManager.PERMISSION_GRANTED) {
+                mDeniedPermissionList.add(s);
+            } else {
+                mDeniedPermissionList.clear();
+            }
+        }
+        //未授予的权限为空，表示都授予了
+        if (!mDeniedPermissionList.isEmpty()) {
+            //将List转为数组
+            String[] permissions = mDeniedPermissionList.toArray(new String[mDeniedPermissionList.size()]);
+            //再次请求权限
+            EasyPermissions.requestPermissions(this, "需要写入SD卡权限", READ_AND_WRITE, permissions);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 }

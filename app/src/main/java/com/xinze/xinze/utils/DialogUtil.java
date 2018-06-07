@@ -2,7 +2,9 @@ package com.xinze.xinze.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
@@ -152,10 +154,11 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
+
     /**
      * 共用对话框
      */
-    public static void showCommonDialog(final Activity mActivity, String content, String confirm, String cancel,  final ChoiceClickListener listener) {
+    public static void showCommonDialog(final Activity mActivity, String content, String confirm, String cancel, final ChoiceClickListener listener) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
         rxDialogSureCancel.getContentView().setText(content);
@@ -180,22 +183,36 @@ public class DialogUtil {
         rxDialogSureCancel.show();
 
     }
+
     /**
      * 共用对话框
      */
-    public static void showCommonDialog(final Activity mActivity, String content, String confirm,  final ChoiceClickListener listener) {
+    public static void showCommonDialog(final Activity mActivity, String content, String confirm, final ChoiceClickListener listener) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
         rxDialogSureCancel.getContentView().setText(content);
         rxDialogSureCancel.getCancelView().setVisibility(View.GONE);
         rxDialogSureCancel.getCancelView().setTextColor(mActivity.getResources().getColor(R.color.black));
         rxDialogSureCancel.getSureView().setText(confirm);
+        rxDialogSureCancel.setCanceledOnTouchOutside(false);
+        rxDialogSureCancel.setCancelable(false);
         rxDialogSureCancel.getSureView().setTextColor(mActivity.getResources().getColor(R.color.red));
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickSureView(null);
                 rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    return true;
+                } else {
+                    //默认返回 false，这里false不能屏蔽返回键，改成true就可以了
+                    return false;
+                }
             }
         });
         rxDialogSureCancel.show();

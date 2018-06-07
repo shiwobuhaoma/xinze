@@ -64,8 +64,8 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
 
     @Override
     public void downloadApk(String downloadUrl, final String destDir, final String fileName, DownloadListener mDownloadListener) {
-        dispose();
-         RetrofitFactory.getInstence(mDownloadListener).Api().downloadApk(downloadUrl)
+        mActivity.onStartDownload();
+         RetrofitFactory.getInstence(mDownloadListener).downService().downloadApk(downloadUrl)
                  //请求网络 在调度者的io线程
                  .subscribeOn(Schedulers.io())
                  //指定线程保存文件

@@ -76,7 +76,7 @@ class DownloadHandler {
         Message message = mHandler.obtainMessage();
         message.what = WHAT_UPDATE;
         Bundle data = new Bundle();
-        data.putFloat(PROGRESS, progress);
+        data.putInt(PROGRESS, progress);
         message.setData(data);
         mHandler.sendMessage(message);
     }

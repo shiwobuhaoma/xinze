@@ -25,7 +25,7 @@ public class DownloadInterceptor implements Interceptor {
         Request request = chain.request();
         request.newBuilder()
                 .addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
-                .addHeader("Accept-Encoding", "gzip,deflate")
+                .addHeader("Accept-Encoding", "identity")
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Accept", "*/*")
                 .build();
