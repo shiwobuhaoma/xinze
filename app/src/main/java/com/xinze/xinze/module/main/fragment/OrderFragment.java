@@ -19,7 +19,12 @@ import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.main.presenter.OrderPresenterImp;
 import com.xinze.xinze.module.main.view.IOrderView;
 import com.xinze.xinze.module.order.view.OrderDetailActivity;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.widget.SimpleToolbar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -49,6 +54,8 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     private OrderRecycleViewAdapter orva;
     private List<OrderItem> data;
 
+    private static final String CLEAR_DATA = "clearData";
+
     /**
      * RecycleView条目被点击的位置
      */
@@ -64,7 +71,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     @Override
     protected void initData() {
         super.initData();
-        if (App.mUser != null && App.mUser.isLogin()){
+        if (App.mUser != null && App.mUser.isLogin()) {
             mOrderSmartRefresh.setEnableLoadMore(true);
             mOrderSmartRefresh.setEnableLoadMore(true);
             opi = new OrderPresenterImp(this, mActivity);
@@ -79,6 +86,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         orderToolBar.setMainTitle(R.string.orderList);
         orderToolBar.setLeftTitleGone();
         orderToolBar.setTitleMarginTop();
@@ -96,10 +104,10 @@ public class OrderFragment extends BaseFragment implements IOrderView {
                 openActivity(OrderDetailActivity.class, "orderId", orderId);
             }
         });
-        if (App.mUser != null && App.mUser.isLogin()){
+        if (App.mUser != null && App.mUser.isLogin()) {
             mOrderSmartRefresh.setEnableRefresh(true);
             mOrderSmartRefresh.setEnableLoadMore(true);
-        }else {
+        } else {
             mOrderSmartRefresh.setEnableLoadMore(false);
             mOrderSmartRefresh.setEnableLoadMore(false);
         }
@@ -119,7 +127,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageNo++;
                 if (App.mUser.isLogin()) {
-                    opi.getOderList(pageNo, 10 );
+                    opi.getOderList(pageNo, 10);
                 } else {
                     refreshLayout.finishLoadMore();
                 }
@@ -134,16 +142,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     }
 
 
-    public void setData(final List<OrderItem> data) {
-        if (data != null && data.size()>0){
-            if (pageNo == 1){
-                this.data = data;
-            }else{
-                this.data.addAll(data);
-            }
-            orva.setData(this.data);
-        }
-    }
+
 
     @Override
     public void getOrderListSuccess() {
@@ -168,7 +167,34 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         }
     }
 
+    public void clearData() {
+        if (orva != null) {
+            orva.clearData();
+        }
+    }
 
 
+    public void upData(List<OrderItem> data) {
+        this.data = data;
+        if (orva != null){
+            orva.setData(data);
+        }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void clear(MessageEvent messageEvent) {
+        if (CLEAR_DATA.equals(messageEvent.getMessage())){
+            if (orva != null) {
+                orva.clearData();
+            }
+        }
+
+    }
 }

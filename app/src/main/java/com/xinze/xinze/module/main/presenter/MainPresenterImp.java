@@ -1,13 +1,18 @@
 package com.xinze.xinze.module.main.presenter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.listener.DownloadListener;
 import com.xinze.xinze.http.observer.BaseDownloadObserver;
 import com.xinze.xinze.http.observer.BaseObserver;
-import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.main.modle.AppUpdate;
 import com.xinze.xinze.module.main.view.IMainView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
@@ -24,7 +29,6 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IMainPresenter {
-    private MainActivity mActivity;
 
 
     /**
@@ -34,7 +38,6 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
 
     public MainPresenterImp(IMainView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
-        mActivity = (MainActivity) mPresenterView;
     }
 
     @Override
@@ -44,10 +47,10 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
             protected void onSuccees(BaseEntity<AppUpdate> t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
-                        mActivity.setData(t);
-                        mActivity.checkUpdateSuccess();
+                        setData(t);
+                        mPresenterView.checkUpdateSuccess();
                     } else {
-                        mActivity.checkUpdateFailed();
+                        mPresenterView.checkUpdateFailed();
                     }
                 }
 
@@ -56,44 +59,67 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
 
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mActivity.checkUpdateFailed();
+                mPresenterView.checkUpdateFailed();
             }
         });
+    }
+
+    private void setData(BaseEntity<AppUpdate> t) {
+        if (t != null) {
+            AppUpdate data = t.getData();
+            String downloadUrl = data.getDownloadurl();
+            int isForce = data.getIsornojr();
+            int versionNumber = data.getVersionnumber();
+            String des = data.getUpgradedes();
+            //如果检测本程序的版本号小于服务器的版本号，那么提示用户更新
+            if (getVersionCode() < versionNumber) {
+                //弹出提示版本更新的对话框
+                if (1 == isForce) {
+                    mPresenterView.showForceDialogUpdate(des, downloadUrl);
+                } else {
+                    mPresenterView.showCommonDialogUpdate(des, downloadUrl);
+
+                }
+
+            }
+
+        }
     }
 
 
     @Override
     public void downloadApk(String downloadUrl, final String destDir, final String fileName, DownloadListener mDownloadListener) {
-        mActivity.onStartDownload();
-         RetrofitFactory.getInstence(mDownloadListener).downService().downloadApk(downloadUrl)
-                 //请求网络 在调度者的io线程
-                 .subscribeOn(Schedulers.io())
-                 //指定线程保存文件
-                 .observeOn(Schedulers.io())
-                 .observeOn(Schedulers.computation())
-                 .map(new Function<ResponseBody, File>() {
-                     @Override
-                     public File apply(ResponseBody responseBody) throws Exception {
-                         return saveFile(responseBody.byteStream(), destDir, fileName);
-                     }
-                 })
-                 .observeOn(AndroidSchedulers.mainThread())
-                 .subscribe(new BaseDownloadObserver<File>() {
-                     @Override
-                     public void onSubscribe(Disposable d) {
-                         disposable = d;
-                     }
+        mPresenterView.onStartDownload();
+        RetrofitFactory.getInstence(mDownloadListener).downService().downloadApk(downloadUrl)
+                //请求网络 在调度者的io线程
+                .subscribeOn(Schedulers.io())
+                //指定线程保存文件
+                .observeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .map(new Function<ResponseBody, File>() {
+                    @Override
+                    public File apply(ResponseBody responseBody) throws Exception {
+                        return saveFile(responseBody.byteStream(), destDir, fileName);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseDownloadObserver<File>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
 
-                     @Override
-                     protected void onDownloadSuccess(File file) {
-                         mDownloadListener.onFinishDownload(file);
-                     }
+                    @Override
+                    protected void onDownloadSuccess(File file) {
+                        mDownloadListener.onFinishDownload(file);
+                        installApk(file);
+                    }
 
-                     @Override
-                     protected void onDownloadError(Throwable e) {
-                         mDownloadListener.onFail(e);
-                     }
-                 });
+                    @Override
+                    protected void onDownloadError(Throwable e) {
+                        mDownloadListener.onFail(e);
+                    }
+                });
 
 
     }
@@ -152,5 +178,48 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+    }
+
+    /**
+     * 安装apk
+     */
+    private void installApk(File file) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri data;
+        // 判断版本大于等于7.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
+            data = FileProvider.getUriForFile(mContext, "com.xinze.xinze.fileprovider", file);
+            // 给目标应用一个临时授权
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            data = Uri.fromFile(file);
+        }
+        // 广播里面操作需要加上这句，存在于一个独立的栈里
+        intent.setDataAndType(data, "application/vnd.android.package-archive");
+        mContext.startActivity(intent);
+    }
+
+    /**
+     * 获取当前程序的版本号
+     */
+    private int getVersionCode() {
+        try {
+            //获取packagemanager的实例
+            PackageManager packageManager = mContext.getPackageManager();
+            //getPackageName()是你当前类的包名，0代表是获取版本信息
+            PackageInfo packInfo = packageManager.getPackageInfo(mContext.getPackageName(), 0);
+
+            return packInfo.versionCode;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return 1;
     }
 }

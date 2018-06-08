@@ -1,5 +1,6 @@
 package com.xinze.xinze.module.main.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -39,6 +40,8 @@ public class SelectPageAdapter extends FragmentPagerAdapter {
         this.list.addAll(list) ;
         notifyDataSetChanged();
     }
+
+    @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment)super.instantiateItem(container,position);

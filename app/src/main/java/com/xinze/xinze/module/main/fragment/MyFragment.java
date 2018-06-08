@@ -26,6 +26,9 @@ import com.xinze.xinze.module.message.view.SystemMsgActivity;
 import com.xinze.xinze.module.register.view.RegisterActivity;
 import com.xinze.xinze.module.trucks.view.MyTruckActivity;
 import com.xinze.xinze.utils.DialogUtil;
+import com.xinze.xinze.utils.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     Button myLogin;
     @BindView(R.id.my_rv)
     RecyclerView myRv;
+
 
     private ArrayList<MyRecycleViewItem> myRecycleViewItems = new ArrayList<>();
     private MyRecycleViewAdapter myva;
@@ -254,6 +258,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     @Override
     public void loginOutSuccess() {
         refreshPage();
+        EventBus.getDefault().post(new MessageEvent("clearData"));
         shotToast("注销成功");
     }
 

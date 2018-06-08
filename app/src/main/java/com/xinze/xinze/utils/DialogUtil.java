@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -165,6 +166,8 @@ public class DialogUtil {
         rxDialogSureCancel.getCancelView().setText(cancel);
         rxDialogSureCancel.getCancelView().setTextColor(mActivity.getResources().getColor(R.color.black));
         rxDialogSureCancel.getSureView().setText(confirm);
+        rxDialogSureCancel.setCancelable(false);
+        rxDialogSureCancel.setCanceledOnTouchOutside(false);
         rxDialogSureCancel.getSureView().setTextColor(mActivity.getResources().getColor(R.color.red));
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +193,7 @@ public class DialogUtil {
     public static void showCommonDialog(final Activity mActivity, String content, String confirm, final ChoiceClickListener listener) {
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(mActivity);
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
-        rxDialogSureCancel.getContentView().setText(content);
+        rxDialogSureCancel.getContentView().setText(Html.fromHtml(content));
         rxDialogSureCancel.getCancelView().setVisibility(View.GONE);
         rxDialogSureCancel.getCancelView().setTextColor(mActivity.getResources().getColor(R.color.black));
         rxDialogSureCancel.getSureView().setText(confirm);

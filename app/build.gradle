@@ -16,8 +16,8 @@ android {
         applicationId "com.xinze.xinze"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             // 显式声明支持注解
@@ -123,6 +123,7 @@ dependencies {
 
     implementation 'com.google.guava:guava:17.0'  //guava
     implementation 'org.apache.commons:commons-lang3:3.3.2'  //apache.commons
+    implementation 'org.greenrobot:eventbus:3.1.1'  //eventbus
 
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'

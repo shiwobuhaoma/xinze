@@ -19,7 +19,7 @@ public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T> {
 
 
 
-    private T mPresenterView ;
+    protected T mPresenterView ;
     protected Context mContext;
 
     public BasePresenterImpl(T mPresenterView, Context mContext) {

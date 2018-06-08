@@ -2,16 +2,11 @@ package com.xinze.xinze.module.main.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -24,20 +19,19 @@ import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.MainConfig;
-import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.listener.DownloadListener;
-import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.main.adapter.SelectPageAdapter;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
 import com.xinze.xinze.module.main.fragment.MyFragment;
 import com.xinze.xinze.module.main.fragment.OrderFragment;
-import com.xinze.xinze.module.main.modle.AppUpdate;
 import com.xinze.xinze.module.main.presenter.MainPresenterImp;
 import com.xinze.xinze.module.main.view.IMainView;
 import com.xinze.xinze.utils.DialogUtil;
+import com.xinze.xinze.utils.UIUtils;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -51,7 +45,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @author lxf
  * 主界面
  */
-public class MainActivity extends BaseActivity implements IMainView, DownloadListener ,EasyPermissions.PermissionCallbacks{
+public class MainActivity extends BaseActivity implements IMainView, DownloadListener, EasyPermissions.PermissionCallbacks {
 
 
     private static final int READ_AND_WRITE = 1;
@@ -65,8 +59,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
     private OrderFragment order;
     private SelectPageAdapter spa;
     public static Integer currentFragment = MainConfig.HOME_FRAGMENT;
-    private String des;
-    private String downloadUrl;
+
     private MainPresenterImp mPresenter;
     private ProgressDialog mProgressDialog;
 
@@ -77,6 +70,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
             Manifest.permission.READ_EXTERNAL_STORAGE};
 
     private List<String> mDeniedPermissionList = new ArrayList<>();
+
 
     @Override
     protected int initLayout() {
@@ -123,6 +117,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         });
 
     }
+
     private void requestPermissions() {
         //第二个参数是被拒绝后再次申请该权限的解释
         //第三个参数是请求码
@@ -130,6 +125,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         EasyPermissions.requestPermissions(this, "需要写入SD卡权限", READ_AND_WRITE, mRequestPermissionList);
 
     }
+
     private void initViewPager() {
 
         spa = new SelectPageAdapter(getSupportFragmentManager(), fragments);
@@ -140,11 +136,17 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
                 currentFragment = position;
                 mBottomNavigationBar.selectTab(position);
                 if (fragments.get(position) == order) {
-                    order.refresh();
+                    if (App.mUser != null && App.mUser.isLogin()) {
+                        order.refresh();
+                    } else {
+                        order.clearData();
+                        DialogUtil.showUnloginDialog(MainActivity.this);
+                    }
+
                 }
             }
         });
-
+        mVp.setOffscreenPageLimit(3);
         mVp.setCurrentItem(0);
     }
 
@@ -155,6 +157,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         initViewPager();
         setDefaultFragment();
     }
+
 
     private void setDefaultFragment() {
         mVp.setCurrentItem(0);
@@ -195,22 +198,22 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
                         //获取到容器内的各个Tab
                         View view = mTabContainer.getChildAt(j);
                         //获取到Tab内的各个显示控件
-                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dip2px(56));
+                        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UIUtils.dip2px(56));
                         FrameLayout container = (FrameLayout) view.findViewById(R.id.fixed_bottom_navigation_container);
                         container.setLayoutParams(params);
-                        container.setPadding(dip2px(12), dip2px(0), dip2px(12), dip2px(0));
+                        container.setPadding(UIUtils.dip2px(12), UIUtils.dip2px(0), UIUtils.dip2px(12), UIUtils.dip2px(0));
 
                         //获取到Tab内的文字控件
                         TextView labelView = (TextView) view.findViewById(com.ashokvarma.bottomnavigation.R.id.fixed_bottom_navigation_title);
                         //计算文字的高度DP值并设置，setTextSize为设置文字正方形的对角线长度，所以：文字高度（总内容高度减去间距和图片高度）*根号2即为对角线长度，此处用DP值，设置该值即可。
                         labelView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
                         labelView.setIncludeFontPadding(false);
-                        labelView.setPadding(0, 0, 0, dip2px(20 - textSize - space / 2));
+                        labelView.setPadding(0, 0, 0, UIUtils.dip2px(20 - textSize - space / 2));
 
                         //获取到Tab内的图像控件
                         ImageView iconView = (ImageView) view.findViewById(com.ashokvarma.bottomnavigation.R.id.fixed_bottom_navigation_icon);
                         //设置图片参数，其中，MethodUtils.dip2px()：换算dp值
-                        params = new FrameLayout.LayoutParams(dip2px(imgLen), dip2px(imgLen));
+                        params = new FrameLayout.LayoutParams(UIUtils.dip2px(imgLen), UIUtils.dip2px(imgLen));
                         params.setMargins(0, 0, 0, space / 2);
                         params.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
                         iconView.setLayoutParams(params);
@@ -222,18 +225,14 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         }
     }
 
-    public int dip2px(float dpValue) {
-        final float scale = getApplication().getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         mVp.setCurrentItem(currentFragment);
-        if (EasyPermissions.hasPermissions(this, mRequestPermissionList)){
+        if (EasyPermissions.hasPermissions(this, mRequestPermissionList)) {
             checkUpdate();
-        }else{
+        } else {
             requestPermissions();
         }
 
@@ -261,37 +260,11 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
     }
 
 
-    public void setData(BaseEntity<AppUpdate> t) {
-        if (t != null) {
-            AppUpdate data = t.getData();
-            downloadUrl = data.getDownloadurl();
-            int isForce = data.getIsornojr();
-            int versionNumber = data.getVersionnumber();
-            des = data.getUpgradedes();
-            //如果检测本程序的版本号小于服务器的版本号，那么提示用户更新
-            if (getVersionCode() < versionNumber) {
-                //弹出提示版本更新的对话框
-                if (1 == isForce) {
-                    showForceDialogUpdate();
-                } else {
-                    DialogUtil.showCommonDialog(this, des, "确认", "取消", new DialogUtil.ChoiceClickListener() {
-                        @Override
-                        public void onClickSureView(Object data) {
-                            downloadApk(downloadUrl);
-                        }
-
-                        @Override
-                        public void onClickCancelView(Object data) {
-
-                        }
-                    });
-                }
-
-            }
-
-        }
-    }
-
+    /**
+     * 下载apk
+     *
+     * @param downloadUrl 下载apk地址
+     */
     private void downloadApk(String downloadUrl) {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -304,8 +277,13 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         mPresenter.downloadApk(downloadUrl, Environment.getExternalStorageDirectory() + File.separator + "/apk", "xinZe.apk", this);
     }
 
-
-    private void showForceDialogUpdate() {
+    /**
+     * 显示强制升级对话框
+     *
+     * @param des 版本升级描述
+     */
+    @Override
+    public void showForceDialogUpdate(String des, String downloadUrl) {
         DialogUtil.showCommonDialog(this, des, "确认", new DialogUtil.ChoiceClickListener() {
             @Override
             public void onClickSureView(Object data) {
@@ -320,60 +298,25 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
     }
 
     /**
-     * 安装apk
+     * 显示普通升级对话框
+     *
+     * @param des 版本升级描述
      */
-    protected void installApk(File file) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Uri data;
-        // 判断版本大于等于7.0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
-            data = FileProvider.getUriForFile(this, "com.xinze.xinze.fileprovider", file);
-            // 给目标应用一个临时授权
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        } else {
-            data = Uri.fromFile(file);
-        }
-        // 广播里面操作需要加上这句，存在于一个独立的栈里
-        intent.setDataAndType(data, "application/vnd.android.package-archive");
-        startActivity(intent);
+    @Override
+    public void showCommonDialogUpdate(String des, String downloadUrl) {
+        DialogUtil.showCommonDialog(this, des, "确认", "取消", new DialogUtil.ChoiceClickListener() {
+            @Override
+            public void onClickSureView(Object data) {
+                downloadApk(downloadUrl);
+            }
+
+            @Override
+            public void onClickCancelView(Object data) {
+
+            }
+        });
     }
 
-    /**
-     * 获取当前程序的版本名
-     */
-    private String getVersionName() throws Exception {
-        //获取packagemanager的实例
-        PackageManager packageManager = getPackageManager();
-        //getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-
-        return packInfo.versionName;
-
-    }
-
-    /**
-     * 获取当前程序的版本号
-     */
-    private int getVersionCode() {
-        try {
-            //获取packagemanager的实例
-            PackageManager packageManager = getPackageManager();
-            //getPackageName()是你当前类的包名，0代表是获取版本信息
-            PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-
-            return packInfo.versionCode;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
-        return 1;
-    }
 
     @Override
     protected void onDestroy() {
@@ -398,7 +341,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
     @Override
     public void onFinishDownload(File file) {
         mProgressDialog.dismiss();
-        installApk(file);
+
     }
 
     @Override
@@ -435,4 +378,6 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+
+
 }

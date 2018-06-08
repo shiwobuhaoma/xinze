@@ -7,4 +7,10 @@ public interface IMainView extends BaseView {
 
     void checkUpdateFailed();
 
+    void showForceDialogUpdate(String des, String downloadUrl);
+
+    void showCommonDialogUpdate(String des, String downloadUrl);
+
+    void onStartDownload();
+
 }
