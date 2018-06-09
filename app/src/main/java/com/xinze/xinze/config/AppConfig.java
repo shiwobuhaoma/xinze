@@ -127,5 +127,12 @@ public class AppConfig {
         NOTIFY_TYPE_MAP.put(NOTIFY_TYPE_ORDER, "订单");
     }
 
-
+    /**
+     * 未登录
+     */
+    public static final String UNLOGIN = "unlogin";
+    /**
+     * 清除数据
+     */
+    public static final String CLEAR_DATA = "clearData";
 }

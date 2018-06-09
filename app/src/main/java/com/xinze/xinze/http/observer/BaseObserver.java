@@ -5,9 +5,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.xinze.xinze.App;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.widget.ProgressDialog;
 import com.xinze.xinze.utils.ACache;
+import com.xinze.xinze.utils.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -100,6 +104,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
             onSuccees(t);
         }else if(t.getStatus() == sessionIDOverdue){
             App.mUser.setLogin(false);
+            EventBus.getDefault().post(new MessageEvent(AppConfig.UNLOGIN));
             onSuccees(t);
 
 

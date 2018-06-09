@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.change.view.ChangePassWordActivity;
@@ -29,6 +30,8 @@ import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -48,6 +51,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
      */
     private static final int ITEM_TYPE_ONE = 1;
     private static final int ITEM_TYPE_ZERO = 2;
+
     @BindView(R.id.my_register)
     Button myRegister;
     @BindView(R.id.my_unLogin)
@@ -78,6 +82,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
+
         myRegister.setOnClickListener(this);
         myLogin.setOnClickListener(this);
 
@@ -258,7 +264,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     @Override
     public void loginOutSuccess() {
         refreshPage();
-        EventBus.getDefault().post(new MessageEvent("clearData"));
+        EventBus.getDefault().post(new MessageEvent(AppConfig.CLEAR_DATA));
         shotToast("注销成功");
     }
 
@@ -277,6 +283,20 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         return App.mUser != null && App.mUser.isLogin();
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void unlogin(MessageEvent messageEvent) {
+        if (AppConfig.UNLOGIN.equals(messageEvent.getMessage())){
+            if (myva != null) {
+                refreshPage();
+            }
 
+        }
+
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
 }

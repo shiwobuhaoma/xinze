@@ -14,6 +14,7 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/my_driver_srl"
         android:layout_width="match_parent"
+        android:layout_above="@+id/my_driver_add_bt"
         android:layout_height="match_parent"
         android:layout_below="@id/my_driver_toolbar">
 
@@ -77,9 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_margin="15dp"
         android:background="@drawable/invite_detail_orange_background"
         android:text="@string/my_driver_add"
         android:textColor="@color/white"

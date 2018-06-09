@@ -58,7 +58,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
 
                         } else {
                             systemMsgActivity.getOrderListSuccess();
-                            systemMsgActivity.shotToast("没有更多了");
+                            systemMsgActivity.shotToast(AppConfig.LOAD_INFO_FINISH);
                         }
                     }else{
                         systemMsgActivity.shotToast(t.getMsg());

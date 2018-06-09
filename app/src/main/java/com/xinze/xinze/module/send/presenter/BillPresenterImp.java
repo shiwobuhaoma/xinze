@@ -3,6 +3,7 @@ package com.xinze.xinze.module.send.presenter;
 import android.content.Context;
 
 import com.xinze.xinze.App;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.config.OrderConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HeaderConfig;
@@ -46,7 +47,7 @@ public class BillPresenterImp extends BasePresenterImpl<IBillView> implements IB
                             mBillFragment.getBillsSuccess(t.getMsg());
                         }else{
                             mBillFragment.getBillsSuccess(t.getMsg());
-                            mBillFragment.shotToast("没有更多了");
+                            mBillFragment.shotToast(AppConfig.LOAD_INFO_FINISH);
                         }
                     }else{
                         mBillFragment.getBillsFailed(t.getMsg());

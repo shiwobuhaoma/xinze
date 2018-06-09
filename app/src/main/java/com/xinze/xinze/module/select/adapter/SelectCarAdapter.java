@@ -47,6 +47,7 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
 
         //可抢单 和 不可抢单
         String reason = car.getReason();
+        holder.selectAuditedReason.setText(reason);
 
         //0表示自有 1表示关联
         String ownFlag = car.getOwnFlag();
@@ -58,6 +59,8 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
             String verifyFlag = car.getVertify_flag();
             //审核状态描述
             String verifyDesc = car.getVertify_desc();
+
+
             if ("1".equals(verifyFlag)) {
 
                 if (!TextUtils.isEmpty(driverId)) {
@@ -71,15 +74,17 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
                     String format = String.format(state, verifyDesc, "未关联司机");
                     holder.selectAuditedState.setText(Html.fromHtml(format));
                 }
-
+                holder.selectAuditedReason.setVisibility(View.VISIBLE);
             } else if ("0".equals(verifyFlag)) {
                 String state = mContext.getResources().getString(R.string.select_item_audited_failed);
                 String format = String.format(state, verifyDesc);
                 holder.selectAuditedState.setText(Html.fromHtml(format));
+                holder.selectAuditedReason.setVisibility(View.VISIBLE);
             } else {
                 String state = mContext.getResources().getString(R.string.select_item_audit);
                 String format = String.format(state, verifyDesc);
                 holder.selectAuditedState.setText(Html.fromHtml(format));
+                holder.selectAuditedReason.setVisibility(View.GONE);
             }
         } else {
             //1可抢单  0不可抢单
@@ -90,6 +95,7 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
                 holder.selectAuditedState.setTextColor(mContext.getResources().getColor(R.color.gray));
             }
             holder.selectAuditedState.setText(reason);
+            holder.selectAuditedReason.setVisibility(View.VISIBLE);
         }
 
 
@@ -190,6 +196,8 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
         TextView selectCar;
         @BindView(R.id.select_audited_state)
         TextView selectAuditedState;
+        @BindView(R.id.select_audited_reason)
+        TextView selectAuditedReason;
 
         ViewHolder(View view) {
             super(view);

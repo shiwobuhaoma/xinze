@@ -1,8 +1,10 @@
 package com.xinze.xinze.module.select.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
@@ -84,6 +86,9 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
         List<BillOrder.WaybillOrderEntitiesBean> l = new ArrayList<>();
         for (Car car : list){
             String driverId = car.getDriver_id();
+            if (TextUtils.isEmpty(driverId)){
+                driverId = App.mUser.getId();
+            }
             String truckOwnerid = car.getTruck_ownerid();
             String id = car.getId();
             BillOrder.WaybillOrderEntitiesBean bean = new BillOrder.WaybillOrderEntitiesBean();

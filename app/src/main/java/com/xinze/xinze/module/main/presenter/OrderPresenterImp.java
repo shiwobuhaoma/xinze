@@ -3,6 +3,7 @@ package com.xinze.xinze.module.main.presenter;
 import android.content.Context;
 
 import com.xinze.xinze.App;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
@@ -71,7 +72,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
                 this.data.addAll(data);
                 orderFragment.upData(data);
             }else{
-                orderFragment.shotToast("没有更多");
+                orderFragment.shotToast(AppConfig.LOAD_INFO_FINISH);
             }
 
         }

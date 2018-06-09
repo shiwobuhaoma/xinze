@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.main.adapter.OrderRecycleViewAdapter;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.main.presenter.OrderPresenterImp;
@@ -54,7 +55,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     private OrderRecycleViewAdapter orva;
     private List<OrderItem> data;
 
-    private static final String CLEAR_DATA = "clearData";
+
 
     /**
      * RecycleView条目被点击的位置
@@ -190,7 +191,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void clear(MessageEvent messageEvent) {
-        if (CLEAR_DATA.equals(messageEvent.getMessage())){
+        if (AppConfig.CLEAR_DATA.equals(messageEvent.getMessage())){
             if (orva != null) {
                 orva.clearData();
             }
