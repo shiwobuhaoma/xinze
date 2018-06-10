@@ -209,7 +209,7 @@ public class WebViewActivity extends BaseActivity {
                 super.onBackPressed();
                 return;
             }
-            RxToast.showToast("再次点击返回键退出");
+            shotToast("再次点击返回键退出");
             this.mBackPressed = System.currentTimeMillis();
         }
 

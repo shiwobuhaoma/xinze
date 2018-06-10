@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">xinze</string>
+    <string name="app_name">浩克物流</string>
 
     <string name="client_app_name">应用市场</string>
     <string name="home_general_shipper">普通发货</string>
@@ -81,12 +81,15 @@
     <string name="send_goods_date">发货日期：%1$s-%2$s</string>
     <string name="send_goods_distance">运距：%1$s公里</string>
     <string name="directional_robbing_bill">抢单\n(%1$d车)</string>
+    <string name="directional_receipt_bill">接单\n(%1$d车)</string>
     <string name="bill_robbing">抢单</string>
+    <string name="receipt_bill">接单</string>
     <string name="bill_car_count">共%1$s车</string>
     <string name="bill_car_freight">运费：%1$s元</string>
     <string name="regular_all_lines">全部</string>
     <string name="transport_refuse">退单</string><!--（%1$d车）-->
-    <string name="transport_confirming">接单（%1$d车）</string>
+    <string name="transport_confirming">确认抢单（%1$d车）</string>
+    <string name="transport_receipt">确认接单（%1$d车）</string>
 
 
     <string name="register_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">服务协议</font>》]]></Data></string>

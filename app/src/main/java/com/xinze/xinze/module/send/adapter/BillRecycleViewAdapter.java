@@ -23,22 +23,23 @@ import butterknife.ButterKnife;
 
 /**
  * @author lxf
- * 订单界面适配器
+ *         订单界面适配器
  */
 public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleViewAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<OrderItem> mBS;
     private Context mContext;
     private View view;
+    private String from;
 
     public BillRecycleViewAdapter(Context context, List<OrderItem> mbs) {
         this.mContext = context;
         this.mBS = mbs;
     }
 
-    public BillRecycleViewAdapter(Context context) {
+    public BillRecycleViewAdapter(Context context, String from) {
         this.mContext = context;
-
+        this.from = from;
     }
 
     @NonNull
@@ -76,7 +77,8 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
         String product = mContext.getResources().getString(R.string.order_product_name);
         String time = mContext.getResources().getString(R.string.send_goods_date);
         String distances = mContext.getResources().getString(R.string.order_distance);
-        String number = mContext.getResources().getString(R.string.directional_robbing_bill);
+        String robbingBillNumber = mContext.getResources().getString(R.string.directional_robbing_bill);
+        String receiptBillNumber = mContext.getResources().getString(R.string.directional_receipt_bill);
 
 
         count = getString(String.valueOf(carCount), count);
@@ -95,11 +97,22 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
         viewHolder.directionalTime.setText(time);
 
 
-        if ("0".equals(number)) {
-            viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.bill_robbing));
+        if ("0".equals(robbingBillNumber)) {
+            if ("DirectionalBillFragment".equals(from)) {
+                viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.receipt_bill));
+            } else {
+                viewHolder.directionalIvState.setText(mContext.getResources().getString(R.string.bill_robbing));
+            }
+
             viewHolder.directionalIvState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.circle_gray_button));
         } else {
-            viewHolder.directionalIvState.setText(String.format(number, leftNumber));
+            if ("DirectionalBillFragment".equals(from)) {
+                viewHolder.directionalIvState.setText(String.format(receiptBillNumber, leftNumber));
+            } else {
+                viewHolder.directionalIvState.setText(String.format(robbingBillNumber, leftNumber));
+
+            }
+
             viewHolder.directionalIvState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.circle_orange_button));
         }
         viewHolder.directionalIvState.setOnClickListener(this);
@@ -155,7 +168,7 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
                     break;
 
                 default:
-                    mOnItemClickListener.jumpDetails( (int) v.getTag());
+                    mOnItemClickListener.jumpDetails((int) v.getTag());
                     break;
             }
 
@@ -169,7 +182,7 @@ public class BillRecycleViewAdapter extends RecyclerView.Adapter<BillRecycleView
 
     //自定义监听事件
     public interface OnRecyclerViewItemClickListener {
-        void jumpDetails( int position);
+        void jumpDetails(int position);
 
         void jumpSelectCar(int position);
     }

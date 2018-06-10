@@ -108,7 +108,7 @@ public class AllotDriverActivity extends BaseActivity implements IAllotDriverVie
                 mPresenter.getMyTruckDrivers(pageNo, pageSize, AppConfig.YES);
 //                } else {
 //                    layout.finishLoadMore(500);
-//                    RxToast.showToast(AppConfig.LOAD_INFO_FINISH);
+//                shotToast(AppConfig.LOAD_INFO_FINISH);
 //                }
             }
         });
@@ -140,23 +140,23 @@ public class AllotDriverActivity extends BaseActivity implements IAllotDriverVie
 
     @Override
     public void getMyTruckDriversSuccess(String msg) {
-        RxToast.showToast(msg);
+       shotToast(msg);
     }
 
     @Override
     public void getMyTruckDriversFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void truckAllotDriverSuccess(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
         finish();
     }
 
     @Override
     public void truckAllotDriverFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
@@ -179,7 +179,7 @@ public class AllotDriverActivity extends BaseActivity implements IAllotDriverVie
                 mAdapter.notifyItemChanged(position);
             }else{
                 //TODO 不允许抢单
-                RxToast.showToast("该司机没有抢单权限");
+                shotToast("该司机没有抢单权限");
             }
 
 

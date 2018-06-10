@@ -57,7 +57,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
     protected void initView() {
         llm = new LinearLayoutManager(mActivity);
         ordinaryBillRv.setLayoutManager(llm);
-        billRecycleViewAdapter = new BillRecycleViewAdapter(mActivity);
+        billRecycleViewAdapter = new BillRecycleViewAdapter(mActivity,"OrdinaryBillFragment");
         ordinaryBillRv.setAdapter(billRecycleViewAdapter);
         layout = ordinaryBillSrl;
         ordinaryBillSrl.setOnRefreshListener(new OnRefreshListener() {
@@ -79,7 +79,12 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
             @Override
             public void jumpSelectCar(int position) {
                 if (App.mUser.isLogin()) {
-                    jumpToSelectActivity(position);
+                    if ("1".equals(App.mUser.getVertifyFlag())){
+                        jumpToSelectActivity(position);
+                    }else{
+                        DialogUtil.showUnIdentificationDialog(mActivity);
+                    }
+
                 } else {
                     DialogUtil.showUnloginDialog(mActivity);
                 }
@@ -88,11 +93,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
 
             @Override
             public void jumpDetails(int position) {
-                if (App.mUser.isLogin()) {
                     jumpToOrderDetailActivity(position,"OrdinaryBillFragment");
-                } else {
-                    DialogUtil.showUnloginDialog(mActivity);
-                }
             }
         });
         sendGoodsSelectFrom.setmOnSelectAddressListener(new SelectAddressView.OnSelectAddressListener() {

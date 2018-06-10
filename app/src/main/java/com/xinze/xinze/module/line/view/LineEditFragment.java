@@ -108,25 +108,25 @@ public class LineEditFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void addRegularRouteSuccess(String msg) {
-//        RxToast.showToast(msg);
+//           shotToast(msg);
         isRequested = true;
         mOnNextPageListener.next(route);
     }
 
     @Override
     public void addRegularRouteFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void getAreaListSuccess(String msg) {
-//        RxToast.showToast(msg);
+//          shotToast(msg);
 
     }
 
     @Override
     public void getAreaListFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override

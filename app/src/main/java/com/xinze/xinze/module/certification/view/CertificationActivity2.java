@@ -255,7 +255,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
-                    RxToast.showToast("请开启存储权限");
+                    shotToast("请开启存储权限");
                     return;
                 }
 
@@ -356,7 +356,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
                 filePath = uri.getPath();
             }
             if (filePath == null) {
-                RxToast.showToast("拍照失败");
+                shotToast("拍照失败");
             }
 
         } else {
@@ -427,7 +427,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
         displayImage(filePath);
     }
 
-    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    public  String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         String[] projection = {MediaStore.Images.Media.DATA};
         try {
@@ -438,14 +438,14 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
                 int columnIndex = cursor.getColumnIndex(projection[0]);
                 String picturePath = cursor.getString(columnIndex);
                 if (TextUtils.isEmpty(picturePath)) {
-                    RxToast.showToast("找不到图片");
+                    shotToast("找不到图片");
                     return null;
                 }
                 return picturePath;
             } else {
                 File file = new File(uri.getPath());
                 if (!file.exists()) {
-                    RxToast.showToast("找不到图片");
+                    shotToast("找不到图片");
                     return null;
                 }
                 return file.getAbsolutePath();
@@ -463,61 +463,61 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             filePaths.add(imagePath);
             setImageViewDrawable();
         } else {
-            RxToast.showToast("获取照片失败");
+            shotToast("获取照片失败");
         }
     }
 
 
     @Override
     public void uploadImagesSuccess(String msg) {
-//        RxToast.showToast(msg);
+//        shotToast(msg);
     }
 
     @Override
     public void uploadImagesFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void certificationSuccess(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
         openActivity(DriverSubmitSuccessActivity.class);
         finish();
     }
 
     @Override
     public void certificationFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     public void setData(List<CertificationRespones> data) {
 
         String driverName = certificationName.getText().toString();
         if (TextUtils.isEmpty(driverName)) {
-            RxToast.showToast("姓名不能为空");
+            shotToast("姓名不能为空");
             return;
         }
 
         String idNumber = certificationNumberOfCard.getText().toString();
         if (TextUtils.isEmpty(idNumber)) {
-            RxToast.showToast("身份证号码不能为空");
+            shotToast("身份证号码不能为空");
             return;
         } else if (idNumber.length() < 18) {
-            RxToast.showToast("身份证号码格式错误");
+            shotToast("身份证号码格式错误");
             return;
         }
         String driverAddress = certificationAddress.getText().toString();
         if (TextUtils.isEmpty(driverAddress)) {
-            RxToast.showToast("现居住地址不能为空");
+            shotToast("现居住地址不能为空");
             return;
         }
         String driverDetailAddress = certificationDetailAddress.getText().toString();
         if (TextUtils.isEmpty(driverDetailAddress)) {
-            RxToast.showToast("详细地址不能为空");
+            shotToast("详细地址不能为空");
             return;
         }
         if (filePaths.size() < 2) {
-            RxToast.showToast("上传照片数量不足");
+            shotToast("上传照片数量不足");
             return;
         }
         cpi.certifitcation(driverName, idNumber, driverAddress, driverDetailAddress, data.get(0).getUrl(), data.get(1).getUrl());

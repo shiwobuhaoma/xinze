@@ -98,6 +98,8 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     private OrderDetailPresenterImp fgpi;
     private String orderStatus;
     private String remarks;
+    private String toPhone;
+    private String fromPhone;
 
     @Override
     protected int initLayout() {
@@ -112,6 +114,18 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone)));
+            }
+        });
+        fromGoodsPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + fromPhone)));
+            }
+        });
+        toGoodsPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + toPhone)));
             }
         });
         orderRevoke.setOnClickListener(new View.OnClickListener() {
@@ -208,18 +222,18 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
 
     @Override
     public void getOrderDetailFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void revokeSuccess(String message,String orderStatus) {
-        RxToast.showToast(message);
+        shotToast(message);
         changeState(orderStatus);
     }
 
     @Override
     public void revokeFailed(String message) {
-        RxToast.showToast(message);
+        shotToast(message);
     }
 
     public void setData(OrderDetail data) {
@@ -235,10 +249,11 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
 
         String fromName = data.getFromName();
         String fromDetailAddress = data.getFromDetailAdress();
+        fromPhone = data.getFromPhone();
 
         String toName = data.getToName();
         String toDetailAddress = data.getToDetailAdress();
-
+        toPhone = data.getToPhone();
         int truckNumber = data.getTruckNumber();
 
         BigDecimal msgPrice = data.getMsgPrice();

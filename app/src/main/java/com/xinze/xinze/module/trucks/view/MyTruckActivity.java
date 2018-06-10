@@ -257,6 +257,6 @@ public class MyTruckActivity extends BaseActivity implements IMyTruckView{
 
     @Override
     public void deleteMyTruckFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 }

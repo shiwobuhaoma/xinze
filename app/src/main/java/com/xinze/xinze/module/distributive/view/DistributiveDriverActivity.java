@@ -153,13 +153,13 @@ public class DistributiveDriverActivity extends BaseActivity implements IDistrib
 
     @Override
     public void appointDriver4TruckSuccess(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
         finish();
     }
 
     @Override
     public void appointDriver4TruckFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override

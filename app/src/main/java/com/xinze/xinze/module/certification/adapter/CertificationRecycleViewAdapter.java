@@ -23,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.module.certification.bean.CertificationRecycleViewItem;
+import com.xinze.xinze.module.certification.view.CertificationActivity;
 import com.xinze.xinze.utils.GlideRoundTransform;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +38,7 @@ import butterknife.ButterKnife;
  */
 public class CertificationRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<CertificationRecycleViewItem> mBS;
-    private Context mContext;
+    private CertificationActivity mContext;
     private View view;
     /**
      * 布局类型
@@ -52,7 +53,7 @@ public class CertificationRecycleViewAdapter extends RecyclerView.Adapter<Recycl
 
     private OnRecyclerViewItemClickListener mOnItemClickListener;
 
-    public CertificationRecycleViewAdapter(Context context, List<CertificationRecycleViewItem> mbs) {
+    public CertificationRecycleViewAdapter(CertificationActivity context, List<CertificationRecycleViewItem> mbs) {
         this.mContext = context;
         this.mBS = mbs;
     }
@@ -260,28 +261,28 @@ public class CertificationRecycleViewAdapter extends RecyclerView.Adapter<Recycl
                     if (s == null) {
                         return;
                     } else if (TextUtils.isEmpty(s.toString())) {
-                        RxToast.showToast("姓名不能为空");
+                        mContext.shotToast("姓名不能为空");
                         return;
                     }
                 } else if (1 == (int) mHolder.itemView.getTag()) {
                     if (s == null) {
                         return;
                     } else if (TextUtils.isEmpty(s.toString())) {
-                        RxToast.showToast("身份证号码不能为空");
+                        mContext.shotToast("身份证号码不能为空");
                         return;
                     }
                 } else if (2 == (int) mHolder.itemView.getTag()) {
                     if (s == null) {
                         return;
                     } else if (TextUtils.isEmpty(s.toString())) {
-                        RxToast.showToast("现居住地不能为空");
+                        mContext.shotToast("现居住地不能为空");
                         return;
                     }
                 } else if (3 == (int) mHolder.itemView.getTag()) {
                     if (s == null) {
                         return;
                     } else if (TextUtils.isEmpty(s.toString())) {
-                        RxToast.showToast("详细地址不能为空");
+                        mContext.shotToast("详细地址不能为空");
                         return;
                     }
                 }

@@ -133,33 +133,33 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
 
     @Override
     public void getBillDetailSuccess(String msg) {
-//        RxToast.showToast(msg);
+//         shotToast(msg);
     }
 
     @Override
     public void getBillDetailFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void getCarryOrderRightSuccess(String msg) {
-//        RxToast.showToast(msg);
+//         shotToast(msg);
     }
 
     @Override
     public void getCarryOrderRightFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void backBillSuccess(String msg) {
-        RxToast.showToast("退单成功");
+        shotToast("退单成功");
         finish();
     }
 
     @Override
     public void backBillFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     public void setData(TransportDetails data) {
@@ -219,15 +219,23 @@ public class TransportDetailsActivity extends BaseActivity implements ITransport
                 String.valueOf(journeyLoss),
                 truckCode,
                 remarks)));
+
         String transportConfirming = getString(R.string.transport_confirming);
-        mTransportConfirming.setText(String.format(transportConfirming,leftNumber));
+        String transportReceipt = getString(R.string.transport_receipt);
+        if ("OrdinaryBillFragment".equals(from)){
+            mTransportConfirming.setText(String.format(transportConfirming,leftNumber));
+        }else{
+            mTransportConfirming.setText(String.format(transportReceipt,leftNumber));
+        }
+
 
     }
 
     public void isCarry(Integer data) {
         if (data == 0){
             //TODO 不允许抢单
-            RxToast.showToast("车辆列表为空，不允许抢单");
+            shotToast("车辆列表为空，不允许抢单");
+
         }else{
 
             openActivity(SelectCarActivity.class,"orderId",orderId);

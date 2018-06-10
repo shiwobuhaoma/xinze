@@ -42,7 +42,7 @@ import butterknife.OnClick;
  * 首页
  *
  * @author lxf
- * Created by lxf on 2016/5/15.
+ *         Created by lxf on 2016/5/15.
  */
 public class MyFragment extends BaseFragment implements View.OnClickListener, IMyView {
 
@@ -174,30 +174,39 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     private void doSomething(String type) {
         switch (type) {
             case MyItemSelected.DRIVER_CERTIFICATION:
-                if (!"1".equals(App.mUser.getVertifyFlag()) || !"2".equals(App.mUser.getVertifyFlag())) {
-                    startActivity(new Intent(mActivity, CertificationActivity2.class));
+                if (!"1".equals(App.mUser.getVertifyFlag())) {
+                    openActivity(CertificationActivity2.class);
                 }
 //                else {
 //                    DialogUtil.showUnIdentificationDialog(mActivity);
 //                }
                 break;
             case MyItemSelected.MY_CARS:
-                startActivity(new Intent(mActivity,MyTruckActivity.class));
+                if ("1".equals(App.mUser.getVertifyFlag())) {
+                    openActivity(MyTruckActivity.class);
+                } else {
+                    DialogUtil.showUnIdentificationDialog(mActivity);
+                }
+
                 break;
             case MyItemSelected.MY_ROUTES:
-                startActivity(new Intent(mActivity, LineActivity.class));
+                openActivity(LineActivity.class);
                 break;
             case MyItemSelected.MY_SYSTEM_MESSAGE:
-                startActivity(new Intent(mActivity, SystemMsgActivity.class));
+                openActivity(SystemMsgActivity.class);
                 break;
             case MyItemSelected.MY_CHANGE_PWD:
                 openActivity(ChangePassWordActivity.class);
                 break;
             case MyItemSelected.MY_INVITATION:
-                startActivity(new Intent(mActivity, InviteActivity.class));
+                openActivity(InviteActivity.class);
                 break;
             case MyItemSelected.MY_DRIVERS:
-                startActivity(new Intent(mActivity, MyDriverActivity.class));
+                if ("1".equals(App.mUser.getVertifyFlag())) {
+                    openActivity(MyDriverActivity.class);
+                } else {
+                    DialogUtil.showUnIdentificationDialog(mActivity);
+                }
                 break;
             default:
                 break;
@@ -283,9 +292,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         return App.mUser != null && App.mUser.isLogin();
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void unlogin(MessageEvent messageEvent) {
-        if (AppConfig.UNLOGIN.equals(messageEvent.getMessage())){
+        if (AppConfig.UNLOGIN.equals(messageEvent.getMessage())) {
             if (myva != null) {
                 refreshPage();
             }
@@ -293,6 +303,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         }
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

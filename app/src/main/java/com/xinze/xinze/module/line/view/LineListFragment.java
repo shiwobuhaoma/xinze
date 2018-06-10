@@ -131,24 +131,24 @@ public class LineListFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void getRegularRouteListSuccess(String msg) {
-//        RxToast.showToast(msg);
+//          shotToast(msg);
     }
 
     @Override
     public void getRegularRouteListFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void delRegularRouteSuccess(String msg) {
         mRoutes.remove(mCurrentPosition);
         adapter.setData(mRoutes);
-//        RxToast.showToast(msg);
+//           shotToast(msg);
     }
 
     @Override
     public void delRegularRouteFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     public void setRouteData(List<Route> routes) {

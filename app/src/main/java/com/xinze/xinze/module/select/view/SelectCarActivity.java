@@ -86,6 +86,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 Car car = carList.get(position);
                 //0表示自有 1表示关联
                 String ownFlag = car.getOwnFlag();
+                String reason = car.getReason();
                 if ("0".equals(ownFlag)) {
                     //审核状态 1表示已审核 0 审核失败 2 审核中
                     if ("2".equals(car.getVertify_flag())) {
@@ -102,7 +103,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                             return;
                         }
                     } else {
-                        DialogUtil.showCommonDialog(SelectCarActivity.this, "车辆审核失败", "知道了");
+                        DialogUtil.showCommonDialog(SelectCarActivity.this, reason, "知道了");
                         return;
                     }
                 } else {

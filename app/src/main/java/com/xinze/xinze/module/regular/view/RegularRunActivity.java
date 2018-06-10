@@ -133,7 +133,7 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
 
 
         regularOrdersRv.setLayoutManager(new LinearLayoutManager(this));
-        billRecycleViewAdapter = new BillRecycleViewAdapter(this);
+        billRecycleViewAdapter = new BillRecycleViewAdapter(this,"RegularRunActivity");
 
         regularOrdersRv.setAdapter(billRecycleViewAdapter);
         regularLinesSrl.setOnRefreshListener(new OnRefreshListener() {

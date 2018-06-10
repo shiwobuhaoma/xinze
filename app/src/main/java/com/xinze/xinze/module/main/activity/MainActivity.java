@@ -79,6 +79,7 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
 
     @Override
     protected void initView() {
+        hideKeyboard();
         /**
          * MODE_DEFAULT
          *   如果Item的个数<=3就会使用MODE_FIXED模式，否则使用MODE_SHIFTING模式

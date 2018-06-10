@@ -326,7 +326,8 @@ public class DialogUtil {
         rxDialogSureCancel.getTitleView().setVisibility(View.GONE);
         rxDialogSureCancel.getContentView().setText(content);
         rxDialogSureCancel.getSureView().setVisibility(View.GONE);
-
+        rxDialogSureCancel.getCancelView().setText(cancelText);
+        rxDialogSureCancel.getCancelView().setTextColor(mActivity.getResources().getColor(R.color.blue));
         rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

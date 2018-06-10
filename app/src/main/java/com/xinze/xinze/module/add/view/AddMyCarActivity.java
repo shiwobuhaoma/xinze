@@ -205,7 +205,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
                 carLoad = addCarCarLoad.getText().toString();
 
                 if (TextUtils.isEmpty(carNumber) && TextUtils.isEmpty(carType) && TextUtils.isEmpty(carLoad)) {
-                    RxToast.showToast("信息不全");
+                    shotToast("信息不全");
                     return;
                 }
                 uploadImage();
@@ -344,7 +344,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
-                    RxToast.showToast("请开启存储权限");
+                    shotToast("请开启存储权限");
                     return;
                 }
 
@@ -370,13 +370,13 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
 
     @Override
     public void addTruckSuccess(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
         finish();
     }
 
     @Override
     public void addTruckFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
@@ -440,7 +440,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
                 filePath = uri.getPath();
             }
             if (filePath == null) {
-                RxToast.showToast("拍照失败");
+                shotToast("拍照失败");
             }
 
         } else {
@@ -499,7 +499,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
         displayImage(filePath);
     }
 
-    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    public  String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         String[] projection = {MediaStore.Images.Media.DATA};
         try {
@@ -510,14 +510,14 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
                 int columnIndex = cursor.getColumnIndex(projection[0]);
                 String picturePath = cursor.getString(columnIndex);
                 if (TextUtils.isEmpty(picturePath)) {
-                    RxToast.showToast("找不到图片");
+                    shotToast("找不到图片");
                     return null;
                 }
                 return picturePath;
             } else {
                 File file = new File(uri.getPath());
                 if (!file.exists()) {
-                    RxToast.showToast("找不到图片");
+                    shotToast("找不到图片");
                     return null;
                 }
                 return file.getAbsolutePath();
@@ -535,7 +535,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
 
             setImageViewDrawable(imagePath);
         } else {
-            RxToast.showToast("获取照片失败");
+            shotToast("获取照片失败");
         }
     }
 

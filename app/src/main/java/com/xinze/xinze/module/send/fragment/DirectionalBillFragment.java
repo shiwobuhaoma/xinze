@@ -40,7 +40,7 @@ public class DirectionalBillFragment extends AbstractBillFragment implements Vie
         billSearchBar.setOnClickListener(this);
         llm = new LinearLayoutManager(mActivity);
         directionalBillRv.setLayoutManager(llm);
-        billRecycleViewAdapter = new BillRecycleViewAdapter(mActivity);
+        billRecycleViewAdapter = new BillRecycleViewAdapter(mActivity,"DirectionalBillFragment");
         directionalBillRv.setAdapter(billRecycleViewAdapter);
         billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
 

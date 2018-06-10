@@ -63,22 +63,22 @@ public class AboutUsActivity extends BaseActivity implements IAboutUsView {
 
     @Override
     public void getAboutUsSuccess(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void getAboutUsFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void getProtocolByTypeSuccess(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     @Override
     public void getProtocolByTypeFailed(String msg) {
-        RxToast.showToast(msg);
+        shotToast(msg);
     }
 
     public void setData(AboutUs data) {
