@@ -43,8 +43,8 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mLineEditFragment.addRegularRouteFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mLineEditFragment.addRegularRouteFailed(msg);
             }
         });
     }
@@ -65,8 +65,8 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mLineEditFragment.addRegularRouteFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mLineEditFragment.addRegularRouteFailed(msg);
             }
         });
     }
@@ -95,7 +95,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+            protected void onFailure(String msg) throws Exception {
 
             }
         });

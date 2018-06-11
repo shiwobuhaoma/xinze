@@ -105,8 +105,8 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
            }
 
            @Override
-           protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-               mActivity.deleteMyTruckFailed(e.getMessage());
+           protected void onFailure(String msg) throws Exception {
+               mActivity.deleteMyTruckFailed(msg);
            }
        });
 

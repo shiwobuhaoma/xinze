@@ -50,7 +50,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+            protected void onFailure(String msg) throws Exception {
                 iMyView.loginOutFailed();
             }
         });

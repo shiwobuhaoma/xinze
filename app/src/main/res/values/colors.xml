@@ -29,6 +29,7 @@
     <color name="gray_background">#f5f5f5</color>
     <color name="item_whiteground">#ffffff</color>
     <color name="hint_text_color">#aaaaaa</color>
-
-
+    <color name="backOrange">#ae6539</color>
+    <color name="white_transparent">#33ffffff</color>
+    <color name="search_activity_bg_color">#aa000000</color>
 </resources>

@@ -67,7 +67,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+            protected void onFailure(String msg) throws Exception {
                 systemMsgActivity.getOrderListFailed();
             }
         });
@@ -96,9 +96,8 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                System.out.println();
-                e.printStackTrace();
+            protected void onFailure(String msg) throws Exception {
+
                 ToastUtils.showToast(mContext, "标记已读失败");
             }
         });

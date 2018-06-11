@@ -38,8 +38,8 @@ public class AboutUsPresenterImp extends BasePresenterImpl<IAboutUsView> impleme
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mAboutUsActivity.getAboutUsFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mAboutUsActivity.getAboutUsFailed(msg);
             }
         });
     }
@@ -61,8 +61,8 @@ public class AboutUsPresenterImp extends BasePresenterImpl<IAboutUsView> impleme
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mAboutUsActivity.getProtocolByTypeFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mAboutUsActivity.getProtocolByTypeFailed(msg);
             }
         });
     }

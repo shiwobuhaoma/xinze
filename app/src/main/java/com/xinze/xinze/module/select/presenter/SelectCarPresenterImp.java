@@ -51,8 +51,8 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mSelectCarActivity.getCarryTruckListFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mSelectCarActivity.getCarryTruckListFailed(msg);
             }
         });
     }
@@ -73,8 +73,8 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mSelectCarActivity.getProtocolByTypeFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mSelectCarActivity.getProtocolByTypeFailed(msg);
             }
         });
     }
@@ -115,8 +115,8 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mSelectCarActivity.createBillOrderFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mSelectCarActivity.createBillOrderFailed(msg);
             }
         });
     }

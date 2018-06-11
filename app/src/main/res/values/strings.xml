@@ -185,4 +185,5 @@
     <string name="input_old_pass_word">请输入旧密码</string>
     <string name="new_pass_word">新密码</string>
     <string name="input_new_pass_word">请输入新密码</string>
+    <string name="search_order_hint">请输入订单号、发货地址、到货地址等</string>
 </resources>

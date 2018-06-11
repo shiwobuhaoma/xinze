@@ -39,8 +39,8 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                distributiveDriverActivity.appointDriver4TruckFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                distributiveDriverActivity.appointDriver4TruckFailed(msg);
             }
         });
     }
@@ -62,8 +62,8 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                distributiveDriverActivity.getMyTruckDriversFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                distributiveDriverActivity.getMyTruckDriversFailed(msg);
             }
         });
     }

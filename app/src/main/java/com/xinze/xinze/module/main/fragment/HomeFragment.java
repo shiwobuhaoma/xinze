@@ -145,6 +145,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private void refreshPage() {
         if (App.mUser != null && App.mUser.isLogin()) {
+            if (hpi == null){
+                hpi = new HomePresenterImp(this, mActivity);
+            }
             hpi.getFixBillNum(App.mUser.getId());
             hpi.getUnReadNotifyNum(App.mUser.getId());
         } else {

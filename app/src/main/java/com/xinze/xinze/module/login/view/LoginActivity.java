@@ -130,7 +130,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideKeyboard();
                 loginPresenterImp = new LoginPresenterImp(LoginActivity.this, LoginActivity.this);
                 mUserName = mUserEditText.getText().toString();
                 mUserPwd = mPwdEditText.getText().toString();

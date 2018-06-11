@@ -146,7 +146,7 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onFailure(String msg) throws Exception {
 
                     }
                 });

@@ -27,6 +27,10 @@ public class LoginResponse {
     private String createDate;
     private String updateDate;
     private String no;
+
+
+
+    private String photo;
     private String userType;
     private String loginIp;
     private String loginDate;
@@ -200,5 +204,12 @@ public class LoginResponse {
 
     public void setRoleNames(String roleNames) {
         this.roleNames = roleNames;
+    }
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

@@ -51,8 +51,8 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                fga.getOrderDetailFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                fga.getOrderDetailFailed(msg);
             }
         });
     }
@@ -96,8 +96,8 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                fga.revokeFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                fga.revokeFailed(msg);
             }
         });
     }

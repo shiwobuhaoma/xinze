@@ -22,38 +22,37 @@ import java.util.Map;
  * @author lxf
  */
 public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements IOrderPresenter {
-    private OrderFragment orderFragment;
+
     private int pageNo;
     private List<OrderItem> mData;
 
     public OrderPresenterImp(IOrderView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
-        orderFragment = (OrderFragment) mPresenterView;
     }
 
     @Override
-    public void getOderList(int pageNo, int pageSize) {
+    public void getOderList(int pageNo, int pageSize,String remark) {
         this.pageNo = pageNo;
         HashMap<String, String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().getBillOrderList(headers,pageNo,pageSize).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
+        RetrofitFactory.getInstence().Api().getBillOrderList(headers,pageNo,pageSize,remark).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
             @Override
             protected void onSuccees(BaseEntity<List<OrderItem>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         List<OrderItem> data = t.getData();
                         setData(data);
-                        orderFragment.getOrderListSuccess();
+                        mPresenterView.getOrderListSuccess();
                     }else{
-                        orderFragment.getOrderListFailed();
-                        orderFragment.shotToast(t.getMsg());
+                        mPresenterView.getOrderListFailed();
+                        mPresenterView.shotToast(t.getMsg());
 
                     }
                 }
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                orderFragment.getOrderListFailed();
+            protected void onFailure(String msg) throws Exception {
+                mPresenterView.getOrderListFailed();
             }
         });
     }
@@ -62,17 +61,17 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
         if (pageNo == 1) {
             if (data != null && data.size() > 0) {
                 this.mData = data;
-                orderFragment.upData(data);
+                mPresenterView.upData(data);
             }else{
-                orderFragment.clearData();
+                mPresenterView.clearData();
             }
 
         } else {
             if (data != null && data.size() > 0) {
                 this.mData.addAll(data);
-                orderFragment.upData(mData);
+                mPresenterView.upData(mData);
             }else{
-                orderFragment.shotToast(AppConfig.LOAD_INFO_FINISH);
+                mPresenterView.shotToast(AppConfig.LOAD_INFO_FINISH);
             }
 
         }

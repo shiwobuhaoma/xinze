@@ -44,6 +44,7 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                             if (data != null){
                                 String sessionId = data.getSessionid();
                                 App.mUser.setSessionid(sessionId);
+                                App.mUser.setPhoto(data.getPhoto());
                                 App.mUser.setId(data.getId());
                                 App.mUser.setLogin(true);
                                 App.mUser.setVertifyFlag(data.getVertifyFlag());
@@ -58,8 +59,8 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError){
-                        iLoginView.shotToast(e.getMessage());
+                    protected void onFailure(String msg){
+                        iLoginView.shotToast(msg);
 
                     }
                 });

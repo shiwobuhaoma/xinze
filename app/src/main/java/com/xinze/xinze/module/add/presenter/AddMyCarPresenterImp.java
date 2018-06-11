@@ -41,8 +41,8 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                addMyCarActivity.addTruckFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                addMyCarActivity.addTruckFailed(msg);
             }
         });
     }
@@ -65,8 +65,8 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                addMyCarActivity.imageUploadFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                addMyCarActivity.imageUploadFailed(msg);
             }
         });
     }

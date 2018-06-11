@@ -47,8 +47,8 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        mCertificationActivity.uploadImagesFailed(e.getMessage());
+                    protected void onFailure(String msg) throws Exception {
+                        mCertificationActivity.uploadImagesFailed(msg);
                     }
                 });
     }
@@ -72,8 +72,8 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mCertificationActivity.certificationFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mCertificationActivity.certificationFailed(msg);
             }
         });
     }

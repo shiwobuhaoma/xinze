@@ -50,8 +50,8 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                iRegisterView.registerFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                iRegisterView.registerFailed(msg);
             }
         });
 
@@ -73,7 +73,7 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+            protected void onFailure(String msg) throws Exception {
                 iRegisterView.getVerificationCodeFailed();
             }
         });

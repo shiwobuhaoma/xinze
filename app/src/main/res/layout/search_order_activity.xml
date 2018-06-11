@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/search_activity_bg_color"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/search_bar"
+        android:layout_height="50dp"
+        android:background="@color/themeOrange"
+        android:layout_width="match_parent"
+        android:padding="10dp" >
+
+        <EditText
+            android:id="@+id/activity_search_order_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/activity_search_order_cancel"
+            android:background="@drawable/bg_search_edit"
+            android:drawableStart="@mipmap/search_bar_icon_pressed"
+            android:drawablePadding="5dp"
+            android:inputType="text"
+            android:hint="@string/search_order_hint"
+            android:paddingStart="10dp"
+            android:paddingEnd="30dp"
+            android:singleLine="true"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/hint_color"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/activity_search_order_clear"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/pic_desc"
+            android:layout_alignEnd="@id/activity_search_order_et"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/btn_clear_selector"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/activity_search_order_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/btn_title_selector"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/search_order_srl"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_order_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

@@ -42,8 +42,8 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mRegularRunActivity.getRegularRouteListFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mRegularRunActivity.getRegularRouteListFailed(msg);
             }
         });
     }
@@ -67,8 +67,8 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mRegularRunActivity.searchRouteListFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mRegularRunActivity.searchRouteListFailed(msg);
             }
         });
     }

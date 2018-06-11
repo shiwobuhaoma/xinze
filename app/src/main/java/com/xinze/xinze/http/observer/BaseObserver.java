@@ -69,12 +69,21 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
                     || e instanceof TimeoutException
                     || e instanceof NetworkErrorException
                     || e instanceof UnknownHostException) {
-                onFailure(e, true);
+                onNetworkError(e, true);
+
             } else {
-                onFailure(e, false);
+                onNetworkError(e, false);
             }
         } catch (Exception e1) {
             e1.printStackTrace();
+        }
+    }
+
+    private void onNetworkError(Throwable throwable, boolean isNetWorkError) throws Exception {
+        if (isNetWorkError){
+            onFailure("网络错误");
+        }else{
+            onFailure(throwable.getMessage());
         }
     }
 
@@ -115,10 +124,9 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      * 返回失败
      *
      * @param e 异常
-     * @param isNetWorkError 是否是网络错误
      * @throws Exception 异常
      */
-    protected abstract void onFailure(Throwable e, boolean isNetWorkError) throws Exception;
+    protected abstract void onFailure(String e) throws Exception;
 
     private void onRequestStart() {
         if (mContext != null){

@@ -40,8 +40,8 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mTransportDetailsActivity.getBillDetailFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mTransportDetailsActivity.getBillDetailFailed(msg);
             }
         });
     }
@@ -64,8 +64,8 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mTransportDetailsActivity.backBillSuccess(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mTransportDetailsActivity.backBillSuccess(msg);
             }
         });
     }
@@ -89,8 +89,8 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mTransportDetailsActivity.getCarryOrderRightFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mTransportDetailsActivity.getCarryOrderRightFailed(msg);
             }
         });
     }

@@ -42,8 +42,8 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mLineListFragment.getRegularRouteListFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mLineListFragment.getRegularRouteListFailed(msg);
             }
         });
     }
@@ -66,8 +66,8 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        mLineListFragment.delRegularRouteFailed(e.getMessage());
+                    protected void onFailure(String msg) throws Exception {
+                        mLineListFragment.delRegularRouteFailed(msg);
                     }
                 });
     }

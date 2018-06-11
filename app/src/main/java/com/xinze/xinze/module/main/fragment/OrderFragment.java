@@ -1,9 +1,12 @@
 package com.xinze.xinze.module.main.fragment;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,12 +18,14 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.module.main.activity.SearchOrderActivity;
 import com.xinze.xinze.module.main.adapter.OrderRecycleViewAdapter;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.main.presenter.OrderPresenterImp;
 import com.xinze.xinze.module.main.view.IOrderView;
 import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.utils.MessageEvent;
+import com.xinze.xinze.utils.UIUtils;
 import com.xinze.xinze.widget.SimpleToolbar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,11 +56,11 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     SmartRefreshLayout mOrderSmartRefresh;
     private OrderPresenterImp opi;
     private int pageNo = 1;
-    private SmartRefreshLayout layout;
-    private OrderRecycleViewAdapter orva;
+    private OrderRecycleViewAdapter mAdapter;
     private List<OrderItem> data;
 
-
+    private ValueAnimator mUpAnim;
+    private ValueAnimator mDownAnim;
 
     /**
      * RecycleView条目被点击的位置
@@ -63,20 +68,14 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     private int mPosition = 0;
     private LinearLayoutManager layoutManager;
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//    }
 
     @Override
     protected void initData() {
         super.initData();
         if (App.mUser != null && App.mUser.isLogin()) {
             mOrderSmartRefresh.setEnableLoadMore(true);
-            mOrderSmartRefresh.setEnableLoadMore(true);
             opi = new OrderPresenterImp(this, mActivity);
-            opi.getOderList(1, 10);
+            opi.getOderList(1, 10,"");
         }
     }
 
@@ -91,11 +90,21 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         orderToolBar.setMainTitle(R.string.orderList);
         orderToolBar.setLeftTitleGone();
         orderToolBar.setTitleMarginTop();
+        orderSearchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 上滑动画
+                if (mUpAnim == null) {
+                    initUpAnim();
+                }
+                mUpAnim.start();
+            }
+        });
         layoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         orderRv.setLayoutManager(layoutManager);
-        orva = new OrderRecycleViewAdapter(mActivity);
-        orderRv.setAdapter(orva);
-        orva.setOnItemClickListener(new OrderRecycleViewAdapter.OnRecyclerViewItemClickListener() {
+        mAdapter = new OrderRecycleViewAdapter(mActivity);
+        orderRv.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new OrderRecycleViewAdapter.OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {
@@ -109,7 +118,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             mOrderSmartRefresh.setEnableRefresh(true);
             mOrderSmartRefresh.setEnableLoadMore(true);
         } else {
-            mOrderSmartRefresh.setEnableLoadMore(false);
+            mOrderSmartRefresh.setEnableRefresh(false);
             mOrderSmartRefresh.setEnableLoadMore(false);
         }
         mOrderSmartRefresh.setOnRefreshListener(new OnRefreshListener() {
@@ -117,7 +126,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNo = 1;
                 if (App.mUser.isLogin()) {
-                    opi.getOderList(pageNo, 10);
+                    opi.getOderList(pageNo, 10,"");
                 } else {
                     refreshLayout.finishRefresh();
                 }
@@ -128,13 +137,12 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageNo++;
                 if (App.mUser.isLogin()) {
-                    opi.getOderList(pageNo, 10);
+                    opi.getOderList(pageNo, 10,"");
                 } else {
                     refreshLayout.finishLoadMore();
                 }
             }
         });
-        layout = mOrderSmartRefresh.getLayout();
 
     }
 
@@ -142,43 +150,90 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         return new OrderFragment();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 恢复标题栏
+        if (mView.getScrollY() != 0) {
+            mView.post(() -> {
+                if (mDownAnim == null) {
+                    initDownAnim();
+                }
+                mDownAnim.start();
+            });
+        }
+    }
 
+    /**
+     * 初始化SearchBar上滑的动画
+     */
+    private void initUpAnim() {
+        mUpAnim = ValueAnimator.ofInt(0, orderSearchBar.getHeight()+ UIUtils.dip2px(20));
+        mUpAnim.setDuration(250);
+        mUpAnim.addUpdateListener(animation -> mView.scrollTo(0, (Integer)animation.getAnimatedValue()));
+        mUpAnim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {}
 
+            @Override
+            public void onAnimationRepeat(Animator animation) {}
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                openActivity(SearchOrderActivity.class);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {}
+        });
+        mUpAnim.setInterpolator(new LinearInterpolator());
+    }
+
+    /**
+     * 初始化SearchBar下滑的动画
+     */
+    private void initDownAnim() {
+        mDownAnim = ValueAnimator.ofInt(orderSearchBar.getHeight(), 0);
+        mDownAnim.setDuration(300);
+        mDownAnim.addUpdateListener(animation -> mView.scrollTo(0, (Integer)animation.getAnimatedValue()));
+        mDownAnim.setInterpolator(new LinearInterpolator());
+    }
 
     @Override
     public void getOrderListSuccess() {
         if (pageNo == 1) {
-            layout.finishRefresh(2000);
+            mOrderSmartRefresh.finishRefresh(2000);
         } else {
-            layout.finishLoadMore(2000);
+            mOrderSmartRefresh.finishLoadMore(2000);
         }
     }
 
     @Override
     public void getOrderListFailed() {
-        layout.finishRefresh(false);
+        mOrderSmartRefresh.finishRefresh(false);
     }
 
     public void refresh() {
-        if (App.mUser != null && !App.mUser.isLogin() && orva != null) {
-            orva.clearData();
+        if (App.mUser != null && !App.mUser.isLogin() && mAdapter != null) {
+            mAdapter.clearData();
         } else {
             opi = new OrderPresenterImp(this, mActivity);
-            opi.getOderList(1, 10);
+            opi.getOderList(1, 10,"");
         }
     }
 
+    @Override
     public void clearData() {
-        if (orva != null) {
-            orva.clearData();
+        if (mAdapter != null) {
+            mAdapter.clearData();
         }
     }
 
-
+    @Override
     public void upData(List<OrderItem> data) {
         this.data = data;
-        if (orva != null){
-            orva.setData(data);
+        if (mAdapter != null){
+            mAdapter.setData(data);
         }
 
     }
@@ -192,8 +247,8 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void clear(MessageEvent messageEvent) {
         if (AppConfig.CLEAR_DATA.equals(messageEvent.getMessage())){
-            if (orva != null) {
-                orva.clearData();
+            if (mAdapter != null) {
+                mAdapter.clearData();
             }
         }
         if (AppConfig.UPDATA.equals(messageEvent.getMessage())){

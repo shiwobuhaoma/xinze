@@ -40,8 +40,8 @@ public class ChangePassWordPresenterImp extends BasePresenterImpl<IChangePassWor
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mActivity.changePassWordFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mActivity.changePassWordFailed(msg);
             }
         });
     }

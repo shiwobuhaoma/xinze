@@ -58,7 +58,7 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+            protected void onFailure(String msg) throws Exception {
                 mPresenterView.checkUpdateFailed();
             }
         });

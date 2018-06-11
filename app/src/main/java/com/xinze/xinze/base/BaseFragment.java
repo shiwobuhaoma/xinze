@@ -40,6 +40,7 @@ public abstract class BaseFragment extends Fragment {
      */
     private boolean isUIVisible;
     protected boolean pageEndFlag = false;
+    protected View mView;
 
     @Override
     public void onAttach(Context context) {
@@ -51,12 +52,12 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(initLayout(), null);
-        unbinder = ButterKnife.bind(this, view);
+        mView = inflater.inflate(initLayout(), null);
+        unbinder = ButterKnife.bind(this, mView);
         isViewCreated = true;
         initView();
         lazyLoad();
-        return view;
+        return mView;
     }
 
     @Override

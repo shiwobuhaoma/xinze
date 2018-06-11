@@ -42,8 +42,8 @@ public class AllotDriverPresenterImp extends BasePresenterImpl<IAllotDriverView>
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mActivity.getMyTruckDriversFailed(e.getMessage());
+            protected void onFailure(String msg)throws Exception {
+                mActivity.getMyTruckDriversFailed(msg);
             }
         });
     }

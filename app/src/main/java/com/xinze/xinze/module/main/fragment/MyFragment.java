@@ -1,16 +1,28 @@
 package com.xinze.xinze.module.main.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.change.view.ChangePassWordActivity;
@@ -37,12 +49,13 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 首页
  *
  * @author lxf
- *         Created by lxf on 2016/5/15.
+ * Created by lxf on 2016/5/15.
  */
 public class MyFragment extends BaseFragment implements View.OnClickListener, IMyView {
 
@@ -58,6 +71,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     TextView myUnLogin;
     @BindView(R.id.my_login)
     Button myLogin;
+    @BindView(R.id.profile_image)
+    CircleImageView portrait;
     @BindView(R.id.my_rv)
     RecyclerView myRv;
 
@@ -228,6 +243,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                 myRecycleViewItems.add(4, myInvitation);
                 myRecycleViewItems.add(5, myChangePwd);
             }
+            Glide.with(this).load(HttpConfig.IMAGE_BASE_URL + App.mUser.getPhoto()).into(new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    portrait.setImageDrawable(resource);
+                }
+            });
             myChangePwd.setShowTopLine(true);
             myRoutes.setShowSpace(false);
             myRegister.setVisibility(View.GONE);
@@ -240,7 +261,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                 myRecycleViewItems.remove(myInvitation);
                 myRecycleViewItems.remove(myChangePwd);
             }
-
+            portrait.setImageResource(R.mipmap.my_ic_default);
             myRoutes.setShowSpace(true);
             mySystemMsg.setShowBottomLine(true);
             driverCer.setRightText("未认证");

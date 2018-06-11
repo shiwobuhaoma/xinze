@@ -51,8 +51,8 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError){
-                        mHomeView.shotToast(e.getMessage());
+                    protected void onFailure(String msg){
+                        mHomeView.shotToast(msg);
                     }
                 });
     }
@@ -82,8 +82,8 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                System.out.println(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                System.out.println(msg);
             }
         });
     }
@@ -109,8 +109,8 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                System.out.println(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                System.out.println(msg);
             }
         });
     }
@@ -134,7 +134,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onFailure(String msg) throws Exception {
                         mHomeView.getCustomerPhoneFailed();
                     }
                 });

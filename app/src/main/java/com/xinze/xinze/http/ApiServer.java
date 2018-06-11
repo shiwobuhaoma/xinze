@@ -150,7 +150,7 @@ public interface ApiServer {
      * @return 返回状态
      */
     @GET(UrlConfig.GET_BILL_ORDER_LIST)
-    Observable<BaseEntity<List<OrderItem>>> getBillOrderList(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize);
+    Observable<BaseEntity<List<OrderItem>>> getBillOrderList(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("remark") String remark);
 
     /**
      * 获取订单详情信息

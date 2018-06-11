@@ -56,8 +56,8 @@ public class BillPresenterImp extends BasePresenterImpl<IBillView> implements IB
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mBillFragment.getBillsFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mBillFragment.getBillsFailed(msg);
             }
         } );
     }
@@ -80,8 +80,8 @@ public class BillPresenterImp extends BasePresenterImpl<IBillView> implements IB
             }
 
             @Override
-            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                mBillFragment.searchRouteListFailed(e.getMessage());
+            protected void onFailure(String msg) throws Exception {
+                mBillFragment.searchRouteListFailed(msg);
             }
         });
     }
