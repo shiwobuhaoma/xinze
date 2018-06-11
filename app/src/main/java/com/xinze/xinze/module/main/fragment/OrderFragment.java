@@ -196,6 +196,9 @@ public class OrderFragment extends BaseFragment implements IOrderView {
                 orva.clearData();
             }
         }
+        if (AppConfig.UPDATA.equals(messageEvent.getMessage())){
+            refresh();
+        }
 
     }
 }

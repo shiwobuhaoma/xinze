@@ -46,13 +46,7 @@ public class SystemMsgActivity extends BaseActivity implements ISystemMsgView {
     private int mPosition = 0;
     private SystemMsgPresenterImp opi;
 
-    public boolean isPageEndFlag() {
-        return pageEndFlag;
-    }
 
-    public void setPageEndFlag(boolean pageEndFlag) {
-        this.pageEndFlag = pageEndFlag;
-    }
 
     public int getPageSize() {
         return pageSize;

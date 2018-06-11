@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,10 +14,14 @@ import android.widget.TextView;
 import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.AppConfig;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.order.presenter.OrderDetailPresenterImp;
 import com.xinze.xinze.widget.SimpleToolbar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 
@@ -93,6 +98,8 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
      * 已确定
      */
     public final String GOODS_CONFIRM = "C";
+
+    private boolean isRefresh;
     private String phone;
     private BottomPopupMenu mBottomPopupMenu;
     private OrderDetailPresenterImp fgpi;
@@ -203,6 +210,10 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         findToolBar.setLeftTitleClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isRefresh){
+                    EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATA));
+                }
+
                 finish();
             }
         });
@@ -217,11 +228,12 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
 
     @Override
     public void getOrderDetailSuccess(String msg) {
-
+        isRefresh = true;
     }
 
     @Override
     public void getOrderDetailFailed(String msg) {
+        isRefresh = false;
         shotToast(msg);
     }
 
@@ -371,5 +383,13 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     protected void onDestroy() {
         super.onDestroy();
         fgpi.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(isRefresh && keyCode == KeyEvent.KEYCODE_BACK){
+            EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATA));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

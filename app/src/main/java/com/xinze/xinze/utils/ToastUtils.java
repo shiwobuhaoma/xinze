@@ -19,7 +19,9 @@ public class ToastUtils {
      * 显示提示信息
      */
     public static void showToast(Context context, String text) {
-        if (TextUtils.isEmpty(text)) return;
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
         if (toast == null) {
             toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         } else {

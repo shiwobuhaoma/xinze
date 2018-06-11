@@ -1,6 +1,7 @@
 package com.xinze.xinze.module.main.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -102,10 +103,10 @@ public class MyRecycleViewAdapter extends RecyclerView.Adapter<RecyclerView.View
             String title = myRecycleViewItem.getTitle();
             if (App.mUser.isLogin()){
                 viewHolder.rvTitle2.setText(title);
-                viewHolder.rl.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+                viewHolder.rl.setBackgroundColor(Color.parseColor("#ffffff"));
             }else{
                 viewHolder.rvTitle2.setText("");
-                viewHolder.rl.setBackgroundColor(mContext.getResources().getColor(R.color.my_item_space));
+                viewHolder.rl.setBackgroundColor(Color.parseColor("#f5f5f5"));
             }
 
 

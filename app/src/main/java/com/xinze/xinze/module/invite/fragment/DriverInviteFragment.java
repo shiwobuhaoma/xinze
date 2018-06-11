@@ -33,7 +33,7 @@ public class DriverInviteFragment extends BaseFragment {
     protected SmartRefreshLayout layout;
     private int pageNo = AppConfig.PAGE_NO;
     private int pageSize = AppConfig.PAGE_SIZE;
-    private boolean pageEndFlag = false;
+
     protected List<TruckownerDriverVO> data;
     protected DriverInviteRecycleViewAdapter mAdapter;
     protected InvitePresenterImp mPresenter;
@@ -119,13 +119,7 @@ public class DriverInviteFragment extends BaseFragment {
         layout.finishRefresh(false);
     }
 
-    public boolean isPageEndFlag() {
-        return pageEndFlag;
-    }
 
-    public void setPageEndFlag(boolean pageEndFlag) {
-        this.pageEndFlag = pageEndFlag;
-    }
 
 
 }

@@ -12,8 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.vondear.rxtools.view.RxToast;
+import com.xinze.xinze.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
      * Fragment对用户可见的标记
      */
     private boolean isUIVisible;
+    protected boolean pageEndFlag = false;
 
     @Override
     public void onAttach(Context context) {
@@ -121,7 +123,8 @@ public abstract class BaseFragment extends Fragment {
         intent.putExtra(key, value);
         startActivity(intent);
     }
-    protected void openActivity(Class clazz, HashMap<String,String> map) {
+
+    protected void openActivity(Class clazz, HashMap<String, String> map) {
         Intent intent = new Intent(mActivity, clazz);
         for (Map.Entry<String, String> entry : map.entrySet()) {
             intent.putExtra(entry.getKey(), entry.getValue());
@@ -129,6 +132,7 @@ public abstract class BaseFragment extends Fragment {
 
         startActivity(intent);
     }
+
     /**
      * RecyclerView 移动到当前位置，
      *
@@ -150,6 +154,14 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void shotToast(String msg) {
-        RxToast.showToast(msg);
+        ToastUtils.showLongToast(mActivity.getApplicationContext(), msg);
+    }
+
+    public boolean isPageEndFlag() {
+        return pageEndFlag;
+    }
+
+    public void setPageEndFlag(boolean pageEndFlag) {
+        this.pageEndFlag = pageEndFlag;
     }
 }

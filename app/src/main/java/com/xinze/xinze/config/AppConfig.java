@@ -135,4 +135,8 @@ public class AppConfig {
      * 清除数据
      */
     public static final String CLEAR_DATA = "clearData";
+    /**
+     * 刷新数据
+     */
+    public static final String UPDATA = "updata";
 }

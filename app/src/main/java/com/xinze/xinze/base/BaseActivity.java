@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.mvpbase.BaseView;
 import com.xinze.xinze.utils.ActivityStackManager;
+import com.xinze.xinze.utils.ToastUtils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -256,7 +257,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void shotToast(String msg) {
-        RxToast.showToast(msg);
+        ToastUtils.showLongToast(getApplicationContext(), msg);
     }
 
     protected void hideKeyboard() {

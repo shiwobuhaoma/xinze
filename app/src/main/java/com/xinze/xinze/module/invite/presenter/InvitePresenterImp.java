@@ -144,7 +144,7 @@ public class InvitePresenterImp implements IInvitePresenter {
                 ReturnResult returnResult = response.body();
                 if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
                     mActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
-                    return;
+
                 }
             }
 

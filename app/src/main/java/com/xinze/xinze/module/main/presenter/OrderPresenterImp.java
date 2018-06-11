@@ -24,7 +24,7 @@ import java.util.Map;
 public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements IOrderPresenter {
     private OrderFragment orderFragment;
     private int pageNo;
-    private List<OrderItem> data;
+    private List<OrderItem> mData;
 
     public OrderPresenterImp(IOrderView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
@@ -61,7 +61,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
     public void setData(final List<OrderItem> data) {
         if (pageNo == 1) {
             if (data != null && data.size() > 0) {
-                this.data = data;
+                this.mData = data;
                 orderFragment.upData(data);
             }else{
                 orderFragment.clearData();
@@ -69,8 +69,8 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
 
         } else {
             if (data != null && data.size() > 0) {
-                this.data.addAll(data);
-                orderFragment.upData(data);
+                this.mData.addAll(data);
+                orderFragment.upData(mData);
             }else{
                 orderFragment.shotToast(AppConfig.LOAD_INFO_FINISH);
             }

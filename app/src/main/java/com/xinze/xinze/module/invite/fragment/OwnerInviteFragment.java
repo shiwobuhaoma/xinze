@@ -119,13 +119,7 @@ public class OwnerInviteFragment extends BaseFragment {
         layout.finishRefresh(false);
     }
 
-    public boolean isPageEndFlag() {
-        return pageEndFlag;
-    }
 
-    public void setPageEndFlag(boolean pageEndFlag) {
-        this.pageEndFlag = pageEndFlag;
-    }
 
 
 }
