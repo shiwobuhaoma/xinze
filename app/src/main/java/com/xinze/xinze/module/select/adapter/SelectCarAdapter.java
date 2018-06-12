@@ -95,7 +95,7 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
                 holder.selectAuditedState.setTextColor(mContext.getResources().getColor(R.color.gray));
             }
             holder.selectAuditedState.setText(reason);
-            holder.selectAuditedReason.setVisibility(View.VISIBLE);
+            holder.selectAuditedReason.setVisibility(View.GONE);
         }
 
 

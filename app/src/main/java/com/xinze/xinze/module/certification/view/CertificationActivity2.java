@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +45,10 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.entity.City;
+import cn.qqtheme.framework.entity.County;
+import cn.qqtheme.framework.entity.Province;
+import cn.qqtheme.framework.picker.AddressPicker;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -56,7 +61,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  *
  * @author lxf
  */
-public class CertificationActivity2 extends BaseActivity implements EasyPermissions.PermissionCallbacks, View.OnClickListener, ICertificationView {
+public class CertificationActivity2 extends BaseActivity implements EasyPermissions.PermissionCallbacks, View.OnClickListener, ICertificationView, AddressPicker.OnAddressPickListener {
 
 
     @BindView(R.id.certification_bt)
@@ -97,6 +102,15 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
     private List<String> mDeniedPermissionList = new ArrayList<>();
     private List<String> filePaths = new ArrayList<>();
 
+    /**
+     * 是否隐藏省、区列表
+     */
+    private boolean hideProvince = false;
+    private boolean hideCounty = false;
+    /**
+     * 选择的省份、城市、区
+     */
+    private String selectedProvince = "", selectedCity = "", selectedCounty = "";
 
     private BottomPopupMenu mBottomPopupMenu;
     private int resourceId;
@@ -104,7 +118,9 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
     private String filePath;
     private List<File> files;
     private CertificationPresenterImp cpi;
-
+    private ArrayList<Province> provinces;
+    private AddressPicker picker;
+    private String areaId;
     @Override
     protected int initLayout() {
         return R.layout.certification_activity2;
@@ -122,13 +138,22 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             }
         });
         certificationBt.setOnClickListener(this);
+        certificationAddress.setOnClickListener(this);
+        certificationAddress.setInputType(InputType.TYPE_NULL);
         certificationFaceOfIdCard.setOnClickListener(this);
         certificationFaceOfDriverCard.setOnClickListener(this);
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        cpi = new CertificationPresenterImp(this, this);
+        cpi.getAreaList("0");
+    }
+
     private void checkPermissions() {
         //检查是否获取该权限
-        if (EasyPermissions.hasPermissions(CertificationActivity2.this, mRequestPermissionList)) {
+        if (EasyPermissions.hasPermissions(this, mRequestPermissionList)) {
             if (mBottomPopupMenu == null) {
                 initBottomPopupMenu();
             } else {
@@ -272,8 +297,23 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
     }
 
     private void showAddressDialog() {
-        //TODO
-//        certificationAddress
+        if (provinces != null) {
+            if (provinces.size() > 0) {
+                picker = new AddressPicker(this, provinces);
+                picker.setHideProvince(hideProvince);
+                picker.setHideCounty(hideCounty);
+                if (hideCounty) {
+                    //将屏幕分为3份，省级和地级的比例为1:2
+                    picker.setColumnWeight(1 / 3.0f, 2 / 3.0f);
+                } else {
+                    //省级、地级和县级的比例为2:3:3
+                    picker.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f);
+                }
+                picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
+                picker.setOnAddressPickListener(this);
+                picker.show();
+            }
+        }
     }
 
     /**
@@ -298,11 +338,12 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
                 checkPermissions();
                 break;
             case R.id.certification_address:
+                hideKeyboard();
                 showAddressDialog();
                 break;
             case R.id.certification_bt:
 
-                cpi = new CertificationPresenterImp(this, this);
+
                 //filePath 图片地址集合
                 for (String path : filePaths) {
                     files.add(new File(path));
@@ -427,7 +468,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
         displayImage(filePath);
     }
 
-    public  String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    public String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         String[] projection = {MediaStore.Images.Media.DATA};
         try {
@@ -490,6 +531,16 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
         shotToast(msg);
     }
 
+    @Override
+    public void getAreaListSuccess(String msg) {
+
+    }
+
+    @Override
+    public void getAreaListFailed(String msg) {
+
+    }
+
     public void setData(List<CertificationRespones> data) {
 
         String driverName = certificationName.getText().toString();
@@ -520,7 +571,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             shotToast("上传照片数量不足");
             return;
         }
-        cpi.certifitcation(driverName, idNumber, driverAddress, driverDetailAddress, data.get(0).getUrl(), data.get(1).getUrl());
+        cpi.certifitcation(driverName, idNumber, areaId, driverDetailAddress, data.get(0).getUrl(), data.get(1).getUrl());
     }
 
     @Override
@@ -529,5 +580,18 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
         if (cpi != null) {
             cpi.onDestroy();
         }
+    }
+
+    public void setAreaList(ArrayList<Province> result) {
+        this.provinces = result;
+    }
+
+    @Override
+    public void onAddressPicked(Province province, City city, County county) {
+        String address = province.getAreaName() + city.getAreaName() + county.getAreaName();
+        areaId = county.getAreaId();
+
+        certificationAddress.setText(address);
+        certificationAddress.setSelection(address.length());
     }
 }

@@ -23,8 +23,6 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void getBillDetail(String orderId) {
-        @SuppressWarnings("unchecked")
-        Map<String,String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillDetail(headers,orderId).
                 compose(this.<BaseEntity<TransportDetails>>setThread()).subscribe(new BaseObserver<TransportDetails>(mContext) {
             @Override
@@ -48,8 +46,6 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void backBill(String id) {
-        @SuppressWarnings("unchecked")
-        Map<String,String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().backBill(headers,id).
                 compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
             @Override
@@ -72,8 +68,6 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void getCarryOrderRight(String userId) {
-        @SuppressWarnings("unchecked")
-        Map<String,String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getCarryOrderRight(headers,userId).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
             @Override
             protected void onSuccees(BaseEntity<Integer> t) throws Exception {

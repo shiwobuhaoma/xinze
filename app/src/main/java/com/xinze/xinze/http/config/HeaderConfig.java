@@ -13,8 +13,11 @@ import java.util.Map;
 public class HeaderConfig {
     public static HashMap<String, String> getHeaders() {
         HashMap<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
-        return headers;
+        if (App.mUser != null) {
+            headers.put("sessionid", App.mUser.getSessionid());
+            headers.put("userid", App.mUser.getId());
+            return headers;
+        }
+        return null;
     }
 }

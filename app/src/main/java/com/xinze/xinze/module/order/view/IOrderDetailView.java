@@ -7,4 +7,7 @@ public interface IOrderDetailView extends BaseView{
     void getOrderDetailFailed(String msg);
     void revokeSuccess(String message,String orderStatus);
     void revokeFailed(String message);
+
+    void  uploadImagesSuccess(String msg);
+    void  uploadImagesFailed(String msg);
 }

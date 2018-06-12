@@ -11,4 +11,6 @@ public interface ICertificationPresenter extends BasePresenter<ICertificationVie
     void uploadImages(List<MultipartBody.Part> partList);
 
     void certifitcation(String name, String idCard, String areaId, String detailAddress, String idCardImg, String drivingImg);
+
+    void getAreaList(String extId);
 }

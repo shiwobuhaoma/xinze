@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/view_post_image_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/pic_desc"
+        android:scaleType="centerCrop"
+        android:background="@mipmap/ico_add_img" />
+
+    <ImageView
+        android:id="@+id/view_post_image_del"
+        android:layout_width="25dp"
+        android:contentDescription="@string/pic_desc"
+        android:layout_height="25dp"
+        android:padding="1dp"
+        android:background="@mipmap/ico_img_del"
+        android:layout_alignEnd="@id/view_post_image_iv"
+        android:visibility="gone" />
+
+</RelativeLayout>

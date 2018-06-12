@@ -12,5 +12,8 @@ public interface ICertificationView extends BaseView {
 
     void certificationFailed(String msg);
 
+    void getAreaListSuccess(String msg);
+
+    void getAreaListFailed(String msg);
 
 }

@@ -15,4 +15,14 @@ public interface IMyView extends BaseView {
     * 注销失败
     */
    void loginOutFailed();
+   /**
+    * 查询数量接口成功
+    */
+   void getCountSuccess(String system);
+    /**
+     * 查询数量接口失败
+     */
+   void getCountFailed(String system);
+
+    void refresh(String driverCount, String truckCount, String systemMsgCount);
 }

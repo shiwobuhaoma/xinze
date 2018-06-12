@@ -59,9 +59,6 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     @Override
     public void getUnReadNotifyNum(String id) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid",App.mUser.getId());
         RetrofitFactory.getInstence().Api().getUnReadNotifyNum(headers,id)
                 .compose(this.<BaseEntity<Integer>>setThread())
                 .subscribe(new BaseObserver<Integer>(mContext) {
@@ -90,9 +87,6 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     @Override
     public void getFixBillNum(String id) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid",App.mUser.getId());
         RetrofitFactory.getInstence().Api().getFixBillNum(headers,id)
                 .compose(this.<BaseEntity<Integer>>setThread())
                 .subscribe(new BaseObserver<Integer>(mContext) {

@@ -123,10 +123,10 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
     /**
      * 返回失败
      *
-     * @param e 异常
+     * @param msg 异常信息
      * @throws Exception 异常
      */
-    protected abstract void onFailure(String e) throws Exception;
+    protected abstract void onFailure(String msg) throws Exception;
 
     private void onRequestStart() {
         if (mContext != null){

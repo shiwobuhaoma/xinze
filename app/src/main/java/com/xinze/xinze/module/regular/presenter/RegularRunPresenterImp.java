@@ -25,8 +25,6 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
 
     @Override
     public void getRegularRouteList() {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getRegularRouteList(headers).compose(this.<BaseEntity<List<Route>>>setThread()).subscribe(new BaseObserver<List<Route>>() {
             @Override
             protected void onSuccees(BaseEntity<List<Route>> t) throws Exception {
@@ -50,8 +48,6 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
 
     @Override
     public void searchRouteList(String fromAreaId,String toAreaId,int pageNo,int pageSize) {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().searchRoute(headers,fromAreaId,toAreaId,pageNo,pageSize).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
             @Override
             protected void onSuccees(BaseEntity<List<OrderItem>> t) throws Exception {

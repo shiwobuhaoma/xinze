@@ -14,4 +14,8 @@ public interface IMyPresenter extends BasePresenter<IMyView> {
      */
     void loginOut();
 
+    /**
+     * 查询数量接口
+     */
+    void getCount(String system);
 }

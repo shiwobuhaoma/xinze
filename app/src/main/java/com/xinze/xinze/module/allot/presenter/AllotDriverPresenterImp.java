@@ -25,9 +25,6 @@ public class AllotDriverPresenterImp extends BasePresenterImpl<IAllotDriverView>
 
     @Override
     public void getMyTruckDrivers(int pageNum, int pageSize, String verifyFlag) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
         RetrofitFactory.getInstence().Api().getMyTrucksList(headers, pageNum, pageSize, verifyFlag)
                 .compose(this.<BaseEntity<List<TruckownerDriverVO>>>setThread()).subscribe(new BaseObserver<List<TruckownerDriverVO>>(){
 

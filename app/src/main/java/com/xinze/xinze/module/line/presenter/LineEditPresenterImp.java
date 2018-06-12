@@ -27,8 +27,6 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
 
     @Override
     public void addRegularRoute(String fromAreaId,String toAreaId) {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().addRegularRoute(headers,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {
@@ -51,8 +49,6 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
 
     @Override
     public void editRegularRoute(String id,String fromAreaId, String toAreaId) {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().editRegularRoute(headers,id,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {
@@ -73,8 +69,6 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
 
     @Override
     public void getAreaList(String extId) {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getAreaList(headers,extId)
                 .compose(this.<BaseEntity<List<Province>>>setThread()).subscribe(new BaseObserver<List<Province>>(){
 

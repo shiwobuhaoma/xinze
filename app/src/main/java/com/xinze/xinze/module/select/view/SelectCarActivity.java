@@ -208,7 +208,12 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
             case R.id.select_confirm_bill:
 
                 if (isAllSelected) {
-                    scp.createBillOrder(billId, carList);
+                    for (Car car : carList) {
+                        if (car.isSelected()) {
+                            selectCarList.add(car);
+                        }
+                    }
+                    scp.createBillOrder(billId, selectCarList);
                 } else {
                     if (carList == null || carList.size() == 0) {
                         return;

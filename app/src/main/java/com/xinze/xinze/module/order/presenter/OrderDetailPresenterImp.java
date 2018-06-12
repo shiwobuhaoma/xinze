@@ -8,6 +8,7 @@ import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
+import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.order.view.OrderDetailActivity;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.order.modle.UpdateOrderState;
@@ -18,7 +19,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -35,8 +39,6 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
 
     @Override
     public void getOrderDetail(String orderId) {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillOrderDetail(headers,orderId)
                 .compose(this.<BaseEntity<OrderDetail>>setThread()).subscribe(new BaseObserver<OrderDetail>(mContext) {
             @Override
@@ -58,9 +60,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
     }
 
     @Override
-    public void revoke(String id, List<File> files,String remarks,final String orderStatus) {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
+    public void revoke(String id, List<String> files,String remarks,final String orderStatus) {
         UpdateOrderState uos = new UpdateOrderState();
         uos.setId(id);
         if(files != null){
@@ -100,5 +100,31 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
                 fga.revokeFailed(msg);
             }
         });
+    }
+
+    @Override
+    public void uploadImages(List<MultipartBody.Part> partList) {
+        RetrofitFactory.getInstence().Api().imagesUpload(headers,partList).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<List<CertificationRespones>>(mContext){
+
+                    @Override
+                    protected void onSuccees(BaseEntity<List<CertificationRespones>> t) throws Exception {
+                        if (t != null){
+                            if (t.isSuccess()){
+                                List<CertificationRespones> data = t.getData();
+                                fga.setUploadImagesData(data);
+                                fga.uploadImagesSuccess(t.getMsg());
+                            }else{
+                                fga.uploadImagesSuccess(t.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void onFailure(String msg) throws Exception {
+                        fga.uploadImagesFailed(msg);
+                    }
+                });
     }
 }

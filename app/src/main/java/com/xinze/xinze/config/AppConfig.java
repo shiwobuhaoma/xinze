@@ -136,7 +136,11 @@ public class AppConfig {
      */
     public static final String CLEAR_DATA = "clearData";
     /**
-     * 刷新数据
+     * 刷新订单界面数据
      */
-    public static final String UPDATA = "updata";
+    public static final String UPDATE_ORDER = "updateOrder";
+    /**
+     * 刷新我的司机数量、车辆数量、系统消息数量数据
+     */
+    public static final String UPDATE_COUNT = "updateCount";
 }

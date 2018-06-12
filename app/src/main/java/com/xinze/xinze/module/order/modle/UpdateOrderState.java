@@ -15,7 +15,7 @@ public class UpdateOrderState {
     private String id;
     private String orderStatus;
     private String remarks;
-    private List<File> files;
+    private List<String> files;
 
     public String getId() {
         return id;
@@ -41,11 +41,11 @@ public class UpdateOrderState {
         this.remarks = remarks;
     }
 
-    public List<File> getFiles() {
+    public List<String> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(List<String> files) {
         this.files = files;
     }
 }

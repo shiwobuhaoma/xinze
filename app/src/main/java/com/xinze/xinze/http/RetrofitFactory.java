@@ -34,7 +34,7 @@ public class RetrofitFactory {
                 .connectTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .readTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
                 .writeTimeout(HttpConfig.HTTP_TIME, TimeUnit.SECONDS)
-
+                .retryOnConnectionFailure(true)
                 //token失效拦截器
 //                .addInterceptor(InterceptorUtil.tokenInterceptor())
                 //添加日志拦截器

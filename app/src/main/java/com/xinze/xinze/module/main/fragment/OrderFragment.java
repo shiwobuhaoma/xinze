@@ -214,7 +214,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     }
 
     public void refresh() {
-        if (App.mUser != null && !App.mUser.isLogin() && mAdapter != null) {
+        if (!App.mUser.isLogin() && mAdapter != null) {
             mAdapter.clearData();
         } else {
             opi = new OrderPresenterImp(this, mActivity);
@@ -250,8 +250,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             if (mAdapter != null) {
                 mAdapter.clearData();
             }
-        }
-        if (AppConfig.UPDATA.equals(messageEvent.getMessage())){
+        }else if (AppConfig.UPDATE_ORDER.equals(messageEvent.getMessage())){
             refresh();
         }
 

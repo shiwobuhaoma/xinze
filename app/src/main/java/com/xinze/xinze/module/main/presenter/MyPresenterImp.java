@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.fragment.MyFragment;
+import com.xinze.xinze.module.main.modle.Count;
 import com.xinze.xinze.module.main.view.IMyView;
 import com.xinze.xinze.mvpbase.BaseBean;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
@@ -20,18 +22,15 @@ import java.util.Map;
  * 退出逻辑
  */
 public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPresenter {
-    private MyFragment iMyView;
+
 
     public MyPresenterImp(IMyView iMyView, Context mContext) {
         super(iMyView, mContext);
-        this.iMyView = (MyFragment) iMyView;
     }
 
     @Override
     public void loginOut() {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid",App.mUser.getSessionid());
-        headers.put("userid",App.mUser.getId());
+
         RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
 
             @Override
@@ -42,18 +41,48 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
                         App.mUser.setSessionid("");
                         App.mUser.setId("");
                         ACache.get(mContext).remove("user");
-                        iMyView.loginOutSuccess();
+                        mPresenterView.loginOutSuccess();
                     }else{
-                        iMyView.shotToast(t.getMsg());
+                        mPresenterView.shotToast(t.getMsg());
                     }
                 }
             }
 
             @Override
             protected void onFailure(String msg) throws Exception {
-                iMyView.loginOutFailed();
+                mPresenterView.loginOutFailed();
             }
         });
 
     }
+
+    @Override
+    public void getCount(String system) {
+        RetrofitFactory.getInstence().Api().getCount(headers,system)
+                .compose(this.<BaseEntity<Count>>setThread()).subscribe(new BaseObserver<Count>(){
+
+            @Override
+            protected void onSuccees(BaseEntity<Count> t) throws Exception {
+                if (t != null){
+                    if (t.isSuccess()){
+                        Count data = t.getData();
+                        String driverCount = data.getDriverCount2Driver();
+                        String truckCount = data.getTruckCount();
+                        String systemMsgCount = data.getSystemMsgCount();
+                        mPresenterView.refresh(driverCount,truckCount,systemMsgCount);
+                        mPresenterView.getCountSuccess(t.getMsg());
+                    }else{
+                        mPresenterView.getCountFailed(t.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void onFailure(String msg) throws Exception {
+                mPresenterView.getCountFailed(msg);
+            }
+        });
+    }
+
+
 }

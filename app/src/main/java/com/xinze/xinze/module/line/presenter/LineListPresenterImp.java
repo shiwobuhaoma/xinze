@@ -24,8 +24,6 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
 
     @Override
     public void getRegularRouteList() {
-        @SuppressWarnings("unchecked")
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getRegularRouteList(headers).compose(this.<BaseEntity<List<Route>>>setThread()).subscribe(new BaseObserver<List<Route>>() {
             @Override
             protected void onSuccees(BaseEntity<List<Route>> t) throws Exception {
@@ -50,7 +48,6 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
 
     @Override
     public void delRegularRoute(String id) {
-        Map<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().delRegularRoute(headers,id).compose(this.<BaseEntity>setThread()).
                 subscribe(new BaseObserver(){
                     @Override

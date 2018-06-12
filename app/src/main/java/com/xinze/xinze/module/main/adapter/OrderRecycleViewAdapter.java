@@ -56,7 +56,7 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
     /**
      * 已确定
      */
-    private final String GOODS_CONFIRM = "C";
+    private final String GOODS_CONFIRM = "Count";
     private List<OrderItem> mBS;
     private Context mContext;
     private View view;

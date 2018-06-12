@@ -11,6 +11,7 @@ import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
 import com.xinze.xinze.module.login.modle.LoginResponse;
 import com.xinze.xinze.module.main.modle.AppUpdate;
 import com.xinze.xinze.module.main.modle.Banner;
+import com.xinze.xinze.module.main.modle.Count;
 import com.xinze.xinze.module.main.modle.CustomerPhoneEntity;
 import com.xinze.xinze.module.main.modle.OrderItem;
 import com.xinze.xinze.module.message.model.NotifyEntity;
@@ -147,6 +148,7 @@ public interface ApiServer {
      * @param pageNo   第几页
      * @param pageSize 多少条
      * @param headers  请求头
+     * @param remark  关键字搜索使用（可选）
      * @return 返回状态
      */
     @GET(UrlConfig.GET_BILL_ORDER_LIST)
@@ -166,6 +168,7 @@ public interface ApiServer {
      * 改变订单状态（撤单、拒绝、通过、发货等）
      *
      * @param headers 请求头
+     * @param updateOrderState 状态
      * @return 返回订单状态
      */
     @Headers({"Content-Type: application/json;charset=UTF-8",
@@ -447,16 +450,8 @@ public interface ApiServer {
 
 
     /**
-     * 下载apk
-     * @param url apk链接
-     * @return 返回apk
-     */
-    @Streaming
-    @GET
-    Observable<ResponseBody> downloadApk(@Url String url);
-
-    /**
      * 修改登录密码接口
+     * @param headers 请求头
      * @param oldpassword 旧密码
      * @param password 新密码
      * @return 修改信息
@@ -465,7 +460,14 @@ public interface ApiServer {
     Observable<BaseEntity> changePassWord(@HeaderMap Map<String, String> headers,@Query("oldpassword")String oldpassword, @Query("password")String password);
 
 
-
+    /**
+     * 获取数量
+     * @param headers 请求头
+     * @param type 可选参数,如果system,则只返回未读系统消息数量
+     * @return 返回司机人数，车辆人数，系统消息数量
+     */
+    @GET(UrlConfig.GET_COUNT)
+    Observable<BaseEntity<Count>> getCount(@HeaderMap Map<String, String> headers,@Query("type")String type);
 
 
 
@@ -681,7 +683,6 @@ public interface ApiServer {
      */
     @GET(UrlConfig.GET_MY_TRUCKS)
     Call<ReturnResult<List<MyTruckVO>>> myTrucks(@HeaderMap Map<String, String> headers, @Query("pageNo") int pageNo, @Query("pageSize") int pageSize, @Query("truck.verifyFlag") String verifyFlag);
-
 
 
 }

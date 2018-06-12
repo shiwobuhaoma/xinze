@@ -30,12 +30,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.add.presenter.AddMyCarPresenterImp;
 import com.xinze.xinze.utils.GlideRoundTransform;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.widget.BottomCarTypePopupMenu;
 import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.widget.BottomProvincePopupMenu;
 import com.xinze.xinze.widget.SimpleToolbar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -370,6 +374,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
 
     @Override
     public void addTruckSuccess(String msg) {
+        EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATE_COUNT));
         shotToast(msg);
         finish();
     }

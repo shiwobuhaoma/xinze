@@ -265,7 +265,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         if (view != null) {
             InputMethodManager inputMethodManager = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
             if (inputMethodManager != null) {
-                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
             }
         }
     }

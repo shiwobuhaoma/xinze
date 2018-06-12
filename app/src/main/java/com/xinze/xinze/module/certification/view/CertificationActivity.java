@@ -497,6 +497,16 @@ public class CertificationActivity extends BaseActivity implements EasyPermissio
         shotToast(msg);
     }
 
+    @Override
+    public void getAreaListSuccess(String msg) {
+
+    }
+
+    @Override
+    public void getAreaListFailed(String msg) {
+
+    }
+
     public void setData(List<CertificationRespones> data) {
 
         cpi.certifitcation(map.get(0), map.get(1), map.get(2), map.get(3), data.get(0).getUrl(), data.get(1).getUrl());

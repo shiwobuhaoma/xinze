@@ -3,6 +3,10 @@ package com.xinze.xinze.mvpbase;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.xinze.xinze.http.config.HeaderConfig;
+
+import java.util.HashMap;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -18,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T> {
 
 
-
+    protected HashMap<String, String> headers = HeaderConfig.getHeaders();
     protected T mPresenterView ;
     protected Context mContext;
 

@@ -66,4 +66,13 @@ public class UIUtils {
     public static Drawable getDrawable(int id) {
         return getResources().getDrawable(id);
     }
+
+    public static float getDensity(){
+      return   getContext().getResources().getDisplayMetrics().density;
+    }
+
+    public static int getScreenWidth() {
+
+        return getContext().getResources().getDisplayMetrics().widthPixels;
+    }
 }

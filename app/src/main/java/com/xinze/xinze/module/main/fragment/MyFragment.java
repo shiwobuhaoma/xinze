@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.change.view.ChangePassWordActivity;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
+import com.xinze.xinze.module.find.view.IFindGoodsView;
 import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.line.view.LineActivity;
 import com.xinze.xinze.module.login.view.LoginActivity;
@@ -78,7 +80,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
 
     private ArrayList<MyRecycleViewItem> myRecycleViewItems = new ArrayList<>();
-    private MyRecycleViewAdapter myva;
+    private MyRecycleViewAdapter mAdapter;
     private MyRecycleViewItem myDrivers;
     private MyRecycleViewItem myInvitation;
     private MyRecycleViewItem myChangePwd;
@@ -89,6 +91,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     private MyRecycleViewItem mySystemMsg;
     private MyRecycleViewItem myAboutUs;
     private MyRecycleViewItem myHelp;
+    private MyPresenterImp mPresenter;
 
     @Override
     protected int initLayout() {
@@ -102,19 +105,17 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         myRegister.setOnClickListener(this);
         myLogin.setOnClickListener(this);
 
+        driverCer = new MyRecycleViewItem("司机认证", R.mipmap.certification, true, true, true, true, "未认证", true, ITEM_TYPE_ZERO);
         myDrivers = new MyRecycleViewItem("我的司机", R.mipmap.my_ic_driver, true, false, true, false, "0人", false, ITEM_TYPE_ZERO);
+        myCars = new MyRecycleViewItem("我的车辆", R.mipmap.my_ic_cars, true, false, true, false, "0辆", true, ITEM_TYPE_ZERO);
+        myRoutes = new MyRecycleViewItem("常跑路线", R.mipmap.my_ic_routes, true, false, false, true, "", true, ITEM_TYPE_ZERO);
         myInvitation = new MyRecycleViewItem("我的邀请", R.mipmap.my_ic_invitation, true, true, false, true, "", false, ITEM_TYPE_ZERO);
         myChangePwd = new MyRecycleViewItem("修改密码", R.mipmap.my_ic_change_pwd, false, false, false, false, "", false, ITEM_TYPE_ZERO);
-        myLoginOut = new MyRecycleViewItem("退出登录", 0, false, true, false, true, "", true, ITEM_TYPE_ONE);
-
-        driverCer = new MyRecycleViewItem("司机认证", 0, true, true, true, true, "未认证", true, ITEM_TYPE_ZERO);
-
-        myCars = new MyRecycleViewItem("我的车辆", R.mipmap.my_ic_cars, true, false, true, false, "0辆", true, ITEM_TYPE_ZERO);
-
-        myRoutes = new MyRecycleViewItem("常跑路线", R.mipmap.my_ic_routes, true, false, false, true, "", true, ITEM_TYPE_ZERO);
         mySystemMsg = new MyRecycleViewItem("系统消息", R.mipmap.my_ic_sysmsg, true, true, true, true, "0条", true, ITEM_TYPE_ZERO);
         myAboutUs = new MyRecycleViewItem("关于我们", R.mipmap.my_ic_about_us, true, false, false, true, "", true, ITEM_TYPE_ZERO);
         myHelp = new MyRecycleViewItem("帮助", R.mipmap.my_ic_help, true, true, false, true, "", false, ITEM_TYPE_ZERO);
+        myLoginOut = new MyRecycleViewItem("退出登录", 0, false, true, false, true, "", true, ITEM_TYPE_ONE);
+
 
         myRecycleViewItems.add(driverCer);
         myRecycleViewItems.add(myCars);
@@ -123,14 +124,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         myRecycleViewItems.add(myAboutUs);
         myRecycleViewItems.add(myHelp);
         myRecycleViewItems.add(myLoginOut);
-        myva = new MyRecycleViewAdapter(mActivity, myRecycleViewItems);
+        mAdapter = new MyRecycleViewAdapter(mActivity, myRecycleViewItems);
         myRv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-        myRv.setAdapter(myva);
+        myRv.setAdapter(mAdapter);
         myRv.setNestedScrollingEnabled(false);
-        myva.setOnItemClickListener(new MyRecycleViewAdapter.OnRecyclerViewItemClickListener() {
+        mAdapter.setOnItemClickListener(new MyRecycleViewAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String title = myva.getTitle(position);
+                String title = mAdapter.getTitle(position);
                 switch (title) {
                     case "司机认证":
                         doType(MyItemSelected.DRIVER_CERTIFICATION);
@@ -148,8 +149,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                         mActivity.startActivity(new Intent(mActivity, AboutUsActivity.class));
                         break;
                     case "退出登录":
-                        MyPresenterImp mpi = new MyPresenterImp(MyFragment.this, mActivity);
-                        mpi.loginOut();
+                        mPresenter.loginOut();
                         break;
                     case "修改密码":
                         doType(MyItemSelected.MY_CHANGE_PWD);
@@ -231,7 +231,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     @Override
     public void onResume() {
         super.onResume();
-        myRv.setAdapter(myva);
+        myRv.setAdapter(mAdapter);
         refreshPage();
     }
 
@@ -255,6 +255,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             myLogin.setVisibility(View.GONE);
             myUnLogin.setText(App.mUser.getLogin_name());
             driverCer.setRightText(App.mUser.getVertifyDescription());
+
         } else {
             if (myRecycleViewItems.contains(myDrivers) && myRecycleViewItems.contains(myInvitation) && myRecycleViewItems.contains(myChangePwd) && myRecycleViewItems.contains(myLoginOut)) {
                 myRecycleViewItems.remove(myDrivers);
@@ -269,7 +270,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             myLogin.setVisibility(View.VISIBLE);
             myUnLogin.setText(R.string.unLogin);
         }
-        myva.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     public static MyFragment newInstance() {
@@ -277,14 +278,22 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+
+        mPresenter = new MyPresenterImp(MyFragment.this, mActivity);
+        mPresenter.getCount("");
+    }
+
+    @Override
     @OnClick({R.id.my_register, R.id.my_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_register:
-                mActivity.startActivity(new Intent(mActivity, RegisterActivity.class));
+                openActivity(RegisterActivity.class);
                 break;
             case R.id.my_login:
-                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+                openActivity(LoginActivity.class);
                 break;
             default:
                 break;
@@ -303,6 +312,27 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         shotToast("注销失败");
     }
 
+    @Override
+    public void getCountSuccess(String system) {
+
+    }
+
+    @Override
+    public void getCountFailed(String system) {
+        shotToast(system);
+    }
+
+    @Override
+    public void refresh(String driverCount, String truckCount, String systemMsgCount) {
+        myDrivers.setRightText(TextUtils.isEmpty(truckCount) ? "0人" : truckCount + "人");
+        myCars.setRightText(TextUtils.isEmpty(driverCount) ? "0辆" : driverCount + "辆");
+        mySystemMsg.setRightText(systemMsgCount + "条");
+        myRecycleViewItems.set(1, myDrivers);
+        myRecycleViewItems.set(2, myCars);
+        myRecycleViewItems.set(6, mySystemMsg);
+        mAdapter.notifyDataSetChanged();
+    }
+
     /**
      * 判断当前用户是否登录
      *
@@ -315,12 +345,15 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void unlogin(MessageEvent messageEvent) {
+    public void updateUI(MessageEvent messageEvent) {
         if (AppConfig.UNLOGIN.equals(messageEvent.getMessage())) {
-            if (myva != null) {
+            if (mAdapter != null) {
                 refreshPage();
             }
-
+        } else if (AppConfig.SYSTEM_MSG_READ.equals(messageEvent.getMessage())) {
+            mPresenter.getCount("system");
+        } else if (AppConfig.UPDATE_COUNT.equals(messageEvent.getMessage())) {
+            mPresenter.getCount("");
         }
 
     }

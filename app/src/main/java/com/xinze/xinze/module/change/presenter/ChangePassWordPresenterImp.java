@@ -25,7 +25,6 @@ public class ChangePassWordPresenterImp extends BasePresenterImpl<IChangePassWor
 
     @Override
     public void changePassWord(String oldPassWord, String newPassWord) {
-        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().changePassWord(headers,Base64Util.getBase64(oldPassWord),Base64Util.getBase64(newPassWord))
                 .compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(){
             @Override

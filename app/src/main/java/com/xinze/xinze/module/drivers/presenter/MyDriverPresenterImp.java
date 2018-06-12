@@ -6,7 +6,10 @@ import com.xinze.xinze.http.RetrofitFactory;
 import com.xinze.xinze.module.drivers.view.DriverAddActivity;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.utils.ReturnResult;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,18 +52,22 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
             public void onResponse(Call<ReturnResult<List<TruckownerDriverVO>>> call, Response<ReturnResult<List<TruckownerDriverVO>>> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
+                if (returnResult == null){
+                    return;
+                }
                 if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
                     myDriverActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
                 final Object obj = returnResult.getData();
                 if (obj != null) {
-                    List<TruckownerDriverVO> data = (List<TruckownerDriverVO>) returnResult.getData();
-                    if (data != null && data.size() == AppConfig.PAGE_SIZE) {
+                    EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATE_COUNT));
+                    List<TruckownerDriverVO> data = (List<TruckownerDriverVO>) obj;
+                    if ( data.size() == AppConfig.PAGE_SIZE) {
                         myDriverActivity.setPageEndFlag(false);
                         myDriverActivity.setData(data);
                         myDriverActivity.getInitDataSuccess();
-                    } else if (data != null && data.size() < AppConfig.PAGE_SIZE) {
+                    } else if ( data.size() < AppConfig.PAGE_SIZE) {
                         // 获取到最后一页
                         myDriverActivity.setPageEndFlag(true);
                         myDriverActivity.setData(data);

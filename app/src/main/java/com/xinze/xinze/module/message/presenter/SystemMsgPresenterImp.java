@@ -13,7 +13,10 @@ import com.xinze.xinze.module.message.view.ISystemMsgView;
 import com.xinze.xinze.module.message.view.SystemMsgActivity;
 import com.xinze.xinze.module.message.adapter.SystemMessageAdapter;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,9 +38,6 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
 
     @Override
     public void getSystemMsgList(int pageNo, int pageSize) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
         RetrofitFactory.getInstence().Api().getSystemMsgList(headers, pageNo, pageSize).compose(this.<BaseEntity<List<NotifyEntity>>>setThread()).subscribe(new BaseObserver<List<NotifyEntity>>() {
             @Override
             protected void onSuccees(BaseEntity<List<NotifyEntity>> t) throws Exception {
@@ -76,9 +76,6 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
     @SuppressWarnings("unchecked")
     @Override
     public void markReaded(String msgId, final SystemMessageAdapter.ViewHolder holder) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
         RetrofitFactory.getInstence().Api().markNoticeReaded(headers, msgId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(systemMsgActivity) {
 
             @Override
@@ -88,6 +85,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
                         System.out.println("------------------标记已读");
                         holder.tvSuccessReadStatus.setText(AppConfig.SYSTEM_MSG_READ);
                         holder.tvSuccessReadStatus.setTextColor(Color.BLACK);
+                        EventBus.getDefault().post(new MessageEvent(AppConfig.SYSTEM_MSG_READ));
                         //TODO 主页未读条数需要-1
                     } else {
                         ToastUtils.showToast(mContext, "标记已读失败");
