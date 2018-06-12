@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.main.fragment.HomeFragment;
@@ -59,6 +60,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     @Override
     public void getUnReadNotifyNum(String id) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getUnReadNotifyNum(headers,id)
                 .compose(this.<BaseEntity<Integer>>setThread())
                 .subscribe(new BaseObserver<Integer>(mContext) {
@@ -87,6 +89,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
 
     @Override
     public void getFixBillNum(String id) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getFixBillNum(headers,id)
                 .compose(this.<BaseEntity<Integer>>setThread())
                 .subscribe(new BaseObserver<Integer>(mContext) {
