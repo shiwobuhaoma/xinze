@@ -44,7 +44,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -64,7 +64,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -121,7 +121,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'  //jackson
 
 
-    implementation 'com.google.guava:guava:17.0'  //guava
+    implementation 'com.google.guava:guava:22.0'  //guava
     implementation 'org.apache.commons:commons-lang3:3.3.2'  //apache.commons
     implementation 'org.greenrobot:eventbus:3.1.1'  //eventbus
 
@@ -133,5 +133,5 @@ dependencies {
     implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }
-    //地址选择器
+    //地址选择器 https://github.com/gzu-liyujiang/AndroidPicker/tree/master
 }

@@ -1,6 +1,5 @@
 package com.xinze.xinze.module.order.modle;
 
-import java.io.File;
 import java.util.List;
 
 public class UpdateOrderState {
