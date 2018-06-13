@@ -55,6 +55,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void certifitcation(String name, String idCard, String areaId, String detailAddress, String idCardImg,String drivingImg) {
 
         RetrofitFactory.getInstence().Api().driverCertification(headers,name,idCard,areaId,detailAddress,idCardImg,drivingImg)

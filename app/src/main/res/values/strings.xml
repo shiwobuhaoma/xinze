@@ -9,7 +9,7 @@
     <string name="uname">用户名</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="register">注&#160;&#160;&#160;&#160;册</string>
-    <string name="login">登&#160;&#160;&#160;&#160;陆</string>
+    <string name="login">登&#160;&#160;&#160;&#160;录</string>
     <string name="phone_number">手机号</string>
     <string name="input_phone_number">请输入您的手机号</string>
     <string name="get_verification_code">获取验证码</string>
@@ -186,4 +186,5 @@
     <string name="new_pass_word">新密码</string>
     <string name="input_new_pass_word">请输入新密码</string>
     <string name="search_order_hint">请输入订单号、发货地址、到货地址等</string>
+    <string name="input_telephone_number">请输入手机号</string>
 </resources>

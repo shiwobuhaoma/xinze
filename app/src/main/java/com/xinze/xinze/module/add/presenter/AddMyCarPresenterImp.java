@@ -26,6 +26,7 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void addTruck(String truckName,String truckCode,String weight,String vehicleLicenseImg) {
         RetrofitFactory.getInstence().Api().addTruck(headers,truckName,truckCode,weight,vehicleLicenseImg).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override

@@ -47,6 +47,7 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void delRegularRoute(String id) {
         RetrofitFactory.getInstence().Api().delRegularRoute(headers,id).compose(this.<BaseEntity>setThread()).
                 subscribe(new BaseObserver(){

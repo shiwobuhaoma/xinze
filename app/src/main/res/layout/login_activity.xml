@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-
     android:orientation="vertical">
 
 
@@ -27,8 +26,9 @@
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/login_phone_pic"
-                android:hint="请输入手机号" />
+                android:inputType="phone"
+                android:drawableStart="@mipmap/login_phone_pic"
+                android:hint="@string/input_telephone_number" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -42,8 +42,8 @@
                 android:id="@+id/user_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/login_pwd_pic"
-                android:hint="请输入密码"
+                android:drawableStart="@mipmap/login_pwd_pic"
+                android:hint="@string/input_pass_word"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -77,6 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/forget_pwd"
+                android:gravity="end"
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:text="@string/register"

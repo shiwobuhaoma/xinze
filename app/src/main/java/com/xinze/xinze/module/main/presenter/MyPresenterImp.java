@@ -29,6 +29,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void loginOut() {
 
         RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {

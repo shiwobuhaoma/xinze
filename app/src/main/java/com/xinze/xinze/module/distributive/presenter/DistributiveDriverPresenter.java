@@ -24,6 +24,7 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void appointDriver4Truck(String truckId, String driverId, String rightFlag, String id) {
         RetrofitFactory.getInstence().Api().appointDriver4Truck(headers, truckId, driverId, rightFlag, id).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override

@@ -13,8 +13,9 @@ import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.util.Map;
 
-public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDetailsView> implements ITransportDetailsPresenter{
+public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDetailsView> implements ITransportDetailsPresenter {
     private TransportDetailsActivity mTransportDetailsActivity;
+
     public TransportDetailsPresenterImp(ITransportDetailsView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
         mTransportDetailsActivity = (TransportDetailsActivity) mPresenterView;
@@ -23,15 +24,15 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void getBillDetail(String orderId) {
-        RetrofitFactory.getInstence().Api().getBillDetail(headers,orderId).
+        RetrofitFactory.getInstence().Api().getBillDetail(headers, orderId).
                 compose(this.<BaseEntity<TransportDetails>>setThread()).subscribe(new BaseObserver<TransportDetails>(mContext) {
             @Override
             protected void onSuccees(BaseEntity<TransportDetails> t) throws Exception {
-                if (t != null){
-                    if(t.isSuccess()){
+                if (t != null) {
+                    if (t.isSuccess()) {
                         mTransportDetailsActivity.setData(t.getData());
                         mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
-                    }else{
+                    } else {
                         mTransportDetailsActivity.getBillDetailFailed(t.getMsg());
                     }
                 }
@@ -45,15 +46,16 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void backBill(String id) {
-        RetrofitFactory.getInstence().Api().backBill(headers,id).
+        RetrofitFactory.getInstence().Api().backBill(headers, id).
                 compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {
-                if (t != null){
-                    if(t.isSuccess()){
+                if (t != null) {
+                    if (t.isSuccess()) {
                         mTransportDetailsActivity.backBillSuccess(t.getMsg());
-                    }else{
+                    } else {
                         mTransportDetailsActivity.backBillSuccess(t.getMsg());
                     }
                 }
@@ -68,14 +70,14 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void getCarryOrderRight(String userId) {
-        RetrofitFactory.getInstence().Api().getCarryOrderRight(headers,userId).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
+        RetrofitFactory.getInstence().Api().getCarryOrderRight(headers, userId).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
             @Override
             protected void onSuccees(BaseEntity<Integer> t) throws Exception {
-                if (t != null){
-                    if (t.isSuccess()){
+                if (t != null) {
+                    if (t.isSuccess()) {
                         mTransportDetailsActivity.isCarry(t.getData());
                         mTransportDetailsActivity.getCarryOrderRightSuccess(t.getMsg());
-                    }else{
+                    } else {
                         mTransportDetailsActivity.getCarryOrderRightFailed(t.getMsg());
                     }
                 }

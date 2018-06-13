@@ -61,6 +61,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
         });
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void revoke(String id, List<String> files,String remarks,final String orderStatus) {
         UpdateOrderState uos = new UpdateOrderState();
@@ -75,6 +76,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
         Gson gson = new Gson();
         String json = gson.toJson(uos);
         RequestBody body= RequestBody.create(MediaType.parse("application/json"),json);
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().changeBillOrderStatus(headers,body)
                 .compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
             @Override
@@ -106,6 +108,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
 
     @Override
     public void uploadImages(List<MultipartBody.Part> partList) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().imagesUpload(headers,partList).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<List<CertificationRespones>>(mContext){

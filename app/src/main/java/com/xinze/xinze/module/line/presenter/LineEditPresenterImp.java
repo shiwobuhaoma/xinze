@@ -26,6 +26,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void addRegularRoute(String fromAreaId,String toAreaId) {
         RetrofitFactory.getInstence().Api().addRegularRoute(headers,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
@@ -48,6 +49,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void editRegularRoute(String id,String fromAreaId, String toAreaId) {
         RetrofitFactory.getInstence().Api().editRegularRoute(headers,id,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override

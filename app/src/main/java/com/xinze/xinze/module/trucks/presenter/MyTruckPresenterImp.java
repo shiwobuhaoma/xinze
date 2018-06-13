@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * @author  feibai on 2018/5/14.
+ * @author feibai on 2018/5/14.
  * desc:
  */
 
@@ -36,7 +36,6 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
         super(mPresenterView, mContext);
         this.mActivity = (MyTruckActivity) mPresenterView;
     }
-
 
 
     @Override
@@ -87,24 +86,25 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void delMyTruck(String itemId) {
-       RetrofitFactory.getInstence().Api().deleteMyTrucks(headers, itemId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(){
-           @Override
-           protected void onSuccees(BaseEntity t) throws Exception {
-                if (t != null){
-                    if (t.isSuccess()){
+        RetrofitFactory.getInstence().Api().deleteMyTrucks(headers, itemId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
+            @Override
+            protected void onSuccees(BaseEntity t) throws Exception {
+                if (t != null) {
+                    if (t.isSuccess()) {
                         mActivity.deleteMyTruckSuccess(t.getMsg());
-                    }else {
+                    } else {
                         mActivity.deleteMyTruckFailed(t.getMsg());
                     }
                 }
-           }
+            }
 
-           @Override
-           protected void onFailure(String msg) throws Exception {
-               mActivity.deleteMyTruckFailed(msg);
-           }
-       });
+            @Override
+            protected void onFailure(String msg) throws Exception {
+                mActivity.deleteMyTruckFailed(msg);
+            }
+        });
 
     }
 

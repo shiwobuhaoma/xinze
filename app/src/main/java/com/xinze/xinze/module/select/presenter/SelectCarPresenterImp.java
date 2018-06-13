@@ -34,6 +34,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void getCarryTruckList(String id) {
 
         RetrofitFactory.getInstence().Api().getCarryTruckList(headers,id).compose(this.<BaseEntity<List<Car>>>setThread()).subscribe(new BaseObserver<List<Car>>() {
@@ -58,6 +59,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void getProtocolByType(String protocolType) {
         RetrofitFactory.getInstence().Api().getProtocolByType(headers,protocolType).compose(this.<BaseEntity<Protocol>>setThread()).subscribe(new BaseObserver<Protocol>() {
             @Override
@@ -80,6 +82,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void createBillOrder(String wayBillId, List<Car> list) {
         BillOrder billOrder = new BillOrder();
         billOrder.setWayBillid(wayBillId);
