@@ -1,11 +1,15 @@
 package com.xinze.xinze.module.main.presenter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 
 import com.xinze.xinze.http.RetrofitFactory;
@@ -35,7 +39,7 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
      * 清除线程需要用到的
      */
     private Disposable disposable;
-
+    private File mFile;
     public MainPresenterImp(IMainView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
     }
@@ -104,6 +108,8 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseDownloadObserver<File>() {
+
+
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable = d;
@@ -112,6 +118,7 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
                     @Override
                     protected void onDownloadSuccess(File file) {
                         mDownloadListener.onFinishDownload(file);
+                        mFile = file;
                         installApk(file);
                     }
 
@@ -180,6 +187,10 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
         }
     }
 
+    public void installApk() {
+        installApk(mFile);
+    }
+
     /**
      * 安装apk
      */
@@ -187,17 +198,30 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         Uri data;
+
         // 判断版本大于等于7.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             // "net.csdn.blog.ruancoder.fileprovider"即是在清单文件中配置的authorities
             data = FileProvider.getUriForFile(mContext, "com.xinze.xinze.fileprovider", file);
-            // 给目标应用一个临时授权
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            //兼容8.0
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                boolean hasInstallPermission = mContext.getPackageManager().canRequestPackageInstalls();
+                if (!hasInstallPermission) {
+                    //请求安装未知应用来源的权限
+                    mPresenterView.shotToast("需要打开安装未知来源应用权限");
+                    mPresenterView.startInstallPermissionSettingActivity();
+                    return;
+                }
+            }
         } else {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             data = Uri.fromFile(file);
         }
+
         // 广播里面操作需要加上这句，存在于一个独立的栈里
         intent.setDataAndType(data, "application/vnd.android.package-archive");
         mContext.startActivity(intent);
@@ -222,4 +246,6 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
 
         return 1;
     }
+
+
 }

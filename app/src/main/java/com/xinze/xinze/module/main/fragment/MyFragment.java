@@ -282,7 +282,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         super.initData();
 
         mPresenter = new MyPresenterImp(MyFragment.this, mActivity);
-        mPresenter.getCount("");
+        if (isLogin()){
+            mPresenter.getCount("");
+        }
+
     }
 
     @Override

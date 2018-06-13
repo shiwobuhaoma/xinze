@@ -16,8 +16,8 @@ android {
         applicationId "com.xinze.xinze"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             // 显式声明支持注解

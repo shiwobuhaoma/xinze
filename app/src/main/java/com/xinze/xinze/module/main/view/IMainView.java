@@ -13,4 +13,7 @@ public interface IMainView extends BaseView {
 
     void onStartDownload();
 
+
+    void startInstallPermissionSettingActivity();
+
 }

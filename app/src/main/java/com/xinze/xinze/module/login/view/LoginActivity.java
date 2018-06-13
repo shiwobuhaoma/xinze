@@ -84,8 +84,8 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 0) {
                     usernameWrapper.setErrorEnabled(false);
-                } else if (s.length() < 6) {
-                    usernameWrapper.setError("长度不能小于6位");
+                } else if (s.length() < 11) {
+//                    usernameWrapper.setError("长度不能小于11位");
                     usernameWrapper.setErrorEnabled(true);
                 } else {
                     usernameWrapper.setErrorEnabled(false);
@@ -115,7 +115,7 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
                 if (s.length() == 0) {
                     passwordWrapper.setErrorEnabled(false);
                 } else if (s.length() < 2) {
-                    passwordWrapper.setError("密码长度不能小于2位");
+//                    passwordWrapper.setError("密码长度不能小于2位");
                     passwordWrapper.setErrorEnabled(true);
                 } else {
                     passwordWrapper.setErrorEnabled(false);
@@ -144,6 +144,24 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
                     shotToast("请输入密码");
                     return;
                 }
+                //工号和手机号位数判断
+                if (mUserName.length() != 11 ) {
+                    shotToast("请正确输入11位手机号");
+                    return;
+
+                    //手机号格式判断
+                } else {
+                    if (!isMobileNO(mUserName)) {
+                        shotToast("手机号格式不正确");
+                        return;
+                    }
+                }
+
+                if (mUserPwd.length() < 6) {
+                    shotToast("密码不得少于6个字符，数字/字母/组合");
+                    return;
+                }
+
                 loginPresenterImp.login(user.getName(), user.getPassword(), AppConfig.DRIVER);
             }
         });
@@ -154,7 +172,6 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
 
 
     @Override
@@ -183,6 +200,25 @@ public class LoginActivity extends BaseActivity implements ILoginView, View.OnCl
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 验证手机格式
+     * 移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
+     * 联通：130、131、132、152、155、156、185、186
+     * 电信：133、153、180、189、（1349卫通）
+     * 新增：147、170、177
+     * 总结起来就是第一位必定为1，第二位必定为3、4、5、7、8，其他位置的可以为0-9
+     */
+    public static boolean isMobileNO(String mobiles) {
+        //"[1]"代表第1位为数字1，"[34578]"代表第二位可以为3、4、5、7、8中的一个，
+        // "\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String telRegex = "[1][34578]\\d{9}";
+        if (TextUtils.isEmpty(mobiles)) {
+            return false;
+        } else {
+            return mobiles.matches(telRegex);
         }
     }
 }

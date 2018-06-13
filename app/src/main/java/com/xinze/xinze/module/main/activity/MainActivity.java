@@ -2,9 +2,14 @@ package com.xinze.xinze.module.main.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -49,6 +54,8 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
 
 
     private static final int READ_AND_WRITE = 1;
+    private static final int INSTALL_PACKAGES_REQUESTCODE = 2;
+    private static final int GET_UNKNOWN_APP_SOURCES = 3;
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationBar mBottomNavigationBar;
     @BindView(R.id.vp_main)
@@ -64,10 +71,17 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
     private ProgressDialog mProgressDialog;
 
     /**
-     * 所要申请的权限
+     * 所要申请的权限读和写
      */
     String[] mRequestPermissionList = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
+
+
+    /**
+     * 所要申请的权限读和写
+     */
+    String[] mRequestInstallPermissionList = {Manifest.permission.REQUEST_INSTALL_PACKAGES};
+
 
     private List<String> mDeniedPermissionList = new ArrayList<>();
 
@@ -125,6 +139,8 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
         EasyPermissions.requestPermissions(this, "需要写入SD卡权限", READ_AND_WRITE, mRequestPermissionList);
 
     }
+
+
 
     private void initViewPager() {
 
@@ -351,7 +367,15 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (requestCode == INSTALL_PACKAGES_REQUESTCODE) {
+                if (perms.size() > 0) {
+                    mPresenter.installApk();
+                } else {
+                    startInstallPermissionSettingActivity();
+                }
+            }
+        }
     }
 
     @Override
@@ -363,12 +387,21 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
                 mDeniedPermissionList.clear();
             }
         }
+
+
         //未授予的权限为空，表示都授予了
         if (!mDeniedPermissionList.isEmpty()) {
             //将List转为数组
             String[] permissions = mDeniedPermissionList.toArray(new String[mDeniedPermissionList.size()]);
-            //再次请求权限
-            EasyPermissions.requestPermissions(this, "需要写入SD卡权限", READ_AND_WRITE, permissions);
+            if (requestCode == READ_AND_WRITE) {
+
+                //再次请求权限
+                EasyPermissions.requestPermissions(this, "需要写入SD卡权限", READ_AND_WRITE, permissions);
+            } else {
+                //再次请求权限
+                EasyPermissions.requestPermissions(this, "需要安装应用的权限", INSTALL_PACKAGES_REQUESTCODE, permissions);
+            }
+
         }
     }
 
@@ -376,8 +409,44 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case GET_UNKNOWN_APP_SOURCES:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    boolean hasInstallPermission = getPackageManager().canRequestPackageInstalls();
+                    if (hasInstallPermission) {
+                        mPresenter.installApk();
+                    } else {
+                        startInstallPermissionSettingActivity();
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 跳转到设置-允许安装未知来源-页面
+     */
+    @Override
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void startInstallPermissionSettingActivity() {
+        //注意这个是8.0新API
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(intent, GET_UNKNOWN_APP_SOURCES);
     }
 
 
 }
+
+

@@ -16,6 +16,7 @@ import com.xinze.xinze.module.order.view.IOrderDetailView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
 
     @Override
     public void getOrderDetail(String orderId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillOrderDetail(headers,orderId)
                 .compose(this.<BaseEntity<OrderDetail>>setThread()).subscribe(new BaseObserver<OrderDetail>(mContext) {
             @Override
