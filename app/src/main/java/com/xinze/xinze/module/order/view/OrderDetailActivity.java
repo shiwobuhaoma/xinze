@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -34,6 +35,7 @@ import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.order.adapter.PostImgAdapter;
 import com.xinze.xinze.module.order.modle.OrderDetail;
 import com.xinze.xinze.module.order.presenter.OrderDetailPresenterImp;
+import com.xinze.xinze.utils.BitmapUtils;
 import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.utils.UIUtils;
 import com.xinze.xinze.widget.BottomPopupMenu;
@@ -708,6 +710,9 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     private void displayImage(String imagePath) {
         if (imagePath != null) {
             filePaths.add(imagePath);
+            Bitmap bitmap = BitmapUtils.compressBySize(imagePath);
+            File file = BitmapUtils.saveBitmapFile(bitmap, imagePath);
+            files.add(file);
             mAdapter.updateData(filePaths);
         } else {
             shotToast("获取照片失败");
@@ -753,6 +758,9 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             Uri uri = Uri.fromFile(photoFile);
             filePath = uri.getPath();
         }
+        Bitmap bitmap = BitmapUtils.compressBySize(filePath);
+        File file = BitmapUtils.saveBitmapFile(bitmap, filePath);
+        files.add(file);
         filePaths.add(filePath);
         mAdapter.updateData(filePaths);
         scrollToEnd();
