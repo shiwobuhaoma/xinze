@@ -37,6 +37,8 @@
 -keep class com.xinze.xinze.module.transport.module.** { *; }
 -keep class com.xinze.xinze.module.trucks.model.** { *; }
 -keep class com.xinze.xinze.widget.bean.** { *; }
+-keep class com.xinze.xinze.config.** { *; }
+-keep class com.xinze.xinze.http.** { *; }
 
 
 
