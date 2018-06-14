@@ -1,15 +1,12 @@
 package com.xinze.xinze.module.line.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
 import com.xinze.xinze.module.line.presenter.LineEditPresenterImp;
@@ -94,11 +91,41 @@ public class LineEditFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.line_edit_from:
                 mCurrentClickViewRes = R.id.line_edit_from;
-                setAreaList(provinces);
+                if (provinces.size() > 0) {
+                    AddressPicker  picker = new AddressPicker(mActivity, provinces);
+                       picker.setHideProvince(hideProvince);
+                       picker.setHideCounty(hideCounty);
+                       if (hideCounty) {
+                           //将屏幕分为3份，省级和地级的比例为1:2
+                           picker.setColumnWeight(1 / 3.0f, 2 / 3.0f);
+                       } else {
+                           //省级、地级和县级的比例为2:3:3
+                           picker.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f);
+                       }
+                       picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
+                       picker.setOnAddressPickListener(this);
+                       picker.show();
+
+                }
                 break;
             case R.id.line_edit_to:
                 mCurrentClickViewRes = R.id.line_edit_to;
-                setAreaList(provinces);
+                if (provinces.size() > 0) {
+                    AddressPicker  picker = new AddressPicker(mActivity, provinces);
+                    picker.setHideProvince(hideProvince);
+                    picker.setHideCounty(hideCounty);
+                    if (hideCounty) {
+                        //将屏幕分为3份，省级和地级的比例为1:2
+                        picker.setColumnWeight(1 / 3.0f, 2 / 3.0f);
+                    } else {
+                        //省级、地级和县级的比例为2:3:3
+                        picker.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f);
+                    }
+                    picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
+                    picker.setOnAddressPickListener(this);
+                    picker.show();
+
+                }
                 break;
             default:
                 break;
@@ -172,21 +199,6 @@ public class LineEditFragment extends BaseFragment implements View.OnClickListen
 
     public void setAreaList(ArrayList<Province> result) {
         this.provinces = result;
-        if (result.size() > 0) {
-            AddressPicker  picker = new AddressPicker(mActivity, result);
-            picker.setHideProvince(hideProvince);
-            picker.setHideCounty(hideCounty);
-            if (hideCounty) {
-                //将屏幕分为3份，省级和地级的比例为1:2
-                picker.setColumnWeight(1 / 3.0f, 2 / 3.0f);
-            } else {
-                //省级、地级和县级的比例为2:3:3
-                picker.setColumnWeight(2 / 8.0f, 3 / 8.0f, 3 / 8.0f);
-            }
-            picker.setSelectedItem(selectedProvince, selectedCity, selectedCounty);
-            picker.setOnAddressPickListener(this);
-            picker.show();
-        }
     }
 
     @Override

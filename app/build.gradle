@@ -134,4 +134,7 @@ dependencies {
         exclude group: 'com.android.support'
     }
     //地址选择器 https://github.com/gzu-liyujiang/AndroidPicker/tree/master
+
+    implementation 'com.just.agentweb:agentweb:4.0.2'
+    // (必选)https://github.com/Justson/AgentWeb
 }
