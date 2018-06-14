@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -32,6 +33,7 @@ import com.xinze.xinze.module.certification.bean.CertificationRecycleViewItem;
 import com.xinze.xinze.module.certification.modle.CertificationRespones;
 import com.xinze.xinze.module.certification.presenter.CertificationPresenterImp;
 import com.xinze.xinze.module.submit.DriverSubmitSuccessActivity;
+import com.xinze.xinze.utils.BitmapUtils;
 import com.xinze.xinze.utils.GlideRoundTransform;
 import com.xinze.xinze.widget.BottomPopupMenu;
 import com.xinze.xinze.widget.SimpleToolbar;
@@ -101,6 +103,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             Manifest.permission.CAMERA};
     private List<String> mDeniedPermissionList = new ArrayList<>();
     private List<String> filePaths = new ArrayList<>();
+
 
     /**
      * 是否隐藏省、区列表
@@ -351,6 +354,7 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
                 List<MultipartBody.Part> parts = new ArrayList<>(files.size());
                 for (int i = 0; i < files.size(); i++) {
                     File file = files.get(i);
+
                     RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     MultipartBody.Part part = MultipartBody.Part.
                             createFormData("file" + i, file.getName(), imageBody);
@@ -404,6 +408,9 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
             Uri uri = Uri.fromFile(photoFile);
             filePath = uri.getPath();
         }
+        Bitmap bitmap = BitmapUtils.compressBySize(filePath);
+        File file = BitmapUtils.saveBitmapFile(bitmap, filePath);
+        files.add(file);
         filePaths.add(filePath);
 
         setImageViewDrawable();
@@ -502,6 +509,9 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
     private void displayImage(String imagePath) {
         if (imagePath != null) {
             filePaths.add(imagePath);
+            Bitmap bitmap = BitmapUtils.compressBySize(imagePath);
+            File file = BitmapUtils.saveBitmapFile(bitmap, imagePath);
+            files.add(file);
             setImageViewDrawable();
         } else {
             shotToast("获取照片失败");
