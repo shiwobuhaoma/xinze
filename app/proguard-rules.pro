@@ -24,19 +24,19 @@
 
 #---------------------------------1.实体类---------------------------------
 -keep class com.xinze.xinze.module.about.modle.** { *; }
--keep com.xinze.xinze.module.add.modle.** { *; }
--keep com.xinze.xinze.module.certification.modle.** { *; }
--keep com.xinze.xinze.module.invite.model.** { *; }
--keep com.xinze.xinze.module.login.modle.** { *; }
--keep com.xinze.xinze.module.main.modle.** { *; }
--keep com.xinze.xinze.module.message.model.** { *; }
--keep com.xinze.xinze.module.order.modle.** { *; }
--keep com.xinze.xinze.module.register.modle.** { *; }
--keep com.xinze.xinze.module.regular.module.** { *; }
--keep com.xinze.xinze.module.select.module.** { *; }
--keep com.xinze.xinze.module.transport.module.** { *; }
--keep com.xinze.xinze.module.trucks.model.** { *; }
--keep com.xinze.xinze.widget.bean.** { *; }
+-keep class com.xinze.xinze.module.add.modle.** { *; }
+-keep class com.xinze.xinze.module.certification.modle.** { *; }
+-keep class com.xinze.xinze.module.invite.model.** { *; }
+-keep class com.xinze.xinze.module.login.modle.** { *; }
+-keep class com.xinze.xinze.module.main.modle.** { *; }
+-keep class com.xinze.xinze.module.message.model.** { *; }
+-keep class com.xinze.xinze.module.order.modle.** { *; }
+-keep class com.xinze.xinze.module.register.modle.** { *; }
+-keep class com.xinze.xinze.module.regular.module.** { *; }
+-keep class com.xinze.xinze.module.select.module.** { *; }
+-keep class com.xinze.xinze.module.transport.module.** { *; }
+-keep class com.xinze.xinze.module.trucks.model.** { *; }
+-keep class com.xinze.xinze.widget.bean.** { *; }
 
 
 
@@ -55,8 +55,6 @@
   **[] $VALUES;
   public *;
 }
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 # banner 的混淆代码
 -keep class com.youth.banner.** {
