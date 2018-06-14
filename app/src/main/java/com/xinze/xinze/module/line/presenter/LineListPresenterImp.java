@@ -25,6 +25,7 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
 
     @Override
     public void getRegularRouteList() {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getRegularRouteList(headers).compose(this.<BaseEntity<List<Route>>>setThread()).subscribe(new BaseObserver<List<Route>>() {
             @Override
             protected void onSuccees(BaseEntity<List<Route>> t) throws Exception {
