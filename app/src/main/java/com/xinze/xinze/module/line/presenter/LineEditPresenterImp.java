@@ -11,6 +11,7 @@ import com.xinze.xinze.module.line.view.LineEditFragment;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
     @Override
     @SuppressWarnings("unchecked")
     public void addRegularRoute(String fromAreaId,String toAreaId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().addRegularRoute(headers,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {
@@ -51,6 +53,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
     @Override
     @SuppressWarnings("unchecked")
     public void editRegularRoute(String id,String fromAreaId, String toAreaId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().editRegularRoute(headers,id,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {
@@ -71,6 +74,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
 
     @Override
     public void getAreaList(String extId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getAreaList(headers,extId)
                 .compose(this.<BaseEntity<List<Province>>>setThread()).subscribe(new BaseObserver<List<Province>>(){
 

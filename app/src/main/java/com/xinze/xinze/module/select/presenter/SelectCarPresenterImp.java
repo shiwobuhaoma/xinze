@@ -17,6 +17,7 @@ import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,18 +26,16 @@ import okhttp3.RequestBody;
 
 public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> implements ISelectCarPresenter {
     private SelectCarActivity mSelectCarActivity;
-    private final Map headers;
 
     public SelectCarPresenterImp(ISelectCarView mPresenterView, Context mContext) {
         super(mPresenterView, mContext);
-        headers = HeaderConfig.getHeaders();
         mSelectCarActivity = (SelectCarActivity)mPresenterView;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void getCarryTruckList(String id) {
-
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getCarryTruckList(headers,id).compose(this.<BaseEntity<List<Car>>>setThread()).subscribe(new BaseObserver<List<Car>>() {
             @Override
             protected void onSuccees(BaseEntity<List<Car>> t) throws Exception {
@@ -61,6 +60,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
     @Override
     @SuppressWarnings("unchecked")
     public void getProtocolByType(String protocolType) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getProtocolByType(headers,protocolType).compose(this.<BaseEntity<Protocol>>setThread()).subscribe(new BaseObserver<Protocol>() {
             @Override
             protected void onSuccees(BaseEntity<Protocol> t) throws Exception {
@@ -104,6 +104,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
         Gson gson = new Gson();
         String json = gson.toJson(billOrder);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),json);
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().createBillOrder(headers,requestBody).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {

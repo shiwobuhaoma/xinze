@@ -40,6 +40,7 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
 
     @Override
     public void myTrucks(final int pageNum, int pageSize, String verifyFlag) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().myTrucks(headers, pageNum, pageSize, verifyFlag).enqueue(new Callback<ReturnResult<List<MyTruckVO>>>() {
 
             @Override
@@ -88,6 +89,7 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
     @Override
     @SuppressWarnings("unchecked")
     public void delMyTruck(String itemId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().deleteMyTrucks(headers, itemId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {

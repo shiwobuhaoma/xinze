@@ -4,6 +4,7 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.module.invite.fragment.DriverInviteFragment;
 import com.xinze.xinze.module.invite.fragment.OwnerInviteFragment;
 import com.xinze.xinze.module.invite.model.OwnerDriverVO;
@@ -43,9 +44,7 @@ public class InvitePresenterImp implements IInvitePresenter {
 
     @Override
     public void getMyTruckOwnerInvitation(int pageNum, int pageSize, String inviteFlag) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getTruckOwnerInvitation(headers, pageNum, pageSize, inviteFlag).enqueue(new Callback<ReturnResult<List<TruckownerDriverVO>>>() {
 
             @Override

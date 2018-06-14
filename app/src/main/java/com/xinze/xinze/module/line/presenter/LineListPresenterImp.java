@@ -11,6 +11,7 @@ import com.xinze.xinze.module.line.view.LineListFragment;
 import com.xinze.xinze.module.regular.modle.Route;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,7 @@ public class LineListPresenterImp extends BasePresenterImpl<ILineListView> imple
     @Override
     @SuppressWarnings("unchecked")
     public void delRegularRoute(String id) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().delRegularRoute(headers,id).compose(this.<BaseEntity>setThread()).
                 subscribe(new BaseObserver(){
                     @Override

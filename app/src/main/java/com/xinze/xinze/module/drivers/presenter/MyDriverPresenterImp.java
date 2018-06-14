@@ -3,6 +3,7 @@ package com.xinze.xinze.module.drivers.presenter;
 import com.xinze.xinze.App;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.module.drivers.view.DriverAddActivity;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
 import com.xinze.xinze.module.invite.model.TruckownerDriverVO;
@@ -43,9 +44,7 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
 
     @Override
     public void myTruckDrivers(final int pageNum, int pageSize, String inviteFlag) {
-        Map<String, String> headers = new HashMap<>(2);
-        headers.put("sessionid", App.mUser.getSessionid());
-        headers.put("userid", App.mUser.getId());
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().myTruckDrivers(headers, pageNum, pageSize, inviteFlag).enqueue(new Callback<ReturnResult<List<TruckownerDriverVO>>>() {
 
             @Override

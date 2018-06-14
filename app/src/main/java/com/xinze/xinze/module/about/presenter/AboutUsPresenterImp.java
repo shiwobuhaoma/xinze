@@ -46,6 +46,7 @@ public class AboutUsPresenterImp extends BasePresenterImpl<IAboutUsView> impleme
 
     @Override
     public void getProtocolByType(String protocolType) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getProtocolByType(headers,protocolType).compose(this.<BaseEntity<Protocol>>setThread()).subscribe(new BaseObserver<Protocol>() {
             @Override
             protected void onSuccees(BaseEntity<Protocol> t) throws Exception {

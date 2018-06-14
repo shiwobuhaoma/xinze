@@ -31,7 +31,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
     @Override
     @SuppressWarnings("unchecked")
     public void loginOut() {
-
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
 
             @Override
@@ -59,6 +59,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
 
     @Override
     public void getCount(String system) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getCount(headers,system)
                 .compose(this.<BaseEntity<Count>>setThread()).subscribe(new BaseObserver<Count>(){
 

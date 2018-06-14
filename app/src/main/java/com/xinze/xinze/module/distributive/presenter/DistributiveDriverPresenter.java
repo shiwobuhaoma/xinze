@@ -26,6 +26,7 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
     @Override
     @SuppressWarnings("unchecked")
     public void appointDriver4Truck(String truckId, String driverId, String rightFlag, String id) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().appointDriver4Truck(headers, truckId, driverId, rightFlag, id).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
             protected void onSuccees(BaseEntity t) throws Exception {
@@ -47,6 +48,7 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
 
     @Override
     public void getMyTruckDrivers(int pageNum, int pageSize, String inviteFlag) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getMyTruckDrivers(headers, pageNum, pageSize, inviteFlag).compose(this.<BaseEntity<List<TruckownerDriverVO>>>setThread()).subscribe(new BaseObserver<List<TruckownerDriverVO>>() {
             @Override
             protected void onSuccees(BaseEntity<List<TruckownerDriverVO>> t) throws Exception {

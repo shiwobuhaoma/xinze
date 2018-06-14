@@ -33,6 +33,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
     @Override
     public void getOderList(int pageNo, int pageSize,String remark) {
         this.pageNo = pageNo;
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillOrderList(headers,pageNo,pageSize,remark).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
             @Override
             protected void onSuccees(BaseEntity<List<OrderItem>> t) throws Exception {

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -32,6 +33,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.module.add.presenter.AddMyCarPresenterImp;
+import com.xinze.xinze.utils.BitmapUtils;
 import com.xinze.xinze.utils.GlideRoundTransform;
 import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.widget.BottomCarTypePopupMenu;
@@ -106,7 +108,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
     private String carNumber;
     private String carType;
     private String carLoad;
-
+    private File file;
     @Override
     protected int initLayout() {
         return R.layout.add_my_car_activity;
@@ -222,8 +224,6 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
     private void uploadImage() {
         amcpi = new AddMyCarPresenterImp(this, this);
 
-        //构建要上传的文件
-        File file = new File(filePath);
         RequestBody requestFile =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
@@ -452,6 +452,8 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
             Uri uri = Uri.fromFile(photoFile);
             filePath = uri.getPath();
         }
+        Bitmap bitmap = BitmapUtils.compressBySize(filePath);
+        file = BitmapUtils.saveBitmapFile(bitmap, filePath);
 
 
         setImageViewDrawable(filePath);
@@ -537,6 +539,8 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
 
     private void displayImage(String imagePath) {
         if (imagePath != null) {
+            Bitmap bitmap = BitmapUtils.compressBySize(filePath);
+            file = BitmapUtils.saveBitmapFile(bitmap, filePath);
 
             setImageViewDrawable(imagePath);
         } else {

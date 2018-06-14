@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.xinze.xinze.App;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.allot.view.AllotDriverActivity;
@@ -25,6 +26,7 @@ public class AllotDriverPresenterImp extends BasePresenterImpl<IAllotDriverView>
 
     @Override
     public void getMyTruckDrivers(int pageNum, int pageSize, String verifyFlag) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getMyTrucksList(headers, pageNum, pageSize, verifyFlag)
                 .compose(this.<BaseEntity<List<TruckownerDriverVO>>>setThread()).subscribe(new BaseObserver<List<TruckownerDriverVO>>(){
 

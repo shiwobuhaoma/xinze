@@ -6,6 +6,7 @@ import android.graphics.Color;
 import com.xinze.xinze.App;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.RetrofitFactory;
+import com.xinze.xinze.http.config.HeaderConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
 import com.xinze.xinze.http.observer.BaseObserver;
 import com.xinze.xinze.module.message.model.NotifyEntity;
@@ -38,6 +39,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
 
     @Override
     public void getSystemMsgList(int pageNo, int pageSize) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getSystemMsgList(headers, pageNo, pageSize).compose(this.<BaseEntity<List<NotifyEntity>>>setThread()).subscribe(new BaseObserver<List<NotifyEntity>>() {
             @Override
             protected void onSuccees(BaseEntity<List<NotifyEntity>> t) throws Exception {
@@ -76,6 +78,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
     @SuppressWarnings("unchecked")
     @Override
     public void markReaded(String msgId, final SystemMessageAdapter.ViewHolder holder) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().markNoticeReaded(headers, msgId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(systemMsgActivity) {
 
             @Override

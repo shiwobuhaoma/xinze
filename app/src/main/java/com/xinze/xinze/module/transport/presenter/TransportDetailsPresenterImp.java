@@ -11,6 +11,7 @@ import com.xinze.xinze.module.transport.module.TransportDetails;
 import com.xinze.xinze.module.transport.view.ITransportDetailsView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDetailsView> implements ITransportDetailsPresenter {
@@ -24,6 +25,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void getBillDetail(String orderId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillDetail(headers, orderId).
                 compose(this.<BaseEntity<TransportDetails>>setThread()).subscribe(new BaseObserver<TransportDetails>(mContext) {
             @Override
@@ -48,6 +50,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
     @Override
     @SuppressWarnings("unchecked")
     public void backBill(String id) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().backBill(headers, id).
                 compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
             @Override
@@ -70,6 +73,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
 
     @Override
     public void getCarryOrderRight(String userId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getCarryOrderRight(headers, userId).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
             @Override
             protected void onSuccees(BaseEntity<Integer> t) throws Exception {

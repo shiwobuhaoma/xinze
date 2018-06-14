@@ -22,7 +22,6 @@ import io.reactivex.schedulers.Schedulers;
 public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T> {
 
 
-    protected HashMap<String, String> headers = HeaderConfig.getHeaders();
     protected T mPresenterView ;
     protected Context mContext;
 

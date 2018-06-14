@@ -12,6 +12,7 @@ import com.xinze.xinze.module.certification.view.ICertificationView;
 import com.xinze.xinze.mvpbase.BasePresenterImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
 
     @Override
     public void uploadImages(List<MultipartBody.Part> partList) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().imagesUpload(headers,partList).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<List<CertificationRespones>>(mContext){
@@ -57,7 +59,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
     @Override
     @SuppressWarnings("unchecked")
     public void certifitcation(String name, String idCard, String areaId, String detailAddress, String idCardImg,String drivingImg) {
-
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().driverCertification(headers,name,idCard,areaId,detailAddress,idCardImg,drivingImg)
                 .compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext){
 
@@ -82,6 +84,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
 
     @Override
     public void getAreaList(String extId) {
+        HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getAreaList(headers,extId)
                 .compose(this.<BaseEntity<List<Province>>>setThread()).subscribe(new BaseObserver<List<Province>>(){
 
