@@ -82,10 +82,13 @@ public abstract class AbstractBillFragment extends BaseFragment implements IBill
         openActivity(TransportDetailsActivity.class,map);
 
     }
-    protected void jumpToSelectActivity(int position) {
+    protected void jumpToSelectActivity(int position,String from) {
         OrderItem orderItem = data.get(position);
         String orderId = orderItem.getId();
-        openActivity(SelectCarActivity.class,"orderId", orderId);
+        HashMap<String,String> map = new HashMap<>(2);
+        map.put("orderId", orderId);
+        map.put("from", from);
+        openActivity(SelectCarActivity.class,map);
 
     }
     public void setOrderItemData(List<OrderItem> data) {

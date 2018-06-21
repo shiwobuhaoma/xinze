@@ -10,6 +10,7 @@ import android.view.View;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseFragment;
+import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.config.HttpConfig;
 import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.main.adapter.HomeRecycleViewAdapter;
@@ -23,12 +24,17 @@ import com.xinze.xinze.module.message.view.SystemMsgActivity;
 import com.xinze.xinze.module.web.WebViewActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.GlideImageLoader;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.utils.UrlUtils;
 import com.xinze.xinze.widget.SimpleToolbar;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +64,10 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     NestedScrollView mNestedScrollView;
     private List<HomeRecycleViewItem> homeRecycleViewItems = new ArrayList<>();
     private HomeRecycleViewAdapter mAdapter;
-    private HomePresenterImp hpi;
+    private HomePresenterImp mPresenter;
     private HomeRecycleViewItem service_hotline;
     private String hotLine;
+    private HomeRecycleViewItem directional;
 
     @Override
     protected int initLayout() {
@@ -69,11 +76,12 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     @Override
     protected void initView() {
-
+        EventBus.getDefault().register(this);
         initTitleBar();
 
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_find_goods, "", R.mipmap.home_find_goods, true, 0, false));
-        homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_directional_shipper, "", R.mipmap.home_deliver_goods, true, 0, true));
+        directional = new HomeRecycleViewItem(R.string.home_directional_shipper, "", R.mipmap.home_deliver_goods, true, 0, true);
+        homeRecycleViewItems.add(directional);
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_regular_route, "", R.mipmap.home_regular_route, true, 0, true));
         homeRecycleViewItems.add(new HomeRecycleViewItem(R.string.home_about_us, "", R.mipmap.home_about_us, true, 0, false));
 
@@ -136,21 +144,22 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     protected void initData() {
         super.initData();
 
-        hpi = new HomePresenterImp(this, mActivity);
-        hpi.getBanner("1");
-        hpi.getCustomerPhone();
-        refreshPage();
-
+        mPresenter = new HomePresenterImp(this, mActivity);
+        mPresenter.getBanner("1");
+        mPresenter.getCustomerPhone();
     }
 
     private void refreshPage() {
         if (App.mUser != null && App.mUser.isLogin()) {
-            if (hpi == null){
-                hpi = new HomePresenterImp(this, mActivity);
+            if (mPresenter == null){
+                mPresenter = new HomePresenterImp(this, mActivity);
             }
-            hpi.getFixBillNum(App.mUser.getId());
-            hpi.getUnReadNotifyNum(App.mUser.getId());
+            mPresenter.getFixBillNum(App.mUser.getId());
+            mPresenter.getUnReadNotifyNum(App.mUser.getId());
         } else {
+            directional.setRightText("0");
+            homeRecycleViewItems.set(1,directional);
+            mAdapter.setData(homeRecycleViewItems);
             mainToolBar.setRightTitleDrawable(R.mipmap.home_msg);
         }
     }
@@ -227,5 +236,21 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     @Override
     public void getCustomerPhoneFailed() {
         mAdapter.setData(homeRecycleViewItems);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void clear(MessageEvent messageEvent) {
+        if (AppConfig.UNLOGIN.equals(messageEvent.getMessage()) || AppConfig.CLEAR_DATA.equals(messageEvent.getMessage())) {
+            if (mAdapter != null) {
+                refreshPage();
+            }
+        }
+
     }
 }

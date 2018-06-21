@@ -51,7 +51,7 @@ public class InvitePresenterImp implements IInvitePresenter {
             public void onResponse(Call<ReturnResult<List<TruckownerDriverVO>>> call, Response<ReturnResult<List<TruckownerDriverVO>>> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     driverInviteFragment.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
@@ -96,7 +96,7 @@ public class InvitePresenterImp implements IInvitePresenter {
             public void onResponse(Call<ReturnResult<List<OwnerDriverVO>>> call, Response<ReturnResult<List<OwnerDriverVO>>> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     ownerInviteFragment.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
@@ -141,7 +141,7 @@ public class InvitePresenterImp implements IInvitePresenter {
             public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     mActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
 
                 }

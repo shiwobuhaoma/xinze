@@ -60,6 +60,10 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
     private String cityStr = "CITY";
     private String countryStr = "COUNTRY";
 
+
+    private int provincePosition = 0;
+    private int countryPosition = 0;
+
     private int giveWhereData = 0;
     private View view;
     private int white;
@@ -158,6 +162,13 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
             case R.id.address_item:
 
                 if (provinceStr.equals(mAddress)) {
+                    provincePosition = position;
+                    if (position == 0){
+                        setViewGone();
+                        Address address = provinceData.get(position);
+                        mOnSelectAddressListener.selectAddress(address.getName(), address.getId());
+                        return;
+                    }
                     giveWhereData = 1;
 
                     for (int i = 0; i < provinceData.size(); i++) {
@@ -177,7 +188,13 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
                     countryAdapter.clearData();
                 } else if (cityStr.equals(mAddress)) {
                     giveWhereData = 2;
-
+                    countryPosition = position;
+                    if (position == 0){
+                        setViewGone();
+                        Address address = provinceData.get(provincePosition);
+                        mOnSelectAddressListener.selectAddress(address.getName(), address.getId());
+                        return;
+                    }
 
                     for (int i = 0; i < cityData.size(); i++) {
                         Address address = cityData.get(i);
@@ -193,7 +210,12 @@ public class SelectAddressView extends LinearLayout implements AddressAdapter.On
                     String id = address.getId();
                     initData(id);
                 } else if (countryStr.equals(mAddress)) {
-
+                    if (position == 0){
+                        setViewGone();
+                        Address address = cityData.get(countryPosition);
+                        mOnSelectAddressListener.selectAddress(address.getName(), address.getId());
+                        return;
+                    }
 
                     for (int i = 0; i < countryData.size(); i++) {
                         Address address = countryData.get(i);

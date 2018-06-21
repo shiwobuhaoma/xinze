@@ -41,13 +41,14 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
     @Override
     public void myTrucks(final int pageNum, int pageSize, String verifyFlag) {
         HashMap<String, String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().myTrucks(headers, pageNum, pageSize, verifyFlag).enqueue(new Callback<ReturnResult<List<MyTruckVO>>>() {
+        RetrofitFactory.getInstence().Api().myTrucks(headers, pageNum, pageSize, verifyFlag)
+                .enqueue(new Callback<ReturnResult<List<MyTruckVO>>>() {
 
             @Override
             public void onResponse(Call<ReturnResult<List<MyTruckVO>>> call, Response<ReturnResult<List<MyTruckVO>>> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (returnResult != null && !returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult != null &&  returnResult.getStatus() != AppConfig.REQUEST_STATUS_SUCESS) {
                     mActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }

@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.util.Log;
 
+import com.vondear.rxtools.view.RxToast;
 import com.xinze.xinze.App;
 import com.xinze.xinze.config.AppConfig;
 import com.xinze.xinze.http.entity.BaseEntity;
@@ -108,14 +109,16 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      */
     private void onCodeError(BaseEntity<T> t) throws Exception {
         //sessionId过期码
-        int sessionIDOverdue = -200;
+        int sessionIDOverdue = -300;
+        int loginOutCode = -200;
         if (t.getStatus() == -1){
             onSuccees(t);
-        }else if(t.getStatus() == sessionIDOverdue){
+        }else if(t.getStatus() == loginOutCode){
+            EventBus.getDefault().postSticky(new MessageEvent(AppConfig.UNLOGIN));
             App.mUser.setLogin(false);
-            EventBus.getDefault().post(new MessageEvent(AppConfig.UNLOGIN));
-            onSuccees(t);
-
+            ACache.get(mContext).put("user",App.mUser);
+            RxToast.showToast("账号已过期或正在另外一台设备上登录");
+         }else if(t.getStatus() == sessionIDOverdue){
 
         }
     }

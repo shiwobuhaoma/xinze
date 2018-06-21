@@ -39,7 +39,9 @@
 -keep class com.xinze.xinze.widget.bean.** { *; }
 -keep class com.xinze.xinze.config.** { *; }
 -keep class com.xinze.xinze.http.** { *; }
-
+-keep class com.xinze.xinze.utils{ *; }
+-keep class com.xinze.xinze.utils.ReturnResult{*;}
+-keep class com.xinze.xinze.utils.JsonMapper{*;}
 
 
 #-------------------------------------------------------------------------
@@ -163,6 +165,20 @@
 
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
+}
+#jackson 的混淆代码
+-dontwarn org.codehaus.jackson.**
+-keep class org.codehaus.jackson.** {*; }
+-keep interface org.codehaus.jackson.** { *; }
+-keep public class * extends org.codehaus.jackson.**
+
+-keep class com.fasterxml.jackson.** { *; }
+-dontwarn com.fasterxml.jackson.databind.**
+
+ #比如我们要向activity传递对象使用了Serializable接口的时候，这时候这个类及类里面#的所有内容都不能混淆
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+*;
 }
 #-------------------------------------------------------------------------
 

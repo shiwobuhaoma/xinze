@@ -18,7 +18,7 @@ public class ReturnResult <T>{
     private static final ObjectMapper MAPPER = JsonMapper.getInstance();
 
     // 响应业务状态
-    private Integer status;
+    private int status;
 
     // 响应消息
     private String msg;
@@ -26,7 +26,7 @@ public class ReturnResult <T>{
     // 响应中的数据
     private T data ;
 
-    public static ReturnResult build(Integer status, String msg, Object data) {
+    public static ReturnResult build(int status, String msg, Object data) {
         return new ReturnResult(status, msg, data);
     }
 
@@ -42,11 +42,11 @@ public class ReturnResult <T>{
 
     }
 
-    public static ReturnResult build(Integer status, String msg) {
+    public static ReturnResult build(int status, String msg) {
         return new ReturnResult(status, msg, null);
     }
 
-    public ReturnResult(Integer status, String msg, T data) {
+    public ReturnResult(int status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
@@ -62,11 +62,11 @@ public class ReturnResult <T>{
 //        return this.status == 200;
 //    }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

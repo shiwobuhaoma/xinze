@@ -158,7 +158,8 @@ public class MainActivity extends BaseActivity implements IMainView, DownloadLis
                         order.clearData();
                         DialogUtil.showUnloginDialog(MainActivity.this);
                     }
-
+                }else if (fragments.get(position)==my){
+                    my.refreshPage();
                 }
             }
         });

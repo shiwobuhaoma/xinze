@@ -35,7 +35,7 @@ public class ForgetPwdPresenterImpl implements IForgetPwdPresenter {
             public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     forgetPassWordActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                 }
             }
@@ -56,7 +56,7 @@ public class ForgetPwdPresenterImpl implements IForgetPwdPresenter {
             public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     forgetPassWordActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }

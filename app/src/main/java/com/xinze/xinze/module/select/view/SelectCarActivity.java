@@ -8,6 +8,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.xinze.xinze.R;
 import com.xinze.xinze.base.BaseActivity;
 import com.xinze.xinze.config.MainConfig;
 import com.xinze.xinze.config.ProtocolConfig;
+import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.allot.view.AllotDriverActivity;
 import com.xinze.xinze.module.main.activity.MainActivity;
 import com.xinze.xinze.module.select.adapter.SelectCarAdapter;
@@ -51,6 +53,8 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     RecyclerView selectRv;
     @BindView(R.id.select_service)
     TextView selectService;
+    @BindView(R.id.select_service_iv)
+    ImageView selectServiceIv;
     @BindView(R.id.select_confirm_bill)
     Button selectConfirmBill;
     private SelectCarAdapter sca;
@@ -58,11 +62,12 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
      * 是否全部选中
      */
     private boolean isAllSelected;
+    private boolean isProtocolSelected = true;
     private SelectCarPresenterImp scp;
     private String billId;
     private List<Car> carList;
     private List<Car> selectCarList = new ArrayList<>();
-
+    private String from;
 
     @Override
     protected int initLayout() {
@@ -73,6 +78,12 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     protected void initView() {
         Intent intent = getIntent();
         billId = intent.getStringExtra("orderId");
+        from = intent.getStringExtra("from");
+        if ("OrdinaryBillFragment".equals(from)){
+            selectConfirmBill.setText(getString(R.string.select_receipt_bill));
+        }else{
+            selectConfirmBill.setText(getString(R.string.select_confirm_bill));
+        }
         initToolbar();
         selectService.setText(Html.fromHtml(getString(R.string.select_read_service)));
 
@@ -184,7 +195,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     }
 
     @Override
-    @OnClick({R.id.select_top, R.id.select_service, R.id.select_confirm_bill})
+    @OnClick({R.id.select_top, R.id.select_service, R.id.select_confirm_bill, R.id.select_service_iv})
     public void onClick(View view) {
         Drawable drawable;
         switch (view.getId()) {
@@ -200,34 +211,52 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 }
                 isAllSelected = !isAllSelected;
                 selectAll.setCompoundDrawables(drawable, null, null, null);
-
+                isProtocolSelected = true;
+                selectServiceIv.setBackground(getResources().getDrawable(R.mipmap.my_driver_selected));
                 break;
             case R.id.select_service:
-                scp.getProtocolByType(ProtocolConfig.TRANSPORT_SERVICE_PROTOCOL);
+                openActivity(AboutUsActivity.class,"type",ProtocolConfig.TRANSPORT_SERVICE_PROTOCOL);
+
+//                scp.getProtocolByType(ProtocolConfig.TRANSPORT_SERVICE_PROTOCOL);
+
+                break;
+            case R.id.select_service_iv:
+                isProtocolSelected = !isProtocolSelected;
+                if (isProtocolSelected){
+                    selectServiceIv.setBackground(getResources().getDrawable(R.mipmap.my_driver_selected));
+                }else{
+                    selectServiceIv.setBackground(getResources().getDrawable(R.mipmap.my_driver_unselected));
+                }
+
                 break;
             case R.id.select_confirm_bill:
-
-                if (isAllSelected) {
-                    for (Car car : carList) {
-                        if (car.isSelected()) {
-                            selectCarList.add(car);
+                if (isProtocolSelected){
+                    if (isAllSelected) {
+                        for (Car car : carList) {
+                            if (car.isSelected()) {
+                                selectCarList.add(car);
+                            }
                         }
-                    }
-                    scp.createBillOrder(billId, selectCarList);
-                } else {
-                    if (carList == null || carList.size() == 0) {
-                        return;
-                    }
-                    for (Car car : carList) {
-                        if (car.isSelected()) {
-                            selectCarList.add(car);
+                        scp.createBillOrder(billId, selectCarList);
+                    } else {
+                        if (carList == null || carList.size() == 0) {
+                            return;
                         }
+                        for (Car car : carList) {
+                            if (car.isSelected()) {
+                                selectCarList.add(car);
+                            }
+                        }
+                        if (selectCarList.size() == 0) {
+                            return;
+                        }
+                        scp.createBillOrder(billId, selectCarList);
                     }
-                    if (selectCarList.size() == 0) {
-                        return;
-                    }
-                    scp.createBillOrder(billId, selectCarList);
+                }else{
+                    shotToast("请勾选运输服务合同");
                 }
+
+
 
                 break;
             default:
@@ -238,5 +267,6 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     public void setProtocolData(Protocol data) {
         String protocolContext = data.getContent();
         String protocolName = data.getProtocolName();
+
     }
 }

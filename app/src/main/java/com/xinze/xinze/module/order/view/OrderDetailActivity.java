@@ -395,6 +395,13 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
 
         String dateFrom = data.getDateFrom();
 
+        String confirmFlag = data.getConfirmFlag();
+        //0 无需确认订单
+        if ("0".equals(confirmFlag)){
+            orderWaitConfirming.setVisibility(View.GONE);
+        }else{
+            orderWaitConfirming.setVisibility(View.VISIBLE);
+        }
 
         String fromName = data.getFromName();
         String fromDetailAddress = data.getFromDetailAdress();
@@ -461,7 +468,6 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             toLeftGoodsPhone.setVisibility(View.GONE);
             orderUploadEvidence.setVisibility(View.GONE);
             uploadEvidenceList.setVisibility(View.GONE);
-            orderWaitConfirming.setVisibility(View.VISIBLE);
         } else if (PICK_UP.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
             setDrawable(drawable);
@@ -491,7 +497,6 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             toLeftGoodsPhone.setVisibility(View.GONE);
             orderUploadEvidence.setVisibility(View.GONE);
             uploadEvidenceList.setVisibility(View.GONE);
-            orderWaitConfirming.setVisibility(View.GONE);
             orderRevoke.setVisibility(View.GONE);
         }else if(GOODS_CONFIRM.equals(orderStatus)){
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
@@ -507,7 +512,6 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         fromLeftGoodsPhone.setVisibility(View.VISIBLE);
         toGoodsPhone.setVisibility(View.VISIBLE);
         toLeftGoodsPhone.setVisibility(View.VISIBLE);
-        orderWaitConfirming.setVisibility(View.GONE);
         uploadEvidenceList.setVisibility(View.VISIBLE);
     }
 

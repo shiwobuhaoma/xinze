@@ -41,7 +41,6 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
     }
 
 
-
     @Override
     public void myTruckDrivers(final int pageNum, int pageSize, String inviteFlag) {
         HashMap<String, String> headers = HeaderConfig.getHeaders();
@@ -51,10 +50,10 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
             public void onResponse(Call<ReturnResult<List<TruckownerDriverVO>>> call, Response<ReturnResult<List<TruckownerDriverVO>>> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (returnResult == null){
+                if (returnResult == null) {
                     return;
                 }
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (AppConfig.REQUEST_STATUS_SUCESS != returnResult.getStatus()) {
                     myDriverActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
@@ -62,11 +61,11 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
                 if (obj != null) {
                     EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATE_COUNT));
                     List<TruckownerDriverVO> data = (List<TruckownerDriverVO>) obj;
-                    if ( data.size() == AppConfig.PAGE_SIZE) {
+                    if (data.size() == AppConfig.PAGE_SIZE) {
                         myDriverActivity.setPageEndFlag(false);
                         myDriverActivity.setData(data);
                         myDriverActivity.getInitDataSuccess();
-                    } else if ( data.size() < AppConfig.PAGE_SIZE) {
+                    } else if (data.size() < AppConfig.PAGE_SIZE) {
                         // 获取到最后一页
                         myDriverActivity.setPageEndFlag(true);
                         myDriverActivity.setData(data);
@@ -103,7 +102,7 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
             public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     myDriverActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }
@@ -130,7 +129,7 @@ public class MyDriverPresenterImp implements IMyDriverPresenter {
             public void onResponse(Call<ReturnResult> call, Response<ReturnResult> response) {
                 // 请求成功
                 ReturnResult returnResult = response.body();
-                if (!returnResult.getStatus().equals(AppConfig.REQUEST_STATUS_SUCESS)) {
+                if (returnResult.getStatus()!=(AppConfig.REQUEST_STATUS_SUCESS)) {
                     driverAddActivity.shotToast(returnResult.getMsg() == null ? AppConfig.COMMON_FAILURE_RESPONSE : returnResult.getMsg());
                     return;
                 }

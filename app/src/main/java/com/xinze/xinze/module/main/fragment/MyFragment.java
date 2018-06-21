@@ -232,11 +232,15 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     public void onResume() {
         super.onResume();
         myRv.setAdapter(mAdapter);
-        refreshPage();
+
     }
 
-    private void refreshPage() {
+    public void refreshPage() {
+        if (mPresenter == null){
+            mPresenter = new MyPresenterImp(MyFragment.this, mActivity);
+        }
         if (isLogin()) {
+            mPresenter.getCount("");
             if (!myRecycleViewItems.contains(myDrivers) && !myRecycleViewItems.contains(myInvitation) && !myRecycleViewItems.contains(myChangePwd)) {
                 myDrivers.setShowTopLine(true);
                 myRecycleViewItems.add(1, myDrivers);
@@ -262,6 +266,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
                 myRecycleViewItems.remove(myInvitation);
                 myRecycleViewItems.remove(myChangePwd);
             }
+            myCars.setRightText("0辆");
+            mySystemMsg.setRightText("0条");
             portrait.setImageResource(R.mipmap.my_ic_default);
             myRoutes.setShowSpace(true);
             mySystemMsg.setShowBottomLine(true);
@@ -281,10 +287,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     protected void initData() {
         super.initData();
 
-        mPresenter = new MyPresenterImp(MyFragment.this, mActivity);
-        if (isLogin()){
-            mPresenter.getCount("");
-        }
+
 
     }
 
@@ -327,6 +330,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     @Override
     public void refresh(String driverCount, String truckCount, String systemMsgCount) {
+
         myDrivers.setRightText(TextUtils.isEmpty(truckCount) ? "0人" : truckCount + "人");
         myCars.setRightText(TextUtils.isEmpty(driverCount) ? "0辆" : driverCount + "辆");
         mySystemMsg.setRightText(systemMsgCount + "条");
@@ -347,16 +351,23 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateUI(MessageEvent messageEvent) {
-        if (AppConfig.UNLOGIN.equals(messageEvent.getMessage())) {
-            if (mAdapter != null) {
-                refreshPage();
-            }
-        } else if (AppConfig.SYSTEM_MSG_READ.equals(messageEvent.getMessage())) {
-            mPresenter.getCount("system");
-        } else if (AppConfig.UPDATE_COUNT.equals(messageEvent.getMessage())) {
-            mPresenter.getCount("");
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void clear(MessageEvent messageEvent) {
+        switch (messageEvent.getMessage()){
+            case AppConfig.UNLOGIN:
+            case AppConfig.CLEAR_DATA:
+                if (mAdapter != null) {
+                    refreshPage();
+                }
+                break;
+            case AppConfig.SYSTEM_MSG_READ:
+                mPresenter.getCount("system");
+                break;
+            case AppConfig.UPDATE_COUNT:
+                mPresenter.getCount("");
+                break;
+            default:
+                break;
         }
 
     }

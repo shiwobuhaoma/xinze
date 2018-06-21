@@ -88,14 +88,15 @@
     <string name="bill_car_freight">运费：%1$s元</string>
     <string name="regular_all_lines">全部</string>
     <string name="transport_refuse">退单</string><!--（%1$d车）-->
-    <string name="transport_confirming">确认抢单（%1$d车）</string>
-    <string name="transport_receipt">确认接单（%1$d车）</string>
+    <string name="transport_confirming">确定抢单（%1$d车）</string>
+    <string name="transport_receipt">确定接单（%1$d车）</string>
 
 
     <string name="register_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">服务协议</font>》]]></Data></string>
     <string name="next_step">下一步</string>
     <string name="select_read_service"><Data><![CDATA[我已仔细阅读并同意《<font color="#52affc">运输服务合同</font>》]]></Data></string>
     <string name="select_confirm_bill">确定接单</string>
+    <string name="select_receipt_bill">确定抢单</string>
     <string name="select_please_choice">请选择承运车辆</string>
     <string name="select_all_choice">全选</string>
     <string name="select_item_relation"><Data><![CDATA[<font color="#808080" size="28">%1$s</font><font color="#fb9251">>%2$s</font>]]></Data></string>

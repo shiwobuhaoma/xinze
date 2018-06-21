@@ -9,7 +9,7 @@ public class AppConfig {
     /**
      * 请求成功响应状态码
      */
-    public static final Integer REQUEST_STATUS_SUCESS = 200;
+    public static final int REQUEST_STATUS_SUCESS = 200;
     /**
      * 默认页码
      */

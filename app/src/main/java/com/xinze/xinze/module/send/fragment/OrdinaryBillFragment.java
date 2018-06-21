@@ -14,7 +14,6 @@ import com.xinze.xinze.App;
 import com.xinze.xinze.R;
 import com.xinze.xinze.config.OrderConfig;
 import com.xinze.xinze.module.main.modle.OrderItem;
-import com.xinze.xinze.module.select.view.SelectCarActivity;
 import com.xinze.xinze.module.send.adapter.BillRecycleViewAdapter;
 import com.xinze.xinze.module.send.view.IBillView;
 import com.xinze.xinze.utils.DialogUtil;
@@ -44,7 +43,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
 
     private int mCurrentView;
     private String fromID;
-    private String toID;
+    private String toID = "0";
 
 
     @Override
@@ -80,7 +79,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
             public void jumpSelectCar(int position) {
                 if (App.mUser.isLogin()) {
                     if ("1".equals(App.mUser.getVertifyFlag())){
-                        jumpToSelectActivity(position);
+                        jumpToSelectActivity(position,"OrdinaryBillFragment");
                     }else{
                         DialogUtil.showUnIdentificationDialog(mActivity);
                     }
@@ -105,7 +104,7 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
 
                         fromID = id;
                         sendGoodsFrom.setText(name);
-
+                        bpi.searchRouteList(fromID, toID, pageNo, pageSize);
                         break;
                     case R.id.send_goods_to:
 
@@ -129,13 +128,10 @@ public class OrdinaryBillFragment extends AbstractBillFragment implements IBillV
                 sendGoodsSelectFrom.clearState();
 
                 if (sendGoodsSelectFrom.getVisibility() == View.GONE) {
-                    billRecycleViewAdapter.clearData();
                     sendGoodsSelectFrom.setViewVisible();
-                    ordinaryBillSrl.setVisibility(View.GONE);
                 }else {
                     billRecycleViewAdapter.setData(data);
                     sendGoodsSelectFrom.setViewGone();
-                    ordinaryBillSrl.setVisibility(View.VISIBLE);
                 }
 
                 break;

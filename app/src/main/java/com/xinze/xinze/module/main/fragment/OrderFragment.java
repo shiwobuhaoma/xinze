@@ -244,7 +244,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void clear(MessageEvent messageEvent) {
         if (AppConfig.CLEAR_DATA.equals(messageEvent.getMessage())){
             if (mAdapter != null) {
