@@ -138,7 +138,7 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
             } else if (GOODS_REFUSE.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_refuse));
             } else if (GOODS_REVOKE.equals(icon)) {
-                viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_refuse));
+                viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_revoke));
             } else if (GOODS_CONFIRM.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_robbing_order));
             }

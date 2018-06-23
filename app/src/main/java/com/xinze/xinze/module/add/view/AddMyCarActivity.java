@@ -17,9 +17,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,6 +119,7 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
     @Override
     protected void initView() {
         initToolBar();
+        addCarSelectCarType.setInputType(InputType.TYPE_NULL);
         addCarCarNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -180,7 +183,6 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
 
                 break;
             case R.id.add_car_select_car_type:
-
                 hideKeyboard();
                 if (bctpm == null) {
                     bctpm = new BottomCarTypePopupMenu(this);
@@ -557,4 +559,15 @@ public class AddMyCarActivity extends BaseActivity implements IAddMyCarView, Eas
 
 
     }
+
+    @Override
+    protected void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null){
+            imm.hideSoftInputFromWindow(addCarSelectCarType.getWindowToken(),0);
+        }
+
+
+    }
+
 }

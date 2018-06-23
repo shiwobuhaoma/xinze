@@ -26,7 +26,12 @@ import com.xinze.xinze.module.select.presenter.SelectCarPresenterImp;
 import com.xinze.xinze.module.transport.module.Car;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.DividerItemDecoration;
+import com.xinze.xinze.utils.MessageEvent;
 import com.xinze.xinze.widget.SimpleToolbar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +62,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     ImageView selectServiceIv;
     @BindView(R.id.select_confirm_bill)
     Button selectConfirmBill;
-    private SelectCarAdapter sca;
+    private SelectCarAdapter mAdapter;
     /**
      * 是否全部选中
      */
@@ -76,6 +81,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         billId = intent.getStringExtra("orderId");
         from = intent.getStringExtra("from");
@@ -87,13 +93,14 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         initToolbar();
         selectService.setText(Html.fromHtml(getString(R.string.select_read_service)));
 
-        sca = new SelectCarAdapter(this);
+        mAdapter = new SelectCarAdapter(this);
         selectRv.setLayoutManager(new LinearLayoutManager(this));
         selectRv.addItemDecoration(new DividerItemDecoration(this));
-        selectRv.setAdapter(sca);
-        sca.setOnItemClickListener(new SelectCarAdapter.OnItemClickListener() {
+        selectRv.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new SelectCarAdapter.OnItemClickListener() {
             @Override
             public void click(View view, int position) {
+
                 Car car = carList.get(position);
                 //0表示自有 1表示关联
                 String ownFlag = car.getOwnFlag();
@@ -125,7 +132,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                     }
                 }
 
-                sca.updateState(position);
+                mAdapter.updateState(position);
             }
         });
     }
@@ -191,7 +198,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         } else {
             selectTop.setOnClickListener(this);
         }
-        sca.setData(data);
+        mAdapter.setData(data);
     }
 
     @Override
@@ -203,11 +210,15 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 if (isAllSelected ) {
                     drawable = getResources().getDrawable(R.mipmap.select_choice);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-                    sca.updateAll(false);
+                    selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+                    selectConfirmBill.setClickable(false);
+                    mAdapter.updateAll(false);
                 } else {
+                    selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+                    selectConfirmBill.setClickable(true);
                     drawable = getResources().getDrawable(R.mipmap.select_choicd);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-                    sca.updateAll(true);
+                    mAdapter.updateAll(true);
                 }
                 isAllSelected = !isAllSelected;
                 selectAll.setCompoundDrawables(drawable, null, null, null);
@@ -237,9 +248,13 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                                 selectCarList.add(car);
                             }
                         }
+                        selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+                        selectConfirmBill.setClickable(true);
                         scp.createBillOrder(billId, selectCarList);
                     } else {
                         if (carList == null || carList.size() == 0) {
+                            selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+                            selectConfirmBill.setClickable(false);
                             return;
                         }
                         for (Car car : carList) {
@@ -268,5 +283,24 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         String protocolContext = data.getContent();
         String protocolName = data.getProtocolName();
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void isSelect(MessageEvent messageEvent) {
+        String message = messageEvent.getMessage();
+        if ("select".equals(message)){
+            selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+            selectConfirmBill.setClickable(true);
+        }else{
+            selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+            selectConfirmBill.setClickable(false);
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

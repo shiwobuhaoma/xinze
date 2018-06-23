@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.xinze.xinze.R;
 import com.xinze.xinze.module.transport.module.Car;
+import com.xinze.xinze.utils.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -105,12 +108,14 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
             int intrinsicWidth = drawable.getIntrinsicWidth();
             drawable.setBounds(0, 0, intrinsicWidth, intrinsicHeight);
             holder.selectCar.setCompoundDrawables(drawable, null, null, null);
+            EventBus.getDefault().post(new MessageEvent("select"));
         } else {
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.select_choice);
             int intrinsicHeight = drawable.getIntrinsicHeight();
             int intrinsicWidth = drawable.getIntrinsicWidth();
             drawable.setBounds(0, 0, intrinsicWidth, intrinsicHeight);
             holder.selectCar.setCompoundDrawables(drawable, null, null, null);
+            EventBus.getDefault().post(new MessageEvent("unselect"));
         }
         holder.itemView.setTag(position);
 

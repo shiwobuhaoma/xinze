@@ -331,8 +331,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     @Override
     public void refresh(String driverCount, String truckCount, String systemMsgCount) {
 
-        myDrivers.setRightText(TextUtils.isEmpty(truckCount) ? "0人" : truckCount + "人");
-        myCars.setRightText(TextUtils.isEmpty(driverCount) ? "0辆" : driverCount + "辆");
+        myDrivers.setRightText(TextUtils.isEmpty(truckCount) ? "0人" : driverCount + "人");
+        myCars.setRightText(TextUtils.isEmpty(driverCount) ? "0辆" :  truckCount + "辆");
         mySystemMsg.setRightText(systemMsgCount + "条");
         myRecycleViewItems.set(1, myDrivers);
         myRecycleViewItems.set(2, myCars);
