@@ -127,6 +127,10 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
      */
     public final String GOODS_REFUSE = "B";
     /**
+     * 已过期
+     */
+    private final String GOODS_OVERDUE = "X";
+    /**
      * 已确定
      */
     public final String GOODS_CONFIRM = "Count";
@@ -503,6 +507,18 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             setDrawable(drawable);
             show();
             orderRevoke.setText(getString(R.string.order_pick_up_goods));
+
+        }else if(GOODS_OVERDUE.equals(orderStatus)){
+            Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
+            setDrawable(drawable);
+            fromGoodsPhone.setVisibility(View.GONE);
+            fromLeftGoodsPhone.setVisibility(View.GONE);
+            toGoodsPhone.setVisibility(View.GONE);
+            toLeftGoodsPhone.setVisibility(View.GONE);
+            orderUploadEvidence.setVisibility(View.GONE);
+            uploadEvidenceList.setVisibility(View.GONE);
+            orderRevoke.setVisibility(View.GONE);
+            orderRevoke.setText(getString(R.string.order_overdue));
 
         }
     }

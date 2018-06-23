@@ -66,6 +66,7 @@
     <string name="order_revoke">撤销订单</string>
     <string name="order_detail">订单详情</string>
     <string name="order_pick_up_goods">取货</string>
+    <string name="order_overdue">已过期</string>
     <string name="order_deliver_goods">送达</string>
     <string name="order_confirm_arrive">确认签收</string>
     <string name="order_upload">上传凭证（选填）</string>

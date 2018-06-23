@@ -54,6 +54,10 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
      */
     private final String GOODS_REVOKE = "B";
     /**
+     * 已过期
+     */
+    private final String GOODS_OVERDUE = "X";
+    /**
      * 已确定
      */
     private final String GOODS_CONFIRM = "Count";
@@ -141,6 +145,8 @@ public class OrderRecycleViewAdapter extends RecyclerView.Adapter<OrderRecycleVi
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_revoke));
             } else if (GOODS_CONFIRM.equals(icon)) {
                 viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_robbing_order));
+            }else if (GOODS_OVERDUE.equals(icon)) {
+                viewHolder.homeIvState.setBackground(mContext.getResources().getDrawable(R.mipmap.goods_overdue));
             }
 
         }
