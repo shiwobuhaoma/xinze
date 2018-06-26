@@ -6,6 +6,10 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/main_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
@@ -18,10 +22,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.xinze.xinze.widget.SimpleToolbar
-                android:id="@+id/main_tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
 
             <com.youth.banner.Banner
                 android:id="@+id/home_banner"

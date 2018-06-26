@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants">
+
+
+    <com.xinze.xinze.widget.SimpleToolbar
+        android:id="@+id/my_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -20,17 +27,6 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/my_ic_background">
 
-                <TextView
-                    android:id="@+id/tv_my"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    android:padding="@dimen/res_textSize_15dp"
-                    android:text="@string/my"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
 
 
                 <Button
@@ -102,4 +98,4 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-</FrameLayout>
+</LinearLayout>

@@ -72,7 +72,17 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     private String billId;
     private List<Car> carList;
     private List<Car> selectCarList = new ArrayList<>();
+    private List<Car> selectedCarList = new ArrayList<>();
     private String from;
+    /**
+     * adapter中选中的个数
+     */
+    private int adapterSelectedSize = -1;
+    /**
+     * 从网络获取数据中可以选择的个数
+     */
+    private int selectSize = 0;
+
 
     @Override
     protected int initLayout() {
@@ -85,9 +95,9 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         Intent intent = getIntent();
         billId = intent.getStringExtra("orderId");
         from = intent.getStringExtra("from");
-        if ("OrdinaryBillFragment".equals(from)){
+        if ("OrdinaryBillFragment".equals(from)) {
             selectConfirmBill.setText(getString(R.string.select_receipt_bill));
-        }else{
+        } else {
             selectConfirmBill.setText(getString(R.string.select_confirm_bill));
         }
         initToolbar();
@@ -133,6 +143,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 }
 
                 mAdapter.updateState(position);
+
             }
         });
     }
@@ -190,6 +201,17 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
 
     public void setData(List<Car> data) {
         this.carList = data;
+
+        for (Car car : carList) {
+            if (car.isSelected()) {
+                if (!selectedCarList.contains(car)) {
+                    selectedCarList.add(car);
+                }
+            }
+        }
+        selectSize = selectedCarList.size();
+        selectedCarList.clear();
+
         if (carList == null || carList.size() == 0) {
             Drawable drawable = getResources().getDrawable(R.mipmap.select_choice);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
@@ -207,7 +229,7 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
         Drawable drawable;
         switch (view.getId()) {
             case R.id.select_top:
-                if (isAllSelected ) {
+                if (isAllSelected) {
                     drawable = getResources().getDrawable(R.mipmap.select_choice);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                     selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
@@ -219,6 +241,16 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                     drawable = getResources().getDrawable(R.mipmap.select_choicd);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                     mAdapter.updateAll(true);
+
+                    for (Car car : carList) {
+                        if (car.isSelected()) {
+                            if (!selectedCarList.contains(car)) {
+                                selectedCarList.add(car);
+                            }
+                        }
+                    }
+                    adapterSelectedSize = selectedCarList.size();
+                    selectedCarList.clear();
                 }
                 isAllSelected = !isAllSelected;
                 selectAll.setCompoundDrawables(drawable, null, null, null);
@@ -226,22 +258,26 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                 selectServiceIv.setBackground(getResources().getDrawable(R.mipmap.my_driver_selected));
                 break;
             case R.id.select_service:
-                openActivity(AboutUsActivity.class,"type",ProtocolConfig.TRANSPORT_SERVICE_PROTOCOL);
+                openActivity(AboutUsActivity.class, "type", ProtocolConfig.TRANSPORT_SERVICE_PROTOCOL);
 
 //                scp.getProtocolByType(ProtocolConfig.TRANSPORT_SERVICE_PROTOCOL);
 
                 break;
             case R.id.select_service_iv:
                 isProtocolSelected = !isProtocolSelected;
-                if (isProtocolSelected){
+                if (isProtocolSelected) {
+                    selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+                    selectConfirmBill.setClickable(true);
                     selectServiceIv.setBackground(getResources().getDrawable(R.mipmap.my_driver_selected));
-                }else{
+                } else {
+                    selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+                    selectConfirmBill.setClickable(false);
                     selectServiceIv.setBackground(getResources().getDrawable(R.mipmap.my_driver_unselected));
                 }
 
                 break;
             case R.id.select_confirm_bill:
-                if (isProtocolSelected){
+                if (isProtocolSelected) {
                     if (isAllSelected) {
                         for (Car car : carList) {
                             if (car.isSelected()) {
@@ -267,10 +303,9 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
                         }
                         scp.createBillOrder(billId, selectCarList);
                     }
-                }else{
+                } else {
                     shotToast("请勾选运输服务合同");
                 }
-
 
 
                 break;
@@ -288,12 +323,60 @@ public class SelectCarActivity extends BaseActivity implements ISelectCarView, V
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void isSelect(MessageEvent messageEvent) {
         String message = messageEvent.getMessage();
-        if ("select".equals(message)){
-            selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
-            selectConfirmBill.setClickable(true);
-        }else{
-            selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
-            selectConfirmBill.setClickable(false);
+        if ("select".equals(message)) {
+            if (isProtocolSelected) {
+                selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+                selectConfirmBill.setClickable(true);
+            } else {
+                selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+                selectConfirmBill.setClickable(false);
+            }
+            
+            List<Car> data = mAdapter.getData();
+            for (Car c : data) {
+                if (c.isSelected()) {
+                    if (!selectedCarList.contains(c)) {
+                        selectedCarList.add(c);
+                    }
+                }
+            }
+            if (adapterSelectedSize == selectedCarList.size()) {
+                Drawable drawable = getResources().getDrawable(R.mipmap.select_choicd);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                selectAll.setCompoundDrawables(drawable, null, null, null);
+                isAllSelected = true;
+            }
+        } else {
+           
+            selectedCarList.clear();
+            List<Car> data = mAdapter.getData();
+            for (Car c : data) {
+                if (c.isSelected()) {
+                    if (!selectedCarList.contains(c)) {
+                        selectedCarList.add(c);
+                    }
+                }
+            }
+
+            if (selectedCarList.size() < adapterSelectedSize) {
+                Drawable drawable = getResources().getDrawable(R.mipmap.select_choice);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                selectAll.setCompoundDrawables(drawable, null, null, null);
+                isAllSelected = false;
+            } else if (adapterSelectedSize == selectedCarList.size()) {
+                Drawable drawable = getResources().getDrawable(R.mipmap.select_choicd);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                selectAll.setCompoundDrawables(drawable, null, null, null);
+                isAllSelected = true;
+            }
+
+            if (selectedCarList.size() > 0) {
+                selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_orange_button));
+                selectConfirmBill.setClickable(true);
+            } else {
+                selectConfirmBill.setBackground(getResources().getDrawable(R.drawable.circle_gray_button));
+                selectConfirmBill.setClickable(false);
+            }
         }
     }
 

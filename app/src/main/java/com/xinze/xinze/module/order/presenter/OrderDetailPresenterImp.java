@@ -83,14 +83,16 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
             protected void onSuccees(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
-                        if (fga.GOODS_REFUSE.equals(orderStatus)){
-                            fga.revokeSuccess("撤销订单成功",fga.GOODS_REFUSE);
-                        }else if(fga.DELIVER_GOODS.equals(orderStatus)){
+                        if (fga.GOODS_REVOKE.equals(orderStatus)){
+                            fga.revokeSuccess("撤销订单成功",fga.GOODS_REVOKE);
+                        }else if(fga.PICK_UP.equals(orderStatus)){
                             fga.revokeSuccess("确认取货成功",fga.DELIVER_GOODS);
+                        }else if(fga.DELIVER_GOODS.equals(orderStatus)){
+                            fga.revokeSuccess("确认送货成功",fga.DELIVER_GOODS);
                         }else if(fga.GOODS_ARRIVE.equals(orderStatus)){
-                            fga.revokeSuccess("确认送货成功",fga.GOODS_ARRIVE);
+                            fga.revokeSuccess("确认送达",fga.GOODS_ARRIVE);
                         }else if(fga.GOODS_SIGNED_IN.equals(orderStatus)){
-                            fga.revokeSuccess("确认送达成功",fga.GOODS_SIGNED_IN);
+                            fga.revokeSuccess("确认签收成功",fga.GOODS_SIGNED_IN);
                         }
 
                     }else{

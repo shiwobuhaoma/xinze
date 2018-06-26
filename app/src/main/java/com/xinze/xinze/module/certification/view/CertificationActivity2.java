@@ -346,7 +346,13 @@ public class CertificationActivity2 extends BaseActivity implements EasyPermissi
                 break;
             case R.id.certification_bt:
 
-
+                if (filePaths.size()==0){
+                    shotToast("请添加身份证及驾驶证信息");
+                    return;
+                }else if(filePaths.size() == 1){
+                    shotToast("缺少身份证或驾驶证信息");
+                    return;
+                }
                 //filePath 图片地址集合
                 for (String path : filePaths) {
                     files.add(new File(path));

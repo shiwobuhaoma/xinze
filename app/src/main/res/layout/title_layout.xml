@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/fl_title"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="18dp"
         android:background="@color/themeBlack"
         android:visibility="gone"
          />

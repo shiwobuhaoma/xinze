@@ -186,6 +186,10 @@ public class SelectCarAdapter extends RecyclerView.Adapter<SelectCarAdapter.View
 
     }
 
+    public List<Car> getData() {
+        return mCarList;
+    }
+
     public interface OnItemClickListener {
         void click(View view, int position);
     }

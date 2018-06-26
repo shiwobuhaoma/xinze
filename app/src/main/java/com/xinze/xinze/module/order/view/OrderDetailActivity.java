@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -63,7 +64,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @author lxf
  * 订单详情界面
  */
-public class OrderDetailActivity extends BaseActivity implements IOrderDetailView ,EasyPermissions.PermissionCallbacks{
+public class OrderDetailActivity extends BaseActivity implements IOrderDetailView, EasyPermissions.PermissionCallbacks {
     @BindView(R.id.find_goods_id)
     TextView findGoodsId;
     @BindView(R.id.find_goods_company)
@@ -100,6 +101,8 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     TextView orderUploadEvidence;
     @BindView(R.id.upload_evidence_list)
     RecyclerView uploadEvidenceList;
+    @BindView(R.id.order_next)
+    Button orderNext;
 
     private String orderId;
     /**
@@ -107,7 +110,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
      */
     public final String TAKE_ORDER = "0";
     /**
-     * 取货中
+     * 取货中，送货中
      */
     public final String PICK_UP = "1";
     /**
@@ -125,7 +128,11 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     /**
      * 已拒绝
      */
-    public final String GOODS_REFUSE = "B";
+    public final String GOODS_REFUSE = "R";
+    /**
+     * 已撤单
+     */
+    public final String GOODS_REVOKE = "B";
     /**
      * 已过期
      */
@@ -133,7 +140,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     /**
      * 已确定
      */
-    public final String GOODS_CONFIRM = "Count";
+    public final String GOODS_CONFIRM = "C";
 
     private boolean isRefresh;
     private String phone;
@@ -197,30 +204,12 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         orderRevoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (orderRevoke.getText().toString()) {
-                    case "撤销订单":
-                        orderStatus = GOODS_REFUSE;
-                        showBottomMenu("确定撤销订单?",GOODS_REFUSE);
-                        break;
-                    case "取货":
-                        orderStatus = DELIVER_GOODS;
-                        showBottomMenu("确定取货?",DELIVER_GOODS);
-                        break;
-                    case "送达":
-                        orderStatus = GOODS_ARRIVE;
-                        showBottomMenu("确定送达?",GOODS_ARRIVE);
-                        break;
-                    case "确认签收":
-                        orderStatus = GOODS_SIGNED_IN;
-                        showBottomMenu("确认签收?",GOODS_SIGNED_IN);
-                        break;
-                    default:
-                        break;
-                }
+                orderStatus = GOODS_REVOKE;
+                showBottomMenu("确定撤销订单?", GOODS_REVOKE);
             }
         });
         initTitleBar();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         uploadEvidenceList.setLayoutManager(layoutManager);
         uploadEvidenceList.addItemDecoration(new ImageItemDecoration((int) (10 * UIUtils.getDensity())));
         uploadEvidenceList.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -243,7 +232,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             @Override
             public void onAddImage() {
                 if (mAdapter.getItemCount() >= 10) {
-                   shotToast("最多只能上传9张图片!");
+                    shotToast("最多只能上传9张图片!");
                     return;
                 }
                 checkPermissions();
@@ -252,6 +241,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         uploadEvidenceList.setAdapter(mAdapter);
         mAdapter.updateData(imgPaths);
     }
+
     private void checkPermissions() {
         //检查是否获取该权限
         if (EasyPermissions.hasPermissions(this, mRequestPermissionList)) {
@@ -265,6 +255,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             requestPermissions();
         }
     }
+
     private void initBottomPopupMenu() {
         mBottomPopupMenu = new BottomPopupMenu(this);
         mBottomPopupMenu.addItem(1, "拍照");
@@ -289,7 +280,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         });
     }
 
-    private void showBottomMenu(String s,final String orderStatus) {
+    private void showBottomMenu(String s, final String orderStatus) {
         BottomPopupMenu bottomPopupMenu = new BottomPopupMenu(OrderDetailActivity.this);
         bottomPopupMenu.addItem(1, s);
         bottomPopupMenu.addItem(2, "确定", R.color.themeOrange);
@@ -303,12 +294,12 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
                         return;
                     // 确定撤销订单?/确定取货?/确定送货?/确定送达?
                     case 2:
-                        if (mPresenter == null){
+                        if (mPresenter == null) {
                             mPresenter = new OrderDetailPresenterImp(OrderDetailActivity.this, OrderDetailActivity.this);
                         }
-                        if (filePaths.size() == 0 ){
+                        if (filePaths.size() == 0) {
                             mPresenter.revoke(orderId, imgPaths, remarks, orderStatus);
-                        }else{
+                        } else {
                             //filePath 图片地址集合
                             for (String path : filePaths) {
                                 files.add(new File(path));
@@ -339,7 +330,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         findToolBar.setLeftTitleClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isRefresh){
+                if (isRefresh) {
                     EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATE_ORDER));
                 }
 
@@ -367,7 +358,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     }
 
     @Override
-    public void revokeSuccess(String message,String orderStatus) {
+    public void revokeSuccess(String message, String orderStatus) {
         shotToast(message);
         changeState(orderStatus);
         EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATE_ORDER));
@@ -401,9 +392,9 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
 
         String confirmFlag = data.getConfirmFlag();
         //0 无需确认订单
-        if ("0".equals(confirmFlag)){
+        if ("0".equals(confirmFlag)) {
             orderWaitConfirming.setVisibility(View.GONE);
-        }else{
+        } else {
             orderWaitConfirming.setVisibility(View.VISIBLE);
         }
 
@@ -461,7 +452,28 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         changeState(orderStatus);
 
     }
+    @OnClick(R.id.order_next)
+    public void onClick() {
+        switch (orderNext.getText().toString().trim()) {
+            case "送货":
+                orderStatus = DELIVER_GOODS;
+                showBottomMenu("确认送货?", DELIVER_GOODS);
+                break;
+            case "确认送达":
+                orderStatus = GOODS_ARRIVE;
+                showBottomMenu("确认送达?", GOODS_ARRIVE);
+                break;
+            case "确认签收":
+                orderStatus = GOODS_SIGNED_IN;
+                showBottomMenu("确认签收?", GOODS_SIGNED_IN);
+                break;
+            default:
+                orderStatus = PICK_UP;
+                showBottomMenu("确认取货?", PICK_UP);
+                break;
+        }
 
+    }
     private void changeState(String orderStatus) {
         if (TAKE_ORDER.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_robbing);
@@ -470,29 +482,33 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             fromLeftGoodsPhone.setVisibility(View.GONE);
             toGoodsPhone.setVisibility(View.GONE);
             toLeftGoodsPhone.setVisibility(View.GONE);
-            orderUploadEvidence.setVisibility(View.GONE);
-            uploadEvidenceList.setVisibility(View.GONE);
+            orderUploadEvidence.setVisibility(View.VISIBLE);
+            uploadEvidenceList.setVisibility(View.VISIBLE);
         } else if (PICK_UP.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getString(R.string.order_pick_up_goods));
+            orderNext.setText(getString(R.string.order_send_goods));
         } else if (DELIVER_GOODS.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_deliver);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getString(R.string.order_deliver_goods));
+            orderNext.setText(getString(R.string.order_deliver_goods));
         } else if (GOODS_ARRIVE.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_arrived);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getString(R.string.order_confirm_arrive));
+            orderUploadEvidence.setVisibility(View.GONE);
+            uploadEvidenceList.setVisibility(View.GONE);
+            orderNext.setVisibility(View.GONE);
         } else if (GOODS_SIGNED_IN.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_signed);
             setDrawable(drawable);
             show();
-            orderRevoke.setVisibility(View.GONE);
-        } else if(GOODS_REFUSE.equals(orderStatus)){
+            orderUploadEvidence.setVisibility(View.GONE);
+            uploadEvidenceList.setVisibility(View.GONE);
+            orderNext.setVisibility(View.GONE);
+        } else if (GOODS_REFUSE.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_refuse);
             setDrawable(drawable);
             fromGoodsPhone.setVisibility(View.GONE);
@@ -502,13 +518,13 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             orderUploadEvidence.setVisibility(View.GONE);
             uploadEvidenceList.setVisibility(View.GONE);
             orderRevoke.setVisibility(View.GONE);
-        }else if(GOODS_CONFIRM.equals(orderStatus)){
+        } else if (GOODS_CONFIRM.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
             setDrawable(drawable);
             show();
-            orderRevoke.setText(getString(R.string.order_pick_up_goods));
+            orderNext.setText(getString(R.string.order_pick_up_goods));
 
-        }else if(GOODS_OVERDUE.equals(orderStatus)){
+        } else if (GOODS_OVERDUE.equals(orderStatus)) {
             Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_picking);
             setDrawable(drawable);
             fromGoodsPhone.setVisibility(View.GONE);
@@ -520,6 +536,17 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             orderRevoke.setVisibility(View.GONE);
             orderRevoke.setText(getString(R.string.order_overdue));
 
+        }else{
+            Drawable drawable = getResources().getDrawable(R.mipmap.goods_detail_refuse);
+            setDrawable(drawable);
+            fromGoodsPhone.setVisibility(View.GONE);
+            fromLeftGoodsPhone.setVisibility(View.GONE);
+            toGoodsPhone.setVisibility(View.GONE);
+            toLeftGoodsPhone.setVisibility(View.GONE);
+            orderUploadEvidence.setVisibility(View.GONE);
+            uploadEvidenceList.setVisibility(View.GONE);
+            orderRevoke.setVisibility(View.GONE);
+            orderNext.setVisibility(View.GONE);
         }
     }
 
@@ -529,6 +556,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         toGoodsPhone.setVisibility(View.VISIBLE);
         toLeftGoodsPhone.setVisibility(View.VISIBLE);
         uploadEvidenceList.setVisibility(View.VISIBLE);
+        orderRevoke.setVisibility(View.GONE);
     }
 
     private void setDrawable(Drawable drawable) {
@@ -539,7 +567,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null){
+        if (mPresenter != null) {
             mPresenter.onDestroy();
         }
 
@@ -547,7 +575,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(isRefresh && keyCode == KeyEvent.KEYCODE_BACK){
+        if (isRefresh && keyCode == KeyEvent.KEYCODE_BACK) {
             EventBus.getDefault().post(new MessageEvent(AppConfig.UPDATE_ORDER));
         }
         return super.onKeyDown(keyCode, event);
@@ -594,6 +622,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             EasyPermissions.requestPermissions(this, "拍照需要摄像头权限", PHOTO_REQUEST_CAREMA, permissions);
         }
     }
+
     private void openCamera() {
         //獲取系統版本
         int currentApiVersion = Build.VERSION.SDK_INT;
@@ -649,7 +678,6 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     }
 
 
-
     private void requestPermissions() {
         //第二个参数是被拒绝后再次申请该权限的解释
         //第三个参数是请求码
@@ -657,6 +685,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         EasyPermissions.requestPermissions(this, "拍照需要摄像头权限", PHOTO_REQUEST_CAREMA, mRequestPermissionList);
 
     }
+
     /**
      * 4.4及以上的系统使用这个方法处理图片
      *
@@ -696,7 +725,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
         displayImage(filePath);
     }
 
-    public  String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+    public String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         String[] projection = {MediaStore.Images.Media.DATA};
         try {
@@ -738,6 +767,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
             shotToast("获取照片失败");
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -761,6 +791,7 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
                 break;
         }
     }
+
     /**
      * 拍照页返回
      */
@@ -807,11 +838,13 @@ public class OrderDetailActivity extends BaseActivity implements IOrderDetailVie
     }
 
     public void setUploadImagesData(List<CertificationRespones> data) {
-        if (data != null){
-            for (CertificationRespones c:data) {
+        if (data != null) {
+            for (CertificationRespones c : data) {
                 String url = c.getUrl();
                 imgPaths.add(url);
             }
         }
     }
+
+
 }

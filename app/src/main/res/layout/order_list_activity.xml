@@ -246,15 +246,35 @@
                     android:textColor="@color/themeOrange"
                     android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/order_revoke"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/circle_orange_button"
-                    android:text="@string/order_revoke"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content">
+
+
+                    <Button
+                        android:id="@+id/order_revoke"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/circle_orange_button"
+                        android:text="@string/order_revoke"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/order_next"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/circle_orange_button"
+                        android:text="@string/order_next"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

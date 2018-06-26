@@ -408,7 +408,7 @@
     <dimen name="third_nickname_margin_top">8.0dp</dimen>
     <dimen name="third_text_margin">28.0dp</dimen>
     <dimen name="third_text_margin_top">17.0dp</dimen>
-    <dimen name="toolbar_height">50.0dp</dimen>
+    <dimen name="toolbar_height">48.0dp</dimen>
     <dimen name="ui_10_dp">10.0dp</dimen>
     <dimen name="ui_12_dp">12.0dp</dimen>
     <dimen name="ui_14_dp">14.0dp</dimen>

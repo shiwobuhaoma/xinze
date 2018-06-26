@@ -1,9 +1,7 @@
 package com.xinze.xinze.module.main.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,10 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.xinze.xinze.App;
 import com.xinze.xinze.R;
@@ -28,7 +23,6 @@ import com.xinze.xinze.module.about.view.AboutUsActivity;
 import com.xinze.xinze.module.certification.view.CertificationActivity2;
 import com.xinze.xinze.module.change.view.ChangePassWordActivity;
 import com.xinze.xinze.module.drivers.view.MyDriverActivity;
-import com.xinze.xinze.module.find.view.IFindGoodsView;
 import com.xinze.xinze.module.invite.view.InviteActivity;
 import com.xinze.xinze.module.line.view.LineActivity;
 import com.xinze.xinze.module.login.view.LoginActivity;
@@ -42,6 +36,7 @@ import com.xinze.xinze.module.register.view.RegisterActivity;
 import com.xinze.xinze.module.trucks.view.MyTruckActivity;
 import com.xinze.xinze.utils.DialogUtil;
 import com.xinze.xinze.utils.MessageEvent;
+import com.xinze.xinze.widget.SimpleToolbar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -77,6 +72,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     CircleImageView portrait;
     @BindView(R.id.my_rv)
     RecyclerView myRv;
+    @BindView(R.id.my_tool_bar)
+    SimpleToolbar myToolBar;
 
 
     private ArrayList<MyRecycleViewItem> myRecycleViewItems = new ArrayList<>();
@@ -101,7 +98,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-
+        initTitleBar();
         myRegister.setOnClickListener(this);
         myLogin.setOnClickListener(this);
 
@@ -166,6 +163,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
             }
         });
 
+    }
+
+    private void initTitleBar() {
+        myToolBar.setMainTitle(getString(R.string.my));
+        myToolBar.setLeftTitleGone();
+        myToolBar.setTitleMarginTop();
     }
 
     /**
@@ -236,7 +239,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     }
 
     public void refreshPage() {
-        if (mPresenter == null){
+        if (mPresenter == null) {
             mPresenter = new MyPresenterImp(MyFragment.this, mActivity);
         }
         if (isLogin()) {
@@ -288,7 +291,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
         super.initData();
 
 
-
     }
 
     @Override
@@ -332,7 +334,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
     public void refresh(String driverCount, String truckCount, String systemMsgCount) {
 
         myDrivers.setRightText(TextUtils.isEmpty(truckCount) ? "0人" : driverCount + "人");
-        myCars.setRightText(TextUtils.isEmpty(driverCount) ? "0辆" :  truckCount + "辆");
+        myCars.setRightText(TextUtils.isEmpty(driverCount) ? "0辆" : truckCount + "辆");
         mySystemMsg.setRightText(systemMsgCount + "条");
         myRecycleViewItems.set(1, myDrivers);
         myRecycleViewItems.set(2, myCars);
@@ -351,9 +353,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, IM
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void clear(MessageEvent messageEvent) {
-        switch (messageEvent.getMessage()){
+        switch (messageEvent.getMessage()) {
             case AppConfig.UNLOGIN:
             case AppConfig.CLEAR_DATA:
                 if (mAdapter != null) {

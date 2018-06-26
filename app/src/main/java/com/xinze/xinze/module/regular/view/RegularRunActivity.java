@@ -56,7 +56,7 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
 
     protected int pageNo = 1;
     protected int pageSize = 10;
-    private RegularRunPresenterImp rrp;
+    private RegularRunPresenterImp mPresenter;
     private BillRecycleViewAdapter billRecycleViewAdapter;
     private List<Route> routeData;
     private String fromAreaId;
@@ -64,7 +64,7 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
     private List<OrderItem> orderItemData;
     private String fromAreaName;
     private String toAreaName;
-    private MenuAdapter ma;
+    private MenuAdapter mMenuAdapter;
 
     @Override
     protected int initLayout() {
@@ -83,20 +83,20 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
         });
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        ma = new MenuAdapter(this);
+        mMenuAdapter = new MenuAdapter(this);
         regularLinesRv.setLayoutManager(llm);
         regularLinesRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        regularLinesRv.setAdapter(ma);
-        ma.setOnItemClickListener(new MenuAdapter.MenuClickListener() {
+        regularLinesRv.setAdapter(mMenuAdapter);
+        mMenuAdapter.setOnItemClickListener(new MenuAdapter.MenuClickListener() {
             @Override
             public void onMenuItemClick(View itemView, int position) {
-                ma.clearMenu();
+                mMenuAdapter.clearMenu();
                 regularLinesFl.setVisibility(View.GONE);
                 fromAreaId = routeData.get(position).getFromAreaId();
                 toAreaId = routeData.get(position).getToAreaId();
                 fromAreaName = routeData.get(position).getFrom_area_name();
                 toAreaName = routeData.get(position).getTo_area_name();
-                rrp.searchRouteList(fromAreaId, toAreaId, pageNo, pageSize);
+                mPresenter.searchRouteList(fromAreaId, toAreaId, pageNo, pageSize);
                 if ("0".equals(fromAreaId)) {
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) regularLinesStart.getLayoutParams();
                     layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -104,7 +104,8 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
                     regularLinesStart.setLayoutParams(layoutParams);
                     regularLinesStart.setText("全部");
                     regularLinesStart.setTextColor(getResources().getColor(R.color.themeOrange));
-                    Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_down);
+
+                    Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_up);
                     mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
                     regularLinesStart.setCompoundDrawables(null, null, mDrawable, null);
                     regularLinesMiddle.setVisibility(View.GONE);
@@ -120,11 +121,10 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
                     regularLinesStart.setVisibility(View.VISIBLE);
 
                     regularLinesMiddle.setVisibility(View.VISIBLE);
-
-                    regularLinesEnd.setText(toAreaName);
-                    Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_up);
+                    Drawable mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_down);
                     mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
                     regularLinesEnd.setCompoundDrawables(null, null, mDrawable, null);
+                    regularLinesEnd.setText(toAreaName);
                     regularLinesEnd.setVisibility(View.VISIBLE);
                 }
 
@@ -140,14 +140,14 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNo = 1;
-                rrp.searchRouteList(fromAreaId, toAreaId, pageNo, pageSize);
+                mPresenter.searchRouteList(fromAreaId, toAreaId, pageNo, pageSize);
             }
         });
         regularLinesSrl.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 pageNo++;
-                rrp.searchRouteList(fromAreaId, toAreaId, pageNo, pageSize);
+                mPresenter.searchRouteList(fromAreaId, toAreaId, pageNo, pageSize);
             }
         });
         billRecycleViewAdapter.setOnItemClickListener(new BillRecycleViewAdapter.OnRecyclerViewItemClickListener() {
@@ -171,20 +171,29 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
     }
 
     private void showTopMenu() {
+        Drawable mDrawable = null;
         if (regularLinesFl.getVisibility() == View.GONE){
+
+            mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_up);
+            mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
+            regularLinesEnd.setCompoundDrawables(null, null, mDrawable, null);
+
+            mMenuAdapter.clearMenu();
             regularLinesFl.setVisibility(View.VISIBLE);
             if (routeData != null) {
                 for (int i = 0; i < routeData.size(); i++) {
                     Route route = routeData.get(i);
-                    ma.addItem(i + 1, route.getFrom_area_name(), route.getTo_area_name(), Integer.valueOf(route.getFromAreaId()) == 0);
+                    mMenuAdapter.addItem(i + 1, route.getFrom_area_name(), route.getTo_area_name(), Integer.valueOf(route.getFromAreaId()) == 0);
                 }
-                ma.notifyDataSetChanged();
+                mMenuAdapter.notifyDataSetChanged();
 
             }
         }else{
+            mDrawable = getResources().getDrawable(R.mipmap.ruglar_line_down);
+            mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(), mDrawable.getIntrinsicHeight());
+            regularLinesEnd.setCompoundDrawables(null, null, mDrawable, null);
             regularLinesFl.setVisibility(View.GONE);
         }
-
 
 
     }
@@ -210,8 +219,8 @@ public class RegularRunActivity extends BaseActivity implements IRegularRouteVie
     @Override
     protected void initData() {
         super.initData();
-        rrp = new RegularRunPresenterImp(this, this);
-        rrp.getRegularRouteList();
+        mPresenter = new RegularRunPresenterImp(this, this);
+        mPresenter.getRegularRouteList();
     }
 
     @Override
