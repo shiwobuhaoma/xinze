@@ -307,6 +307,14 @@ public interface ApiServer {
     Observable<BaseEntity<Protocol>> getProtocolByType(@HeaderMap Map<String, String> headers, @Query("protocolType") String protocolType);
 
 
+    /**
+     * 获取注册协议类型
+     *
+     * @param protocolType 协议类型
+     * @return 返回协议内容
+     */
+    @GET(UrlConfig.GET_PROTOCOL_BY_TYPE)
+    Observable<BaseEntity<Protocol>> getRegisterProtocolByType( @Query("protocolType") String protocolType);
 
     /**
      * 获取我的司机列表
