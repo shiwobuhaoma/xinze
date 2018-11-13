@@ -184,7 +184,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                     @Override
                     public void OnBannerClick(int position) {
                         String url = linksUrl.get(position);
-                        url = UrlUtils.appendHttp(url);
                         openActivity(WebViewActivity.class, "URL", url);
                     }
                 }).start();
