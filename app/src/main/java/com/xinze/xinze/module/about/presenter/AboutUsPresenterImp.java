@@ -28,7 +28,7 @@ public class AboutUsPresenterImp extends BasePresenterImpl<IAboutUsView> impleme
         RetrofitFactory.getInstence().Api().aboutUs(aboutAsType)
                 .compose(this.<BaseEntity<AboutUs>>setThread()).subscribe(new BaseObserver<AboutUs>(mContext) {
             @Override
-            protected void onSuccees(BaseEntity<AboutUs> t) throws Exception {
+            protected void onSuccess(BaseEntity<AboutUs> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         mAboutUsActivity.setData(t.getData());
@@ -52,7 +52,7 @@ public class AboutUsPresenterImp extends BasePresenterImpl<IAboutUsView> impleme
             RetrofitFactory.getInstence().Api().getRegisterProtocolByType(protocolType).compose(this.<BaseEntity<Protocol>>setThread()).subscribe(new BaseObserver<Protocol>() {
 
                 @Override
-                protected void onSuccees(BaseEntity<Protocol> t) throws Exception {
+                protected void onSuccess(BaseEntity<Protocol> t) throws Exception {
                     if (t != null){
                         if (t.isSuccess()){
                             Protocol data = t.getData();
@@ -72,7 +72,7 @@ public class AboutUsPresenterImp extends BasePresenterImpl<IAboutUsView> impleme
             HashMap<String, String> headers = HeaderConfig.getHeaders();
             RetrofitFactory.getInstence().Api().getProtocolByType(headers,protocolType).compose(this.<BaseEntity<Protocol>>setThread()).subscribe(new BaseObserver<Protocol>() {
                 @Override
-                protected void onSuccees(BaseEntity<Protocol> t) throws Exception {
+                protected void onSuccess(BaseEntity<Protocol> t) throws Exception {
                     if (t != null){
                         if (t.isSuccess()){
                             Protocol data = t.getData();

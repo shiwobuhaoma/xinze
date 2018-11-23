@@ -26,25 +26,28 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
     @Override
     public void getBillDetail(String orderId) {
         HashMap<String, String> headers = HeaderConfig.getHeaders();
-        RetrofitFactory.getInstence().Api().getBillDetail(headers, orderId).
-                compose(this.<BaseEntity<TransportDetails>>setThread()).subscribe(new BaseObserver<TransportDetails>(mContext) {
-            @Override
-            protected void onSuccees(BaseEntity<TransportDetails> t) throws Exception {
-                if (t != null) {
-                    if (t.isSuccess()) {
-                        mTransportDetailsActivity.setData(t.getData());
-                        mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
-                    } else {
-                        mTransportDetailsActivity.getBillDetailFailed(t.getMsg());
+        if (headers != null){
+            RetrofitFactory.getInstence().Api().getBillDetail(headers, orderId).
+                    compose(this.<BaseEntity<TransportDetails>>setThread()).subscribe(new BaseObserver<TransportDetails>(mContext) {
+                @Override
+                protected void onSuccess(BaseEntity<TransportDetails> t) throws Exception {
+                    if (t != null) {
+                        if (t.isSuccess()) {
+                            mTransportDetailsActivity.setData(t.getData());
+                            mTransportDetailsActivity.getBillDetailSuccess(t.getMsg());
+                        } else {
+                            mTransportDetailsActivity.getBillDetailFailed(t.getMsg());
+                        }
                     }
                 }
-            }
 
-            @Override
-            protected void onFailure(String msg) throws Exception {
-                mTransportDetailsActivity.getBillDetailFailed(msg);
-            }
-        });
+                @Override
+                protected void onFailure(String msg) throws Exception {
+                    mTransportDetailsActivity.getBillDetailFailed(msg);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -54,7 +57,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
         RetrofitFactory.getInstence().Api().backBill(headers, id).
                 compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         mTransportDetailsActivity.backBillSuccess(t.getMsg());
@@ -76,7 +79,7 @@ public class TransportDetailsPresenterImp extends BasePresenterImpl<ITransportDe
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getCarryOrderRight(headers, userId).compose(this.<BaseEntity<Integer>>setThread()).subscribe(new BaseObserver<Integer>() {
             @Override
-            protected void onSuccees(BaseEntity<Integer> t) throws Exception {
+            protected void onSuccess(BaseEntity<Integer> t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         mTransportDetailsActivity.isCarry(t.getData());

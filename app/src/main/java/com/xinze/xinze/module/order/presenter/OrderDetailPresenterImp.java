@@ -44,7 +44,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
         RetrofitFactory.getInstence().Api().getBillOrderDetail(headers,orderId)
                 .compose(this.<BaseEntity<OrderDetail>>setThread()).subscribe(new BaseObserver<OrderDetail>(mContext) {
             @Override
-            protected void onSuccees(BaseEntity<OrderDetail> t) throws Exception {
+            protected void onSuccess(BaseEntity<OrderDetail> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         fga.setData(t.getData());
@@ -80,7 +80,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
         RetrofitFactory.getInstence().Api().changeBillOrderStatus(headers,body)
                 .compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         if (fga.GOODS_REVOKE.equals(orderStatus)){
@@ -116,7 +116,7 @@ public class OrderDetailPresenterImp extends BasePresenterImpl<IOrderDetailView>
                 .subscribe(new BaseObserver<List<CertificationRespones>>(mContext){
 
                     @Override
-                    protected void onSuccees(BaseEntity<List<CertificationRespones>> t) throws Exception {
+                    protected void onSuccess(BaseEntity<List<CertificationRespones>> t) throws Exception {
                         if (t != null){
                             if (t.isSuccess()){
                                 List<CertificationRespones> data = t.getData();

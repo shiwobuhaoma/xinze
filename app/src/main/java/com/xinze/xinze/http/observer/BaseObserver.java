@@ -48,7 +48,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
         onRequestEnd();
         if (tBaseEntity.isSuccess()) {
             try {
-                onSuccees(tBaseEntity);
+                onSuccess(tBaseEntity);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -99,7 +99,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      * @param t 基类
      * @throws Exception 异常
      */
-    protected abstract void onSuccees(BaseEntity<T> t) throws Exception;
+    protected abstract void onSuccess(BaseEntity<T> t) throws Exception;
 
     /**
      * 返回成功了,但是code错误
@@ -112,7 +112,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
         int sessionIDOverdue = -300;
         int loginOutCode = -200;
         if (t.getStatus() == -1){
-            onSuccees(t);
+            onSuccess(t);
         }else if(t.getStatus() == loginOutCode){
             EventBus.getDefault().postSticky(new MessageEvent(AppConfig.UNLOGIN));
             App.mUser.setLogin(false);

@@ -29,7 +29,7 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().appointDriver4Truck(headers, truckId, driverId, rightFlag, id).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         distributiveDriverActivity.appointDriver4TruckSuccess(t.getMsg());
@@ -51,7 +51,7 @@ public class DistributiveDriverPresenter extends BasePresenterImpl<IDistributive
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getMyTruckDrivers(headers, pageNum, pageSize, inviteFlag).compose(this.<BaseEntity<List<TruckownerDriverVO>>>setThread()).subscribe(new BaseObserver<List<TruckownerDriverVO>>() {
             @Override
-            protected void onSuccees(BaseEntity<List<TruckownerDriverVO>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<TruckownerDriverVO>> t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         distributiveDriverActivity.setData(t.getData());

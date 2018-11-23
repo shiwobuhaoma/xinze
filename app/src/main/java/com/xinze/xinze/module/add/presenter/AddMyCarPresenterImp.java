@@ -31,7 +31,7 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().addTruck(headers,truckName,truckCode,weight,vehicleLicenseImg).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         addMyCarActivity.addTruckSuccess(t.getMsg());
@@ -54,7 +54,7 @@ public class AddMyCarPresenterImp extends BasePresenterImpl<IAddMyCarView> imple
         RetrofitFactory.getInstence().Api().imageUpload(headers,img).compose(this.<BaseEntity<List<AddCarRespones>>>setThread()).subscribe(new BaseObserver<List<AddCarRespones>>(mContext) {
 
             @Override
-            protected void onSuccees(BaseEntity<List<AddCarRespones>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<AddCarRespones>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         List<AddCarRespones> data = t.getData();

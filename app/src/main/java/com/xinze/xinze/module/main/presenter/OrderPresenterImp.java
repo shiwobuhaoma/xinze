@@ -36,7 +36,7 @@ public class OrderPresenterImp extends BasePresenterImpl<IOrderView> implements 
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getBillOrderList(headers,pageNo,pageSize,remark).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
             @Override
-            protected void onSuccees(BaseEntity<List<OrderItem>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<OrderItem>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         List<OrderItem> data = t.getData();

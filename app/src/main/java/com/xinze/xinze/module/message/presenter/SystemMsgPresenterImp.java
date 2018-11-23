@@ -42,7 +42,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getSystemMsgList(headers, pageNo, pageSize).compose(this.<BaseEntity<List<NotifyEntity>>>setThread()).subscribe(new BaseObserver<List<NotifyEntity>>() {
             @Override
-            protected void onSuccees(BaseEntity<List<NotifyEntity>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<NotifyEntity>> t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         List<NotifyEntity> data = t.getData();
@@ -82,7 +82,7 @@ public class SystemMsgPresenterImp extends BasePresenterImpl<ISystemMsgView> imp
         RetrofitFactory.getInstence().Api().markNoticeReaded(headers, msgId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(systemMsgActivity) {
 
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         System.out.println("------------------标记已读");

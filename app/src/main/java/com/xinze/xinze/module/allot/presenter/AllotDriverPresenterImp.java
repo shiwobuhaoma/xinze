@@ -31,7 +31,7 @@ public class AllotDriverPresenterImp extends BasePresenterImpl<IAllotDriverView>
                 .compose(this.<BaseEntity<List<TruckownerDriverVO>>>setThread()).subscribe(new BaseObserver<List<TruckownerDriverVO>>(){
 
             @Override
-            protected void onSuccees(BaseEntity<List<TruckownerDriverVO>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<TruckownerDriverVO>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         mActivity.setData(t.getData());

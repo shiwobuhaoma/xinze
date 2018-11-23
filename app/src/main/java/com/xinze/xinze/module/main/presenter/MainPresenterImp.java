@@ -44,7 +44,7 @@ public class MainPresenterImp extends BasePresenterImpl<IMainView> implements IM
     public void checkUpdate(String appType, String fileType) {
         RetrofitFactory.getInstence().Api().checkUpdate(appType, fileType).compose(this.<BaseEntity<AppUpdate>>setThread()).subscribe(new BaseObserver<AppUpdate>() {
             @Override
-            protected void onSuccees(BaseEntity<AppUpdate> t) throws Exception {
+            protected void onSuccess(BaseEntity<AppUpdate> t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         setData(t);

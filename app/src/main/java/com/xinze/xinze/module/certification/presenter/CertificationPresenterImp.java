@@ -37,7 +37,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                 .subscribe(new BaseObserver<List<CertificationRespones>>(mContext){
 
                     @Override
-                    protected void onSuccees(BaseEntity<List<CertificationRespones>> t) throws Exception {
+                    protected void onSuccess(BaseEntity<List<CertificationRespones>> t) throws Exception {
                         if (t != null){
                             if (t.isSuccess()){
                                 List<CertificationRespones> data = t.getData();
@@ -64,7 +64,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                 .compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext){
 
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
 //                        mCertificationActivity.certificationSuccess(t.getMsg());
@@ -89,7 +89,7 @@ public class CertificationPresenterImp extends BasePresenterImpl<ICertificationV
                 .compose(this.<BaseEntity<List<Province>>>setThread()).subscribe(new BaseObserver<List<Province>>(){
 
             @Override
-            protected void onSuccees(BaseEntity<List<Province>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<Province>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         ArrayList<Province> data = (ArrayList<Province>) t.getData();

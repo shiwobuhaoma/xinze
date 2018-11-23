@@ -93,7 +93,7 @@ public class MyTruckPresenterImp extends BasePresenterImpl<IMyTruckView> impleme
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().deleteMyTrucks(headers, itemId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         mActivity.deleteMyTruckSuccess(t.getMsg());

@@ -37,7 +37,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
         RetrofitFactory.getInstence().Api().getBannerListByType(type).compose(this.<BaseEntity<List<Banner>>>setThread())
                 .subscribe(new BaseObserver<List<Banner>>(mContext) {
                     @Override
-                    protected void onSuccees(BaseEntity<List<Banner>> t) {
+                    protected void onSuccess(BaseEntity<List<Banner>> t) {
                         if (t != null) {
                             if (t.isSuccess()){
                                 List<Banner> data = t.getData();
@@ -65,7 +65,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                 .compose(this.<BaseEntity<Integer>>setThread())
                 .subscribe(new BaseObserver<Integer>(mContext) {
             @Override
-            protected void onSuccees(BaseEntity<Integer> t) throws Exception {
+            protected void onSuccess(BaseEntity<Integer> t) throws Exception {
                 if (t != null){
                     if(t.isSuccess()){
                         int unReadNum = t.getData();
@@ -94,7 +94,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                 .compose(this.<BaseEntity<Integer>>setThread())
                 .subscribe(new BaseObserver<Integer>(mContext) {
             @Override
-            protected void onSuccees(BaseEntity<Integer> t) throws Exception {
+            protected void onSuccess(BaseEntity<Integer> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         int unReadNum = t.getData();
@@ -118,7 +118,7 @@ public class HomePresenterImp extends BasePresenterImpl<IHomeView> implements IH
                 .compose(this.<BaseEntity<CustomerPhoneEntity>>setThread())
                 .subscribe(new BaseObserver<CustomerPhoneEntity>(mContext) {
                     @Override
-                    protected void onSuccees(BaseEntity<CustomerPhoneEntity> t) throws Exception {
+                    protected void onSuccess(BaseEntity<CustomerPhoneEntity> t) throws Exception {
                         if (t != null){
                             if (t.isSuccess()){
                                 CustomerPhoneEntity data = t.getData();

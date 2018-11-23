@@ -38,7 +38,7 @@ public class LoginPresenterImp extends BasePresenterImpl<ILoginView> implements 
                 .compose(this.<BaseEntity<LoginResponse>>setThread())
                 .subscribe(new BaseObserver<LoginResponse>(mContext) {
                     @Override
-                    protected void onSuccees(BaseEntity<LoginResponse> t)  {
+                    protected void onSuccess(BaseEntity<LoginResponse> t)  {
                         if (t != null){
                             LoginResponse data = t.getData();
                             if (data != null){

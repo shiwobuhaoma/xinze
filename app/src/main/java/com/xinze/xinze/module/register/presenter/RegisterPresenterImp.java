@@ -36,7 +36,7 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
                 userType
             ).compose(this.<BaseEntity<RegisterResponse>>setThread()).subscribe(new BaseObserver<RegisterResponse>() {
             @Override
-            protected void onSuccees(BaseEntity<RegisterResponse> t) throws Exception {
+            protected void onSuccess(BaseEntity<RegisterResponse> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         RegisterResponse data = t.getData();
@@ -61,7 +61,7 @@ public class RegisterPresenterImp extends BasePresenterImpl<IRegisterView> imple
     public void getVerificationCode(String phoneNumber, String type) {
         RetrofitFactory.getInstence().Api().getVerificationCode(phoneNumber,type).compose(this.<BaseEntity<BaseBean>>setThread()).subscribe(new BaseObserver<BaseBean>() {
             @Override
-            protected void onSuccees(BaseEntity<BaseBean> t) throws Exception {
+            protected void onSuccess(BaseEntity<BaseBean> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         iRegisterView.shotToast("获取成功");

@@ -30,7 +30,7 @@ public class ChangePassWordPresenterImp extends BasePresenterImpl<IChangePassWor
         RetrofitFactory.getInstence().Api().changePassWord(headers,Base64Util.getBase64(oldPassWord),Base64Util.getBase64(newPassWord))
                 .compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(){
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         mActivity.changePassWordSuccess(t.getMsg());

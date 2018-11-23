@@ -35,7 +35,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
         RetrofitFactory.getInstence().Api().loginOut(headers).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver(mContext) {
 
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         App.mUser.setLogin(false);
@@ -64,7 +64,7 @@ public class MyPresenterImp extends BasePresenterImpl<IMyView> implements IMyPre
                 .compose(this.<BaseEntity<Count>>setThread()).subscribe(new BaseObserver<Count>(){
 
             @Override
-            protected void onSuccees(BaseEntity<Count> t) throws Exception {
+            protected void onSuccess(BaseEntity<Count> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         Count data = t.getData();

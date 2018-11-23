@@ -32,7 +32,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().addRegularRoute(headers,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         mLineEditFragment.addRegularRouteSuccess(t.getMsg());
@@ -56,7 +56,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().editRegularRoute(headers,id,fromAreaId,toAreaId).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null) {
                     if (t.isSuccess()) {
                         mLineEditFragment.addRegularRouteSuccess(t.getMsg());
@@ -79,7 +79,7 @@ public class LineEditPresenterImp extends BasePresenterImpl<ILineEditView> imple
                 .compose(this.<BaseEntity<List<Province>>>setThread()).subscribe(new BaseObserver<List<Province>>(){
 
             @Override
-            protected void onSuccees(BaseEntity<List<Province>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<Province>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         ArrayList<Province> data = (ArrayList<Province>) t.getData();

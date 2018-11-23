@@ -38,7 +38,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getCarryTruckList(headers,id).compose(this.<BaseEntity<List<Car>>>setThread()).subscribe(new BaseObserver<List<Car>>() {
             @Override
-            protected void onSuccees(BaseEntity<List<Car>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<Car>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         List<Car> data = t.getData();
@@ -63,7 +63,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getProtocolByType(headers,protocolType).compose(this.<BaseEntity<Protocol>>setThread()).subscribe(new BaseObserver<Protocol>() {
             @Override
-            protected void onSuccees(BaseEntity<Protocol> t) throws Exception {
+            protected void onSuccess(BaseEntity<Protocol> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         Protocol data = t.getData();
@@ -107,7 +107,7 @@ public class SelectCarPresenterImp extends BasePresenterImpl<ISelectCarView> imp
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().createBillOrder(headers,requestBody).compose(this.<BaseEntity>setThread()).subscribe(new BaseObserver() {
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
+            protected void onSuccess(BaseEntity t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         mSelectCarActivity.createBillOrderSuccess(t.getMsg());

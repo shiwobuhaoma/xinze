@@ -29,7 +29,7 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().getRegularRouteList(headers).compose(this.<BaseEntity<List<Route>>>setThread()).subscribe(new BaseObserver<List<Route>>() {
             @Override
-            protected void onSuccees(BaseEntity<List<Route>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<Route>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         List<Route> data = t.getData();
@@ -53,7 +53,7 @@ public class RegularRunPresenterImp extends BasePresenterImpl<IRegularRouteView>
         HashMap<String, String> headers = HeaderConfig.getHeaders();
         RetrofitFactory.getInstence().Api().searchRoute(headers,fromAreaId,toAreaId,pageNo,pageSize).compose(this.<BaseEntity<List<OrderItem>>>setThread()).subscribe(new BaseObserver<List<OrderItem>>() {
             @Override
-            protected void onSuccees(BaseEntity<List<OrderItem>> t) throws Exception {
+            protected void onSuccess(BaseEntity<List<OrderItem>> t) throws Exception {
                 if (t != null){
                     if (t.isSuccess()){
                         List<OrderItem> data = t.getData();
